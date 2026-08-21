@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CARBONERRA — AI Predictive Carbon Optimization Platform | PCCOE Hackathon</title>
+
+  <!-- Typography: Anton + Inter + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Platform Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Persistent SVG Fractal Noise Overlay (4% Opacity) -->
+  <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noiseFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+  </svg>
+
+  <!-- Fixed Header Navigation Bar -->
+  <header class="header-nav">
+    <a href="#" class="brand-logo">
+      <div class="brand-logo-icon">⚡</div>
+      <span>- CARBONERRA</span>
+    </a>
+
+    <nav class="nav-pill">
+      <a href="#overview" class="nav-link">OVERVIEW</a>
+      <a href="#collection" class="nav-link">CARBON LAB</a>
+      <a href="#forecasts" class="nav-link">ML FORECASTS</a>
+      <a href="#fixhub" class="nav-link">AI FIX HUB</a>
+      <a href="#shield" class="nav-link">REGRESSION SHIELD</a>
+    </nav>
+
+    <div class="budget-pill">
+      <span>BUDGET: 0.28G / 0.50G CO2</span>
+      <span class="budget-badge">✅</span>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION (Sage Background #ccd5ae, Anton 23vw, 3rem Floating Cards)
+       ========================================================================== -->
+  <section class="hero-section" id="overview">
+    <!-- Floating Organic Eco Cards Surrounding Hero (Parallax & Float) -->
+    <div class="hero-floating-container">
+      <!-- Floating Card 1: EcoScore Gauge -->
+      <div class="floating-eco-card floating-card-1" data-speed="-0.05">
+        <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-forest); margin-bottom: 0.25rem;">ECOSCORE INDEX</div>
+        <div style="font-size: 2.8rem; font-weight: 900; color: var(--color-forest); font-family: var(--font-display); line-height: 1;">A+</div>
+        <div style="font-size: 1.1rem; font-weight: 800; color: var(--color-forest); margin-top: 0.25rem;">0.24 g CO2e</div>
+        <div style="font-size: 10px; font-weight: 700; color: var(--color-success); margin-top: 0.25rem;">🌱 Cleaner than 88% of sites</div>
+      </div>
+
+      <!-- Floating Card 2: Annual Impact -->
+      <div class="floating-eco-card floating-card-2" data-speed="0.07">
+        <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-forest); margin-bottom: 0.25rem;">ANNUAL IMPACT</div>
+        <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-forest);">🌲 14.2 Trees</div>
+        <div style="font-size: 1.1rem; font-weight: 800; color: var(--color-forest);">⚡ 312 kWh</div>
+        <div style="font-size: 10px; font-weight: 700; color: var(--color-forest); margin-top: 0.25rem;">Equiv: 1,280 Car Miles</div>
+      </div>
+
+      <!-- Floating Card 3: Green Hosting Badge -->
+      <div class="floating-eco-card floating-card-3" data-speed="-0.04">
+        <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-forest); margin-bottom: 0.25rem;">GREEN HOSTING</div>
+        <div style="font-size: 0.95rem; font-weight: 800; color: var(--color-success-light);">Verified 100% Renewable</div>
+        <div style="font-size: 10px; font-weight: 600; color: var(--color-forest); margin-top: 0.25rem;">AWS us-east-1 • PUE 1.15</div>
+      </div>
+    </div>
+
+    <!-- Massive Anton Hero Centerpiece (23vw) -->
+    <div class="hero-title-wrapper">
+      <h1 class="hero-title" aria-label="CARBONERRA">
+        <span class="hero-letter" style="animation-delay: 0.04s;">C</span>
+        <span class="hero-letter" style="animation-delay: 0.08s;">A</span>
+        <span class="hero-letter" style="animation-delay: 0.12s;">R</span>
+        <span class="hero-letter" style="animation-delay: 0.16s;">B</span>
+        <span class="hero-letter" style="animation-delay: 0.20s;">O</span>
+        <span class="hero-letter" style="animation-delay: 0.24s;">N</span>
+        <span class="hero-letter" style="animation-delay: 0.28s;">E</span>
+        <span class="hero-letter" style="animation-delay: 0.32s;">R</span>
+        <span class="hero-letter" style="animation-delay: 0.36s;">R</span>
+        <span class="hero-letter" style="animation-delay: 0.40s;">A</span>
+      </h1>
+    </div>
+
+    <!-- Hero Bottom Row -->
+    <div class="hero-bottom-row reveal">
+      <div class="hero-manifesto">
+        AI-Powered Predictive Carbon Optimization Platform for Websites. Real-time telemetry, physics simulation, and automated regression shield.
+      </div>
+      <div class="hero-origin">
+        <span>SITE: MAIN-WEBSITE-V2.COM</span>
+        <span>ENV: PRODUCTION // ACTIVE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PRODUCT / FEATURE GRID SECTION (Olive #e9edc9, 5rem Top Radius, 15vw Anton Title)
+       ========================================================================== -->
+  <section class="products-section" id="collection">
+    <div class="section-header-row reveal">
+      <h2 class="section-title-anton">SIMULATOR</h2>
+      <a href="#simulatorControls" class="circular-cta-btn">
+        <span>RUN<br>AUDIT</span>
+      </a>
+    </div>
+
+    <!-- URL Audit Scanner Bar -->
+    <div class="audit-bar-card reveal">
+      <div style="font-size: 1.2rem; color: var(--color-accent-lime);">⚡</div>
+      <div class="audit-input-group">
+        <input type="text" id="targetUrlInput" value="https://main-website-v2.com" placeholder="Enter target URL for deep carbon telemetry audit..." />
+      </div>
+      <button class="btn btn-lime" onclick="runLiveAuditScanner()">
+        <span id="scanBtnText">⚡ RUN CARBON AUDIT</span>
+      </button>
+    </div>
+
+    <!-- 3-Column Feature Cards Grid (4/5 Aspect Ratio, 2.5rem Radius & Blur-Reveal Button) -->
+    <div class="product-grid" id="simulatorControls">
+      <!-- Card 1 -->
+      <div class="reveal" style="transition-delay: 0.1s;">
+        <div class="product-card">
+          <div class="product-card-content">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--color-danger-light);">P0 - CRITICAL PAYLOAD</div>
+            <div style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--color-forest);">/hero-banner.png</div>
+            <div style="font-size: 0.85rem; color: var(--color-forest);">Size: <strong>3.40 MB</strong> • CO2: <strong style="color: var(--color-danger-light);">0.18g / view</strong></div>
+            <div style="font-size: 0.8rem; opacity: 0.8;">Uncompressed PNG hero asset causing high network transfer and LCP delay.</div>
+          </div>
+          <div class="blur-overlay">
+            <div style="font-size: 10px; font-weight: 800; color: var(--color-cream); letter-spacing: 0.25em;">IMAGE OPTIMIZATION</div>
+            <button class="blur-reveal-btn" onclick="scrollToSection('fixhub')">QUICK FIX WITH AI +</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="reveal" style="transition-delay: 0.2s;">
+        <div class="product-card">
+          <div class="product-card-content">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--color-warning-light);">P1 - THIRD PARTY SCRIPT</div>
+            <div style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--color-forest);">googletagmanager.js</div>
+            <div style="font-size: 0.85rem; color: var(--color-forest);">Size: <strong>420 KB</strong> • CO2: <strong style="color: var(--color-warning-light);">0.07g / view</strong></div>
+            <div style="font-size: 0.8rem; opacity: 0.8;">Synchronous analytics script blocking main-thread execution.</div>
+          </div>
+          <div class="blur-overlay">
+            <div style="font-size: 10px; font-weight: 800; color: var(--color-cream); letter-spacing: 0.25em;">JS DEFERRAL</div>
+            <button class="blur-reveal-btn" onclick="scrollToSection('fixhub')">DE-PRIORITIZE +</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="reveal" style="transition-delay: 0.3s;">
+        <div class="product-card">
+          <div class="product-card-content">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--color-forest);">P2 - UNUSED MODULES</div>
+            <div style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; color: var(--color-forest);">/app-bundle.js</div>
+            <div style="font-size: 0.85rem; color: var(--color-forest);">Size: <strong>280 KB</strong> • CO2: <strong>0.04g / view</strong></div>
+            <div style="font-size: 0.8rem; opacity: 0.8;">Main JavaScript bundle containing 42% unused code modules.</div>
+          </div>
+          <div class="blur-overlay">
+            <div style="font-size: 10px; font-weight: 800; color: var(--color-cream); letter-spacing: 0.25em;">TREE-SHAKING</div>
+            <button class="blur-reveal-btn" onclick="scrollToSection('simulatorPhysics')">TREE-SHAKE +</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Physics Simulator Interactive Sliders -->
+    <div style="margin-top: 4rem;" class="reveal" id="simulatorPhysics">
+      <div class="simulator-grid">
+        <div class="control-card">
+          <h3 style="font-family: var(--font-sans); font-weight: 800; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-forest); margin-bottom: 1.5rem;">
+            Carbon Physics Controls
+          </h3>
+
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">
+              <span>Image AVIF/WebP Compression & Auto-Scale</span>
+              <span style="color: var(--color-forest); font-family: var(--font-mono);" id="valImgComp">85%</span>
+            </div>
+            <input type="range" class="range-slider" id="sliderImgComp" min="0" max="100" value="85" oninput="updateSimulatorPhysics()" />
+          </div>
+
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">
+              <span>JS Bundle Deferral & Tree-Shaking</span>
+              <span style="color: var(--color-forest); font-family: var(--font-mono);" id="valJsDefer">60%</span>
+            </div>
+            <input type="range" class="range-slider" id="sliderJsDefer" min="0" max="100" value="60" oninput="updateSimulatorPhysics()" />
+          </div>
+
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">
+              <span>Browser Cache Retention (TTL)</span>
+              <span style="color: var(--color-forest); font-family: var(--font-mono);" id="valCacheTtl">30 Days</span>
+            </div>
+            <input type="range" class="range-slider" id="sliderCacheTtl" min="1" max="365" value="30" oninput="updateSimulatorPhysics()" />
+          </div>
+
+          <div style="padding: 1rem; background: var(--color-sage); border-radius: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-forest);">100% Renewable Green Hosting</div>
+              <div style="font-size: 0.75rem; color: var(--color-forest); opacity: 0.8;">Switch datacenter grid to verified wind/solar</div>
+            </div>
+            <input type="checkbox" id="toggleGreenHosting" checked onchange="updateSimulatorPhysics()" style="width: 20px; height: 20px; cursor: pointer;" />
+          </div>
+        </div>
+
+        <div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div style="background: var(--color-cream); border-radius: var(--radius-card); padding: 1.75rem; text-align: center; box-shadow: var(--shadow-forest);">
+              <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-forest);">BASELINE CO2</div>
+              <div style="font-size: 2.2rem; font-weight: 900; color: var(--color-forest); font-family: var(--font-display); margin: 0.25rem 0;">0.58 g</div>
+              <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-forest); opacity: 0.8;">3.4 MB Payload</div>
+            </div>
+
+            <div style="background: var(--color-forest); color: var(--color-cream); border-radius: var(--radius-card); padding: 1.75rem; text-align: center; box-shadow: var(--shadow-forest);">
+              <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-lime);">SIMULATED TARGET</div>
+              <div style="font-size: 2.2rem; font-weight: 900; color: var(--color-accent-lime); font-family: var(--font-display); margin: 0.25rem 0;" id="targetCo2Val">0.19 g</div>
+              <div style="font-size: 0.8rem; font-weight: 600;" id="targetPayloadVal">1.1 MB Payload</div>
+            </div>
+          </div>
+
+          <div class="big-saving-callout">
+            <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--color-cream); margin-bottom: 0.5rem;">ESTIMATED CARBON REDUCTION</div>
+            <div class="saving-number" id="savingPctVal">-67.2%</div>
+            <div style="font-size: 0.95rem; font-weight: 600; margin-top: 0.5rem;" id="annualSavingVal">🌱 Saves 1.2 Metric Tons CO2 / year</div>
+          </div>
+
+          <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+            <button class="btn btn-lime" style="flex: 1;" onclick="applyToCarbonBudget()">APPLY TO BUDGET</button>
+            <button class="btn btn-forest" style="flex: 1;" onclick="exportPRPatch()">EXPORT PR FIX PATCH</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 3: ML PREDICTIVE TRAJECTORY & FORECASTS (Cream #fefae0, 5rem Top Radius, 15vw Anton Title)
+       ========================================================================== -->
+  <section class="forecast-section" id="forecasts">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;" class="reveal">
+      <h2 class="section-title-anton" style="margin-bottom: 0;">FORECASTS</h2>
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="btn btn-outline btn-sm" onclick="updateChartTimeframe('1M')">1M</button>
+        <button class="btn btn-outline btn-sm" onclick="updateChartTimeframe('6M')">6M</button>
+        <button class="btn btn-forest btn-sm" onclick="updateChartTimeframe('12M')">12M</button>
+        <button class="btn btn-outline btn-sm" onclick="updateChartTimeframe('24M')">24M</button>
+      </div>
+    </div>
+
+    <div class="chart-wrapper reveal">
+      <canvas id="forecastChart"></canvas>
+    </div>
+
+    <div style="background: var(--color-forest); color: var(--color-cream); padding: 1.5rem 2rem; border-radius: var(--radius-card); display: flex; align-items: flex-start; gap: 1rem;" class="reveal">
+      <div style="font-size: 1.5rem; color: var(--color-warning-light);">⚠️</div>
+      <div>
+        <strong style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-accent-lime);">Trajectory Warning Alert</strong>
+        <p style="font-size: 0.9rem; margin-top: 0.25rem;">
+          At the current rate of website asset growth and expected traffic (+15%/mo), annual carbon emissions will reach <strong style="color: var(--color-warning-light);">4.8 Metric Tons CO2 by Q4</strong> unless P0 image compression and JS deferral fixes are applied.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 4: AI RECOMMENDATION & FIX HUB (Forest Dark #01472e, 5rem Top Radius, 15vw Anton Title)
+       ========================================================================== -->
+  <section class="fixhub-section" id="fixhub">
+    <h2 class="section-title-anton" style="color: var(--color-sage);" class="reveal">AI FIX HUB</h2>
+
+    <div style="background: rgba(255, 255, 255, 0.08); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 2.5rem;" class="reveal">
+      <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--color-accent-lime); margin-bottom: 0.5rem;">⚡ FRAMER-STYLE AI COMMAND BOX</div>
+      <div class="audit-input-group" style="border-color: var(--color-accent-lime);">
+        <input type="text" placeholder="Generate AST refactor patch to lazy-load non-critical analytics..." id="fixHubPrompt" />
+      </div>
+      <button class="btn btn-lime btn-sm" style="margin-top: 1rem;" onclick="runAIGenerator()">⚡ GENERATE CODE FIX</button>
+    </div>
+
+    <!-- Priority Action Cards -->
+    <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--color-danger); border-radius: var(--radius-card); padding: 2rem; margin-bottom: 2rem;" class="reveal">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <span class="btn btn-danger btn-sm" style="font-size: 8px;">P0 - CRITICAL RECOMMENDATION</span>
+        <span style="font-family: var(--font-mono); color: var(--color-accent-lime); font-weight: 700;">-0.18 g CO2/view</span>
+      </div>
+      <h3 style="font-family: var(--font-body); font-weight: 800; font-size: 1.2rem; text-transform: uppercase; color: #ffffff;">Convert Uncompressed Hero Banner to AVIF Format</h3>
+      <p style="font-size: 0.9rem; color: var(--color-sage); margin-top: 0.5rem;">
+        Uncompressed 3.4MB PNG hero image (`/hero-banner.png`) without `loading="lazy"` attributes causing heavy payload transfer and high carbon emissions.
+      </p>
+
+      <div class="code-drawer">
+        <div style="color: #64748b; margin-bottom: 0.35rem;">// Code Solution Patch (index.html)</div>
+        <div style="color: #f87171;">- &lt;img src="/hero-banner.png" alt="Hero Banner" width="1920" height="1080" /&gt;</div>
+        <div style="color: #4ade80;">+ &lt;picture&gt;</div>
+        <div style="color: #4ade80;">+   &lt;source srcset="/hero-banner.avif" type="image/avif" /&gt;</div>
+        <div style="color: #4ade80;">+   &lt;source srcset="/hero-banner.webp" type="image/webp" /&gt;</div>
+        <div style="color: #4ade80;">+   &lt;img src="/hero-banner.jpg" alt="Hero Banner" width="1920" height="1080" loading="lazy" decoding="async" fetchpriority="high" /&gt;</div>
+        <div style="color: #4ade80;">+ &lt;/picture&gt;</div>
+      </div>
+
+      <button class="btn btn-lime btn-sm" onclick="exportPRPatch()">⚡ AUTO-GENERATE PR PATCH</button>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 5: CARBON BUDGET & REGRESSION SHIELD (Sage #ccd5ae, 5rem Top Radius, 15vw Anton Title)
+       ========================================================================== -->
+  <section class="shield-section" id="shield">
+    <h2 class="section-title-anton reveal">REGRESSION SHIELD</h2>
+
+    <div style="background: var(--color-cream); border-radius: var(--radius-card); padding: 2.5rem; box-shadow: var(--shadow-forest); margin-bottom: 2.5rem;" class="reveal">
+      <h3 style="font-family: var(--font-body); font-weight: 800; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-forest); margin-bottom: 1rem;">
+        Carbon Budget Policy Ceiling
+      </h3>
+
+      <div style="display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem;">
+        <span>Maximum Allowable CO2 Floor</span>
+        <span style="font-family: var(--font-mono); color: var(--color-forest);" id="budgetCeilingVal">0.30 g CO2 / page</span>
+      </div>
+      <input type="range" class="range-slider" min="0.10" max="1.00" step="0.05" value="0.30" oninput="document.getElementById('budgetCeilingVal').innerText = parseFloat(this.value).toFixed(2) + ' g CO2 / page'" />
+    </div>
+
+    <!-- Regression Incident Alert -->
+    <div style="background: var(--color-forest); color: var(--color-cream); border-radius: var(--radius-card); padding: 2.5rem; box-shadow: var(--shadow-forest);" class="reveal">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--color-danger-light);">🚨 REGRESSION INCIDENT DETECTED IN COMMIT #f8a192</span>
+        <span class="btn btn-danger btn-sm" style="font-size: 8px;">CI GATE BLOCKED</span>
+      </div>
+
+      <p style="font-size: 0.95rem; margin-bottom: 1rem;">
+        Commit <code style="font-family: var(--font-mono); color: var(--color-accent-lime);">#f8a192</code> introduced a 420KB tracking script, increasing carbon footprint by <strong style="color: var(--color-danger-light);">+22% (0.24g → 0.293g CO2e)</strong>.
+      </p>
+
+      <!-- Git Diff View Component -->
+      <div class="diff-container">
+        <div class="diff-header">
+          <span>diff --git a/package.json b/package.json</span>
+          <span>Commit #f8a192 by @dev-alex</span>
+        </div>
+        <div class="diff-line remove">-   "dependencies": { "analytics-core": "^1.0.0" }</div>
+        <div class="diff-line add">+   "dependencies": { "analytics-core": "^1.0.0", "heavy-tracker-v3": "^3.4.1" }</div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+        <button class="btn btn-danger btn-sm" onclick="alert('CI/CD build block enforced. PR #142 rejected.')">BLOCK COMMIT IN CI</button>
+        <button class="btn btn-lime btn-sm" onclick="alert('AI patch generated: Replacing heavy tracker with 1.2KB fallback.')">⚡ REVERT WITH AI PATCH</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOOTER (Background #01472e, Text #ccd5ae, 12-Column Grid, Underline Input Field)
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-12col">
+      <!-- Newsletter / Telemetry Report Signup (Left 6 Cols) -->
+      <div class="footer-newsletter-col reveal">
+        <h3 class="footer-title">CARBON TELEMETRY REPORT</h3>
+        <p style="font-size: 0.9rem; font-weight: 500; max-width: 420px; opacity: 0.85;">
+          Subscribe to monthly automated CSRD Scope 3 carbon compliance audits & performance regressions.
+        </p>
+        <form class="newsletter-form" onsubmit="alert('⚡ Subscribed to Carbon Telemetry Report!'); return false;">
+          <input type="email" placeholder="ENTER YOUR WORK EMAIL FOR COMPLIANCE AUDIT..." class="newsletter-input" required />
+        </form>
+      </div>
+
+      <!-- Links (Right 6 Cols: 2 Columns of tracked-out 11px uppercase links) -->
+      <div class="footer-links-col reveal" style="transition-delay: 0.15s;">
+        <div class="footer-links-header">NAVIGATION</div>
+        <ul class="footer-nav-list">
+          <li><a href="#overview" class="footer-nav-link">OVERVIEW</a></li>
+          <li><a href="#collection" class="footer-nav-link">CARBON LAB</a></li>
+          <li><a href="#forecasts" class="footer-nav-link">ML FORECASTS</a></li>
+          <li><a href="#fixhub" class="footer-nav-link">AI FIX HUB</a></li>
+          <li><a href="#shield" class="footer-nav-link">REGRESSION SHIELD</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col reveal" style="transition-delay: 0.3s;">
+        <div class="footer-links-header">COMPLIANCE</div>
+        <ul class="footer-nav-list">
+          <li><a href="#" class="footer-nav-link">GHG PROTOCOL SCOPE 3</a></li>
+          <li><a href="#" class="footer-nav-link">CSRD DIRECTIVE</a></li>
+          <li><a href="#" class="footer-nav-link">EU TAXONOMY DIGITAL</a></li>
+          <li><a href="#" class="footer-nav-link">GREEN WEB FOUNDATION</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Legal & Copyright with 30% Opacity -->
+    <div class="footer-bottom-row">
+      <span>© 2026 CARBONERRA PLATFORM INC. ALL RIGHTS RESERVED.</span>
+      <span>TERMS // PRIVACY // CSRD AUDIT REPORT</span>
+    </div>
+  </footer>
+
+  <!-- Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>
