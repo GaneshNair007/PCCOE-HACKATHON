@@ -1,6 +1,8 @@
 # ⚡ CARBONERRA — AI-Powered Predictive Carbon Optimization Platform
 > **PCCOE Hackathon Project Submission**
 
+🌐 **Live Deployment**: [https://pccoe-hackathon.vercel.app](https://pccoe-hackathon.vercel.app)
+
 Carbonerra is a modern, executive-grade AI-powered digital sustainability telemetry and predictive carbon optimization platform for websites and enterprise web applications.
 
 ---
