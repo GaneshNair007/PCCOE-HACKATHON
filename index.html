@@ -42,8 +42,8 @@
     </nav>
 
     <div class="budget-pill">
-      <span>BUDGET: 0.28G / 0.50G CO2</span>
-      <span class="budget-badge">✅</span>
+      <span id="budgetPillValue">BUDGET: 0.28G / 0.50G CO2</span>
+      <span class="budget-badge" id="budgetPillBadge">✅</span>
     </div>
   </header>
 
@@ -56,24 +56,24 @@
       <!-- Floating Card 1: EcoScore Gauge -->
       <div class="floating-eco-card floating-card-1" data-speed="-0.05">
         <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-forest); margin-bottom: 0.25rem;">ECOSCORE INDEX</div>
-        <div style="font-size: 2.8rem; font-weight: 900; color: var(--color-forest); font-family: var(--font-display); line-height: 1;">A+</div>
-        <div style="font-size: 1.1rem; font-weight: 800; color: var(--color-forest); margin-top: 0.25rem;">0.24 g CO2e</div>
-        <div style="font-size: 10px; font-weight: 700; color: var(--color-success); margin-top: 0.25rem;">🌱 Cleaner than 88% of sites</div>
+        <div style="font-size: 2.8rem; font-weight: 900; color: var(--color-forest); font-family: var(--font-display); line-height: 1;" id="heroEcoScore">A+</div>
+        <div style="font-size: 1.1rem; font-weight: 800; color: var(--color-forest); margin-top: 0.25rem;" id="heroCo2Grams">0.24 g CO2e</div>
+        <div style="font-size: 10px; font-weight: 700; color: var(--color-success); margin-top: 0.25rem;" id="heroPercentile">🌱 Cleaner than 88% of sites</div>
       </div>
 
       <!-- Floating Card 2: Annual Impact -->
       <div class="floating-eco-card floating-card-2" data-speed="0.07">
         <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-forest); margin-bottom: 0.25rem;">ANNUAL IMPACT</div>
-        <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-forest);">🌲 14.2 Trees</div>
-        <div style="font-size: 1.1rem; font-weight: 800; color: var(--color-forest);">⚡ 312 kWh</div>
-        <div style="font-size: 10px; font-weight: 700; color: var(--color-forest); margin-top: 0.25rem;">Equiv: 1,280 Car Miles</div>
+        <div style="font-size: 1.5rem; font-weight: 800; color: var(--color-forest);" id="heroTrees">🌲 14.2 Trees</div>
+        <div style="font-size: 1.1rem; font-weight: 800; color: var(--color-forest);" id="heroKwh">⚡ 312 kWh</div>
+        <div style="font-size: 10px; font-weight: 700; color: var(--color-forest); margin-top: 0.25rem;" id="heroCarMiles">Equiv: 1,280 Car Miles</div>
       </div>
 
       <!-- Floating Card 3: Green Hosting Badge -->
       <div class="floating-eco-card floating-card-3" data-speed="-0.04">
         <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-forest); margin-bottom: 0.25rem;">GREEN HOSTING</div>
-        <div style="font-size: 0.95rem; font-weight: 800; color: var(--color-success-light);">Verified 100% Renewable</div>
-        <div style="font-size: 10px; font-weight: 600; color: var(--color-forest); margin-top: 0.25rem;">AWS us-east-1 • PUE 1.15</div>
+        <div style="font-size: 0.95rem; font-weight: 800; color: var(--color-success-light);" id="heroHostingStatus">Verified 100% Renewable</div>
+        <div style="font-size: 10px; font-weight: 600; color: var(--color-forest); margin-top: 0.25rem;" id="heroHostingProvider">AWS us-east-1 • PUE 1.15</div>
       </div>
     </div>
 
@@ -99,8 +99,8 @@
         AI-Powered Predictive Carbon Optimization Platform for Websites. Real-time telemetry, physics simulation, and automated regression shield.
       </div>
       <div class="hero-origin">
-        <span>SITE: MAIN-WEBSITE-V2.COM</span>
-        <span>ENV: PRODUCTION // ACTIVE</span>
+        <span id="heroSiteDomain">SITE: MAIN-WEBSITE-V2.COM</span>
+        <span id="heroAuditStatus">ENV: PRODUCTION // ACTIVE</span>
       </div>
     </div>
   </section>
@@ -120,12 +120,13 @@
     <div class="audit-bar-card reveal">
       <div style="font-size: 1.2rem; color: var(--color-accent-lime);">⚡</div>
       <div class="audit-input-group">
-        <input type="text" id="targetUrlInput" value="https://main-website-v2.com" placeholder="Enter target URL for deep carbon telemetry audit..." />
+        <input type="text" id="targetUrlInput" value="https://example.com" placeholder="Paste any URL — e.g. yourcompany.com" />
       </div>
-      <button class="btn btn-lime" onclick="runLiveAuditScanner()">
-        <span id="scanBtnText">⚡ RUN CARBON AUDIT</span>
+      <button class="btn btn-lime" onclick="runLiveAuditScanner()" id="scanBtn">
+        <span id="scanBtnText">Run Carbon Audit</span>
       </button>
     </div>
+    <div id="auditNotification" style="display: none; margin-top: 1rem; padding: 0.85rem 1.5rem; border-radius: 1.5rem; font-weight: 700; font-size: 0.9rem; text-align: center;"></div>
 
     <!-- 3-Column Feature Cards Grid (4/5 Aspect Ratio, 2.5rem Radius & Blur-Reveal Button) -->
     <div class="product-grid" id="simulatorControls">
@@ -223,8 +224,8 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
             <div style="background: var(--color-cream); border-radius: var(--radius-card); padding: 1.75rem; text-align: center; box-shadow: var(--shadow-forest);">
               <div style="font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-forest);">BASELINE CO2</div>
-              <div style="font-size: 2.2rem; font-weight: 900; color: var(--color-forest); font-family: var(--font-display); margin: 0.25rem 0;">0.58 g</div>
-              <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-forest); opacity: 0.8;">3.4 MB Payload</div>
+              <div style="font-size: 2.2rem; font-weight: 900; color: var(--color-forest); font-family: var(--font-display); margin: 0.25rem 0;" id="baselineCo2Val">0.58 g</div>
+              <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-forest); opacity: 0.8;" id="baselinePayloadVal">3.4 MB Payload</div>
             </div>
 
             <div style="background: var(--color-forest); color: var(--color-cream); border-radius: var(--radius-card); padding: 1.75rem; text-align: center; box-shadow: var(--shadow-forest);">
@@ -357,8 +358,8 @@
       </div>
 
       <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-        <button class="btn btn-danger btn-sm" onclick="alert('CI/CD build block enforced. PR #142 rejected.')">BLOCK COMMIT IN CI</button>
-        <button class="btn btn-lime btn-sm" onclick="alert('AI patch generated: Replacing heavy tracker with 1.2KB fallback.')">⚡ REVERT WITH AI PATCH</button>
+        <button class="btn btn-danger btn-sm" onclick="showNotification('CI/CD build block enforced. PR #142 rejected due to carbon budget regression.', 'error')">BLOCK COMMIT IN CI</button>
+        <button class="btn btn-lime btn-sm" onclick="showNotification('AI patch generated: Replacing heavy tracker with 1.2KB fallback.', 'success')">⚡ REVERT WITH AI PATCH</button>
       </div>
     </div>
   </section>
@@ -374,7 +375,7 @@
         <p style="font-size: 0.9rem; font-weight: 500; max-width: 420px; opacity: 0.85;">
           Subscribe to monthly automated CSRD Scope 3 carbon compliance audits & performance regressions.
         </p>
-        <form class="newsletter-form" onsubmit="alert('⚡ Subscribed to Carbon Telemetry Report!'); return false;">
+        <form class="newsletter-form" onsubmit="showNotification('⚡ Subscribed to Carbon Telemetry Report! Monthly compliance digests active.', 'success'); return false;">
           <input type="email" placeholder="ENTER YOUR WORK EMAIL FOR COMPLIANCE AUDIT..." class="newsletter-input" required />
         </form>
       </div>

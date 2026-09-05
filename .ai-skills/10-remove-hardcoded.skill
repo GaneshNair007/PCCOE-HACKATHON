@@ -1,0 +1,15 @@
+Skill: Remove Hardcoded Data & Mocks
+
+You will:
+1. Search the codebase for:
+   - Mock data arrays/objects.
+   - Fake telemetry, health, metrics, logs.
+   - Hardcoded IDs, URLs, keys, thresholds, config values.
+2. For each:
+   - Log file + snippet in `docs/hardcoded-inventory.md`.
+   - Identify intended real source (DB, API, env, uploaded doc).
+   - Refactor code to use that real source.
+   - If the source doesn’t exist yet, design schema/API and implement stubs with clear “no data yet” states (no fake numbers visible).
+3. Ensure:
+   - No user-visible fake metrics remain.
+   - All visible data is traceable to a real source or an explicit empty/loading state.

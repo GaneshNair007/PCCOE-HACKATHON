@@ -1,0 +1,15 @@
+Skill: Make Telemetry & Health Fully Real
+
+You will:
+1. Define or update DB schema/models for:
+   - System metrics (CPU, memory, latency, errors, etc. or domain-specific health).
+   - Event logs / audit trails if relevant.
+2. Implement:
+   - Backend endpoints to read/write telemetry.
+   - Any background jobs or instrumentation needed to populate real metrics.
+3. Update frontend:
+   - Replace static charts/tables with API-driven components.
+   - Add loading/empty/error states.
+4. Verify:
+   - No hardcoded percentages, uptimes, or health scores remain.
+   - All displayed metrics come from DB/API or uploaded data.

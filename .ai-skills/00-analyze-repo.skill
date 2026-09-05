@@ -1,0 +1,13 @@
+Skill: Analyze Repository & Current Status
+
+You will:
+1. Scan the entire repo (frontend, backend, DB, infra, scripts).
+2. Produce:
+   - Tech stack summary.
+   - Architecture overview (components + data flow).
+   - List of implemented vs WIP vs placeholder features.
+   - Recent meaningful commits (last 5–10).
+   - Key risks, tech debt, and quality notes.
+3. Output a structured report in `docs/architecture.md`.
+
+Focus on understanding the system well enough to start refactoring and adding real data sources.

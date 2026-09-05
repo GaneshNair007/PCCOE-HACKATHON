@@ -1,0 +1,12 @@
+Skill: CodeRabbit Review & Auto-Fix
+
+You will:
+1. Run: `coderabbit review --agent` for the current changes.
+2. Parse the review output:
+   - High & medium priority issues.
+   - Security, performance, and correctness concerns.
+3. Automatically apply fixes where clear and safe.
+4. For ambiguous suggestions:
+   - Add a TODO comment with the suggestion.
+   - Log in `docs/review-notes.md` with file + line + suggestion.
+5. Commit fixes with message prefix: `chore: CodeRabbit auto-fix – <short description>`.
