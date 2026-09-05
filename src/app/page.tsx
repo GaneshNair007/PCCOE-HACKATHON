@@ -219,15 +219,10 @@ function LandingPageContent() {
            ========================================================================== */}
       <section
         ref={heroRef}
-        className="relative min-h-[80vh] flex flex-col lg:flex-row items-center justify-between gap-12 pt-6"
+        className="relative min-h-[80vh] flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 pt-4 lg:pt-8"
       >
         {/* Left Column: Input Workspace */}
         <div className="flex-1 max-w-2xl space-y-6 text-left z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel text-xs font-mono text-lime border border-lime/30 shadow-[0_0_15px_rgba(203,255,0,0.15)]">
-            <span className="w-2 h-2 rounded-full bg-lime animate-ping" />
-            <span className="font-semibold">CARBONERRA SAVINGS LAB • PROVE THE IMPROVEMENT</span>
-          </div>
-
           <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl tracking-tight text-cream uppercase leading-[0.9] select-none">
             MAKE YOUR WEBSITE <span className="text-lime drop-shadow-[0_0_35px_rgba(203,255,0,0.4)]">LIGHTER.</span> PROVE THE IMPROVEMENT.
           </h1>
@@ -385,7 +380,7 @@ function LandingPageContent() {
         </div>
 
         {/* Right Column: 3D Earth Globe (Shows real country marker when audited) */}
-        <div className="flex-1 w-full h-[460px] sm:h-[540px] lg:h-[600px] relative flex items-center justify-center">
+        <div className="flex-1 w-full h-[460px] sm:h-[540px] lg:h-[620px] relative flex items-center justify-center lg:-mt-16 xl:-mt-24">
           <div className="absolute inset-0 bg-radial-gradient from-lime/10 via-transparent to-transparent rounded-full blur-3xl pointer-events-none" />
           <CarbonGlobe3D
             activeRegion={auditData?.hosting_country_code || auditData?.hosting_country}

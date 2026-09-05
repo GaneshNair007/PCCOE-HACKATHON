@@ -13074,6 +13074,4252 @@
         "cachePolicy": "cold",
         "environment": "Local Controlled Production/Dev Environment"
       }
+    },
+    "run_1788603267558_xg4rf": {
+      "id": "run_1788603267558_xg4rf",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:27.351Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-5153)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603267487_s9y9",
+          "runId": "run_1788603267558_xg4rf",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603267538_2lbp",
+          "runId": "run_1788603267558_xg4rf",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603267675_5zban": {
+      "id": "run_1788603267675_5zban",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:27.562Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-5063)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603267633_9v2n",
+          "runId": "run_1788603267675_5zban",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603267658_u9hx",
+          "runId": "run_1788603267675_5zban",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603267775_09eii": {
+      "id": "run_1788603267775_09eii",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:27.679Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3193)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603267739_3ab0",
+          "runId": "run_1788603267775_09eii",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603267757_vysk",
+          "runId": "run_1788603267775_09eii",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603268770_t5vv1": {
+      "id": "run_1788603268770_t5vv1",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:28.597Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9487)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603268714_pz0n",
+          "runId": "run_1788603268770_t5vv1",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603268750_86n9",
+          "runId": "run_1788603268770_t5vv1",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603269109_t6gtd": {
+      "id": "run_1788603269109_t6gtd",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 1,
+      "variant": "broken_candidate",
+      "timestamp": "2026-09-05T10:14:28.978Z",
+      "status": "completed",
+      "totalBytes": 24342,
+      "requestCount": 1,
+      "co2Grams": 0.0029,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7398)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603269076_3l7k",
+          "runId": "run_1788603269109_t6gtd",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 24342,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603269428_uf79m": {
+      "id": "run_1788603269428_uf79m",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:29.317Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2437)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603269377_0oml",
+          "runId": "run_1788603269428_uf79m",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603269408_a00t",
+          "runId": "run_1788603269428_uf79m",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603269760_hagrn": {
+      "id": "run_1788603269760_hagrn",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:29.623Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2195)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603269674_n81j",
+          "runId": "run_1788603269760_hagrn",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603269713_vx3t",
+          "runId": "run_1788603269760_hagrn",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603269781_pijrr": {
+      "id": "run_1788603269781_pijrr",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 2,
+      "variant": "broken_candidate",
+      "timestamp": "2026-09-05T10:14:29.632Z",
+      "status": "completed",
+      "totalBytes": 24342,
+      "requestCount": 1,
+      "co2Grams": 0.0029,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7354)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603269730_qgcr",
+          "runId": "run_1788603269781_pijrr",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 24342,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603269892_ul7sk": {
+      "id": "run_1788603269892_ul7sk",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:29.797Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3568)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603269854_7xmn",
+          "runId": "run_1788603269892_ul7sk",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603269874_yts7",
+          "runId": "run_1788603269892_ul7sk",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603270065_upos5": {
+      "id": "run_1788603270065_upos5",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:29.899Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-8614)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603270000_56ff",
+          "runId": "run_1788603270065_upos5",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603270025_moqx",
+          "runId": "run_1788603270065_upos5",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603270133_5sbc1": {
+      "id": "run_1788603270133_5sbc1",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:29.988Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3991)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603270071_c402",
+          "runId": "run_1788603270133_5sbc1",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603270090_q18r",
+          "runId": "run_1788603270133_5sbc1",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603270177_dr59i": {
+      "id": "run_1788603270177_dr59i",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:30.069Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-8443)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603270142_9a8o",
+          "runId": "run_1788603270177_dr59i",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603270159_gia2",
+          "runId": "run_1788603270177_dr59i",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603270336_ev785": {
+      "id": "run_1788603270336_ev785",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:30.207Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-1843)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603270304_h3ek",
+          "runId": "run_1788603270336_ev785",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603270319_aecv",
+          "runId": "run_1788603270336_ev785",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603270447_icw55": {
+      "id": "run_1788603270447_icw55",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 3,
+      "variant": "broken_candidate",
+      "timestamp": "2026-09-05T10:14:30.341Z",
+      "status": "completed",
+      "totalBytes": 24342,
+      "requestCount": 1,
+      "co2Grams": 0.0029,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2541)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603270397_ewgw",
+          "runId": "run_1788603270447_icw55",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 24342,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603270460_1x5qe": {
+      "id": "run_1788603270460_1x5qe",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:30.340Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9522)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603270415_xq8a",
+          "runId": "run_1788603270460_1x5qe",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603270432_8r9l",
+          "runId": "run_1788603270460_1x5qe",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603270554_7aygl": {
+      "id": "run_1788603270554_7aygl",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:30.464Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9423)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603270521_q7uz",
+          "runId": "run_1788603270554_7aygl",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603270537_s7t5",
+          "runId": "run_1788603270554_7aygl",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603270755_ppagh": {
+      "id": "run_1788603270755_ppagh",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:30.580Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-5164)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603270663_3kim",
+          "runId": "run_1788603270755_ppagh",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603270691_49ur",
+          "runId": "run_1788603270755_ppagh",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603270909_mqmsd": {
+      "id": "run_1788603270909_mqmsd",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:30.741Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-1610)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603270865_xt20",
+          "runId": "run_1788603270909_mqmsd",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603270888_2385",
+          "runId": "run_1788603270909_mqmsd",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603271083_ub50f": {
+      "id": "run_1788603271083_ub50f",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 1,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:14:30.965Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3623)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603271036_ayeb",
+          "runId": "run_1788603271083_ub50f",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603271060_rzwa",
+          "runId": "run_1788603271083_ub50f",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603271249_05nwt": {
+      "id": "run_1788603271249_05nwt",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 1,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:14:31.118Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3482)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603271206_m41u",
+          "runId": "run_1788603271249_05nwt",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603271229_yb0e",
+          "runId": "run_1788603271249_05nwt",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603271418_vsod3": {
+      "id": "run_1788603271418_vsod3",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:31.289Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7993)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603271373_zazu",
+          "runId": "run_1788603271418_vsod3",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603271394_c9gk",
+          "runId": "run_1788603271418_vsod3",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603271561_pm05w": {
+      "id": "run_1788603271561_pm05w",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:31.459Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-8478)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603271527_mhpk",
+          "runId": "run_1788603271561_pm05w",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603271543_kvox",
+          "runId": "run_1788603271561_pm05w",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603271720_feqh9": {
+      "id": "run_1788603271720_feqh9",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 2,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:14:31.630Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-1887)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603271688_ct48",
+          "runId": "run_1788603271720_feqh9",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603271703_jsqa",
+          "runId": "run_1788603271720_feqh9",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603271885_qsqfo": {
+      "id": "run_1788603271885_qsqfo",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 2,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:14:31.769Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3490)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603271854_ixld",
+          "runId": "run_1788603271885_qsqfo",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603271869_fr1q",
+          "runId": "run_1788603271885_qsqfo",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603272050_q4l39": {
+      "id": "run_1788603272050_q4l39",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:31.940Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-6999)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603272023_qcpn",
+          "runId": "run_1788603272050_q4l39",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603272036_vvgw",
+          "runId": "run_1788603272050_q4l39",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603272192_0lbn8": {
+      "id": "run_1788603272192_0lbn8",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:32.095Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7666)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603272164_rdic",
+          "runId": "run_1788603272192_0lbn8",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603272177_vcph",
+          "runId": "run_1788603272192_0lbn8",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603272366_fcmkz": {
+      "id": "run_1788603272366_fcmkz",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 3,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:14:32.266Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9797)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603272335_y7cc",
+          "runId": "run_1788603272366_fcmkz",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603272348_enks",
+          "runId": "run_1788603272366_fcmkz",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603272523_qs8sc": {
+      "id": "run_1788603272523_qs8sc",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 3,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:14:32.407Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-6014)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603272489_ufjq",
+          "runId": "run_1788603272523_qs8sc",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603272504_umgr",
+          "runId": "run_1788603272523_qs8sc",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603272714_6rgfk": {
+      "id": "run_1788603272714_6rgfk",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:32.604Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-1811)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603272688_pk1w",
+          "runId": "run_1788603272714_6rgfk",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603272700_n8ew",
+          "runId": "run_1788603272714_6rgfk",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603273413_ti1j5": {
+      "id": "run_1788603273413_ti1j5",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:32.718Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-8383)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603272790_42iz",
+          "runId": "run_1788603273413_ti1j5",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603272807_1gtt",
+          "runId": "run_1788603273413_ti1j5",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603274308_1ygbs": {
+      "id": "run_1788603274308_1ygbs",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:34.103Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3090)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603274237_b0fs",
+          "runId": "run_1788603274308_1ygbs",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603274271_2ph1",
+          "runId": "run_1788603274308_1ygbs",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603274476_dq3ip": {
+      "id": "run_1788603274476_dq3ip",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 1,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:14:34.364Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-1455)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603274441_ufv1",
+          "runId": "run_1788603274476_dq3ip",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603274461_7mft",
+          "runId": "run_1788603274476_dq3ip",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603283427_indib": {
+      "id": "run_1788603283427_indib",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:43.297Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7769)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603283360_ybpr",
+          "runId": "run_1788603283427_indib",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603283404_ibu5",
+          "runId": "run_1788603283427_indib",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603283558_3aq4f": {
+      "id": "run_1788603283558_3aq4f",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:43.431Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-6728)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603283514_x4j6",
+          "runId": "run_1788603283558_3aq4f",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603283538_rvjw",
+          "runId": "run_1788603283558_3aq4f",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603283693_n99wx": {
+      "id": "run_1788603283693_n99wx",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:43.562Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9256)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603283653_dl8i",
+          "runId": "run_1788603283693_n99wx",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603283674_1f4f",
+          "runId": "run_1788603283693_n99wx",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603283848_j9vvn": {
+      "id": "run_1788603283848_j9vvn",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:43.736Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-1042)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603283815_k1p2",
+          "runId": "run_1788603283848_j9vvn",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603283831_gx9r",
+          "runId": "run_1788603283848_j9vvn",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603284162_itkgf": {
+      "id": "run_1788603284162_itkgf",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 1,
+      "variant": "broken_candidate",
+      "timestamp": "2026-09-05T10:14:44.057Z",
+      "status": "completed",
+      "totalBytes": 24342,
+      "requestCount": 1,
+      "co2Grams": 0.0029,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-4203)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603284127_rc16",
+          "runId": "run_1788603284162_itkgf",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 24342,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603284473_vf5he": {
+      "id": "run_1788603284473_vf5he",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:44.369Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-8227)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603284441_vehh",
+          "runId": "run_1788603284473_vf5he",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603284456_rgdc",
+          "runId": "run_1788603284473_vf5he",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603284781_1lz9j": {
+      "id": "run_1788603284781_1lz9j",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 2,
+      "variant": "broken_candidate",
+      "timestamp": "2026-09-05T10:14:44.680Z",
+      "status": "completed",
+      "totalBytes": 24342,
+      "requestCount": 1,
+      "co2Grams": 0.0029,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9272)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603284751_0g96",
+          "runId": "run_1788603284781_1lz9j",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 24342,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603285111_uenqa": {
+      "id": "run_1788603285111_uenqa",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:14:44.988Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7981)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603285073_0qeg",
+          "runId": "run_1788603285111_uenqa",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603285092_upv9",
+          "runId": "run_1788603285111_uenqa",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603285446_8911p": {
+      "id": "run_1788603285446_8911p",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 3,
+      "variant": "broken_candidate",
+      "timestamp": "2026-09-05T10:14:45.330Z",
+      "status": "completed",
+      "totalBytes": 24342,
+      "requestCount": 1,
+      "co2Grams": 0.0029,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-5193)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603285412_x221",
+          "runId": "run_1788603285446_8911p",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 24342,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603303869_2ou34": {
+      "id": "run_1788603303869_2ou34",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:03.737Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-8759)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603303798_comy",
+          "runId": "run_1788603303869_2ou34",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603303835_ph08",
+          "runId": "run_1788603303869_2ou34",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603303994_yqvac": {
+      "id": "run_1788603303994_yqvac",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:03.857Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9198)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603303932_f23b",
+          "runId": "run_1788603303994_yqvac",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603303956_jx90",
+          "runId": "run_1788603303994_yqvac",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603304058_8g4nc": {
+      "id": "run_1788603304058_8g4nc",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:03.917Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7952)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603304004_sxe5",
+          "runId": "run_1788603304058_8g4nc",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603304023_0jrw",
+          "runId": "run_1788603304058_8g4nc",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603304134_w9c9k": {
+      "id": "run_1788603304134_w9c9k",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:03.999Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-1486)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603304076_g685",
+          "runId": "run_1788603304134_w9c9k",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603304098_zcy4",
+          "runId": "run_1788603304134_w9c9k",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603304200_703is": {
+      "id": "run_1788603304200_703is",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:04.062Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-4053)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603304142_tner",
+          "runId": "run_1788603304200_703is",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603304164_w9bt",
+          "runId": "run_1788603304200_703is",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603304270_nkwd1": {
+      "id": "run_1788603304270_nkwd1",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:04.137Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2146)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603304216_8td8",
+          "runId": "run_1788603304270_nkwd1",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603304236_dm4g",
+          "runId": "run_1788603304270_nkwd1",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603304369_w8k86": {
+      "id": "run_1788603304369_w8k86",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:04.203Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2689)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603304284_au04",
+          "runId": "run_1788603304369_w8k86",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603304309_0zqd",
+          "runId": "run_1788603304369_w8k86",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603304554_56mdv": {
+      "id": "run_1788603304554_56mdv",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:04.414Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-4788)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603304489_t6y7",
+          "runId": "run_1788603304554_56mdv",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603304513_qzbb",
+          "runId": "run_1788603304554_56mdv",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603304569_bymql": {
+      "id": "run_1788603304569_bymql",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:04.424Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9153)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603304518_v4eq",
+          "runId": "run_1788603304569_bymql",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603304538_7grz",
+          "runId": "run_1788603304569_bymql",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603304893_m4h3f": {
+      "id": "run_1788603304893_m4h3f",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 1,
+      "variant": "broken_candidate",
+      "timestamp": "2026-09-05T10:15:04.767Z",
+      "status": "completed",
+      "totalBytes": 24342,
+      "requestCount": 1,
+      "co2Grams": 0.0029,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2628)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603304830_irgk",
+          "runId": "run_1788603304893_m4h3f",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 24342,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603304912_7ri8p": {
+      "id": "run_1788603304912_7ri8p",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 1,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:15:04.775Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-4474)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603304855_883e",
+          "runId": "run_1788603304912_7ri8p",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603304879_p00j",
+          "runId": "run_1788603304912_7ri8p",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603305238_xsqmf": {
+      "id": "run_1788603305238_xsqmf",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:05.106Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3325)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603305159_k4vv",
+          "runId": "run_1788603305238_xsqmf",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603305180_ovig",
+          "runId": "run_1788603305238_xsqmf",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603305260_4lwy2": {
+      "id": "run_1788603305260_4lwy2",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:05.117Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9648)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603305208_b17c",
+          "runId": "run_1788603305260_4lwy2",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603305230_tzxn",
+          "runId": "run_1788603305260_4lwy2",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603305550_ikx85": {
+      "id": "run_1788603305550_ikx85",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 2,
+      "variant": "broken_candidate",
+      "timestamp": "2026-09-05T10:15:05.448Z",
+      "status": "completed",
+      "totalBytes": 24342,
+      "requestCount": 1,
+      "co2Grams": 0.0029,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-5599)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603305491_kl5c",
+          "runId": "run_1788603305550_ikx85",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 24342,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603305574_kt8m2": {
+      "id": "run_1788603305574_kt8m2",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 2,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:15:05.465Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-4384)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603305530_fxdy",
+          "runId": "run_1788603305574_kt8m2",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603305549_upfm",
+          "runId": "run_1788603305574_kt8m2",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603305857_eb1w2": {
+      "id": "run_1788603305857_eb1w2",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:05.757Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-1900)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603305805_iom7",
+          "runId": "run_1788603305857_eb1w2",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603305821_i0we",
+          "runId": "run_1788603305857_eb1w2",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603305901_a10yh": {
+      "id": "run_1788603305901_a10yh",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:05.793Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3384)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603305864_w89y",
+          "runId": "run_1788603305901_a10yh",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603305880_uyrj",
+          "runId": "run_1788603305901_a10yh",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603306177_geno3": {
+      "id": "run_1788603306177_geno3",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 3,
+      "variant": "broken_candidate",
+      "timestamp": "2026-09-05T10:15:06.064Z",
+      "status": "completed",
+      "totalBytes": 24342,
+      "requestCount": 1,
+      "co2Grams": 0.0029,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-5966)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603306131_fmbv",
+          "runId": "run_1788603306177_geno3",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 24342,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603306216_gwui9": {
+      "id": "run_1788603306216_gwui9",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 3,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:15:06.117Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2272)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603306182_329o",
+          "runId": "run_1788603306216_gwui9",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603306198_7foz",
+          "runId": "run_1788603306216_gwui9",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603306544_g5bb2": {
+      "id": "run_1788603306544_g5bb2",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:06.426Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3129)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603306490_a1qh",
+          "runId": "run_1788603306544_g5bb2",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603306508_zhvb",
+          "runId": "run_1788603306544_g5bb2",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603306591_0tm2x": {
+      "id": "run_1788603306591_0tm2x",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:06.476Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-6788)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603306551_1vej",
+          "runId": "run_1788603306591_0tm2x",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603306568_jzg5",
+          "runId": "run_1788603306591_0tm2x",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603306905_ehu38": {
+      "id": "run_1788603306905_ehu38",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 1,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:15:06.758Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9796)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603306829_r7cs",
+          "runId": "run_1788603306905_ehu38",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603306848_mdjw",
+          "runId": "run_1788603306905_ehu38",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603306924_t8b6w": {
+      "id": "run_1788603306924_t8b6w",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 1,
+      "variant": "broken_candidate",
+      "timestamp": "2026-09-05T10:15:06.806Z",
+      "status": "completed",
+      "totalBytes": 24342,
+      "requestCount": 1,
+      "co2Grams": 0.0029,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2338)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603306882_svd1",
+          "runId": "run_1788603306924_t8b6w",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 24342,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603307221_wh900": {
+      "id": "run_1788603307221_wh900",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:07.114Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2713)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603307156_f7j8",
+          "runId": "run_1788603307221_wh900",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603307169_6z62",
+          "runId": "run_1788603307221_wh900",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603307244_rmdbh": {
+      "id": "run_1788603307244_rmdbh",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:07.129Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-5310)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603307200_nhqq",
+          "runId": "run_1788603307244_rmdbh",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603307229_9csg",
+          "runId": "run_1788603307244_rmdbh",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603307550_uftrg": {
+      "id": "run_1788603307550_uftrg",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 2,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:15:07.439Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-6809)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603307498_2oca",
+          "runId": "run_1788603307550_uftrg",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603307516_6k4c",
+          "runId": "run_1788603307550_uftrg",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603307568_8jrvx": {
+      "id": "run_1788603307568_8jrvx",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 2,
+      "variant": "broken_candidate",
+      "timestamp": "2026-09-05T10:15:07.448Z",
+      "status": "completed",
+      "totalBytes": 24342,
+      "requestCount": 1,
+      "co2Grams": 0.0029,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-8789)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603307524_55e0",
+          "runId": "run_1788603307568_8jrvx",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 24342,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603307881_rayqk": {
+      "id": "run_1788603307881_rayqk",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:07.766Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3206)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603307820_ufzg",
+          "runId": "run_1788603307881_rayqk",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603307837_ici4",
+          "runId": "run_1788603307881_rayqk",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603307897_410w8": {
+      "id": "run_1788603307897_410w8",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:07.772Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-8971)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603307846_o8ta",
+          "runId": "run_1788603307897_410w8",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603307868_bmpq",
+          "runId": "run_1788603307897_410w8",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603308203_hgyuj": {
+      "id": "run_1788603308203_hgyuj",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 3,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:15:08.089Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-5856)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603308134_p33d",
+          "runId": "run_1788603308203_hgyuj",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603308153_thmz",
+          "runId": "run_1788603308203_hgyuj",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603308222_vzzky": {
+      "id": "run_1788603308222_vzzky",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 3,
+      "variant": "broken_candidate",
+      "timestamp": "2026-09-05T10:15:08.102Z",
+      "status": "completed",
+      "totalBytes": 24342,
+      "requestCount": 1,
+      "co2Grams": 0.0029,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7812)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603308185_4x8o",
+          "runId": "run_1788603308222_vzzky",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 24342,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603308565_b9w0j": {
+      "id": "run_1788603308565_b9w0j",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-09-05T10:15:08.494Z",
+      "status": "completed",
+      "totalBytes": 2447095,
+      "requestCount": 2,
+      "co2Grams": 0.2962,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7631)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603308533_nc4b",
+          "runId": "run_1788603308565_b9w0j",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 27095,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603308549_thg8",
+          "runId": "run_1788603308565_b9w0j",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1788603308720_vzuhg": {
+      "id": "run_1788603308720_vzuhg",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 1,
+      "variant": "candidate",
+      "timestamp": "2026-09-05T10:15:08.589Z",
+      "status": "completed",
+      "totalBytes": 203155,
+      "requestCount": 2,
+      "co2Grams": 0.0246,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Event title and essential campus hackathon information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-4997)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1788603308672_7fy8",
+          "runId": "run_1788603308720_vzuhg",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 27155,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1788603308696_ch5q",
+          "runId": "run_1788603308720_vzuhg",
+          "url": "http://localhost:3001/demo/assets/campus-hackathon-hero.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
     }
   },
   "experiments": {
@@ -13386,6 +17632,132 @@
       "status": "rejected",
       "createdAt": "2026-09-05T10:08:04.271Z",
       "updatedAt": "2026-09-05T10:08:06.365Z"
+    },
+    "exp_1788603267351_w6id": {
+      "id": "exp_1788603267351_w6id",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "baselineRunIds": [
+        "run_1788603267558_xg4rf",
+        "run_1788603267675_5zban",
+        "run_1788603267775_09eii"
+      ],
+      "affectedResourceUrl": "/demo/assets/campus-hackathon-hero.jpg",
+      "patchDiff": "--- a/src/app/demo/event/page.tsx\n+++ b/src/app/demo/event/page.tsx\n@@ -74,7 +74,13 @@\n       {/* First-Party Event Hero Image Component */}\n       <div className=\"relative rounded-3xl overflow-hidden border border-surface-border\">\n-        <img\n-          id=\"event-hero-img\"\n-          src=\"/demo/assets/campus-hackathon-hero.jpg\"\n-          alt=\"PCCOE Green Campus Hackathon 2026 Banner\"\n-          className=\"w-full h-72 sm:h-96 object-cover\"\n-        />\n+        <picture>\n+          <source srcSet=\"/demo/assets/campus-hackathon-hero.webp\" type=\"image/webp\" />\n+          <img\n+            id=\"event-hero-img\"\n+            src=\"/demo/assets/campus-hackathon-hero.webp\"\n+            alt=\"PCCOE Green Campus Hackathon 2026 Banner\"\n+            width=\"1200\"\n+            height=\"400\"\n+            className=\"w-full h-72 sm:h-96 object-cover\"\n+            fetchPriority=\"high\"\n+          />\n+        </picture>\n       </div>",
+      "reviewerDecision": "approved",
+      "candidateRunIds": [
+        "run_1788603271249_05nwt",
+        "run_1788603271885_qsqfo",
+        "run_1788603272523_qs8sc"
+      ],
+      "status": "candidate_tested",
+      "createdAt": "2026-09-05T10:14:27.779Z",
+      "updatedAt": "2026-09-05T10:14:32.732Z",
+      "reviewedAt": "2026-09-05T10:14:28.153Z",
+      "reviewerNotes": "Approved WebP refactor with layout preservation"
+    },
+    "exp_1788603269796_ijf3": {
+      "id": "exp_1788603269796_ijf3",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "baselineRunIds": [
+        "run_1788603269892_ul7sk",
+        "run_1788603270065_upos5",
+        "run_1788603270177_dr59i"
+      ],
+      "affectedResourceUrl": "/demo/assets/campus-hackathon-hero.jpg",
+      "patchDiff": "--- a/src/app/demo/event/page.tsx\n+++ b/src/app/demo/event/page.tsx\n@@ -74,7 +74,13 @@\n       {/* First-Party Event Hero Image Component */}\n       <div className=\"relative rounded-3xl overflow-hidden border border-surface-border\">\n-        <img\n-          id=\"event-hero-img\"\n-          src=\"/demo/assets/campus-hackathon-hero.jpg\"\n-          alt=\"PCCOE Green Campus Hackathon 2026 Banner\"\n-          className=\"w-full h-72 sm:h-96 object-cover\"\n-        />\n+        <picture>\n+          <source srcSet=\"/demo/assets/campus-hackathon-hero.webp\" type=\"image/webp\" />\n+          <img\n+            id=\"event-hero-img\"\n+            src=\"/demo/assets/campus-hackathon-hero.webp\"\n+            alt=\"PCCOE Green Campus Hackathon 2026 Banner\"\n+            width=\"1200\"\n+            height=\"400\"\n+            className=\"w-full h-72 sm:h-96 object-cover\"\n+            fetchPriority=\"high\"\n+          />\n+        </picture>\n       </div>",
+      "reviewerDecision": "pending",
+      "candidateRunIds": [],
+      "status": "fix_proposed",
+      "createdAt": "2026-09-05T10:14:30.182Z",
+      "updatedAt": "2026-09-05T10:14:30.182Z"
+    },
+    "exp_1788603270207_3px1": {
+      "id": "exp_1788603270207_3px1",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "baselineRunIds": [
+        "run_1788603270336_ev785",
+        "run_1788603270460_1x5qe",
+        "run_1788603270554_7aygl"
+      ],
+      "affectedResourceUrl": "/demo/assets/campus-hackathon-hero.jpg",
+      "patchDiff": "--- a/src/app/demo/event/page.tsx\n+++ b/src/app/demo/event/page.tsx\n@@ -74,7 +74,13 @@\n       {/* First-Party Event Hero Image Component */}\n       <div className=\"relative rounded-3xl overflow-hidden border border-surface-border\">\n-        <img\n-          id=\"event-hero-img\"\n-          src=\"/demo/assets/campus-hackathon-hero.jpg\"\n-          alt=\"PCCOE Green Campus Hackathon 2026 Banner\"\n-          className=\"w-full h-72 sm:h-96 object-cover\"\n-        />\n+        <picture>\n+          <source srcSet=\"/demo/assets/campus-hackathon-hero.webp\" type=\"image/webp\" />\n+          <img\n+            id=\"event-hero-img\"\n+            src=\"/demo/assets/campus-hackathon-hero.webp\"\n+            alt=\"PCCOE Green Campus Hackathon 2026 Banner\"\n+            width=\"1200\"\n+            height=\"400\"\n+            className=\"w-full h-72 sm:h-96 object-cover\"\n+            fetchPriority=\"high\"\n+          />\n+        </picture>\n       </div>",
+      "reviewerDecision": "pending",
+      "candidateRunIds": [
+        "run_1788603271083_ub50f",
+        "run_1788603271720_feqh9",
+        "run_1788603272366_fcmkz"
+      ],
+      "status": "candidate_tested",
+      "createdAt": "2026-09-05T10:14:30.558Z",
+      "updatedAt": "2026-09-05T10:14:32.581Z"
+    },
+    "exp_1788603283297_3i4w": {
+      "id": "exp_1788603283297_3i4w",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "baselineRunIds": [
+        "run_1788603283427_indib",
+        "run_1788603283558_3aq4f",
+        "run_1788603283693_n99wx"
+      ],
+      "affectedResourceUrl": "/demo/assets/campus-hackathon-hero.jpg",
+      "patchDiff": "--- a/src/app/demo/event/page.tsx\n+++ b/src/app/demo/event/page.tsx\n@@ -74,7 +74,13 @@\n       {/* First-Party Event Hero Image Component */}\n       <div className=\"relative rounded-3xl overflow-hidden border border-surface-border\">\n-        <img\n-          id=\"event-hero-img\"\n-          src=\"/demo/assets/campus-hackathon-hero.jpg\"\n-          alt=\"PCCOE Green Campus Hackathon 2026 Banner\"\n-          className=\"w-full h-72 sm:h-96 object-cover\"\n-        />\n+        <picture>\n+          <source srcSet=\"/demo/assets/campus-hackathon-hero.webp\" type=\"image/webp\" />\n+          <img\n+            id=\"event-hero-img\"\n+            src=\"/demo/assets/campus-hackathon-hero.webp\"\n+            alt=\"PCCOE Green Campus Hackathon 2026 Banner\"\n+            width=\"1200\"\n+            height=\"400\"\n+            className=\"w-full h-72 sm:h-96 object-cover\"\n+            fetchPriority=\"high\"\n+          />\n+        </picture>\n       </div>",
+      "reviewerDecision": "pending",
+      "candidateRunIds": [
+        "run_1788603284162_itkgf",
+        "run_1788603284781_1lz9j",
+        "run_1788603285446_8911p"
+      ],
+      "status": "rejected",
+      "createdAt": "2026-09-05T10:14:43.696Z",
+      "updatedAt": "2026-09-05T10:14:45.660Z"
+    },
+    "exp_1788603303857_54oh": {
+      "id": "exp_1788603303857_54oh",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "baselineRunIds": [
+        "run_1788603303994_yqvac",
+        "run_1788603304134_w9c9k",
+        "run_1788603304270_nkwd1"
+      ],
+      "affectedResourceUrl": "/demo/assets/campus-hackathon-hero.jpg",
+      "patchDiff": "--- a/src/app/demo/event/page.tsx\n+++ b/src/app/demo/event/page.tsx\n@@ -74,7 +74,13 @@\n       {/* First-Party Event Hero Image Component */}\n       <div className=\"relative rounded-3xl overflow-hidden border border-surface-border\">\n-        <img\n-          id=\"event-hero-img\"\n-          src=\"/demo/assets/campus-hackathon-hero.jpg\"\n-          alt=\"PCCOE Green Campus Hackathon 2026 Banner\"\n-          className=\"w-full h-72 sm:h-96 object-cover\"\n-        />\n+        <picture>\n+          <source srcSet=\"/demo/assets/campus-hackathon-hero.webp\" type=\"image/webp\" />\n+          <img\n+            id=\"event-hero-img\"\n+            src=\"/demo/assets/campus-hackathon-hero.webp\"\n+            alt=\"PCCOE Green Campus Hackathon 2026 Banner\"\n+            width=\"1200\"\n+            height=\"400\"\n+            className=\"w-full h-72 sm:h-96 object-cover\"\n+            fetchPriority=\"high\"\n+          />\n+        </picture>\n       </div>",
+      "reviewerDecision": "approved",
+      "candidateRunIds": [
+        "run_1788603306905_ehu38",
+        "run_1788603307550_uftrg",
+        "run_1788603308203_hgyuj"
+      ],
+      "status": "candidate_tested",
+      "createdAt": "2026-09-05T10:15:04.276Z",
+      "updatedAt": "2026-09-05T10:15:08.422Z",
+      "reviewedAt": "2026-09-05T10:15:04.349Z",
+      "reviewerNotes": "Approved WebP refactor with layout preservation"
+    },
+    "exp_1788603303917_1os2": {
+      "id": "exp_1788603303917_1os2",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "baselineRunIds": [
+        "run_1788603304058_8g4nc",
+        "run_1788603304200_703is",
+        "run_1788603304369_w8k86"
+      ],
+      "affectedResourceUrl": "/demo/assets/campus-hackathon-hero.jpg",
+      "patchDiff": "--- a/src/app/demo/event/page.tsx\n+++ b/src/app/demo/event/page.tsx\n@@ -74,7 +74,13 @@\n       {/* First-Party Event Hero Image Component */}\n       <div className=\"relative rounded-3xl overflow-hidden border border-surface-border\">\n-        <img\n-          id=\"event-hero-img\"\n-          src=\"/demo/assets/campus-hackathon-hero.jpg\"\n-          alt=\"PCCOE Green Campus Hackathon 2026 Banner\"\n-          className=\"w-full h-72 sm:h-96 object-cover\"\n-        />\n+        <picture>\n+          <source srcSet=\"/demo/assets/campus-hackathon-hero.webp\" type=\"image/webp\" />\n+          <img\n+            id=\"event-hero-img\"\n+            src=\"/demo/assets/campus-hackathon-hero.webp\"\n+            alt=\"PCCOE Green Campus Hackathon 2026 Banner\"\n+            width=\"1200\"\n+            height=\"400\"\n+            className=\"w-full h-72 sm:h-96 object-cover\"\n+            fetchPriority=\"high\"\n+          />\n+        </picture>\n       </div>",
+      "reviewerDecision": "pending",
+      "candidateRunIds": [
+        "run_1788603306924_t8b6w",
+        "run_1788603307568_8jrvx",
+        "run_1788603308222_vzzky"
+      ],
+      "status": "rejected",
+      "createdAt": "2026-09-05T10:15:04.374Z",
+      "updatedAt": "2026-09-05T10:15:08.435Z"
     }
   },
   "verifications": {
@@ -13892,6 +18264,174 @@
         "Candidate rejected: One or more declared user task assertions failed. Transfer reduction cannot come at the expense of a broken user journey."
       ],
       "receiptGeneratedAt": "2026-09-05T10:08:06.360Z"
+    },
+    "ver_1788603270651_2b979": {
+      "id": "ver_1788603270651_2b979",
+      "experimentId": "exp_1788603267351_w6id",
+      "baselineMedianBytes": 2447095,
+      "candidateMedianBytes": 24342,
+      "bytesSaved": 2422753,
+      "percentSaved": 99,
+      "baselineCo2Grams": 0.2962,
+      "candidateCo2Grams": 0.0029,
+      "co2GramsSaved": 0.2933,
+      "functionalChecksPassed": false,
+      "assertionsSummary": {
+        "passed": 0,
+        "total": 3
+      },
+      "outcome": "functional_checks_failed",
+      "reasons": [
+        "Candidate rejected: One or more declared user task assertions failed. Transfer reduction cannot come at the expense of a broken user journey."
+      ],
+      "receiptGeneratedAt": "2026-09-05T10:14:30.651Z"
+    },
+    "ver_1788603272577_16h46": {
+      "id": "ver_1788603272577_16h46",
+      "experimentId": "exp_1788603270207_3px1",
+      "baselineMedianBytes": 2447095,
+      "candidateMedianBytes": 203155,
+      "bytesSaved": 2243940,
+      "percentSaved": 91.7,
+      "baselineCo2Grams": 0.2962,
+      "candidateCo2Grams": 0.0246,
+      "co2GramsSaved": 0.2716,
+      "functionalChecksPassed": true,
+      "assertionsSummary": {
+        "passed": 3,
+        "total": 3
+      },
+      "outcome": "observed_improvement",
+      "reasons": [
+        "Candidate verified: Achieved 91.7% transfer reduction (2191 KB saved) across 3 comparable runs while passing all user task assertions."
+      ],
+      "receiptGeneratedAt": "2026-09-05T10:14:32.577Z"
+    },
+    "ver_1788603272727_3jsrn": {
+      "id": "ver_1788603272727_3jsrn",
+      "experimentId": "exp_1788603267351_w6id",
+      "baselineMedianBytes": 2447095,
+      "candidateMedianBytes": 203155,
+      "bytesSaved": 2243940,
+      "percentSaved": 91.7,
+      "baselineCo2Grams": 0.2962,
+      "candidateCo2Grams": 0.0246,
+      "co2GramsSaved": 0.2716,
+      "functionalChecksPassed": true,
+      "assertionsSummary": {
+        "passed": 3,
+        "total": 3
+      },
+      "outcome": "observed_improvement",
+      "reasons": [
+        "Candidate verified: Achieved 91.7% transfer reduction (2191 KB saved) across 3 comparable runs while passing all user task assertions."
+      ],
+      "receiptGeneratedAt": "2026-09-05T10:14:32.727Z"
+    },
+    "ver_1788603285655_dnhn2": {
+      "id": "ver_1788603285655_dnhn2",
+      "experimentId": "exp_1788603283297_3i4w",
+      "baselineMedianBytes": 2447095,
+      "candidateMedianBytes": 24342,
+      "bytesSaved": 2422753,
+      "percentSaved": 99,
+      "baselineCo2Grams": 0.2962,
+      "candidateCo2Grams": 0.0029,
+      "co2GramsSaved": 0.2933,
+      "functionalChecksPassed": false,
+      "assertionsSummary": {
+        "passed": 0,
+        "total": 3
+      },
+      "outcome": "functional_checks_failed",
+      "reasons": [
+        "Candidate rejected: One or more declared user task assertions failed. Transfer reduction cannot come at the expense of a broken user journey."
+      ],
+      "receiptGeneratedAt": "2026-09-05T10:14:45.655Z"
+    },
+    "ver_1788603306386_3496j": {
+      "id": "ver_1788603306386_3496j",
+      "experimentId": "exp_1788603303857_54oh",
+      "baselineMedianBytes": 2447095,
+      "candidateMedianBytes": 24342,
+      "bytesSaved": 2422753,
+      "percentSaved": 99,
+      "baselineCo2Grams": 0.2962,
+      "candidateCo2Grams": 0.0029,
+      "co2GramsSaved": 0.2933,
+      "functionalChecksPassed": false,
+      "assertionsSummary": {
+        "passed": 0,
+        "total": 3
+      },
+      "outcome": "functional_checks_failed",
+      "reasons": [
+        "Candidate rejected: One or more declared user task assertions failed. Transfer reduction cannot come at the expense of a broken user journey."
+      ],
+      "receiptGeneratedAt": "2026-09-05T10:15:06.386Z"
+    },
+    "ver_1788603306427_f32s8": {
+      "id": "ver_1788603306427_f32s8",
+      "experimentId": "exp_1788603303917_1os2",
+      "baselineMedianBytes": 2447095,
+      "candidateMedianBytes": 203155,
+      "bytesSaved": 2243940,
+      "percentSaved": 91.7,
+      "baselineCo2Grams": 0.2962,
+      "candidateCo2Grams": 0.0246,
+      "co2GramsSaved": 0.2716,
+      "functionalChecksPassed": true,
+      "assertionsSummary": {
+        "passed": 3,
+        "total": 3
+      },
+      "outcome": "observed_improvement",
+      "reasons": [
+        "Candidate verified: Achieved 91.7% transfer reduction (2191 KB saved) across 3 comparable runs while passing all user task assertions."
+      ],
+      "receiptGeneratedAt": "2026-09-05T10:15:06.427Z"
+    },
+    "ver_1788603308417_p8h7g": {
+      "id": "ver_1788603308417_p8h7g",
+      "experimentId": "exp_1788603303857_54oh",
+      "baselineMedianBytes": 2447095,
+      "candidateMedianBytes": 203155,
+      "bytesSaved": 2243940,
+      "percentSaved": 91.7,
+      "baselineCo2Grams": 0.2962,
+      "candidateCo2Grams": 0.0246,
+      "co2GramsSaved": 0.2716,
+      "functionalChecksPassed": true,
+      "assertionsSummary": {
+        "passed": 3,
+        "total": 3
+      },
+      "outcome": "observed_improvement",
+      "reasons": [
+        "Candidate verified: Achieved 91.7% transfer reduction (2191 KB saved) across 3 comparable runs while passing all user task assertions."
+      ],
+      "receiptGeneratedAt": "2026-09-05T10:15:08.417Z"
+    },
+    "ver_1788603308429_isbpr": {
+      "id": "ver_1788603308429_isbpr",
+      "experimentId": "exp_1788603303917_1os2",
+      "baselineMedianBytes": 2447095,
+      "candidateMedianBytes": 24342,
+      "bytesSaved": 2422753,
+      "percentSaved": 99,
+      "baselineCo2Grams": 0.2962,
+      "candidateCo2Grams": 0.0029,
+      "co2GramsSaved": 0.2933,
+      "functionalChecksPassed": false,
+      "assertionsSummary": {
+        "passed": 0,
+        "total": 3
+      },
+      "outcome": "functional_checks_failed",
+      "reasons": [
+        "Candidate rejected: One or more declared user task assertions failed. Transfer reduction cannot come at the expense of a broken user journey."
+      ],
+      "receiptGeneratedAt": "2026-09-05T10:15:08.429Z"
     }
   },
   "budgets": {

@@ -91,6 +91,8 @@ test("Carbonerra Chat Workspace — Grounded Tool Execution Suite", async (t) =>
     assert.ok(typeof data.tool_output.passed === "boolean");
   });
 
+  let sharedExpId = "";
+
   await t.test("6. POST /api/chat prepares Savings Lab experiment with 3 baseline passes", async () => {
     const res = await fetch(`${BASE_URL}/api/chat`, {
       method: "POST",
@@ -104,22 +106,16 @@ test("Carbonerra Chat Workspace — Grounded Tool Execution Suite", async (t) =>
     assert.ok(data.tool_output.experimentId);
     assert.ok(data.tool_output.baselineMedianBytes > 1000000);
     assert.ok(data.actionLinks && data.actionLinks.length > 0);
+    sharedExpId = data.tool_output.experimentId;
   });
 
   await t.test("7. POST /api/chat tests candidate and asserts task preservation", async () => {
-    // First prepare an experiment to ensure an active ID
-    const prepRes = await fetch(`${BASE_URL}/api/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: "prepare experiment" }),
-    });
-    const prepData = await prepRes.json();
-    const expId = prepData.tool_output.experimentId;
+    assert.ok(sharedExpId, "Shared experiment ID must be established");
 
     const testRes = await fetch(`${BASE_URL}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: "test candidate", context: { experimentId: expId } }),
+      body: JSON.stringify({ message: "test candidate", context: { experimentId: sharedExpId } }),
     });
 
     assert.equal(testRes.status, 200);
@@ -131,18 +127,12 @@ test("Carbonerra Chat Workspace — Grounded Tool Execution Suite", async (t) =>
   });
 
   await t.test("8. POST /api/chat rejects broken candidate via task assertion guardrail", async () => {
-    const prepRes = await fetch(`${BASE_URL}/api/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: "prepare experiment" }),
-    });
-    const prepData = await prepRes.json();
-    const expId = prepData.tool_output.experimentId;
+    assert.ok(sharedExpId, "Shared experiment ID must be established");
 
     const testRes = await fetch(`${BASE_URL}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: "test broken candidate", context: { experimentId: expId } }),
+      body: JSON.stringify({ message: "test broken candidate", context: { experimentId: sharedExpId } }),
     });
 
     assert.equal(testRes.status, 200);
