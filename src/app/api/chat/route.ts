@@ -41,13 +41,13 @@ export async function POST(req: NextRequest) {
         const google = createGoogleGenerativeAI({ apiKey });
         const aiResponse = await generateText({
           model: google("gemini-2.0-flash"),
-          system: `You are Carbonerra's agentic digital sustainability assistant.
-You operate on REAL network measurements and the Sustainable Web Design Model (SWDM v4).
-RULES:
-1. NEVER invent, guess, estimate without tools, or hallucinate metrics.
-2. Always execute one of the provided tools to answer factual questions about websites, payload sizes, digital carbon emissions, experiments, or release budgets.
-3. Every figure you mention must come directly from tool outputs.
-4. Active context: ${JSON.stringify(context)}. Use these IDs or URLs when the user refers to "this site", "this experiment", "this test", or "the budget".`,
+          system: `You are Carbonerra AI, an intelligent, versatile, and friendly assistant. You can converse naturally about anything—including greetings, general conversation, programming, web architecture, and performance optimization—as well as specialized digital carbon telemetry using the Sustainable Web Design Model (SWDM v4).
+
+GUIDELINES:
+1. For greetings ("hi", "hello"), general questions, coding advice, or casual conversation, answer warmly, clearly, and helpfully without forcing tools.
+2. When the user asks to audit a website, compare sites, simulate optimizations, prepare experiments, test candidates, or check release budgets, call the corresponding tool.
+3. Every metric or calculation you state for tools must come directly from tool outputs.
+4. Active context: ${JSON.stringify(context)}.`,
           prompt: message,
           tools: carbonerraAiTools,
         });
@@ -118,7 +118,6 @@ RULES:
 
     // 3. Candidate Verification & Task Preservation: "test candidate", "verify candidate", "test broken"
     if (lower.includes("test candidate") || lower.includes("verify candidate") || lower.includes("test broken") || lower.includes("run verification")) {
-      // Find experiment ID from context or repository
       const allExps = StorageRepository.listExperiments();
       const expId = context.experimentId || (allExps.length > 0 ? allExps[0].id : null);
 
@@ -153,8 +152,8 @@ RULES:
       return NextResponse.json({ reply, tool_used: toolUsed, tool_output: toolOutput, engine: "carbonerra-grounded", actionLinks });
     }
 
-    // 4. Release Shield Budget Evaluation: "evaluate budget", "check shield", "ci check", "budget check"
-    if (lower.includes("evaluate budget") || lower.includes("release shield") || lower.includes("ci check") || lower.includes("budget") || lower.includes("shield")) {
+    // 4. Release Shield Budget Evaluation: "evaluate release shield budget", "evaluate budget", "check budget"
+    if (lower.includes("evaluate release shield") || lower.includes("evaluate budget") || (lower.includes("budget") && (lower.includes("shield") || lower.includes("ci") || lower.includes("evaluate")))) {
       const variant = lower.includes("broken") ? "broken_candidate" : lower.includes("candidate") ? "candidate" : "baseline";
       toolUsed = `evaluate_budget({ variant: "${variant}" })`;
       toolOutput = await executeEvaluateBudget({ variant });
@@ -199,9 +198,7 @@ ${toolOutput.breaches.length > 0 ? `\n**Budget Breaches Detected**:\n${toolOutpu
     }
 
     // 6. Scenario Simulation: "simulate", "what if"
-    // Dynamically parses user lever inputs (zero levers = zero delta, strictly grounded)
-    if (lower.includes("simulate") || lower.includes("what if") || lower.includes("compress") || lower.includes("defer")) {
-      // Find baseline bytes from context or latest audit
+    if (lower.includes("simulate") || lower.includes("what if") || (lower.includes("compress") && lower.includes("%")) || (lower.includes("defer") && lower.includes("%"))) {
       let baseBytes = 0;
       if (context.auditId) {
         const run = StorageRepository.getRun(context.auditId);
@@ -212,12 +209,10 @@ ${toolOutput.breaches.length > 0 ? `\n**Budget Breaches Detected**:\n${toolOutpu
         if (recentRuns.length > 0) baseBytes = recentRuns[0].totalBytes;
       }
       if (!baseBytes) {
-        // Run a lightweight baseline if none exists
         const quickAudit = await performAudit(context.targetUrl || "pccoe.org");
         baseBytes = quickAudit.total_bytes;
       }
 
-      // Dynamically extract levers from user input without hardcoded defaults
       const imgMatch = message.match(/(\d+)%\s*(?:image|avif|webp|img|photo)/i);
       const jsMatch = message.match(/(\d+)%\s*(?:js|javascript|script|defer|tree)/i);
       const greenHosting = /green|renewable/i.test(message);
@@ -247,28 +242,37 @@ ${toolOutput.breaches.length > 0 ? `\n**Budget Breaches Detected**:\n${toolOutpu
     if (auditMatch) {
       const rawUrl = auditMatch[1];
       toolUsed = `investigate_audit({ targetUrl: "${rawUrl}" })`;
-      toolOutput = await executeInvestigateAudit({ targetUrl: rawUrl });
+      try {
+        toolOutput = await executeInvestigateAudit({ targetUrl: rawUrl });
 
-      const topHotspot = toolOutput.hotspots?.[0];
-      const hotspotText = topHotspot
-        ? `\n- **Primary Hotspot**: ${topHotspot.title} (${topHotspot.size}) — ${topHotspot.fixAction}`
-        : "";
+        const topHotspot = toolOutput.hotspots?.[0];
+        const hotspotText = topHotspot
+          ? `\n- **Primary Hotspot**: ${topHotspot.title} (${topHotspot.size}) — ${topHotspot.fixAction}`
+          : "";
 
-      reply = `Live audit completed for **${toolOutput.domain}**:
+        const confText = typeof toolOutput.confidence === "object" && toolOutput.confidence
+          ? `${toolOutput.confidence.rating} (${toolOutput.confidence.score}/100)`
+          : `${toolOutput.confidence || "High"}`;
+
+        reply = `Live audit completed for **${toolOutput.domain}**:
 - **Total Transfer**: ${(toolOutput.totalBytes / (1024 * 1024)).toFixed(2)} MB
 - **Emissions**: **${toolOutput.co2Grams}g CO2e** per page view (EcoScore **Grade ${toolOutput.ecoScore}**)
 - **Hosting**: ${toolOutput.hosting.isGreen ? "Verified green hosting" : "Standard power grid"} (${toolOutput.gridIntensity.country}, ${toolOutput.gridIntensity.val} gCO2/kWh)
-- **Confidence Rating**: ${toolOutput.confidence.rating} (${toolOutput.confidence.score}/100)${hotspotText}`;
+- **Confidence Rating**: ${confText}${hotspotText}`;
 
-      actionLinks = [
-        { label: `View Full Audit for ${toolOutput.domain}`, href: `/?url=${encodeURIComponent(toolOutput.targetUrl)}` },
-        { label: "Create Savings Lab Experiment", href: "/savings-lab" },
-      ];
-      return NextResponse.json({ reply, tool_used: toolUsed, tool_output: toolOutput, engine: "carbonerra-grounded", actionLinks });
+        actionLinks = [
+          { label: `View Full Audit for ${toolOutput.domain}`, href: `/?url=${encodeURIComponent(toolOutput.targetUrl)}` },
+          { label: "Create Savings Lab Experiment", href: "/savings-lab" },
+        ];
+        return NextResponse.json({ reply, tool_used: toolUsed, tool_output: toolOutput, engine: "carbonerra-grounded", actionLinks });
+      } catch (auditErr: any) {
+        reply = `I attempted to audit **${rawUrl}**, but encountered an issue: ${auditErr.message || "Domain resolution failed"}.\n\nPlease check for typos or try a public domain like \`stripe.com\` or \`example.com\`.`;
+        return NextResponse.json({ reply, tool_used: toolUsed, tool_output: null, engine: "carbonerra-grounded" });
+      }
     }
 
     // 8. Explain for Executive / Score Details: "explain for exec", "why is this a C", "details"
-    if (lower.includes("explain") || lower.includes("executive") || lower.includes("why is this") || lower.includes("details") || lower.includes("score")) {
+    if (lower.includes("explain for exec") || lower.includes("executive brief") || lower.includes("why is this a") || lower.includes("score details")) {
       const recentRuns = StorageRepository.listRuns();
       const targetRun = context.auditId ? StorageRepository.getRun(context.auditId) : recentRuns[0];
 
@@ -289,23 +293,321 @@ ${toolOutput.breaches.length > 0 ? `\n**Budget Breaches Detected**:\n${toolOutpu
       return NextResponse.json({ reply, tool_used: toolUsed, tool_output: toolOutput, engine: "carbonerra-grounded", actionLinks });
     }
 
-    // Default: Grounded Guidance with Real Capabilities
-    reply = `I am Carbonerra's grounded sustainability assistant. Every calculation I perform uses real network observations and the Sustainable Web Design Model (SWDM v4).
+    // =========================================================================
+    // NATURAL CONVERSATION & GENERAL ASSISTANCE (Not Project-Restricted)
+    // =========================================================================
 
-Available real-world actions you can trigger:
-- **Audit any website**: *"check stripe.com"* or *"audit github.com"*
-- **Dual-site comparison**: *"compare vercel.com with stripe.com"*
-- **Simulate scenario**: *"what if 80% image compression and green hosting?"*
-- **Prepare experiment**: *"prepare experiment for campus-events"*
-- **Test candidate**: *"test candidate"* or *"test broken candidate"*
-- **Evaluate CI budget**: *"evaluate release shield budget"*
-- **Executive summary**: *"explain score for executives"*`;
+    // 9. Greetings & Salutations ("hi", "hello", "hey", "good morning", etc.)
+    if (
+      /^(hi|hello|hey|heyy|heya|howdy|sup|yo|greetings|good\s+(morning|afternoon|evening|day))[\s!.,?]*$/i.test(message) ||
+      (/\b(hi|hello|hey)\b/i.test(lower) && message.split(/\s+/).length <= 4)
+    ) {
+      reply = `Hello! 👋 Great to meet you. I'm your AI assistant!
 
-    return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-grounded" });
+I can chat about anything you'd like—from general programming, web performance, and software architecture, to live digital carbon footprint audits and optimization.
+
+How can I help you today?`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 10. Small Talk & Well-Being ("how are you", "what's up", "how are things")
+    if (/\b(how\s+are\s+you|how's\s+it\s+going|how\s+are\s+things|what's\s+up|wassup|how\s+do\s+you\s+do)\b/i.test(lower)) {
+      reply = `I'm doing great, thank you for asking! 🚀
+
+I'm ready to help you with code, answer web development questions, run live audits on any website, or just chat.
+
+How is your day going? What are you working on?`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 11. Identity & Capabilities ("who are you", "what can you do", "help", "who made you")
+    if (
+      /^(help|\?)$/i.test(message.trim()) ||
+      /\b(who\s+are\s+you|what\s+is\s+your\s+name|what\s+can\s+you\s+do|tell\s+me\s+about\s+yourself|who\s+made\s+you|what\s+are\s+you|capabilities)\b/i.test(lower)
+    ) {
+      reply = `I'm **Carbonerra AI**—your intelligent companion for general conversation, full-stack web development, and digital carbon intelligence! ⚡
+
+Here are some things we can do:
+- 💬 **General Chat & Coding**: Ask me anything about JavaScript, TypeScript, React, Next.js, CSS, performance optimization, or software architecture.
+- ⚡ **Live Website Audits**: Type \`check stripe.com\` or \`audit vercel.com\` to inspect real page payloads, transfer sizes, and carbon emissions.
+- ⚖️ **Dual-Site Comparisons**: Compare two domains with \`compare vercel.com with stripe.com\`.
+- 🧪 **What-If Scenario Modeling**: Ask \`what if 80% image compression and green hosting?\` to simulate real-world efficiency gains.
+- 🛡️ **CI/CD Release Shield**: Enforce 350 KB payload ceilings with \`evaluate release shield budget\`.
+
+Feel free to ask any question or try one of the actions above!`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 12. Gratitude & Politeness ("thanks", "thank you", "awesome", "cool", "nice")
+    if (/\b(thank\s+you|thanks|thx|awesome|cool|great|amazing|good\s+job|nice\s+one|perfect|appreciate)\b/i.test(lower) && message.split(/\s+/).length <= 7) {
+      reply = `You're very welcome! Always happy to help. 😊
+
+Let me know if you want to explore anything else, ask another question, or run another test!`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 13. Humor
+    if (/\b(tell\s+me\s+a\s+joke|make\s+me\s+laugh|joke)\b/i.test(lower)) {
+      reply = `Why do programmers always prefer dark mode?
+Because light attracts bugs! 🐛✨
+
+Got any coding or web questions you want to dive into today?`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 14. Centering a Div / CSS Layout
+    if (/\b(center\s+a\s+div|center\s+elements?|css\s+center|how\s+to\s+center)\b/i.test(lower)) {
+      reply = `Here are the two cleanest, most modern ways to center a \`div\` in CSS:
+
+**1. CSS Grid (Easiest — 2 lines):**
+\`\`\`css
+.parent {
+  display: grid;
+  place-items: center;
+}
+\`\`\`
+
+**2. Flexbox (Most versatile):**
+\`\`\`css
+.parent {
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center;     /* Vertical centering */
+}
+\`\`\`
+
+Both methods work seamlessly across all modern browsers without needing legacy absolute positioning hacks!`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 15. What is React / Explain React
+    if (/\b(what\s+is\s+react|explain\s+react|react\s+vs\s+vue|react\s+basics)\b/i.test(lower)) {
+      reply = `**React** is a declarative, component-based JavaScript library for building user interfaces, maintained by Meta and an open-source community:
+
+1. **Component-Based**: You break the UI down into small, reusable building blocks (components) that manage their own state.
+2. **Declarative & Reactive**: You describe what the UI should look like for any given state, and React efficiently updates the DOM when state changes using a Virtual DOM or compiler optimizations.
+3. **Rich Ecosystem**: Powers millions of web apps, mobile apps via React Native, and full-stack frameworks like Next.js and Remix.
+
+Are you building a React component right now, or curious about hooks like \`useState\` and \`useEffect\`?`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 16. What is Next.js / Server Components
+    if (/\b(what\s+is\s+next\.?js|why\s+next\.?js|explain\s+next\.?js|server\s+components|nextjs)\b/i.test(lower)) {
+      reply = `**Next.js** is a production React framework by Vercel that brings full-stack capabilities to React:
+
+- 🚀 **Server-Side Rendering (SSR)** & **Static Site Generation (SSG)**: Renders pages on the server for ultra-fast initial page loads and superior SEO.
+- ⚡ **React Server Components (RSC)**: Runs components on the server with zero client-side JavaScript overhead.
+- 📁 **File-System Routing**: Routes are defined simply by folder structure in the \`app/\` directory.
+- 🛠️ **Built-in Optimizations**: Automatic image optimization (\`next/image\`), font optimization, script loading strategies, and API route handlers.
+
+It powers modern applications (including Carbonerra!) for peak performance and minimal data transfer.`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 17. What is TypeScript
+    if (/\b(what\s+is\s+typescript|why\s+typescript|typescript\s+vs\s+javascript|explain\s+ts)\b/i.test(lower)) {
+      reply = `**TypeScript** is a strongly typed superset of JavaScript developed by Microsoft:
+
+1. **Static Type Safety**: Catches bugs, null-pointer exceptions, and typos at compile-time before your code ever runs in production.
+2. **Superior Developer Experience**: Powers instant autocomplete, refactoring tools, and parameter documentation in IDEs like VS Code.
+3. **Compiles to Clean JavaScript**: Browsers don't run TypeScript directly; it strips types away and outputs standards-compliant JavaScript.
+
+\`\`\`typescript
+interface User {
+  id: string;
+  name: string;
+  ecoScore?: "A+" | "A" | "B" | "C";
+}
+
+function greetUser(user: User): string {
+  return \`Welcome, \${user.name}!\`;
+}
+\`\`\`
+
+Would you like help typing a specific function or data structure?`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 18. JavaScript: let vs const vs var
+    if (/\b(let\s+vs\s+const|const\s+vs\s+var|let\s+const\s+var|difference\s+between\s+(let|const|var))\b/i.test(lower)) {
+      reply = `Here is the quick breakdown of \`const\`, \`let\`, and \`var\` in modern JavaScript:
+
+- **\`const\` (Default choice)**: Block-scoped. Cannot be reassigned. (Note: objects/arrays declared with \`const\` can still have their internal properties mutated).
+- **\`let\`**: Block-scoped. Can be reassigned. Use when you know a value will change (e.g., in a loop counter or accumulator).
+- **\`var\` (Legacy)**: Function-scoped and hoisted. Can lead to tricky bugs and variable leaking; generally avoided in modern ES6+ code.
+
+**Rule of thumb:** Always use \`const\` by default. Switch to \`let\` only when reassignment is needed. Avoid \`var\`.`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 19. Coding snippet: Reverse a String
+    if (/\b(reverse\s+a\s+string|reverse\s+string)\b/i.test(lower)) {
+      reply = `Here are two ways to reverse a string in JavaScript:
+
+**1. Modern Idiomatic Way (One-liner):**
+\`\`\`javascript
+const reverseString = (str) => str.split("").reverse().join("");
+
+console.log(reverseString("carbonerra")); // "arrenobrac"
+\`\`\`
+
+**2. Fast For-Loop (Handles complex unicode / no array allocation):**
+\`\`\`javascript
+function reverseString(str) {
+  let reversed = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    reversed += str[i];
+  }
+  return reversed;
+}
+\`\`\`
+
+Let me know if you want to see an in-place algorithm or solve another algorithmic challenge!`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 20. What is an API / REST vs GraphQL
+    if (/\b(what\s+is\s+an?\s+api|rest\s+vs\s+graphql|explain\s+api)\b/i.test(lower)) {
+      reply = `An **API** (Application Programming Interface) allows two software systems to communicate and exchange data:
+
+- **REST APIs**:
+  - Uses standard HTTP methods: \`GET\` (read), \`POST\` (create), \`PUT\`/\`PATCH\` (update), \`DELETE\` (remove).
+  - Organized around resource endpoints (e.g., \`/api/audits\`, \`/api/projects\`).
+  - Simple, heavily cached by HTTP proxies and CDNs.
+
+- **GraphQL**:
+  - Exposes a single endpoint (typically \`/graphql\`).
+  - Clients specify exact fields they need in a query, eliminating over-fetching and under-fetching.
+
+Would you like to see how an endpoint is built in Next.js or Node?`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 21. Science / Trivia / Fun Questions ("why is the sky blue", "fun fact")
+    if (/\b(why\s+is\s+the\s+sky\s+blue)\b/i.test(lower)) {
+      reply = `The sky appears blue because of a physical phenomenon called **Rayleigh scattering**:
+
+1. Sunlight reaches Earth's atmosphere as white light containing all colors of the visible spectrum.
+2. Gas molecules in the atmosphere (nitrogen and oxygen) scatter shorter wavelengths of light (blue and violet) much more strongly than longer wavelengths (red and yellow).
+3. Even though violet light is scattered slightly more than blue, our human eyes have receptors that are far more sensitive to blue light, so we perceive the sky as vibrant blue! ☀️🌍`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    if (/\b(fun\s+fact|random\s+fact|tell\s+me\s+a\s+fact|trivia)\b/i.test(lower)) {
+      reply = `Here is a fascinating tech fact for you: 💡
+      
+The first recorded computer "bug" was an **actual physical insect**! On September 9, 1947, computer scientist Grace Hopper's team found a moth trapped between the relays of the Harvard Mark II computer, causing errors. They taped it into their logbook with the entry: *"First actual case of bug being found."* 🦋💻`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 22. Goodbyes & Parting words ("bye", "good night", "see you")
+    if (/\b(bye|goodbye|see\s+you|cya|good\s+night|have\s+a\s+good\s+one)\b/i.test(lower) && message.split(/\s+/).length <= 5) {
+      reply = `Goodbye! 👋 Have a wonderful day ahead, and don't hesitate to drop back in whenever you have questions or want to test another website!`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 23. Image Optimization / WebP / AVIF
+    if (/\b(webp|avif|image\s+optimization|compress\s+images?|optimize\s+images?|image\s+formats?)\b/i.test(lower)) {
+      reply = `Optimizing images is often the single highest-impact performance improvement for any web application:
+
+1. **Modern Formats**:
+   - **WebP**: Supported by >97% of browsers, offering ~25–35% smaller file sizes than JPEG at identical visual quality.
+   - **AVIF**: Next-generation format based on AV1, providing up to 50% reduction with superior compression in complex gradients.
+
+2. **Responsive \`<picture>\` Implementation**:
+\`\`\`html
+<picture>
+  <source srcset="/hero.avif" type="image/avif" />
+  <source srcset="/hero.webp" type="image/webp" />
+  <img src="/hero.jpg" alt="Hero Banner" loading="lazy" decoding="async" width="1200" height="600" />
+</picture>
+\`\`\`
+
+3. **Key Best Practices**:
+   - Always declare explicit \`width\` and \`height\` attributes to prevent Cumulative Layout Shift (CLS).
+   - Add \`loading="lazy"\` to below-the-fold imagery.
+   - Set high-priority hero images to \`fetchpriority="high"\` or Next.js \`<Image priority />\` to accelerate Largest Contentful Paint (LCP).
+
+Want to see the projected carbon savings of image optimization on a live baseline? Try: \`what if 80% image compression\`!`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 24. Caching & CDN Strategies
+    if (/\b(caching|cache-control|cdn|ttl|browser\s+cache)\b/i.test(lower)) {
+      reply = `Efficient caching eliminates redundant server trips and slashes page load latency:
+
+1. **Immutable Static Bundles** (content-hashed files like \`main.a1b2c3.js\` and fonts):
+   \`Cache-Control: public, max-age=31536000, immutable\`
+
+2. **Dynamic HTML & APIs**:
+   \`Cache-Control: public, max-age=0, must-revalidate\` or use CDN stale-while-revalidate:
+   \`Cache-Control: s-maxage=60, stale-while-revalidate=300\`
+
+3. **Edge Networks**:
+   Deploying through a global CDN (Cloudflare, Fastly, AWS CloudFront, Vercel) caches assets geographically close to visitors, reducing transit emissions and round-trip times.
+
+Want to check a specific website's caching and transfer payload? Try typing \`check <domain.com>\`!`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 25. JavaScript Bundle Reduction & Tree-Shaking
+    if (/\b(bundle\s+size|tree\s+shaking|code\s+splitting|reduce\s+js|javascript\s+performance)\b/i.test(lower)) {
+      reply = `Minimizing JavaScript transfer is essential for fast Time to Interactive (TTI) and low main-thread blocking on mobile:
+
+1. **Dynamic Imports (\`next/dynamic\` or \`React.lazy\`)**:
+   Code-split heavy modals, graphs, or rich-text editors so they are only downloaded when invoked:
+   \`\`\`javascript
+   const HeavyChart = dynamic(() => import('@/components/chart'), { ssr: false });
+   \`\`\`
+
+2. **Dependency Tree-Shaking**:
+   Audit packages with \`npx @next/bundle-analyzer\` or \`source-map-explorer\`. Import specific functions instead of entire libraries:
+   \`\`\`javascript
+   // Good: Tree-shakeable import
+   import debounce from 'lodash-es/debounce';
+   \`\`\`
+
+3. **Script Deferral**:
+   Load non-critical marketing and analytics scripts asynchronously with \`defer\` or Next.js \`<Script strategy="lazyOnload" />\`.`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 26. Digital Carbon Footprint & SWDM v4
+    if (/\b(digital\s+carbon|how\s+is\s+carbon\s+measured|swdm|sustainable\s+web|green\s+hosting|grid\s+intensity)\b/i.test(lower)) {
+      reply = `Every byte transferred over the internet consumes electrical energy across data centers, transmission networks, and end-user devices:
+
+- **The Sustainable Web Design Model (SWDM v4)**:
+  Developed by Wholegrain Digital, Mightybytes, Medina Works, and The Green Web Foundation, it converts network bytes into energy (kWh) and applies regional grid emission intensity factors (gCO2e/kWh).
+- **System Boundaries**:
+  - 15% Data Center
+  - 14% Network Transmission
+  - 52% End-User Device
+  - 19% Production & Embodied Carbon
+- **Renewable Energy (Green Hosting)**:
+  When a website runs on verified renewable data centers, its hosting emission factor drops significantly.
+
+Want to test any live website? Simply type \`check stripe.com\` or \`audit github.com\`!`;
+      return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
+    }
+
+    // 27. General Friendly Conversationalist (Natural, warm fallback for any open inquiry)
+    reply = `I'm happy to help! You can ask me anything about software engineering, frontend frameworks, general programming, web performance, or live website audits.
+
+Here are a few popular things to ask:
+- 💻 **Coding**: *"How do I center a div?"*, *"Explain React vs Vue"*, *"What is TypeScript?"*
+- ⚡ **Performance**: *"How to optimize images?"*, *"How does CDN caching work?"*
+- 🔍 **Live Audit**: *"check stripe.com"* (measures live transfer payload & CO2e)
+- ⚖️ **Compare**: *"compare vercel.com with stripe.com"*
+- 🧪 **Simulation**: *"what if 80% image compression?"*
+
+What would you like to explore?`;
+
+    return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
   } catch (error: any) {
     console.error("[Chat API Error]", error);
     return NextResponse.json(
-      { error: error.message || "Chat agent encountered an issue executing real tool." },
+      { error: error.message || "Chat agent encountered an issue." },
       { status: 500 }
     );
   }

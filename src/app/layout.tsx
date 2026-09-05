@@ -8,6 +8,8 @@ import { SmoothScrollProvider } from "@/components/providers/smooth-scroll";
 import { CyberGrid3D } from "@/components/3d/cyber-grid-3d";
 import { CursorOrb3D } from "@/components/3d/cursor-orb-3d";
 
+import { MainWrapper } from "@/components/layout/main-wrapper";
+
 export const metadata: Metadata = {
   title: "CARBONERRA — 3D Cyber-Physical Digital Sustainability Telemetry | PCCOE Hackathon",
   description:
@@ -34,9 +36,7 @@ export default function RootLayout({
           <CyberGrid3D />
           <CursorOrb3D />
           <Header />
-          <main id="main-content" className="flex-1 pt-24 px-4 sm:px-8 max-w-7xl mx-auto w-full relative z-10">
-            {children}
-          </main>
+          <MainWrapper>{children}</MainWrapper>
           <Footer />
           <AgenticChat />
         </SmoothScrollProvider>

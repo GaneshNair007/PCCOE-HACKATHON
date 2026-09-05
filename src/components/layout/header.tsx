@@ -10,6 +10,22 @@ import { Zap, Activity, Sliders, LineChart, Cpu, ShieldCheck, Menu, X } from "lu
 export function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
+
+  React.useEffect(() => {
+    if (pathname !== "/") {
+      setScrolledPastHero(true);
+      return;
+    }
+    const handleScroll = () => {
+      setScrolledPastHero(window.scrollY > 420);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [pathname]);
+
+  const showHeader = pathname !== "/" || scrolledPastHero;
 
   const navItems = [
     { label: "OVERVIEW", href: "/", icon: Zap },
@@ -27,22 +43,30 @@ export function Header() {
   ];
 
   return (
-    <header className="fixed top-4 left-0 right-0 z-40 px-4 sm:px-8 max-w-7xl mx-auto flex items-center justify-between">
+    <header
+      className={cn(
+        "fixed top-4 left-0 right-0 z-40 px-4 sm:px-8 max-w-7xl mx-auto flex items-center justify-between transition-all duration-500 ease-out",
+        showHeader
+          ? "opacity-100 translate-y-0 pointer-events-auto"
+          : "opacity-0 -translate-y-8 pointer-events-none"
+      )}
+    >
       {/* Brand Logo */}
       <Link
         href="/"
+        data-spec
         className="flex items-center gap-2.5 px-4 py-2.5 rounded-full glass-panel-elevated group transition-all"
       >
         <div className="w-7 h-7 rounded-full bg-lime text-forest-950 flex items-center justify-center font-bold text-xs shadow-lime group-hover:rotate-12 transition-transform">
           ⚡
         </div>
-        <span className="font-display tracking-widest text-cream text-base sm:text-lg">
+        <span className="font-sans font-bold tracking-widest text-cream text-base sm:text-lg">
           CARBONERRA
         </span>
       </Link>
 
       {/* Desktop Navigation Pill: Overview | Savings Lab | Evidence | Shield */}
-      <nav className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel shadow-glass">
+      <nav data-spec className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel shadow-glass">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           const Icon = item.icon;
@@ -77,6 +101,7 @@ export function Header() {
       <div className="flex items-center gap-2 sm:gap-3">
         <Link
           href="/shield"
+          data-spec
           title="Regression Shield Active Budget"
           className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel border border-lime/30 text-[11px] font-mono tracking-wider font-semibold text-cream hover:border-lime/60 transition-colors"
         >

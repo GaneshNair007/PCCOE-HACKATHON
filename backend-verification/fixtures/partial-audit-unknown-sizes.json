@@ -1,0 +1,49 @@
+{
+  "description": "FIXTURE_ONLY: Partial audit containing resources with unknown sizes. Unknown sizes must remain unknown and never be invented.",
+  "fixtureType": "PARTIAL_AUDIT_UNKNOWN_SIZES",
+  "auditId": "audit-fixture-partial-unknown",
+  "targetUrl": "http://127.0.0.1:3001/demo/partial-feed",
+  "domain": "127.0.0.1",
+  "scannedAt": "2026-09-06T00:00:00.000Z",
+  "provenance": {
+    "collector": "Static Resource Crawler",
+    "verified": false,
+    "environment": "Controlled Synthetic Fixture",
+    "note": "Some stream responses omit Content-Length"
+  },
+  "measurements": {
+    "knownBytes": 150000,
+    "unknownResourceCount": 2,
+    "resources": [
+      {
+        "url": "/demo/feed-stream",
+        "type": "other",
+        "sizeBytes": null,
+        "transferBytes": null,
+        "isUnknown": true,
+        "reason": "Chunked transfer encoding without Content-Length header"
+      },
+      {
+        "url": "/demo/external-tracker.js",
+        "type": "script",
+        "sizeBytes": null,
+        "transferBytes": null,
+        "isUnknown": true,
+        "reason": "Third-party CORS blocked inspection"
+      },
+      {
+        "url": "/demo/header.png",
+        "type": "image",
+        "sizeBytes": 150000,
+        "transferBytes": 150000,
+        "isUnknown": false
+      }
+    ]
+  },
+  "carbon": {
+    "isDefinitive": false,
+    "calculatedOnKnownOnly": true,
+    "co2Grams": 0.03,
+    "warning": "Page contains 2 unknown resources; footprint is an incomplete lower bound"
+  }
+}

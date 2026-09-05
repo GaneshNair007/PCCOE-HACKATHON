@@ -1,0 +1,819 @@
+{
+  "sessions": {
+    "sess-user-alpha": {
+      "sessionId": "sess-user-alpha",
+      "createdAt": "2026-09-05T19:33:40.211Z",
+      "lastActiveAt": "2026-09-05T19:33:40.211Z",
+      "userConstraints": {
+        "canEditSource": false
+      },
+      "messages": [
+        {
+          "id": "m1",
+          "role": "user",
+          "content": "Alpha secret plan",
+          "timestamp": "2026-09-05T19:33:40.211Z"
+        }
+      ]
+    },
+    "sess-user-beta": {
+      "sessionId": "sess-user-beta",
+      "createdAt": "2026-09-05T19:33:40.211Z",
+      "lastActiveAt": "2026-09-05T19:33:40.211Z",
+      "userConstraints": {
+        "canEditSource": true
+      },
+      "messages": [
+        {
+          "id": "m2",
+          "role": "user",
+          "content": "Beta query",
+          "timestamp": "2026-09-05T19:33:40.211Z"
+        }
+      ]
+    },
+    "sess-1788626293188": {
+      "sessionId": "sess-1788626293188",
+      "createdAt": "2026-09-05T16:38:13.189Z",
+      "lastActiveAt": "2026-09-05T16:38:13.189Z",
+      "userConstraints": {},
+      "messages": [
+        {
+          "id": "msg-1788626293189",
+          "role": "user",
+          "content": "How much carbon does PCCOE save if images drop 40%?",
+          "timestamp": "2026-09-05T16:38:13.189Z"
+        }
+      ]
+    }
+  },
+  "projects": {
+    "proj-campus-hackathon": {
+      "id": "proj-campus-hackathon",
+      "name": "Campus Hackathon Registration Portal",
+      "targetUrl": "http://localhost:3002/demo/event",
+      "source": "sidecar-controlled-fixture",
+      "capturedAt": "2026-09-05T16:33:50.013Z",
+      "breakdown": {
+        "imagesBytes": 2450000,
+        "scriptBytes": 120000,
+        "styleBytes": 25000,
+        "fontBytes": 45000,
+        "documentBytes": 8000,
+        "otherBytes": 2000,
+        "totalBytes": 2650000
+      },
+      "carbonEstimate": {
+        "bytes": 2650000,
+        "kilobytes": 2587.89,
+        "megabytes": 2.5272,
+        "kwh": 0.000142,
+        "gCO2e": 0.0654,
+        "uncertaintyRange": {
+          "low": 0.0523,
+          "nominal": 0.0654,
+          "high": 0.0784,
+          "note": "Standard ±20% grid & client device model sensitivity bound per SWDM v4 guidelines"
+        },
+        "segmentBreakdown": {
+          "dataCenterGco2": 0.0094,
+          "networkGco2": 0.0088,
+          "userDeviceGco2": 0.0327,
+          "hardwareProductionGco2": 0.0144
+        },
+        "provenance": {
+          "methodology": "SWDM-4.0 (Sustainable Web Design Model v4)",
+          "energyIntensityFactor": "0.0577 kWh/GB",
+          "gridFactor": "442 gCO2/kWh operational, 531 gCO2/kWh embodied",
+          "calculatedAt": "2026-09-05T16:33:50.013Z"
+        }
+      },
+      "provenance": {
+        "verified": true,
+        "note": "Locally controlled demo fixture with reproducible baseline and candidate variants",
+        "collector": "Sidecar Physical Journey Runner"
+      }
+    }
+  },
+  "experiments": {
+    "exp-hackathon-poster": {
+      "id": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "name": "Hero Poster Optimization: WebP + Responsive Picture",
+      "description": "Replace 2.45MB raw JPEG poster with 185KB high-fidelity WebP asset while preserving student registration CTA and form validation.",
+      "targetFile": "src/app/demo/event/page.tsx",
+      "baselineVariant": {
+        "id": "baseline",
+        "name": "Oversized Baseline (Raw JPEG)",
+        "description": "2.45MB uncompressed JPEG hero banner. High transfer payload.",
+        "heroAssetUrl": "/demo/hero-poster.jpg",
+        "encodedAssetBytes": 2450000,
+        "format": "jpeg",
+        "taskPreserved": true,
+        "fixturePath": "/demo/event?variant=baseline"
+      },
+      "candidateVariants": {
+        "optimized": {
+          "id": "optimized",
+          "name": "Optimized Candidate (Responsive WebP)",
+          "description": "185KB WebP responsive picture element. 92.4% asset byte reduction. Full registration task preserved.",
+          "heroAssetUrl": "/demo/hero-poster.webp",
+          "encodedAssetBytes": 185000,
+          "format": "webp",
+          "taskPreserved": true,
+          "fixturePath": "/demo/event?variant=optimized"
+        },
+        "broken": {
+          "id": "broken",
+          "name": "Broken Candidate (Broken Form Handlers)",
+          "description": "140KB asset but introduces form syntax error breaking registration submission (HTTP 500).",
+          "heroAssetUrl": "/demo/hero-poster.webp",
+          "encodedAssetBytes": 140000,
+          "format": "webp",
+          "taskPreserved": false,
+          "fixturePath": "/demo/event?variant=broken"
+        }
+      },
+      "patchDiff": "--- a/src/app/demo/event/page.tsx\n+++ b/src/app/demo/event/page.tsx\n@@ -14,5 +14,9 @@\n-  <img src=\"/demo/hero-poster.jpg\" alt=\"Event Poster\" className=\"w-full h-auto\" />\n+  <picture>\n+    <source srcSet=\"/demo/hero-poster.webp\" type=\"image/webp\" />\n+    <img src=\"/demo/hero-poster.jpg\" alt=\"Event Poster\" className=\"w-full h-auto\" loading=\"eager\" decoding=\"async\" width=\"1200\" height=\"675\" />\n+  </picture>",
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalStatus": "approved",
+      "baselineRuns": [
+        {
+          "runId": "base-run-1",
+          "timestamp": "2026-09-05T16:28:50.013Z",
+          "transferBytes": 2651200,
+          "journeyTimeMs": 412,
+          "taskSuccess": true
+        },
+        {
+          "runId": "base-run-2",
+          "timestamp": "2026-09-05T16:29:50.013Z",
+          "transferBytes": 2650400,
+          "journeyTimeMs": 398,
+          "taskSuccess": true
+        },
+        {
+          "runId": "base-run-3",
+          "timestamp": "2026-09-05T16:30:50.013Z",
+          "transferBytes": 2650800,
+          "journeyTimeMs": 405,
+          "taskSuccess": true
+        }
+      ],
+      "candidateRuns": [
+        {
+          "runId": "cand-run-broken-1788626030041",
+          "variant": "broken",
+          "timestamp": "2026-09-05T16:33:50.040Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788626030046",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T16:33:50.045Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        },
+        {
+          "runId": "cand-run-broken-1788626039592",
+          "variant": "broken",
+          "timestamp": "2026-09-05T16:33:59.590Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788626039597",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T16:33:59.596Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        },
+        {
+          "runId": "cand-run-broken-1788626230681",
+          "variant": "broken",
+          "timestamp": "2026-09-05T16:37:10.680Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788626230686",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T16:37:10.684Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        },
+        {
+          "runId": "cand-run-broken-1788626360910",
+          "variant": "broken",
+          "timestamp": "2026-09-05T16:39:20.909Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788626360916",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T16:39:20.914Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        },
+        {
+          "runId": "cand-run-broken-1788634310346",
+          "variant": "broken",
+          "timestamp": "2026-09-05T18:51:50.344Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788634310355",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T18:51:50.353Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        },
+        {
+          "runId": "cand-run-broken-1788634324306",
+          "variant": "broken",
+          "timestamp": "2026-09-05T18:52:04.305Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788634324313",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T18:52:04.311Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        },
+        {
+          "runId": "cand-run-broken-1788635833819",
+          "variant": "broken",
+          "timestamp": "2026-09-05T19:17:13.817Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788635833828",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T19:17:13.826Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        },
+        {
+          "runId": "cand-run-broken-1788636388214",
+          "variant": "broken",
+          "timestamp": "2026-09-05T19:26:28.213Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788636388222",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T19:26:28.220Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        },
+        {
+          "runId": "cand-run-broken-1788636442849",
+          "variant": "broken",
+          "timestamp": "2026-09-05T19:27:22.847Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788636442858",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T19:27:22.856Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        },
+        {
+          "runId": "cand-run-broken-1788636467703",
+          "variant": "broken",
+          "timestamp": "2026-09-05T19:27:47.701Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788636467709",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T19:27:47.708Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        },
+        {
+          "runId": "cand-run-broken-1788636555265",
+          "variant": "broken",
+          "timestamp": "2026-09-05T19:29:15.263Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788636555270",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T19:29:15.269Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        },
+        {
+          "runId": "cand-run-broken-1788636820235",
+          "variant": "broken",
+          "timestamp": "2026-09-05T19:33:40.233Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788636820241",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T19:33:40.239Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        }
+      ],
+      "createdAt": "2026-09-05T16:33:50.013Z",
+      "approvedAt": "2026-09-05T19:33:40.229Z",
+      "approvalSigner": "Staff QA Lead"
+    }
+  },
+  "receipts": {
+    "rcpt-1788626030049-4390dab9": {
+      "receiptId": "rcpt-1788626030049-4390dab9",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T16:33:50.045Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T16:33:50.037Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    },
+    "rcpt-1788626039600-154904d0": {
+      "receiptId": "rcpt-1788626039600-154904d0",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T16:33:59.596Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T16:33:59.587Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    },
+    "rcpt-1788626230688-fbe04c58": {
+      "receiptId": "rcpt-1788626230688-fbe04c58",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T16:37:10.684Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T16:37:10.677Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    },
+    "rcpt-1788626360919-d0b9c57f": {
+      "receiptId": "rcpt-1788626360919-d0b9c57f",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T16:39:20.914Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T16:39:20.906Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    },
+    "rcpt-1788634310365-91313238": {
+      "receiptId": "rcpt-1788634310365-91313238",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T18:51:50.353Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T18:51:50.340Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    },
+    "rcpt-1788634324316-366703a4": {
+      "receiptId": "rcpt-1788634324316-366703a4",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T18:52:04.311Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T18:52:04.302Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    },
+    "rcpt-1788635833833-051b8a13": {
+      "receiptId": "rcpt-1788635833833-051b8a13",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T19:17:13.826Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T19:17:13.810Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    },
+    "rcpt-1788636388226-6d7e56a5": {
+      "receiptId": "rcpt-1788636388226-6d7e56a5",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T19:26:28.220Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T19:26:28.208Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    },
+    "rcpt-1788636442862-3a7f56ca": {
+      "receiptId": "rcpt-1788636442862-3a7f56ca",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T19:27:22.856Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T19:27:22.843Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    },
+    "rcpt-1788636467713-949e1b89": {
+      "receiptId": "rcpt-1788636467713-949e1b89",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T19:27:47.708Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T19:27:47.698Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    },
+    "rcpt-1788636555274-785b3b15": {
+      "receiptId": "rcpt-1788636555274-785b3b15",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T19:29:15.269Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T19:29:15.260Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    },
+    "rcpt-1788636820245-064ac811": {
+      "receiptId": "rcpt-1788636820245-064ac811",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T19:33:40.239Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T19:33:40.229Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    }
+  },
+  "providerUsage": {
+    "groq": {
+      "tokensThisMinute": 0,
+      "requestsToday": 0,
+      "lastResetMinute": "2026-09-05T16:33"
+    },
+    "gemini": {
+      "tokensThisMinute": 0,
+      "requestsToday": 0
+    }
+  }
+}

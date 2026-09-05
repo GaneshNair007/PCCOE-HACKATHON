@@ -1,0 +1,26 @@
+{
+  "description": "FIXTURE_ONLY: Lighter candidate variant that breaks functional user journey (HTTP 500). Must strictly be REJECTED.",
+  "fixtureType": "LIGHTER_BROKEN_CANDIDATE",
+  "experimentId": "exp-fixture-broken-candidate",
+  "projectId": "campus-events",
+  "journeyId": "event-registration",
+  "baseline": {
+    "variant": "baseline",
+    "medianTransferBytes": 2650000,
+    "functionalTaskSuccess": true,
+    "registrationHttpStatus": 200
+  },
+  "candidate": {
+    "variant": "broken_candidate",
+    "medianTransferBytes": 340000,
+    "functionalTaskSuccess": false,
+    "registrationHttpStatus": 500,
+    "errorMessage": "Simulation: Broken candidate corrupted registration form handler (HTTP 500)"
+  },
+  "guardrailRequirement": {
+    "decision": "STRICTLY_REJECTED",
+    "outcome": "TASK_ASSERTION_FAILED",
+    "allowEvidenceReceipt": false,
+    "rule": "Digital carbon savings are strictly INVALID if core user task/journey fails."
+  }
+}

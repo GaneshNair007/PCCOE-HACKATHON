@@ -1,0 +1,18 @@
+{
+  "description": "FIXTURE_ONLY: Incompatible candidate with conflicting diff, mismatched hash, or missing target asset.",
+  "fixtureType": "INCOMPATIBLE_CANDIDATE",
+  "experimentId": "exp-fixture-incompatible-corrupt",
+  "projectId": "campus-events",
+  "candidate": {
+    "variant": "incompatible",
+    "targetFile": "src/nonexistent/corrupt/path.tsx",
+    "patchDiff": "@@ invalid diff without headers @@",
+    "patchHash": "sha256-wronghash000000000000000000000000000000000000000000000000000000",
+    "rejectionReason": "Target file does not exist and patch hash fails integrity validation"
+  },
+  "expectedOutcome": {
+    "approvalAllowed": false,
+    "verificationAllowed": false,
+    "httpStatus": 400
+  }
+}

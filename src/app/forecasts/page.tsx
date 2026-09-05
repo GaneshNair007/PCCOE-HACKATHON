@@ -205,9 +205,10 @@ export default function ForecastsPage() {
       });
     });
 
+    const chartEl = chartCardRef.current;
     return () => {
       ScrollTrigger.getAll().forEach((t) => {
-        if (t.vars.trigger === chartCardRef.current) {
+        if (t.vars.trigger === chartEl) {
           t.kill();
         }
       });

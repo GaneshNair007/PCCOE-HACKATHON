@@ -1,0 +1,61 @@
+{
+  "description": "FIXTURE_ONLY: Valid measured audit with deterministic telemetry and full provenance. Must never be used as live user measurement.",
+  "fixtureType": "MEASURED_AUDIT",
+  "auditId": "audit-fixture-measured-valid",
+  "targetUrl": "http://127.0.0.1:3001/demo/event",
+  "domain": "127.0.0.1",
+  "scannedAt": "2026-09-06T00:00:00.000Z",
+  "provenance": {
+    "collector": "Carbonerra Headless Browser Pass",
+    "verified": true,
+    "environment": "Controlled Synthetic Fixture",
+    "swdmVersion": "SWDM-4.0"
+  },
+  "measurements": {
+    "totalBytes": 2650000,
+    "breakdown": {
+      "imagesBytes": 2450000,
+      "scriptBytes": 120000,
+      "styleBytes": 25000,
+      "fontBytes": 45000,
+      "documentBytes": 8000,
+      "otherBytes": 2000
+    },
+    "resources": [
+      {
+        "url": "/demo/hero-poster.jpg",
+        "type": "image",
+        "sizeBytes": 2450000,
+        "transferBytes": 2450000,
+        "isThirdParty": false,
+        "status": 200
+      },
+      {
+        "url": "/demo/app.js",
+        "type": "script",
+        "sizeBytes": 120000,
+        "transferBytes": 120000,
+        "isThirdParty": false,
+        "status": 200
+      },
+      {
+        "url": "/demo/styles.css",
+        "type": "stylesheet",
+        "sizeBytes": 25000,
+        "transferBytes": 25000,
+        "isThirdParty": false,
+        "status": 200
+      }
+    ]
+  },
+  "carbon": {
+    "co2Grams": 0.53,
+    "ecoScore": "D",
+    "gridIntensityGco2PerKwh": 494,
+    "renewableHosting": false,
+    "uncertaintyRange": {
+      "low": 0.424,
+      "high": 0.636
+    }
+  }
+}

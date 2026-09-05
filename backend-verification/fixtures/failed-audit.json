@@ -1,0 +1,21 @@
+{
+  "description": "FIXTURE_ONLY: Failed audit where all collectors failed. Must yield error/insufficient data without invented weights or scores.",
+  "fixtureType": "FAILED_AUDIT",
+  "auditId": "audit-fixture-failed-probe",
+  "targetUrl": "http://127.0.0.1:3001/nonexistent-endpoint-503",
+  "domain": "127.0.0.1",
+  "scannedAt": "2026-09-06T00:00:00.000Z",
+  "failure": {
+    "code": "COLLECTOR_FAILURE",
+    "httpStatus": 503,
+    "errorMessage": "Target server unavailable; connection refused or 503 response",
+    "allCollectorsFailed": true
+  },
+  "expectedBehavior": {
+    "totalBytes": null,
+    "resourceCount": 0,
+    "ecoScore": null,
+    "co2Grams": null,
+    "inventedDataForbidden": true
+  }
+}

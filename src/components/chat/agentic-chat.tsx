@@ -38,12 +38,84 @@ interface ChatMessage {
   timestamp: string;
 }
 
+function FormattedMessageText({ text }: { text: string }) {
+  const lines = text.split("\n");
+  let inCodeBlock = false;
+  let codeBlockContent: string[] = [];
+  const elements: React.ReactNode[] = [];
+
+  lines.forEach((line, idx) => {
+    if (line.startsWith("```")) {
+      if (inCodeBlock) {
+        inCodeBlock = false;
+        const code = codeBlockContent.join("\n");
+        codeBlockContent = [];
+        elements.push(
+          <pre key={`code-${idx}`} className="my-2 p-2.5 rounded-xl bg-black/60 border border-white/10 font-mono text-[11px] text-[#cbff00] overflow-x-auto">
+            <code>{code}</code>
+          </pre>
+        );
+      } else {
+        inCodeBlock = true;
+      }
+      return;
+    }
+
+    if (inCodeBlock) {
+      codeBlockContent.push(line);
+      return;
+    }
+
+    if (line.trim() === "") {
+      elements.push(<div key={`empty-${idx}`} className="h-1.5" />);
+      return;
+    }
+
+    const parts = line.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
+    const isBullet = line.trim().startsWith("- ") || line.trim().startsWith("• ");
+
+    elements.push(
+      <div key={`line-${idx}`} className={isBullet ? "pl-2 flex items-start gap-1.5" : ""}>
+        {isBullet && <span className="text-[#cbff00] text-xs mt-0.5">•</span>}
+        <span className="flex-1">
+          {parts.map((part, pIdx) => {
+            if (part.startsWith("**") && part.endsWith("**")) {
+              return (
+                <strong key={pIdx} className="font-bold text-cream">
+                  {part.slice(2, -2)}
+                </strong>
+              );
+            }
+            if (part.startsWith("`") && part.endsWith("`")) {
+              return (
+                <code key={pIdx} className="px-1.5 py-0.5 rounded bg-black/40 border border-[#cbff00]/30 text-[#cbff00] font-mono text-[11px]">
+                  {part.slice(1, -1)}
+                </code>
+              );
+            }
+            return <span key={pIdx}>{part}</span>;
+          })}
+        </span>
+      </div>
+    );
+  });
+
+  return <div className="space-y-1 font-sans leading-relaxed">{elements}</div>;
+}
+
 export function AgenticChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [activeTool, setActiveTool] = useState<string | null>(null);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      id: "welcome-init",
+      sender: "assistant",
+      text: "👋 **Hello! I'm Carbonerra AI.**\n\nI'm your intelligent companion for general programming, frontend architecture, and real-time digital carbon audits.\n\nFeel free to say hi, ask a web performance question, or audit a live website!",
+      timestamp: "Now",
+    },
+  ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const pathname = usePathname() || "";
@@ -70,15 +142,15 @@ export function AgenticChat() {
 
   const quickPrompts = isSavingsLab
     ? [
+        "How do I optimize oversized images?",
         "prepare experiment",
         "test candidate",
-        "test broken candidate",
         "evaluate release shield budget",
       ]
     : isShield
     ? [
+        "How does a CI budget gate work?",
         "evaluate budget for candidate",
-        "evaluate budget for baseline",
         "check release shield breaches",
       ]
     : isEvidence
@@ -88,12 +160,23 @@ export function AgenticChat() {
         "verify candidate task preservation",
       ]
     : [
+        "Hello! What can you do?",
         "check stripe.com",
         "compare vercel.com with stripe.com",
-        "prepare experiment for campus-events",
-        "simulate 80% image compression",
-        "evaluate release shield budget",
+        "How do I optimize web images?",
+        "what if 80% image compression",
       ];
+
+  const handleClearChat = () => {
+    setMessages([
+      {
+        id: Date.now().toString(),
+        sender: "assistant",
+        text: "👋 Chat cleared! How can I help you next?",
+        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      },
+    ]);
+  };
 
   const handleSend = async (textToSend?: string) => {
     const query = (textToSend || input).trim();
@@ -199,29 +282,39 @@ export function AgenticChat() {
             {/* Drawer Header */}
             <div className="p-4 border-b border-surface-border bg-surface-elevated/80 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-lime/10 border border-lime/40 flex items-center justify-center text-lime">
-                  <Cpu className="w-4 h-4" />
+                <div className="w-8 h-8 rounded-full bg-lime/10 border border-lime/40 flex items-center justify-center text-lime shadow-sm">
+                  <Bot className="w-4 h-4" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-display tracking-wider text-cream text-lg uppercase">
+                    <span className="font-display tracking-wider text-cream text-base sm:text-lg uppercase">
                       CARBONERRA AI
                     </span>
                     <Badge variant="lime" className="text-[9px] px-1.5 py-0 font-mono">
-                      SWDM v4
+                      v2.0
                     </Badge>
                   </div>
                   <p className="text-[10px] font-mono text-sage/70">
-                    Real Tool Execution • Audit → Fix → Verify → Protect
+                    Natural Chat • Web Performance • SWDM v4 Audits
                   </p>
                 </div>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-sage/60 hover:text-cream p-1.5 rounded-lg hover:bg-surface-border/50 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={handleClearChat}
+                  title="Clear conversation"
+                  className="text-sage/60 hover:text-cream p-1.5 rounded-lg hover:bg-surface-border/50 transition-colors text-xs flex items-center gap-1 font-mono"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline text-[10px]">Clear</span>
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="text-sage/60 hover:text-cream p-1.5 rounded-lg hover:bg-surface-border/50 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             {/* Chat Body / Message Stream */}
@@ -234,17 +327,17 @@ export function AgenticChat() {
                   </div>
                   <div className="space-y-1.5">
                     <h4 className="font-display text-lg text-cream tracking-wide uppercase">
-                      ZERO HARDCODED ESTIMATES
+                      CARBONERRA AI COMPANION
                     </h4>
                     <p className="text-xs text-sage/80 leading-relaxed font-sans max-w-xs">
-                      Every response is computed from real audits, headless browser journey passes, SWDM v4 formulas, or CI budget evaluations.
+                      Chat about general programming, ask for web optimization tips, or run live digital carbon telemetry against any website.
                     </p>
                   </div>
 
                   {/* Starter Chips */}
                   <div className="w-full space-y-2">
                     <span className="text-[10px] font-mono uppercase tracking-widest text-lime/80 block text-left">
-                      REAL TOOL ACTIONS
+                      QUICK STARTERS
                     </span>
                     <div className="flex flex-col gap-1.5">
                       {quickPrompts.map((prompt, i) => (
@@ -288,8 +381,8 @@ export function AgenticChat() {
                       </div>
                     )}
 
-                    {/* Markdown / Text Content */}
-                    <div className="whitespace-pre-wrap font-sans">{msg.text}</div>
+                    {/* Formatted Markdown / Text Content */}
+                    <FormattedMessageText text={msg.text} />
 
                     {/* Rich Tool Output Card (when structured data available) */}
                     {msg.toolOutput && (
@@ -441,7 +534,7 @@ export function AgenticChat() {
                   value={input}
                   disabled={loading}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder='Ask: "check stripe.com", "test candidate", or "evaluate budget"'
+                  placeholder='Ask anything: "hi", "how to optimize images?", or "check stripe.com"...'
                   className="flex-1 bg-surface border border-surface-border rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-cream placeholder:text-sage/40 focus:outline-none focus:border-lime transition-colors"
                 />
                 <Button

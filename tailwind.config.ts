@@ -38,8 +38,9 @@ const config: Config = {
       },
       fontFamily: {
         display: ["Anton", "sans-serif"],
-        sans: ["Inter", "sans-serif"],
+        sans: ["Lexend", "Inter", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
+        lexend: ["Lexend", "sans-serif"],
       },
       borderRadius: {
         "2.5rem": "2.5rem",

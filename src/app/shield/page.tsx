@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -297,42 +298,50 @@ jobs:
         </div>
 
         {/* Live Evaluator Output Terminal */}
-        {evalResult && (
-          <div className="rounded-2xl bg-black/90 border border-surface-border p-5 font-mono text-xs space-y-3 shadow-inner">
-            <div className="flex items-center justify-between border-b border-surface-border/60 pb-3">
-              <div className="flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-lime" />
-                <span className="text-cream font-bold">CLI Budget Gate Terminal Output</span>
+        <AnimatePresence>
+          {evalResult && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-2xl bg-black/90 border border-surface-border p-5 font-mono text-xs space-y-3 shadow-inner"
+            >
+              <div className="flex items-center justify-between border-b border-surface-border/60 pb-3">
+                <div className="flex items-center gap-2">
+                  <Terminal className="w-4 h-4 text-lime" />
+                  <span className="text-cream font-bold">CLI Budget Gate Terminal Output</span>
+                </div>
+                <Badge
+                  variant={evalResult.passed ? "lime" : !evalResult.isWarning ? "danger" : "outline"}
+                  className="font-bold text-[10px]"
+                >
+                  STATUS: {evalResult.passed ? "PASSED (EXIT 0)" : evalResult.isWarning ? "WARNING (EXIT 0)" : "FAILED (EXIT 1)"}
+                </Badge>
               </div>
-              <Badge
-                variant={evalResult.passed ? "lime" : !evalResult.isWarning ? "danger" : "outline"}
-                className="font-bold text-[10px]"
-              >
-                STATUS: {evalResult.passed ? "PASSED (EXIT 0)" : evalResult.isWarning ? "WARNING (EXIT 0)" : "FAILED (EXIT 1)"}
-              </Badge>
-            </div>
 
-            <div className="space-y-1.5 text-sage/80 leading-relaxed">
-              <div className="text-cream font-bold">⚡ CARBONERRA REGRESSION SHIELD CHECK ({strictMode ? "STRICT MODE" : "WARN MODE"})</div>
-              <div>Status: <strong className={evalResult.passed ? "text-lime" : evalResult.isWarning ? "text-amber-300" : "text-red-400"}>{evalResult.passed ? "PASSED" : evalResult.isWarning ? "WARNING" : "BREACH DETECTED"}</strong></div>
-              <div>Measured Journey Transfer: <strong className="text-cream">{(evalResult.actualBytes / 1024).toFixed(1)} KB</strong> (Ceiling: {(evalResult.thresholdBytes / 1024).toFixed(0)} KB)</div>
-              <div>Network Requests: <strong className="text-cream">{evalResult.actualRequests}</strong> (Limit: {evalResult.thresholdRequests})</div>
-              <div>Estimated Carbon: <strong className="text-cream">{evalResult.actualCarbonGrams} gCO2e</strong> (SWDM v4)</div>
-              <div>Breaches: {evalResult.breaches.length === 0 ? <span className="text-lime">None (Within tolerance)</span> : <span className="text-red-400 font-bold">{evalResult.breaches.join("; ")}</span>}</div>
-              <div className="text-[11px] text-sage/60 pt-1">{evalResult.details}</div>
-            </div>
+              <div className="space-y-1.5 text-sage/80 leading-relaxed">
+                <div className="text-cream font-bold">⚡ CARBONERRA REGRESSION SHIELD CHECK ({strictMode ? "STRICT MODE" : "WARN MODE"})</div>
+                <div>Status: <strong className={evalResult.passed ? "text-lime" : evalResult.isWarning ? "text-amber-300" : "text-red-400"}>{evalResult.passed ? "PASSED" : evalResult.isWarning ? "WARNING" : "BREACH DETECTED"}</strong></div>
+                <div>Measured Journey Transfer: <strong className="text-cream">{(evalResult.actualBytes / 1024).toFixed(1)} KB</strong> (Ceiling: {(evalResult.thresholdBytes / 1024).toFixed(0)} KB)</div>
+                <div>Network Requests: <strong className="text-cream">{evalResult.actualRequests}</strong> (Limit: {evalResult.thresholdRequests})</div>
+                <div>Estimated Carbon: <strong className="text-cream">{evalResult.actualCarbonGrams} gCO2e</strong> (SWDM v4)</div>
+                <div>Breaches: {evalResult.breaches.length === 0 ? <span className="text-lime">None (Within tolerance)</span> : <span className="text-red-400 font-bold">{evalResult.breaches.join("; ")}</span>}</div>
+                <div className="text-[11px] text-sage/60 pt-1">{evalResult.details}</div>
+              </div>
 
-            <div className="pt-2 text-[11px] text-sage/60 border-t border-surface-border/40">
-              {evalResult.passed ? (
-                <span className="text-lime">✅ PASSED: Target journey satisfies digital sustainability transfer and task assertion budgets.</span>
-              ) : evalResult.isWarning ? (
-                <span className="text-amber-300">⚠️ WARNING: Target journey breached configured limits in non-blocking warning mode.</span>
-              ) : (
-                <span className="text-red-400">❌ STRICT BREACH: Candidate journey violated configured transfer budget or failed essential task assertions. Pull requests are blocked.</span>
-              )}
-            </div>
-          </div>
-        )}
+              <div className="pt-2 text-[11px] text-sage/60 border-t border-surface-border/40">
+                {evalResult.passed ? (
+                  <span className="text-lime">✅ PASSED: Target journey satisfies digital sustainability transfer and task assertion budgets.</span>
+                ) : evalResult.isWarning ? (
+                  <span className="text-amber-300">⚠️ WARNING: Target journey breached configured limits in non-blocking warning mode.</span>
+                ) : (
+                  <span className="text-red-400">❌ STRICT BREACH: Candidate journey violated configured transfer budget or failed essential task assertions. Pull requests are blocked.</span>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Card>
 
       {/* Grid: Configurator (Left) + Workflow Code (Right) */}

@@ -1,0 +1,110 @@
+{
+  "executedAt": "2026-09-05T19:45:06.672Z",
+  "totalDurationMs": 9610,
+  "counts": {
+    "totalTests": 76,
+    "pass": 76,
+    "fail": 0,
+    "blocked": 0,
+    "notRun": 0
+  },
+  "byCategory": {
+    "discovery": 7,
+    "unit": 15,
+    "integration": 43,
+    "fullWorkflow": 8,
+    "reliability": 3
+  },
+  "suites": [
+    {
+      "suiteId": "01-discovery",
+      "file": "01-discovery-inspection.mjs",
+      "category": "discovery",
+      "exitCode": 0,
+      "passed": true,
+      "passCount": 7,
+      "failCount": 0,
+      "durationMs": 469
+    },
+    {
+      "suiteId": "02-fixtures",
+      "file": "02-isolated-fixtures.mjs",
+      "category": "unit",
+      "exitCode": 0,
+      "passed": true,
+      "passCount": 6,
+      "failCount": 0,
+      "durationMs": 403
+    },
+    {
+      "suiteId": "03-api",
+      "file": "03-api-validation.mjs",
+      "category": "integration",
+      "exitCode": 0,
+      "passed": true,
+      "passCount": 15,
+      "failCount": 0,
+      "durationMs": 890
+    },
+    {
+      "suiteId": "04-carbon",
+      "file": "04-carbon-correctness.mjs",
+      "category": "unit",
+      "exitCode": 0,
+      "passed": true,
+      "passCount": 9,
+      "failCount": 0,
+      "durationMs": 503
+    },
+    {
+      "suiteId": "05-state",
+      "file": "05-database-state.mjs",
+      "category": "integration",
+      "exitCode": 0,
+      "passed": true,
+      "passCount": 6,
+      "failCount": 0,
+      "durationMs": 393
+    },
+    {
+      "suiteId": "06-ai",
+      "file": "06-ai-tool-calling.mjs",
+      "category": "integration",
+      "exitCode": 0,
+      "passed": true,
+      "passCount": 10,
+      "failCount": 0,
+      "durationMs": 629
+    },
+    {
+      "suiteId": "07-security",
+      "file": "07-security-boundaries.mjs",
+      "category": "integration",
+      "exitCode": 0,
+      "passed": true,
+      "passCount": 12,
+      "failCount": 0,
+      "durationMs": 557
+    },
+    {
+      "suiteId": "08-workflow",
+      "file": "08-complete-workflow.mjs",
+      "category": "full-workflow",
+      "exitCode": 0,
+      "passed": true,
+      "passCount": 8,
+      "failCount": 0,
+      "durationMs": 4998
+    },
+    {
+      "suiteId": "09-reliability",
+      "file": "09-bounded-reliability.mjs",
+      "category": "reliability",
+      "exitCode": 0,
+      "passed": true,
+      "passCount": 3,
+      "failCount": 0,
+      "durationMs": 768
+    }
+  ]
+}

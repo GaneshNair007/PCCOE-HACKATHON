@@ -38,6 +38,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CarbonGlobe3D } from "@/components/3d/carbon-globe-3d";
+import { SylvaHero } from "@/components/landing/sylva-hero";
 import { FallingLeaves } from "@/components/ambient/falling-leaves";
 import { TiltCard3D } from "@/components/3d/tilt-card-3d";
 import { HologramGauge3D } from "@/components/3d/hologram-gauge-3d";
@@ -214,198 +215,31 @@ function LandingPageContent() {
     : null;
 
   return (
-    <div className="space-y-28 pb-28">
+    <div className="w-full">
       {/* ==========================================================================
-           3D HERO SECTION: 3D Globe + Anton Cyber Typography + Audit Workspace
+           SYLVA LIVING WORLD HERO: 100% Exact Reference UI + Live Audit Integration
            ========================================================================== */}
-      <section
-        ref={heroRef}
-        className="relative min-h-[80vh] flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 pt-4 lg:pt-8 overflow-hidden rounded-3xl"
-      >
-        {/* Living Ambient Falling Leaves Layer (falling-leaves craft) */}
-        <FallingLeaves className="opacity-90" />
+      <SylvaHero
+        onRunAudit={runAudit}
+        auditStatus={auditStatus}
+        currentPhase={currentPhase}
+        errorMessage={errorMessage}
+        targetUrl={targetUrl}
+        setTargetUrl={setTargetUrl}
+      />
 
-        {/* Left Column: Input Workspace */}
-        <div className="flex-1 max-w-2xl space-y-6 text-left z-10 relative">
-          <h1 className="font-display text-[calc(var(--u)*3.2)] sm:text-[calc(var(--u)*4.6)] lg:text-[calc(var(--u)*5.4)] tracking-tight text-cream uppercase leading-[0.9] select-none">
-            MAKE YOUR WEBSITE <span className="text-lime drop-shadow-[0_0_35px_rgba(203,255,0,0.4)]">LIGHTER.</span> PROVE THE IMPROVEMENT.
-          </h1>
-
-          <p className="text-base sm:text-lg text-[var(--ink-soft)] max-w-xl leading-relaxed">
-            Find avoidable downloads, review a practical fix, verify the same user journey uses less data, and protect the improvement in your next release.
-          </p>
-
-          {/* Primary CTA & Secondary Demo CTA */}
-          <div className="flex flex-wrap items-center gap-3 pt-1">
-            <a
-              href="#scanner-form"
-              className="interactive inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-lime text-black font-mono font-bold text-xs tracking-wider hover:bg-lime/90 transition-all shadow-[0_0_20px_rgba(203,255,0,0.4)] hover:scale-105"
-            >
-              <Zap className="w-4 h-4 text-black" />
-              AUDIT A WEBSITE ↓
-            </a>
-            <Link
-              href="/savings-lab?projectId=campus-events&demo=true"
-              className="interactive inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-surface-border text-xs font-mono text-sage/80 hover:text-cream hover:border-lime/40 transition-all"
-            >
-              <Sliders className="w-3.5 h-3.5 text-lime" />
-              Try the Savings Lab demo →
-            </Link>
-          </div>
-
-          {/* URL Audit Scanner Form */}
-          <div id="scanner-form" className="pt-2">
-            <form
-              onSubmit={handleAuditSubmit}
-              className="tech-frame gradient-border beautiful-md flex flex-col sm:flex-row gap-3 items-center glass-panel-elevated p-2 sm:p-2.5 rounded-2xl sm:rounded-full border border-lime/40 shadow-[0_10px_30px_rgba(203,255,0,0.15)] focus-within:border-lime transition-all"
-            >
-              <div className="w-full flex-1">
-                <Input
-                  icon={<Zap className="w-5 h-5 text-lime" />}
-                  value={targetUrl}
-                  onChange={(e) => {
-                    setTargetUrl(e.target.value);
-                    if (errorMessage) setErrorMessage(null);
-                  }}
-                  placeholder="Enter public website URL — e.g. stripe.com"
-                  className="bg-transparent border-none text-cream placeholder:text-sage/40 font-mono"
-                  disabled={auditStatus === "running"}
-                />
-              </div>
-              <Button
-                type="submit"
-                variant="lime"
-                size="md"
-                isLoading={auditStatus === "running"}
-                className="w-full sm:w-auto shrink-0 font-bold tracking-wider shadow-[0_0_20px_rgba(203,255,0,0.3)] hover:scale-105 transition-transform"
-              >
-                <Zap className="w-4 h-4 mr-1.5" />
-                {auditStatus === "running" ? "AUDITING..." : "AUDIT A WEBSITE"}
-              </Button>
-            </form>
-
-            {/* Error Message Banner */}
-            {errorMessage && (
-              <div className="mt-3 p-3.5 rounded-xl bg-red-950/40 border border-red-500/40 text-red-200 text-xs font-mono flex items-start gap-2.5">
-                <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+      {/* Main Container below full-width hero */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-28 pb-28 pt-16">
+        {/* ==========================================================================
+             AUDIT COCKPIT: Only renders when a real audit has completed
+             ========================================================================== */}
+        <section ref={cockpitRef} className="space-y-8 scroll-mt-28">
+          {auditStatus === "completed" && auditData ? (
+            <>
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-surface-border/60 pb-4">
                 <div>
-                  <div className="font-bold">{errorCode || "AUDIT ERROR"}</div>
-                  <div>{errorMessage}</div>
-                </div>
-              </div>
-            )}
-
-            {/* Benchmark Presets (Real Triggers — No Precomputed Numbers) */}
-            <div className="flex flex-wrap items-center gap-2 mt-4">
-              <span className="text-[11px] font-mono text-sage/60 uppercase tracking-wider">
-                Run Real Scan On:
-              </span>
-              {BENCHMARK_PRESETS.map((site) => (
-                <button
-                  key={site.url}
-                  onClick={() => {
-                    setTargetUrl(site.url);
-                    runAudit(site.url);
-                  }}
-                  disabled={auditStatus === "running"}
-                  className="interactive text-[11px] font-mono px-3.5 py-1 rounded-full bg-surface-elevated/80 border border-surface-border text-cream hover:text-lime hover:border-lime/50 hover:shadow-[0_0_15px_rgba(203,255,0,0.2)] transition-all cursor-pointer select-none"
-                >
-                  {site.label} ↗
-                </button>
-              ))}
-            </div>
-
-            {/* Live Progress Feedback with Abort Controller Trigger */}
-            <AnimatePresence>
-              {auditStatus === "running" && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  role="status"
-                  aria-live="polite"
-                  className="mt-4 p-4 rounded-xl glass-panel border border-lime/30 font-mono text-xs text-lime space-y-2.5"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-lime animate-ping" />
-                      {currentPhase}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={cancelAudit}
-                      className="px-2.5 py-1 rounded-md bg-red-950/60 border border-red-500/40 text-red-300 hover:bg-red-900/70 hover:text-white transition-colors flex items-center gap-1 text-[11px] font-mono cursor-pointer"
-                      title="Abort active audit request"
-                    >
-                      <XCircle className="w-3.5 h-3.5" /> Cancel Audit
-                    </button>
-                  </div>
-                  <div className="w-full bg-black/50 h-1.5 rounded-full overflow-hidden">
-                    <motion.div
-                      className="h-full bg-lime"
-                      initial={{ width: "20%" }}
-                      animate={{ width: "85%" }}
-                      transition={{ duration: 5, ease: "linear" }}
-                    />
-                  </div>
-                  <p className="text-[10px] text-sage/60">
-                    Executing dual-source cross-validation across Google PageSpeed Insights & independent Cheerio DOM crawler.
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Secondary Action CTA: Developer API & Code Snippets */}
-            <div className="flex flex-wrap items-center gap-3 mt-4">
-              <a
-                href="#api-explorer"
-                className="interactive inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl glass-panel border border-surface-border hover:border-lime/40 text-xs font-mono text-sage/80 hover:text-cream transition-all"
-              >
-                <Terminal className="w-3.5 h-3.5 text-lime" />
-                <span>Explore Live Developer API & Code Export</span>
-                <ArrowRight className="w-3 h-3 text-lime" />
-              </a>
-            </div>
-          </div>
-
-          {/* Privacy & Methodology Footer Notice */}
-          <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-sage/70 pt-2 border-t border-surface-border/40">
-            <span className="flex items-center gap-1.5 text-cream/90">
-              <ShieldCheck className="w-3.5 h-3.5 text-lime" />
-              SSRF Protected • Public HTTP/S Only
-            </span>
-            <button
-              onClick={() => setShowMethodologyModal(true)}
-              className="hover:text-lime underline cursor-pointer"
-            >
-              Methodology & Transparency Rules
-            </button>
-          </div>
-        </div>
-
-        {/* Right Column: 3D Earth Globe (Shows real country marker when audited) */}
-        <div className="flex-1 w-full h-[460px] sm:h-[540px] lg:h-[620px] relative flex items-center justify-center lg:-mt-16 xl:-mt-24">
-          <div className="absolute inset-0 bg-radial-gradient from-lime/10 via-transparent to-transparent rounded-full blur-3xl pointer-events-none" />
-          <CarbonGlobe3D
-            activeRegion={auditData?.hosting_country_code || auditData?.hosting_country}
-            gridIntensity={auditData?.grid_intensity_val || 494}
-            isGreen={auditData?.hosting.green || false}
-            hasAuditedTarget={Boolean(auditData)}
-            className="w-full h-full"
-          />
-        </div>
-      </section>
-
-      {/* ==========================================================================
-           AUDIT COCKPIT: Only renders when a real audit has completed
-           ========================================================================== */}
-      <section ref={cockpitRef} className="space-y-8 scroll-mt-28">
-        {auditStatus === "completed" && auditData ? (
-          <>
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-surface-border/60 pb-4">
-              <div>
-                <div className="flex items-center gap-2 text-xs font-mono text-lime uppercase tracking-wider mb-1">
-                  <Sparkles className="w-3.5 h-3.5" /> Real Telemetry Audit Result
+                  <div className="flex items-center gap-2 text-xs font-mono text-lime uppercase tracking-wider mb-1">
+                    <Sparkles className="w-3.5 h-3.5" /> Real Telemetry Audit Result
                 </div>
                 <h2 className="font-display text-4xl sm:text-5xl text-cream tracking-tight uppercase">
                   {auditData.domain}
@@ -501,44 +335,57 @@ function LandingPageContent() {
 
               {/* Right Column: 3D Exploded Payload & Datacenter Grid Cards */}
               <div className="lg:col-span-8 space-y-6">
-                {/* 3D Datacenter Grid Telemetry Banner */}
+                {/* 3D Datacenter Grid Telemetry Banner + Interactive Globe */}
                 <TiltCard3D maxTilt={8}>
                   <Card className="tech-frame gradient-border beautiful-md p-5 glass-panel-elevated border border-lime/30">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      <div className="flex items-start gap-3.5">
-                        <div className="p-2.5 rounded-xl bg-lime/10 border border-lime/30 text-lime mt-0.5">
-                          <Server className="w-5 h-5" />
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                      <div className="md:col-span-7 space-y-3">
+                        <div className="flex items-start gap-3.5">
+                          <div className="p-2.5 rounded-xl bg-lime/10 border border-lime/30 text-lime mt-0.5">
+                            <Server className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <div className="text-xs font-mono text-sage/70 uppercase">
+                              Regional Grid Carbon Intensity (IP Geolocation Proxy)
+                            </div>
+                            <div className="font-mono text-xl font-bold text-cream flex items-center gap-2">
+                              {auditData.grid_intensity_val}{" "}
+                              <span className="text-xs text-sage/60 font-normal">gCO2e/kWh</span>
+                              <span className="text-xs px-2 py-0.5 rounded-full bg-surface-elevated border border-surface-border text-cream">
+                                {auditData.hosting_country || "Resolved Region"}
+                              </span>
+                            </div>
+                            <p className="text-xs text-sage/70 mt-1">
+                              Source:{" "}
+                              {auditData.grid_intensity_source === "resolved_regional"
+                                ? "The Green Web Foundation IP Telemetry (Ember 2023 grid factors; geographic proxy)"
+                                : "Global Reference Datacenter Baseline (494 gCO2e/kWh)"}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <div className="text-xs font-mono text-sage/70 uppercase">
-                            Regional Grid Carbon Intensity (IP Geolocation Proxy)
-                          </div>
-                          <div className="font-mono text-xl font-bold text-cream flex items-center gap-2">
-                            {auditData.grid_intensity_val}{" "}
-                            <span className="text-xs text-sage/60 font-normal">gCO2e/kWh</span>
-                            <span className="text-xs px-2 py-0.5 rounded-full bg-surface-elevated border border-surface-border text-cream">
-                              {auditData.hosting_country || "Resolved Region"}
-                            </span>
-                          </div>
-                          <p className="text-xs text-sage/70 mt-1">
-                            Source:{" "}
-                            {auditData.grid_intensity_source === "resolved_regional"
-                              ? "The Green Web Foundation IP Telemetry (Ember 2023 grid factors; geographic proxy)"
-                              : "Global Reference Datacenter Baseline (494 gCO2e/kWh)"}
-                          </p>
+
+                        <div className="flex items-center gap-2 pt-1">
+                          <Badge
+                            variant={auditData.hosting.green ? "lime" : "outline"}
+                            className="font-mono text-xs font-bold"
+                          >
+                            {auditData.hosting.green ? "GREEN HOST DATASET MATCH" : "STANDARD GRID PROXY"}
+                          </Badge>
+                          <span className="text-[11px] font-mono text-sage/60">
+                            {auditData.hosting.provider || "Hosting dataset record not verified green"}
+                          </span>
                         </div>
                       </div>
 
-                      <div className="flex flex-col items-start sm:items-end gap-1.5">
-                        <Badge
-                          variant={auditData.hosting.green ? "lime" : "outline"}
-                          className="font-mono text-xs font-bold"
-                        >
-                          {auditData.hosting.green ? "GREEN HOST DATASET MATCH" : "STANDARD GRID PROXY"}
-                        </Badge>
-                        <span className="text-[11px] font-mono text-sage/60">
-                          {auditData.hosting.provider || "Hosting dataset record not verified green"}
-                        </span>
+                      {/* 3D Earth Globe: focuses active datacenter region upon audit */}
+                      <div className="md:col-span-5 h-[190px] relative flex items-center justify-center">
+                        <CarbonGlobe3D
+                          activeRegion={auditData?.hosting_country_code || auditData?.hosting_country}
+                          gridIntensity={auditData?.grid_intensity_val || 494}
+                          isGreen={auditData?.hosting.green || false}
+                          hasAuditedTarget={true}
+                          className="w-full h-full"
+                        />
                       </div>
                     </div>
                   </Card>
@@ -610,18 +457,62 @@ function LandingPageContent() {
               />
             </div>
           </>
+        ) : auditStatus === "running" ? (
+          /* Live Dual-Source Auditing State */
+          <div className="p-12 text-center rounded-3xl glass-panel-elevated border border-lime/40 space-y-6 relative overflow-hidden shadow-[0_0_50px_rgba(203,255,0,0.15)]">
+            <div className="absolute inset-0 bg-radial-gradient from-lime/10 via-transparent to-transparent animate-pulse pointer-events-none" />
+            <div className="w-16 h-16 rounded-3xl bg-lime/10 border border-lime/40 text-lime flex items-center justify-center mx-auto relative">
+              <RefreshCw className="w-8 h-8 animate-spin text-lime" />
+              <div className="absolute inset-0 rounded-3xl border border-lime animate-ping opacity-25" />
+            </div>
+            <div className="space-y-2">
+              <span className="px-3 py-1 rounded-full bg-lime/10 border border-lime/30 text-[11px] font-mono text-lime font-bold uppercase tracking-wider">
+                SWDM v4 Telemetry Engine Active
+              </span>
+              <h3 className="font-display text-3xl sm:text-4xl text-cream uppercase tracking-wide">
+                Auditing {targetUrl || "Target Host"}
+              </h3>
+              <p className="text-sm font-mono text-lime max-w-lg mx-auto flex items-center justify-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-lime animate-pulse" />
+                {currentPhase || "Running cross-validation crawl..."}
+              </p>
+            </div>
+            <div className="w-full max-w-md mx-auto bg-surface-elevated rounded-full h-2 overflow-hidden border border-surface-border">
+              <div className="bg-lime h-full rounded-full animate-[pulse_1.5s_ease-in-out_infinite] w-3/4 shadow-[0_0_10px_#cbff00]" />
+            </div>
+          </div>
         ) : (
-          /* Clean Empty Workspace State (No Fake Data) */
-          <div className="p-12 text-center rounded-3xl glass-panel-elevated border border-surface-border space-y-4">
-            <div className="w-14 h-14 rounded-2xl bg-surface-elevated border border-surface-border text-lime flex items-center justify-center mx-auto">
+          /* Clean Empty Workspace State with Quick-Scan Launchers */
+          <div className="p-10 sm:p-14 text-center rounded-3xl glass-panel-elevated border border-surface-border space-y-6">
+            <div className="w-14 h-14 rounded-2xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center mx-auto">
               <Zap className="w-7 h-7" />
             </div>
-            <h3 className="font-display text-3xl text-cream uppercase tracking-wide">
-              No Audit Executed Yet
-            </h3>
-            <p className="text-sm text-sage/75 max-w-lg mx-auto">
-              Enter any public website URL above (or select a preset chip) to trigger the live dual-source accuracy engine. Measurements, breakdown, and sensitivity bounds will appear here.
-            </p>
+            <div className="space-y-2">
+              <h3 className="font-display text-3xl sm:text-4xl text-cream uppercase tracking-wide">
+                Live Audit Cockpit Ready
+              </h3>
+              <p className="text-sm text-sage/75 max-w-lg mx-auto">
+                Enter any public website URL in the hero dock above to trigger the live dual-source accuracy engine. Or launch an instant benchmark scan below:
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+              {BENCHMARK_PRESETS.map((p) => (
+                <button
+                  key={p.url}
+                  onClick={() => {
+                    setTargetUrl(p.url);
+                    if (typeof (window as any).__triggerSylvaScan === "function") {
+                      (window as any).__triggerSylvaScan();
+                    }
+                    runAudit(p.url);
+                  }}
+                  className="px-4 py-2 rounded-full glass-panel border border-surface-border hover:border-lime/50 text-xs font-mono text-cream hover:text-lime transition-all hover:scale-105 flex items-center gap-1.5 cursor-pointer shadow-sm"
+                >
+                  <Sparkles className="w-3 h-3 text-lime" />
+                  <span>Audit {p.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </section>
@@ -913,6 +804,7 @@ function LandingPageContent() {
           </div>
         )}
       </AnimatePresence>
+      </div>
     </div>
   );
 }

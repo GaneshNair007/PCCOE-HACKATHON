@@ -1,0 +1,46 @@
+{
+  "description": "FIXTURE_ONLY: Synthetic test sessions and project boundaries for cross-project isolation tests. Must never be used as live user measurements.",
+  "fixtureVersion": "1.0.0",
+  "sessions": [
+    {
+      "sessionId": "test-session-alpha",
+      "projectId": "proj-alpha-enterprise",
+      "projectName": "Alpha Enterprise Corp Portal",
+      "targetUrl": "http://127.0.0.1:3001/demo/event",
+      "userConstraints": {
+        "canEditSource": true,
+        "canChangeHosting": false,
+        "maxBudgetKb": 300,
+        "qualityPriority": "high"
+      },
+      "messages": [
+        {
+          "id": "msg-alpha-1",
+          "role": "user",
+          "content": "Audit our enterprise registration portal.",
+          "timestamp": "2026-09-06T00:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "sessionId": "test-session-beta",
+      "projectId": "proj-beta-academic",
+      "projectName": "Beta Academic Campus Events",
+      "targetUrl": "http://127.0.0.1:3002/demo/event",
+      "userConstraints": {
+        "canEditSource": false,
+        "canChangeHosting": true,
+        "maxBudgetKb": 200,
+        "qualityPriority": "medium"
+      },
+      "messages": [
+        {
+          "id": "msg-beta-1",
+          "role": "user",
+          "content": "Evaluate university portal transfer budget.",
+          "timestamp": "2026-09-06T00:00:00.000Z"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,343 @@
+{
+  "sessions": {
+    "sess-user-alpha": {
+      "sessionId": "sess-user-alpha",
+      "createdAt": "2026-09-05T19:10:50.188Z",
+      "lastActiveAt": "2026-09-05T19:10:50.188Z",
+      "userConstraints": {
+        "canEditSource": false
+      },
+      "messages": [
+        {
+          "id": "m1",
+          "role": "user",
+          "content": "Alpha secret plan",
+          "timestamp": "2026-09-05T19:10:50.188Z"
+        }
+      ]
+    },
+    "sess-user-beta": {
+      "sessionId": "sess-user-beta",
+      "createdAt": "2026-09-05T19:10:50.188Z",
+      "lastActiveAt": "2026-09-05T19:10:50.188Z",
+      "userConstraints": {
+        "canEditSource": true
+      },
+      "messages": [
+        {
+          "id": "m2",
+          "role": "user",
+          "content": "Beta query",
+          "timestamp": "2026-09-05T19:10:50.188Z"
+        }
+      ]
+    },
+    "sess-alpha-1788637345184": {
+      "sessionId": "sess-alpha-1788637345184",
+      "createdAt": "2026-09-05T19:42:25.184Z",
+      "lastActiveAt": "2026-09-05T19:42:25.184Z",
+      "selectedProjectId": "proj-alpha",
+      "userConstraints": {
+        "maxBudgetKb": 100
+      },
+      "messages": [
+        {
+          "id": "m-alpha-1",
+          "role": "user",
+          "content": "Confidential Alpha Prompt",
+          "timestamp": "now"
+        }
+      ]
+    },
+    "sess-beta-1788637345184": {
+      "sessionId": "sess-beta-1788637345184",
+      "createdAt": "2026-09-05T19:42:25.186Z",
+      "lastActiveAt": "2026-09-05T19:42:25.186Z",
+      "selectedProjectId": "proj-beta",
+      "userConstraints": {
+        "maxBudgetKb": 500
+      },
+      "messages": [
+        {
+          "id": "m-beta-1",
+          "role": "user",
+          "content": "Confidential Beta Prompt",
+          "timestamp": "now"
+        }
+      ]
+    },
+    "sess-alpha-1788637499645": {
+      "sessionId": "sess-alpha-1788637499645",
+      "createdAt": "2026-09-05T19:44:59.645Z",
+      "lastActiveAt": "2026-09-05T19:44:59.645Z",
+      "selectedProjectId": "proj-alpha",
+      "userConstraints": {
+        "maxBudgetKb": 100
+      },
+      "messages": [
+        {
+          "id": "m-alpha-1",
+          "role": "user",
+          "content": "Confidential Alpha Prompt",
+          "timestamp": "now"
+        }
+      ]
+    },
+    "sess-beta-1788637499645": {
+      "sessionId": "sess-beta-1788637499645",
+      "createdAt": "2026-09-05T19:44:59.647Z",
+      "lastActiveAt": "2026-09-05T19:44:59.647Z",
+      "selectedProjectId": "proj-beta",
+      "userConstraints": {
+        "maxBudgetKb": 500
+      },
+      "messages": [
+        {
+          "id": "m-beta-1",
+          "role": "user",
+          "content": "Confidential Beta Prompt",
+          "timestamp": "now"
+        }
+      ]
+    }
+  },
+  "projects": {
+    "proj-campus-hackathon": {
+      "id": "proj-campus-hackathon",
+      "name": "Campus Hackathon Registration Portal",
+      "targetUrl": "http://localhost:3002/demo/event",
+      "source": "sidecar-controlled-fixture",
+      "capturedAt": "2026-09-05T19:07:03.975Z",
+      "breakdown": {
+        "imagesBytes": 2450000,
+        "scriptBytes": 120000,
+        "styleBytes": 25000,
+        "fontBytes": 45000,
+        "documentBytes": 8000,
+        "otherBytes": 2000,
+        "totalBytes": 2650000
+      },
+      "carbonEstimate": {
+        "bytes": 2650000,
+        "kilobytes": 2587.89,
+        "megabytes": 2.5272,
+        "kwh": 0.000142,
+        "gCO2e": 0.0654,
+        "uncertaintyRange": {
+          "low": 0.0523,
+          "nominal": 0.0654,
+          "high": 0.0784,
+          "note": "Standard ±20% grid & client device model sensitivity bound per SWDM v4 guidelines"
+        },
+        "segmentBreakdown": {
+          "dataCenterGco2": 0.0094,
+          "networkGco2": 0.0088,
+          "userDeviceGco2": 0.0327,
+          "hardwareProductionGco2": 0.0144
+        },
+        "provenance": {
+          "methodology": "SWDM-4.0 (Sustainable Web Design Model v4)",
+          "energyIntensityFactor": "0.0577 kWh/GB",
+          "gridFactor": "442 gCO2/kWh operational, 531 gCO2/kWh embodied",
+          "calculatedAt": "2026-09-05T19:07:03.975Z"
+        }
+      },
+      "provenance": {
+        "verified": true,
+        "note": "Locally controlled demo fixture with reproducible baseline and candidate variants",
+        "collector": "Sidecar Physical Journey Runner"
+      }
+    }
+  },
+  "experiments": {
+    "exp-hackathon-poster": {
+      "id": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "name": "Hero Poster Optimization: WebP + Responsive Picture",
+      "description": "Replace 2.45MB raw JPEG poster with 185KB high-fidelity WebP asset while preserving student registration CTA and form validation.",
+      "targetFile": "src/app/demo/event/page.tsx",
+      "baselineVariant": {
+        "id": "baseline",
+        "name": "Oversized Baseline (Raw JPEG)",
+        "description": "2.45MB uncompressed JPEG hero banner. High transfer payload.",
+        "heroAssetUrl": "/demo/hero-poster.jpg",
+        "encodedAssetBytes": 2450000,
+        "format": "jpeg",
+        "taskPreserved": true,
+        "fixturePath": "/demo/event?variant=baseline"
+      },
+      "candidateVariants": {
+        "optimized": {
+          "id": "optimized",
+          "name": "Optimized Candidate (Responsive WebP)",
+          "description": "185KB WebP responsive picture element. 92.4% asset byte reduction. Full registration task preserved.",
+          "heroAssetUrl": "/demo/hero-poster.webp",
+          "encodedAssetBytes": 185000,
+          "format": "webp",
+          "taskPreserved": true,
+          "fixturePath": "/demo/event?variant=optimized"
+        },
+        "broken": {
+          "id": "broken",
+          "name": "Broken Candidate (Broken Form Handlers)",
+          "description": "140KB asset but introduces form syntax error breaking registration submission (HTTP 500).",
+          "heroAssetUrl": "/demo/hero-poster.webp",
+          "encodedAssetBytes": 140000,
+          "format": "webp",
+          "taskPreserved": false,
+          "fixturePath": "/demo/event?variant=broken"
+        }
+      },
+      "patchDiff": "--- a/src/app/demo/event/page.tsx\n+++ b/src/app/demo/event/page.tsx\n@@ -14,5 +14,9 @@\n-  <img src=\"/demo/hero-poster.jpg\" alt=\"Event Poster\" className=\"w-full h-auto\" />\n+  <picture>\n+    <source srcSet=\"/demo/hero-poster.webp\" type=\"image/webp\" />\n+    <img src=\"/demo/hero-poster.jpg\" alt=\"Event Poster\" className=\"w-full h-auto\" loading=\"eager\" decoding=\"async\" width=\"1200\" height=\"675\" />\n+  </picture>",
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalStatus": "approved",
+      "baselineRuns": [
+        {
+          "runId": "base-run-1",
+          "timestamp": "2026-09-05T19:02:03.976Z",
+          "transferBytes": 2651200,
+          "journeyTimeMs": 412,
+          "taskSuccess": true
+        },
+        {
+          "runId": "base-run-2",
+          "timestamp": "2026-09-05T19:03:03.976Z",
+          "transferBytes": 2650400,
+          "journeyTimeMs": 398,
+          "taskSuccess": true
+        },
+        {
+          "runId": "base-run-3",
+          "timestamp": "2026-09-05T19:04:03.976Z",
+          "transferBytes": 2650800,
+          "journeyTimeMs": 405,
+          "taskSuccess": true
+        }
+      ],
+      "candidateRuns": [
+        {
+          "runId": "cand-run-broken-1788635224008",
+          "variant": "broken",
+          "timestamp": "2026-09-05T19:07:04.007Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788635224014",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T19:07:04.013Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        },
+        {
+          "runId": "cand-run-broken-1788635450215",
+          "variant": "broken",
+          "timestamp": "2026-09-05T19:10:50.214Z",
+          "transferBytes": 340000,
+          "journeyTimeMs": 140,
+          "taskSuccess": false,
+          "failureReason": "Registration endpoint failed with HTTP 500: Missing event ticket handler."
+        },
+        {
+          "runId": "cand-run-opt-1788635450223",
+          "variant": "optimized",
+          "timestamp": "2026-09-05T19:10:50.222Z",
+          "transferBytes": 385000,
+          "journeyTimeMs": 185,
+          "taskSuccess": true
+        }
+      ],
+      "createdAt": "2026-09-05T19:07:03.976Z",
+      "approvedAt": "2026-09-05T19:44:59.661Z",
+      "approvalSigner": "Second Signer"
+    }
+  },
+  "receipts": {
+    "rcpt-1788635224018-6025a669": {
+      "receiptId": "rcpt-1788635224018-6025a669",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T19:07:04.013Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T19:07:04.003Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    },
+    "rcpt-1788635450228-b7d04450": {
+      "receiptId": "rcpt-1788635450228-b7d04450",
+      "experimentId": "exp-hackathon-poster",
+      "projectId": "proj-campus-hackathon",
+      "timestamp": "2026-09-05T19:10:50.222Z",
+      "environment": {
+        "sidecarVersion": "1.0.0",
+        "swdmVersion": "SWDM-4.0",
+        "nodeVersion": "v24.15.0",
+        "browserUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CarbonerraRunner/1.0"
+      },
+      "patchHash": "d0397d352bed6b6c97697f880e8cf97793575c37448b171bd5666bbd746848e3",
+      "approvalRecord": {
+        "status": "approved",
+        "approvedAt": "2026-09-05T19:10:50.209Z",
+        "signer": "Staff QA Lead"
+      },
+      "measurements": {
+        "baselineMedianBytes": 2650800,
+        "candidateMedianBytes": 385000,
+        "bytesSaved": 2265800,
+        "percentSaved": 85.48,
+        "baselineGco2e": 0.0654,
+        "candidateGco2e": 0.0095,
+        "gco2eSaved": 0.0559,
+        "runsCount": 3
+      },
+      "taskAssertions": {
+        "testedJourney": "Student Event Registration Form Submission",
+        "taskCompleted": true,
+        "functionalChecksPassed": true,
+        "details": "Form rendered, user inputs captured, submit CTA clicked, ticket ID returned (HTTP 200)."
+      },
+      "outcome": "observed_improvement",
+      "limitations": "Measurements conducted in controlled local test harness. Edge network compression may vary."
+    }
+  },
+  "providerUsage": {
+    "groq": {
+      "tokensThisMinute": 0,
+      "requestsToday": 0,
+      "lastResetMinute": "2026-09-05T19:07"
+    },
+    "gemini": {
+      "tokensThisMinute": 0,
+      "requestsToday": 0
+    }
+  }
+}

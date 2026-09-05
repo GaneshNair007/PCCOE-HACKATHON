@@ -3,6 +3,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -193,13 +194,14 @@ function SavingsLabContent() {
           return (
             <button
               key={st.num}
+              data-spec
               onClick={() => setCurrentStep(st.num)}
               className={`text-left p-3.5 rounded-2xl border transition-all cursor-pointer ${
                 isActive
                   ? "glass-panel-elevated border-lime/60 shadow-[0_0_20px_rgba(203,255,0,0.2)]"
                   : isDone
                   ? "glass-panel border-lime/20 text-cream"
-                  : "bg-surface/30 border-surface-border/40 text-sage/50"
+                  : "glass-panel border-white/5 text-sage/50 opacity-70 hover:opacity-100"
               }`}
             >
               <div className="flex items-center justify-between mb-1">
@@ -225,10 +227,21 @@ function SavingsLabContent() {
       )}
 
       {/* =========================================================================
-          STAGE 1: EVIDENCE (Observed Waste & Journey Definition)
+          STAGE CONTAINER (Animated Transitions)
           ========================================================================= */}
-      {currentStep === 1 && (
-        <div className="space-y-6">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentStep}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -16 }}
+          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {/* =========================================================================
+              STAGE 1: EVIDENCE (Observed Waste & Journey Definition)
+              ========================================================================= */}
+          {currentStep === 1 && (
+            <div className="space-y-6">
           <Card className="p-6 sm:p-8 glass-panel-elevated border border-lime/30 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
               <div>
@@ -760,6 +773,8 @@ function SavingsLabContent() {
           </Card>
         </div>
       )}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -158,7 +159,12 @@ function EvidenceContent() {
       )}
 
       {receipt && (
-        <div className="space-y-6">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="space-y-6"
+        >
           {/* Main Evidence Record Document */}
           <Card className="p-6 sm:p-10 glass-panel-elevated border border-lime/30 space-y-8 print:border-none print:shadow-none print:p-0">
             {/* Header Document Metadata */}
@@ -348,7 +354,7 @@ function EvidenceContent() {
               </Link>
             </div>
           </Card>
-        </div>
+        </motion.div>
       )}
     </div>
   );

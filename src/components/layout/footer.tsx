@@ -64,10 +64,12 @@ export function Footer() {
           </h5>
           <ul className="space-y-2 text-xs font-mono">
             <li><Link href="/" className="hover:text-lime transition-colors">LIVE SCANNER</Link></li>
+            <li><Link href="/savings-lab" className="hover:text-lime transition-colors">SAVINGS LAB</Link></li>
+            <li><Link href="/evidence" className="hover:text-lime transition-colors">EVIDENCE RECEIPT</Link></li>
             <li><Link href="/dashboard" className="hover:text-lime transition-colors">FLEET TELEMETRY</Link></li>
             <li><Link href="/simulator" className="hover:text-lime transition-colors">CARBON LAB SIMULATOR</Link></li>
-            <li><Link href="/forecasts" className="hover:text-lime transition-colors">ML FORECAST ENGINE</Link></li>
-            <li><Link href="/fix-hub" className="hover:text-lime transition-colors">AI AST CODE FIX HUB</Link></li>
+            <li><Link href="/forecasts" className="hover:text-lime transition-colors">EMISSIONS FORECASTS</Link></li>
+            <li><Link href="/fix-hub" className="hover:text-lime transition-colors">CODE FIX HUB</Link></li>
             <li><Link href="/shield" className="hover:text-lime transition-colors">REGRESSION SHIELD</Link></li>
           </ul>
         </div>

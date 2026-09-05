@@ -1,0 +1,181 @@
+Execution started at 2026-09-05T19:44:57.057Z
+
+
+--- SUITE: 01-discovery-inspection.mjs (Exit: 0, 469ms) ---
+▶ 01. Discovery & Architecture Inspection
+  ✔ 1.1 Root backend service is running and exposes documented health metadata (105.1241ms)
+  ✔ 1.2 AI Sidecar companion service is running and exposes health & provider status (27.9672ms)
+  ✔ 1.3 Methodology endpoint documents SWDM v4 specifications and transparent constants (22.1756ms)
+  ✔ 1.4 Project and Journey metadata endpoint exposes seeded controlled projects (20.3107ms)
+  ✔ 1.5 Environment configuration files contain no live secrets or real credentials (1.5201ms)
+  ✔ 1.6 File storage directories and stores exist without data corruption (14.1079ms)
+✔ 01. Discovery & Architecture Inspection (193.6317ms)
+ℹ tests 6
+ℹ suites 1
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 365.811
+
+--- SUITE: 02-isolated-fixtures.mjs (Exit: 0, 403ms) ---
+▶ 02. Isolated Test Environment & Synthetic Fixtures
+  ✔ 2.1 All 6 required synthetic fixtures are present and explicitly labeled (4.4106ms)
+  ✔ 2.2 Synthetic fixtures never bleed into live production store (11.5746ms)
+  ✔ 2.3 Production carbon engines evaluate measured audit fixture deterministically (94.6526ms)
+  ✔ 2.4 Partial audit fixture maintains unknown status without inventing sizes (1.1777ms)
+  ✔ 2.5 Failed audit fixture represents total collector failure truthfully (0.7753ms)
+✔ 02. Isolated Test Environment & Synthetic Fixtures (114.4654ms)
+ℹ tests 5
+ℹ suites 1
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 309.9671
+
+--- SUITE: 03-api-validation.mjs (Exit: 0, 890ms) ---
+▶ 03. API Contracts and Input Validation
+  ✔ 3.1 POST /api/audit: Missing URL returns 400 with sanitized error (98.9119ms)
+  ✔ 3.2 POST /api/audit: Malformed JSON returns 400 or 500 with clean error (21.1866ms)
+  ✔ 3.3 POST /api/simulate: Negative baseline_bytes is rejected with 400 (18.9542ms)
+  ✔ 3.4 POST /api/simulate: Missing baseline_bytes is rejected with 400 (16.5879ms)
+  ✔ 3.5 POST /api/simulate: Zero levers reproduce baseline metrics exactly (17.888ms)
+  ✔ 3.6 POST /api/chat: Empty message returns 400 (155.1641ms)
+  ✔ 3.7 POST /api/shield/evaluate: Strict evaluation detects baseline breach (149.3604ms)
+  ✔ 3.8 POST /api/experiments/[id]/approve: Non-existent experiment returns 404 (30.4805ms)
+  ✔ 3.9 GET /api/experiments/[id]/receipt: Non-existent experiment returns 404 (29.234ms)
+  ✔ 3.10 POST /api/companion/chat: Empty message returns 400 (19.0401ms)
+  ✔ 3.11 POST /api/companion/approval: Mismatched patch hash returns 409 Conflict (20.7821ms)
+  ✔ 3.12 POST /api/companion/budget: Baseline in strict mode returns 422 Unprocessable Entity (21.4464ms)
+  ✔ 3.13 GET /api/companion/receipts/[id]: Known receipt returns 200 with cryptographic audit trail (30.362ms)
+  ✔ 3.14 Unsupported HTTP methods return 405 or clean 404/501 without stack traces (17.1387ms)
+✔ 03. API Contracts and Input Validation (650.0785ms)
+ℹ tests 14
+ℹ suites 1
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 795.5704
+
+--- SUITE: 04-carbon-correctness.mjs (Exit: 0, 503ms) ---
+▶ 04. Carbon and Audit Correctness
+  ✔ 4.1 Determinism: Identical inputs produce identical emissions down to 4 decimal places (2.5502ms)
+  ✔ 4.2 Sensitivity range: ±20% sensitivity boundary is properly bounded and labeled (0.4526ms)
+  ✔ 4.3 Zero-change scenario reproduces baseline transfer and emissions exactly (94.0506ms)
+  ✔ 4.4 Zero-image page receives 0 image-transfer savings when image compression is requested (22.1773ms)
+  ✔ 4.5 Parameter fidelity: 20% compression uses exactly 20% on eligible assets (0.9773ms)
+  ✔ 4.6 Green hosting verification drops emissions without changing payload bytes (0.4569ms)
+  ✔ 4.7 Deferring scripts does not eliminate essential script payload (19.3186ms)
+  ✔ 4.8 Non-overlapping actions cannot remove the same bytes twice (0.8892ms)
+✔ 04. Carbon and Audit Correctness (143.0016ms)
+ℹ tests 8
+ℹ suites 1
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 394.2138
+
+--- SUITE: 05-database-state.mjs (Exit: 0, 393ms) ---
+▶ 05. Database, State, and Job Tests
+  ✔ 5.1 Saved evidence survives simulated reload from disk (2.8121ms)
+  ✔ 5.2 Append-only architecture: New runs do not overwrite existing historical baseline records (37.6944ms)
+  ✔ 5.3 Session boundary isolation: Session Alpha cannot access or mutate Session Beta messages (10.0035ms)
+  ✔ 5.4 Idempotency: Re-approving an already approved experiment updates notes without duplicating approvals (10.7717ms)
+  ✔ 5.5 Non-existent project ID rejects tool actions without corrupting store (7.7747ms)
+✔ 05. Database, State, and Job Tests (71.0429ms)
+ℹ tests 5
+ℹ suites 1
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 297.5996
+
+--- SUITE: 06-ai-tool-calling.mjs (Exit: 0, 629ms) ---
+▶ 06. AI and Tool-Calling Tests
+  ✔ 6.1 Paraphrase interpretation: 'Help students register using less data' executes inspectAudit & prepareImageExperiment (9.2667ms)
+  ✔ 6.2 Follow-up interpretation: 'Use 20% instead' extracts exact percentage and models scenario (2.9409ms)
+  ✔ 6.3 Constraint handling: 'I cannot change hosting' excludes hosting actions from ranking (3.5802ms)
+  ✔ 6.4 Evidence reference: 'Show the evidence behind that number' retrieves methodology or receipt (1.5504ms)
+  ✔ 6.5 Tool executor rejects unknown or unsupported tool names (0.2782ms)
+  ✔ 6.6 Tool arguments are validated; missing required projectId returns error result (1.9527ms)
+  ✔ 6.7 Root chat API executes real live audit tool with SWDM v4 telemetry (98.532ms)
+  ✔ 6.8 Root chat API executes release shield budget tool (133.5707ms)
+  ℹ LIVE PROVIDER SMOKE TEST: Marked NOT CONFIGURED / OFFLINE (Deterministic fallback verified)
+  ✔ 6.9 Live AI Provider Smoke Test (Reports LIVE or gracefully marks BLOCKED / NOT CONFIGURED) (20.5876ms)
+✔ 06. AI and Tool-Calling Tests (274.5839ms)
+ℹ tests 9
+ℹ suites 1
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 538.4161
+
+--- SUITE: 07-security-boundaries.mjs (Exit: 0, 557ms) ---
+▶ 07. Security Boundaries & SSRF Defense
+  ✔ 7.1 SSRF Block: http://127.0.0.1:8080 (Loopback IPv4 address) (83.1644ms)
+  ✔ 7.1 SSRF Block: http://localhost:3000 (Localhost alias) (20.2578ms)
+  ✔ 7.1 SSRF Block: http://169.254.169.254/latest/meta-data (AWS/GCP Cloud Metadata Service) (19.3139ms)
+  ✔ 7.1 SSRF Block: http://10.0.0.1 (Private Class A RFC 1918 range) (17.4975ms)
+  ✔ 7.1 SSRF Block: http://192.168.1.1 (Private Class C RFC 1918 range) (17.1879ms)
+  ✔ 7.1 SSRF Block: http://172.16.0.1 (Private Class B RFC 1918 range) (16.4596ms)
+  ✔ 7.1 SSRF Block: http://0.0.0.0 (Zero IP / local host broadcast) (16.3883ms)
+  ✔ 7.2 Non-HTTP protocol (file://) is strictly rejected (15.9014ms)
+  ✔ 7.3 Non-HTTP protocol (ftp://) is strictly rejected (15.8272ms)
+  ✔ 7.4 Path traversal on experiment ID returns sanitized 404 without leaking filesystem (26.7893ms)
+  ✔ 7.5 Public status and methodology endpoints contain no API keys or tokens (62.9691ms)
+✔ 07. Security Boundaries & SSRF Defense (314.5174ms)
+ℹ tests 11
+ℹ suites 1
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 456.7625
+
+--- SUITE: 08-complete-workflow.mjs (Exit: 0, 4998ms) ---
+▶ 08. Complete Engineering Workflow & Guardrail Verification
+  ✔ 8.1 Step 1-3: Select project, record 3 baseline passes, and generate reviewable patch (455.7908ms)
+  ✔ 8.2 Step 4: Calculate 20% counterfactual image scenario against baseline (22.9008ms)
+  ✔ 8.3 Step 5-6: Record explicit engineering approval for candidate patch (46.3952ms)
+  ✔ 8.4 Step 7 (GUARDRAIL): Lighter candidate with broken registration MUST BE REJECTED (1988.5741ms)
+  ✔ 8.5 Step 8: Working optimized candidate passes task assertions and proves physical savings (2068.3147ms)
+  ✔ 8.6 Step 9: Generate auditable evidence receipt with cryptographic patch hash (34.641ms)
+  ✔ 8.7 Step 10 (BUDGET BREACH): Reintroduced baseline asset breaches 350 KB ceiling (146.4906ms)
+✔ 08. Complete Engineering Workflow & Guardrail Verification (4766.0964ms)
+ℹ tests 7
+ℹ suites 1
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4901.333
+
+--- SUITE: 09-bounded-reliability.mjs (Exit: 0, 768ms) ---
+
+  ℹ BENCHMARK CONDITIONS: 60 requests, Concurrency: 6
+  ℹ METRICS: Throughput: 120.5 req/s | Avg: 42.7ms | p50: 44ms | p95: 62ms | Errors: 0
+▶ 09. Bounded Reliability & Concurrency
+  ✔ 9.1 Concurrency & Latency Benchmark: 60 requests across 6 concurrent workers on /api/health and /api/methodology (500.1955ms)
+  ✔ 9.2 Rate Limiting Recovery: Rate-limited client recovers after window expiration (28.6475ms)
+✔ 09. Bounded Reliability & Concurrency (530.9883ms)
+ℹ tests 2
+ℹ suites 1
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 671.7225
