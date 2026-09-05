@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  MessageSquare,
   X,
   Send,
   Sparkles,
@@ -11,9 +12,20 @@ import {
   Terminal,
   Bot,
   Zap,
+  CheckCircle2,
+  AlertTriangle,
+  ArrowUpRight,
+  ShieldAlert,
+  Cpu,
+  RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+
+interface ChatActionLink {
+  label: string;
+  href: string;
+}
 
 interface ChatMessage {
   id: string;
@@ -21,6 +33,8 @@ interface ChatMessage {
   text: string;
   toolUsed?: string | null;
   toolOutput?: any;
+  engine?: string;
+  actionLinks?: ChatActionLink[];
   timestamp: string;
 }
 
@@ -32,6 +46,15 @@ export function AgenticChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const pathname = usePathname() || "";
+  let searchParams: URLSearchParams | null = null;
+  try {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    searchParams = useSearchParams();
+  } catch {
+    // Fallback if rendered outside suspense
+  }
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -40,13 +63,37 @@ export function AgenticChat() {
     scrollToBottom();
   }, [messages, loading]);
 
-  const quickPrompts = [
-    'check stripe.com',
-    'why is this a C?',
-    'simulate 90% image compression',
-    'compare vercel.com with stripe.com',
-    'explain for executives',
-  ];
+  // Context-aware dynamic suggestions
+  const isSavingsLab = pathname.includes("savings-lab");
+  const isShield = pathname.includes("shield");
+  const isEvidence = pathname.includes("evidence");
+
+  const quickPrompts = isSavingsLab
+    ? [
+        "prepare experiment",
+        "test candidate",
+        "test broken candidate",
+        "evaluate release shield budget",
+      ]
+    : isShield
+    ? [
+        "evaluate budget for candidate",
+        "evaluate budget for baseline",
+        "check release shield breaches",
+      ]
+    : isEvidence
+    ? [
+        "generate receipt",
+        "explain methodology assumptions",
+        "verify candidate task preservation",
+      ]
+    : [
+        "check stripe.com",
+        "compare vercel.com with stripe.com",
+        "prepare experiment for campus-events",
+        "simulate 80% image compression",
+        "evaluate release shield budget",
+      ];
 
   const handleSend = async (textToSend?: string) => {
     const query = (textToSend || input).trim();
@@ -62,25 +109,25 @@ export function AgenticChat() {
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setLoading(true);
+    setActiveTool("Executing sustainability tool...");
 
-    // Provide immediate visual cue if query matches a known tool trigger
-    if (query.match(/check|audit|test|scan/i)) {
-      setActiveTool('run_audit(url)...');
-    } else if (query.match(/compare/i)) {
-      setActiveTool('compare(url_a, url_b)...');
-    } else if (query.match(/simulate|compress|defer/i)) {
-      setActiveTool('simulate(levers)...');
-    } else if (query.match(/explain|pm priya|executive/i)) {
-      setActiveTool('explain_for_exec()...');
-    } else {
-      setActiveTool('get_last_audit()...');
+    // Build explicit context from the active route and search params
+    const context: Record<string, string> = {
+      projectId: "campus-events",
+      journeyId: "event-registration",
+    };
+    if (searchParams) {
+      const expParam = searchParams.get("experimentId");
+      if (expParam) context.experimentId = expParam;
+      const urlParam = searchParams.get("url");
+      if (urlParam) context.targetUrl = urlParam;
     }
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: query }),
+        body: JSON.stringify({ message: query, context }),
       });
 
       const data = await res.json();
@@ -95,6 +142,8 @@ export function AgenticChat() {
         text: data.reply,
         toolUsed: data.tool_used,
         toolOutput: data.tool_output,
+        engine: data.engine,
+        actionLinks: data.actionLinks || [],
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
 
@@ -145,25 +194,25 @@ export function AgenticChat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.96 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[460px] h-[640px] max-h-[82vh] rounded-2xl glass-panel-elevated border border-lime/30 shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[490px] h-[660px] max-h-[84vh] rounded-2xl glass-panel-elevated border border-lime/30 shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Drawer Header */}
-            <div className="p-4 border-b border-surface-border bg-surface-elevated/70 flex items-center justify-between">
+            <div className="p-4 border-b border-surface-border bg-surface-elevated/80 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-full bg-lime/10 border border-lime/40 flex items-center justify-center text-lime">
-                  <Sparkles className="w-4 h-4" />
+                  <Cpu className="w-4 h-4" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="font-display tracking-wider text-cream text-lg uppercase">
                       CARBONERRA AI
                     </span>
-                    <Badge variant="lime" className="text-[9px] px-1.5 py-0">
-                      AGENTIC SWDM v4
+                    <Badge variant="lime" className="text-[9px] px-1.5 py-0 font-mono">
+                      SWDM v4
                     </Badge>
                   </div>
-                  <p className="text-[11px] font-mono text-sage/70">
-                    Live Telemetry & Optimization Agent
+                  <p className="text-[10px] font-mono text-sage/70">
+                    Real Tool Execution • Audit → Fix → Verify → Protect
                   </p>
                 </div>
               </div>
@@ -179,23 +228,23 @@ export function AgenticChat() {
             <div className="flex-1 p-4 overflow-y-auto space-y-4">
               {/* Empty State */}
               {messages.length === 0 && (
-                <div className="h-full flex flex-col justify-center items-center text-center p-4 space-y-6">
-                  <div className="w-14 h-14 rounded-2xl bg-forest-900/60 border border-lime/30 flex items-center justify-center text-lime lime-glow">
+                <div className="h-full flex flex-col justify-center items-center text-center p-4 space-y-5">
+                  <div className="w-14 h-14 rounded-2xl bg-forest-900/80 border border-lime/40 flex items-center justify-center text-lime lime-glow">
                     <Bot className="w-7 h-7" />
                   </div>
-                  <div className="space-y-2">
-                    <h4 className="font-display text-xl text-cream tracking-wide uppercase">
-                      GROUNDED SUSTAINABILITY ASSISTANT
+                  <div className="space-y-1.5">
+                    <h4 className="font-display text-lg text-cream tracking-wide uppercase">
+                      ZERO HARDCODED ESTIMATES
                     </h4>
                     <p className="text-xs text-sage/80 leading-relaxed font-sans max-w-xs">
-                      Ask me to check a site, explain a score, or simulate a fix — I&apos;ll actually run it, not guess.
+                      Every response is computed from real audits, headless browser journey passes, SWDM v4 formulas, or CI budget evaluations.
                     </p>
                   </div>
 
                   {/* Starter Chips */}
                   <div className="w-full space-y-2">
                     <span className="text-[10px] font-mono uppercase tracking-widest text-lime/80 block text-left">
-                      SUGGESTED ACTIONS
+                      REAL TOOL ACTIONS
                     </span>
                     <div className="flex flex-col gap-1.5">
                       {quickPrompts.map((prompt, i) => (
@@ -222,7 +271,7 @@ export function AgenticChat() {
                   }`}
                 >
                   <div
-                    className={`max-w-[88%] p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
+                    className={`max-w-[92%] p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                       msg.sender === "user"
                         ? "bg-forest-900 border border-lime/40 text-cream rounded-br-none"
                         : "bg-surface border border-surface-border text-sage rounded-bl-none font-sans"
@@ -230,27 +279,121 @@ export function AgenticChat() {
                   >
                     {/* Tool Badge Indicator */}
                     {msg.toolUsed && (
-                      <div className="mb-2.5 pb-2 border-b border-surface-border/60 flex items-center gap-1.5 text-[10px] font-mono text-lime">
-                        <Wrench className="w-3.5 h-3.5" />
-                        <span>EXECUTED TOOL:</span>
-                        <code className="bg-[#080d0b] px-1.5 py-0.5 rounded border border-lime/30 text-lime font-bold">
+                      <div className="mb-2 pb-2 border-b border-surface-border/60 flex items-center gap-1.5 text-[10px] font-mono text-lime overflow-hidden">
+                        <Wrench className="w-3.5 h-3.5 shrink-0" />
+                        <span className="shrink-0">TOOL EXECUTED:</span>
+                        <code className="bg-[#080d0b] px-1.5 py-0.5 rounded border border-lime/30 text-lime font-bold truncate max-w-[240px]">
                           {msg.toolUsed}
                         </code>
                       </div>
                     )}
 
-                    <div className="whitespace-pre-wrap">{msg.text}</div>
+                    {/* Markdown / Text Content */}
+                    <div className="whitespace-pre-wrap font-sans">{msg.text}</div>
+
+                    {/* Rich Tool Output Card (when structured data available) */}
+                    {msg.toolOutput && (
+                      <div className="mt-3 pt-2.5 border-t border-surface-border/60 space-y-2">
+                        {/* 1. Experiment Patch proposal */}
+                        {msg.toolOutput.patchProposal && (
+                          <div className="p-2.5 rounded-lg bg-[#080d0b] border border-surface-border text-[11px] font-mono space-y-1">
+                            <div className="flex items-center justify-between text-lime">
+                              <span>PATCH PROPOSAL</span>
+                              <Badge variant="lime" className="text-[9px]">
+                                -{msg.toolOutput.patchProposal.estimatedSavingPct}% Projected
+                              </Badge>
+                            </div>
+                            <p className="text-sage/80 truncate">
+                              Target: {msg.toolOutput.patchProposal.targetFile}
+                            </p>
+                          </div>
+                        )}
+
+                        {/* 2. Candidate Verification outcome */}
+                        {msg.toolOutput.outcome && (
+                          <div className="p-2.5 rounded-lg bg-[#080d0b] border border-surface-border text-[11px] font-mono space-y-1.5">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sage/80">VERIFICATION</span>
+                              {msg.toolOutput.outcome === "VERIFIED_IMPROVEMENT" ? (
+                                <Badge variant="lime" className="flex items-center gap-1">
+                                  <CheckCircle2 className="w-3 h-3" /> VERIFIED
+                                </Badge>
+                              ) : (
+                                <Badge variant="danger" className="flex items-center gap-1">
+                                  <AlertTriangle className="w-3 h-3" /> BLOCKED
+                                </Badge>
+                              )}
+                            </div>
+                            {msg.toolOutput.percentSaved !== undefined && (
+                              <div className="text-cream text-[11px]">
+                                Measured Saving:{" "}
+                                <strong className="text-lime">
+                                  {msg.toolOutput.percentSaved}%
+                                </strong>{" "}
+                                (
+                                {Math.round(msg.toolOutput.bytesSaved / 1024)} KB)
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {/* 3. Release Shield Budget */}
+                        {msg.toolOutput.exitCode !== undefined && (
+                          <div className="p-2.5 rounded-lg bg-[#080d0b] border border-surface-border text-[11px] font-mono space-y-1">
+                            <div className="flex items-center justify-between">
+                              <span className="text-sage/80">RELEASE SHIELD</span>
+                              <Badge
+                                variant={msg.toolOutput.passed ? "lime" : "danger"}
+                                className="text-[9px]"
+                              >
+                                {msg.toolOutput.passed ? "PASSED (Exit 0)" : "BLOCKED (Exit 1)"}
+                              </Badge>
+                            </div>
+                            <div className="text-cream text-[10px]">
+                              Transfer: {Math.round(msg.toolOutput.actualBytes / 1024)} KB /{" "}
+                              {Math.round(msg.toolOutput.thresholdBytes / 1024)} KB Ceiling
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Interactive Action Links */}
+                        {msg.actionLinks && msg.actionLinks.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 pt-1">
+                            {msg.actionLinks.map((link, idx) => (
+                              <Link
+                                key={idx}
+                                href={link.href}
+                                onClick={() => setIsOpen(false)}
+                                className="inline-flex items-center gap-1 text-[10px] font-mono px-2.5 py-1 rounded-lg bg-lime/10 border border-lime/40 text-lime hover:bg-lime/20 transition-colors"
+                              >
+                                <span>{link.label}</span>
+                                <ArrowUpRight className="w-3 h-3" />
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
-                  <span className="text-[10px] font-mono text-sage/50 mt-1 px-1">
-                    {msg.timestamp}
-                  </span>
+
+                  {/* Message Metadata Bar */}
+                  <div className="flex items-center gap-2 mt-1 px-1">
+                    <span className="text-[10px] font-mono text-sage/50">
+                      {msg.timestamp}
+                    </span>
+                    {msg.engine && (
+                      <span className="text-[9px] font-mono text-lime/60 bg-surface px-1.5 py-0.2 rounded border border-surface-border">
+                        {msg.engine}
+                      </span>
+                    )}
+                  </div>
                 </div>
               ))}
 
               {/* Active Tool Calling State */}
               {loading && (
                 <div className="flex items-start gap-2">
-                  <div className="p-3 rounded-2xl rounded-bl-none bg-surface border border-lime/30 text-lime text-xs font-mono space-y-2 max-w-[85%]">
+                  <div className="p-3.5 rounded-2xl rounded-bl-none bg-surface border border-lime/30 text-lime text-xs font-mono space-y-2 max-w-[85%]">
                     <div className="flex items-center gap-2">
                       <Zap className="w-4 h-4 animate-spin text-lime" />
                       <span className="font-bold">AGENT EXECUTING TOOL...</span>
@@ -298,7 +441,7 @@ export function AgenticChat() {
                   value={input}
                   disabled={loading}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder='Try: "check stripe.com" or "why is this a C?"'
+                  placeholder='Ask: "check stripe.com", "test candidate", or "evaluate budget"'
                   className="flex-1 bg-surface border border-surface-border rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-cream placeholder:text-sage/40 focus:outline-none focus:border-lime transition-colors"
                 />
                 <Button

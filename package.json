@@ -6,12 +6,14 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start -p 3001",
-    "test": "node --test tests/accuracy.test.mjs tests/blueprint.test.mjs tests/savings-lab.test.mjs",
+    "test": "node --test tests/accuracy.test.mjs tests/blueprint.test.mjs tests/savings-lab.test.mjs tests/chat-agent.test.mjs",
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/google": "^4.0.64",
     "@tgwf/co2": "^0.19.0",
     "@types/three": "^0.185.4",
+    "ai": "^7.0.93",
     "cheerio": "^1.2.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.9",
@@ -22,7 +24,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.5.4",
-    "three": "^0.185.1"
+    "three": "^0.185.1",
+    "zod": "^4.5.4"
   },
   "devDependencies": {
     "@types/node": "^22.7.5",
