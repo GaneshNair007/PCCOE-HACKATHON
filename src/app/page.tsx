@@ -119,7 +119,7 @@ function LandingPageContent() {
     }, 1800);
 
     const phaseTimer2 = setTimeout(() => {
-      setCurrentPhase("Phase 3/4: Fetching Real Regional Datacenter Grid Intensity...");
+      setCurrentPhase("Phase 3/4: Resolving Hosting Geolocation Proxy & Grid Intensity...");
     }, 4200);
 
     try {
@@ -225,19 +225,37 @@ function LandingPageContent() {
         <div className="flex-1 max-w-2xl space-y-6 text-left z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel text-xs font-mono text-lime border border-lime/30 shadow-[0_0_15px_rgba(203,255,0,0.15)]">
             <span className="w-2 h-2 rounded-full bg-lime animate-ping" />
-            <span className="font-semibold">REAL DATA ONLY • SWDM v4 MULTI-SOURCE TELEMETRY</span>
+            <span className="font-semibold">CARBONERRA SAVINGS LAB • PROVE THE IMPROVEMENT</span>
           </div>
 
-          <h1 className="font-display text-6xl sm:text-8xl lg:text-9xl tracking-tight text-cream uppercase leading-[0.85] select-none">
-            CARBON<span className="text-lime drop-shadow-[0_0_35px_rgba(203,255,0,0.4)]">ERRA</span>
+          <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl tracking-tight text-cream uppercase leading-[0.9] select-none">
+            MAKE YOUR WEBSITE <span className="text-lime drop-shadow-[0_0_35px_rgba(203,255,0,0.4)]">LIGHTER.</span> PROVE THE IMPROVEMENT.
           </h1>
 
-          <p className="text-base sm:text-lg text-sage/85 max-w-xl leading-relaxed">
-            Turn web payloads into auditable carbon results. Measures transfer weights across independent crawlers, queries real regional datacenter electrical grid carbon intensity, and computes auditable uncertainty ranges.
+          <p className="text-base sm:text-lg text-sage/90 max-w-xl leading-relaxed">
+            Find avoidable downloads, review a practical fix, verify the same user journey uses less data, and protect the improvement in your next release.
           </p>
 
+          {/* Primary CTA & Secondary Demo CTA */}
+          <div className="flex flex-wrap items-center gap-3 pt-1">
+            <a
+              href="#scanner-form"
+              className="interactive inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-lime text-black font-mono font-bold text-xs tracking-wider hover:bg-lime/90 transition-all shadow-[0_0_20px_rgba(203,255,0,0.4)] hover:scale-105"
+            >
+              <Zap className="w-4 h-4 text-black" />
+              AUDIT A WEBSITE ↓
+            </a>
+            <Link
+              href="/savings-lab?projectId=campus-events&demo=true"
+              className="interactive inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-surface-border text-xs font-mono text-sage/80 hover:text-cream hover:border-lime/40 transition-all"
+            >
+              <Sliders className="w-3.5 h-3.5 text-lime" />
+              Try the Savings Lab demo →
+            </Link>
+          </div>
+
           {/* URL Audit Scanner Form */}
-          <div className="pt-2">
+          <div id="scanner-form" className="pt-2">
             <form
               onSubmit={handleAuditSubmit}
               className="flex flex-col sm:flex-row gap-3 items-center glass-panel-elevated p-2 sm:p-2.5 rounded-2xl sm:rounded-full border border-lime/40 shadow-[0_10px_30px_rgba(203,255,0,0.15)] focus-within:border-lime transition-all"
@@ -263,7 +281,7 @@ function LandingPageContent() {
                 className="w-full sm:w-auto shrink-0 font-bold tracking-wider shadow-[0_0_20px_rgba(203,255,0,0.3)] hover:scale-105 transition-transform"
               >
                 <Zap className="w-4 h-4 mr-1.5" />
-                {auditStatus === "running" ? "AUDITING..." : "RUN REAL AUDIT"}
+                {auditStatus === "running" ? "AUDITING..." : "AUDIT A WEBSITE"}
               </Button>
             </form>
 
@@ -398,7 +416,13 @@ function LandingPageContent() {
                   <span>•</span>
                   <span>Model: {auditData.methodology_version}</span>
                   <span>•</span>
-                  <span className="text-lime font-bold">Status: Verified Real Audit</span>
+                  <span className="text-lime font-bold">
+                    {auditData.cross_validation
+                      ? `Dual-Source Concordance (${auditData.cross_validation.discrepancy_pct}% Variance)`
+                      : auditData.record?.sources && auditData.record.sources.length > 0
+                      ? auditData.record.sources[0].provider
+                      : "Single Source Crawl"}
+                  </span>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -414,6 +438,47 @@ function LandingPageContent() {
                 >
                   <Sliders className="w-3.5 h-3.5" /> Simulate Real Levers →
                 </Link>
+              </div>
+            </div>
+
+            {/* Top Evidenced Opportunity Banner */}
+            <div className="p-5 rounded-2xl bg-gradient-to-r from-forest/40 via-surface-elevated to-forest/20 border border-lime/40 shadow-[0_4px_25px_rgba(203,255,0,0.12)] flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-lime text-black">
+                    TOP EVIDENCED OPPORTUNITY
+                  </span>
+                  <span className="text-xs font-mono text-sage/70">
+                    Observed Transfer Hotspot
+                  </span>
+                </div>
+                <div className="text-cream font-bold text-lg">
+                  {auditData.hotspots && auditData.hotspots.length > 0
+                    ? auditData.hotspots[0].title
+                    : "Payload Transfer Within Typical Thresholds"}
+                </div>
+                <p className="text-xs text-sage/80 max-w-2xl">
+                  {auditData.hotspots && auditData.hotspots.length > 0
+                    ? auditData.hotspots[0].desc
+                    : "Site transfers minimal uncompressed bytes. Establish a regression Shield budget to protect this state."}
+                </p>
+              </div>
+              <div className="shrink-0 flex items-center gap-2">
+                {auditData.hotspots && auditData.hotspots.length > 0 ? (
+                  <Link
+                    href={`/savings-lab?auditId=${auditData.id}&targetUrl=${encodeURIComponent(auditData.target_url)}&hotspot=${encodeURIComponent(auditData.hotspots[0].title)}`}
+                    className="px-4 py-2.5 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-all hover:scale-105 shadow-[0_0_15px_rgba(203,255,0,0.3)] flex items-center gap-2"
+                  >
+                    START IMPROVEMENT EXPERIMENT →
+                  </Link>
+                ) : (
+                  <Link
+                    href="/shield"
+                    className="px-4 py-2.5 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-all hover:scale-105 flex items-center gap-2"
+                  >
+                    SET A SHIELD BUDGET →
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -447,7 +512,7 @@ function LandingPageContent() {
                         </div>
                         <div>
                           <div className="text-xs font-mono text-sage/70 uppercase">
-                            Regional Datacenter Grid Carbon Intensity
+                            Regional Grid Carbon Intensity (IP Geolocation Proxy)
                           </div>
                           <div className="font-mono text-xl font-bold text-cream flex items-center gap-2">
                             {auditData.grid_intensity_val}{" "}
@@ -459,8 +524,8 @@ function LandingPageContent() {
                           <p className="text-xs text-sage/70 mt-1">
                             Source:{" "}
                             {auditData.grid_intensity_source === "resolved_regional"
-                              ? "The Green Web Foundation IP Telemetry (v3)"
-                              : "Global Reference Datacenter Baseline"}
+                              ? "The Green Web Foundation IP Telemetry (Ember 2023 grid factors; geographic proxy)"
+                              : "Global Reference Datacenter Baseline (494 gCO2e/kWh)"}
                           </p>
                         </div>
                       </div>
@@ -470,10 +535,10 @@ function LandingPageContent() {
                           variant={auditData.hosting.green ? "lime" : "outline"}
                           className="font-mono text-xs font-bold"
                         >
-                          {auditData.hosting.green ? "VERIFIED GREEN HOST" : "STANDARD GRID"}
+                          {auditData.hosting.green ? "GREEN HOST DATASET MATCH" : "STANDARD GRID PROXY"}
                         </Badge>
                         <span className="text-[11px] font-mono text-sage/60">
-                          {auditData.hosting.provider || "Hosting provider not verified as green"}
+                          {auditData.hosting.provider || "Hosting dataset record not verified green"}
                         </span>
                       </div>
                     </div>
@@ -496,7 +561,7 @@ function LandingPageContent() {
                   <Card className="p-5 glass-panel-elevated border border-lime/30 space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-xs font-mono text-lime font-bold">
-                        <Sliders className="w-4 h-4" /> 3D SENSITIVITY CHAMBER (±20% CACHE VARIANCE)
+                        <Sliders className="w-4 h-4" /> MODEL SENSITIVITY ASSUMPTION (±20% CACHE VARIANCE)
                       </div>
                       <span className="font-mono text-xs text-cream font-bold">
                         {sensitivityVariance > 0 ? `+${sensitivityVariance}%` : `${sensitivityVariance}%`}
@@ -516,6 +581,9 @@ function LandingPageContent() {
                       <span>0% (Baseline Visit)</span>
                       <span>+20% (Cold First-Time Load)</span>
                     </div>
+                    <p className="text-[10px] font-mono text-sage/60">
+                      Attributional model sensitivity scenario. This explores SWDM caching bounds; it is not a statistically validated confidence interval.
+                    </p>
                   </Card>
                 </TiltCard3D>
               </div>

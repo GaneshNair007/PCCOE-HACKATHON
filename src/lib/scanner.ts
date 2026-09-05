@@ -51,6 +51,7 @@ interface Source2Result {
   categoryBytes: Record<string, number>;
   observedAssetUrls: string[];
   durationMs: number;
+  unmeasuredResourceCount?: number;
   isFallback?: boolean;
 }
 
@@ -292,6 +293,7 @@ async function fetchSource2Independent(
       other: 0,
     };
 
+    let unmeasuredCount = 0;
     const observedUrls: string[] = [];
     const maxResources = discoveredUrls.slice(0, 32);
 
@@ -322,7 +324,7 @@ async function fetchSource2Independent(
           },
         });
 
-        if (!probeRes.ok) {
+        if (!probeRes.ok || !probeRes.headers.get("content-length")) {
           probeRes = await fetch(resolvedUrl, {
             method: "GET",
             signal: probeCtrl.signal,
@@ -344,28 +346,11 @@ async function fetchSource2Independent(
           }
         }
 
-        // Empirical fallback for probed asset when CDN suppresses Content-Length
-        const fallbackAssetWeight: Record<string, number> = {
-          image: 110000,
-          script: 75000,
-          stylesheet: 32000,
-          font: 40000,
-          video: 450000,
-        };
-        categoryBytes[item.category] =
-          (categoryBytes[item.category] || 0) + (fallbackAssetWeight[item.category] || 25000);
+        // Preserve asset as discovered with unmeasured bytes; do NOT inject synthetic category weights
+        unmeasuredCount++;
       } catch {
         clearTimeout(probeTimeout);
-        // Fallback for timeout on discovered asset
-        const fallbackAssetWeight: Record<string, number> = {
-          image: 95000,
-          script: 65000,
-          stylesheet: 28000,
-          font: 35000,
-          video: 350000,
-        };
-        categoryBytes[item.category] =
-          (categoryBytes[item.category] || 0) + (fallbackAssetWeight[item.category] || 20000);
+        unmeasuredCount++;
       }
     });
 
@@ -382,6 +367,7 @@ async function fetchSource2Independent(
         categoryBytes,
         observedAssetUrls: observedUrls,
         durationMs,
+        unmeasuredResourceCount: unmeasuredCount,
       },
     };
   } catch (err: any) {
@@ -391,68 +377,6 @@ async function fetchSource2Independent(
       error: err.name === "AbortError" ? "Independent crawl timed out (16s)" : err.message,
     };
   }
-}
-
-/**
- * Tier 3: Resilient Infrastructure Telemetry Profiler
- * Activated when target anti-bot firewall or API quotas block full HTML scraping.
- * Computes model-based digital footprint using real DNS resolution, server headers,
- * verified Green Web Foundation grid carbon intensity, and HTTP Archive empirical baselines.
- */
-async function resolveInfrastructureFallback(
-  targetUrl: string,
-  resolvedIp: string
-): Promise<Source2Result> {
-  const startTime = Date.now();
-  let observedBytes = 0;
-  let serverName = "Edge Web Server";
-
-  try {
-    const probeCtrl = new AbortController();
-    const probeTimer = setTimeout(() => probeCtrl.abort(), 4000);
-    const probeRes = await fetch(targetUrl, {
-      method: "HEAD",
-      signal: probeCtrl.signal,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-      },
-    });
-    clearTimeout(probeTimer);
-    serverName = probeRes.headers.get("server") || serverName;
-    const cl = probeRes.headers.get("content-length");
-    if (cl) {
-      observedBytes = parseInt(cl, 10) || 0;
-    }
-  } catch {
-    // Header probe optional
-  }
-
-  // Modern HTTP Archive median web page transfer is ~2,150,000 bytes
-  const totalBytes = observedBytes > 60000 ? observedBytes : 2150000;
-  const htmlBytes = Math.round(totalBytes * 0.06);
-  const scriptBytes = Math.round(totalBytes * 0.44);
-  const imageBytes = Math.round(totalBytes * 0.34);
-  const cssBytes = Math.round(totalBytes * 0.10);
-  const fontBytes = Math.round(totalBytes * 0.06);
-
-  return {
-    totalBytes,
-    htmlBytes,
-    resourceCount: 22,
-    categoryBytes: {
-      html: htmlBytes,
-      script: scriptBytes,
-      stylesheet: cssBytes,
-      image: imageBytes,
-      font: fontBytes,
-      video: 0,
-      other: 0,
-    },
-    observedAssetUrls: [targetUrl],
-    durationMs: Date.now() - startTime,
-    isFallback: true,
-  };
 }
 
 /**
@@ -650,24 +574,88 @@ export async function performAudit(rawTargetUrl: string): Promise<AuditResult> {
   let source2 = source2Res.result;
   const warnings: string[] = [];
 
-  // 5. Tier 3 Resilience: If both external PageSpeed (e.g. 429 quota) and direct DOM crawl were blocked/timed out,
-  // synthesize a verified footprint from DNS resolution, Green Web Foundation grid data, and server HTTP telemetry.
+  // 5. If both collectors failed, do NOT synthesize manufactured 2.15MB fallback data. Return honest INSUFFICIENT_DATA error.
   if (!source1 && !source2) {
-    const fallback = await resolveInfrastructureFallback(normalizedUrl, resolvedIp);
-    source2 = fallback;
-    sources.push({
-      provider: "Infrastructure Telemetry Profiler",
-      status: "success",
-      measuredAt: startedAt,
-      durationMs: fallback.durationMs,
-      payloadBytes: fallback.totalBytes,
-      notes: [
-        "Primary crawlers met target WAF or API rate limiting. Footprint synthesized via verified DNS resolution, Green Web Foundation regional grid data, and server response telemetry.",
+    const errorDetails = [
+      source1Res.error ? `Source 1 (PageSpeed): ${source1Res.error}` : null,
+      source2Res.error ? `Source 2 (DOM Crawler): ${source2Res.error}` : null,
+    ]
+      .filter(Boolean)
+      .join(" | ");
+
+    return {
+      id: auditId,
+      status: "error",
+      code: "INSUFFICIENT_DATA",
+      message: `Audit failed due to insufficient data. Both collection sources were unreachable, timed out, or blocked by the target host (${errorDetails || "No response"}). No manufactured fallback data is substituted.`,
+      url: normalizedUrl,
+      target_url: rawTargetUrl,
+      domain,
+      methodology_version: CARBONERRA_CONFIG.methodologyVersion,
+      calculated_at: new Date().toISOString(),
+      total_bytes: 0,
+      co2_grams: 0,
+      range_low_g: 0,
+      range_high_g: 0,
+      confidence: "unavailable",
+      confidence_note: "Both collectors failed. Insufficient data to estimate emissions.",
+      confidence_explanation: [
+        "Both primary collection sources failed. No manufactured data is substituted.",
       ],
-    });
-    warnings.push(
-      "Target anti-bot firewall or API rate-limits restricted direct asset enumeration; digital footprint calculated via verified infrastructure and server response telemetry."
-    );
+      eco_score: "F",
+      hosting: {
+        green: greenHosting.is_green,
+        confirmed: greenHosting.confirmed,
+        provider: greenHosting.provider || null,
+      },
+      grid_intensity_source: regionalGrid.source,
+      grid_intensity_val: regionalGrid.intensity,
+      hosting_country: regionalGrid.country || undefined,
+      hosting_country_code: regionalGrid.countryCode || undefined,
+      metrics: {
+        bytes_transferred: 0,
+        payload_mb: 0,
+        co2_grams: 0,
+        total_kwh: 0,
+        operational_kwh: 0,
+        embodied_kwh: 0,
+        is_green_hosting: greenHosting.is_green,
+        ecoscore_grade: "F",
+        cleaner_than_percentile: 0,
+        annual_impact: {
+          views_basis: 0,
+          co2_kg: 0,
+          co2_metric_tons: 0,
+          trees_equivalent: 0,
+          kwh_consumed: 0,
+          car_miles_equivalent: 0,
+        },
+      },
+      green_hosting: {
+        is_green: greenHosting.is_green,
+        hosted_by: greenHosting.hosted_by,
+        data_source: greenHosting.data_source,
+        verified: greenHosting.verified,
+        confirmed: greenHosting.confirmed,
+        provider: greenHosting.provider,
+      },
+      breakdown: [],
+      recommendations: [],
+      payload_breakdown: {
+        total_bytes: 0,
+        total_mb: 0,
+        html_kb: 0,
+        image_kb: 0,
+        script_kb: 0,
+        stylesheet_kb: 0,
+        assets_discovered: 0,
+      },
+      hotspots: [],
+      warnings: [
+        "Audit halted: both primary collection sources failed. No synthetic measurements are generated.",
+      ],
+      limitations: [...CARBONERRA_CONFIG.standardLimitations],
+    };
   }
 
   // 6. Cross-Validation & Evidence Assessment
@@ -677,7 +665,7 @@ export async function performAudit(rawTargetUrl: string): Promise<AuditResult> {
   let crossValidation: CrossValidationData | undefined = undefined;
   const breakdown: BreakdownItem[] = [];
 
-  if (source1 && source2 && !source2.isFallback) {
+  if (source1 && source2) {
     const s1 = source1.totalBytes;
     const s2 = source2.totalBytes;
     const maxB = Math.max(s1, s2, 1);
@@ -695,19 +683,19 @@ export async function performAudit(rawTargetUrl: string): Promise<AuditResult> {
     if (agreement) {
       confidence = "high";
       confidenceExplanation.push(
-        `Dual-source verification succeeded: PageSpeed Insights (${Math.round(
+        `Dual-source concordance check passed: PageSpeed Insights (${Math.round(
           s1 / 1024
-        )} KB) and independent crawler (${Math.round(s2 / 1024)} KB) agreed within ${discrepancyPct}%.`
+        )} KB) and independent crawler (${Math.round(s2 / 1024)} KB) agreed within ${discrepancyPct}%. Note: concordance demonstrates instrument agreement under simulated conditions, not physical ground truth.`
       );
     } else {
       confidence = "medium";
       if (s1 > s2) {
         confidenceExplanation.push(
-          `Measured ${discrepancyPct}% discrepancy between sources. Lighthouse captured dynamic client-rendered assets loaded asynchronously via JavaScript that static DOM discovery could not reach.`
+          `Measured ${discrepancyPct}% discrepancy between instruments. Lighthouse captured dynamic client-rendered assets loaded asynchronously via JavaScript that static DOM discovery could not reach.`
         );
       } else {
         confidenceExplanation.push(
-          `Measured ${discrepancyPct}% discrepancy between sources. Independent static crawler detected media or external assets that Lighthouse compressed or excluded in simulated conditions.`
+          `Measured ${discrepancyPct}% discrepancy between instruments. Independent static crawler detected media or external assets that Lighthouse compressed or excluded in simulated conditions.`
         );
       }
     }
@@ -724,13 +712,11 @@ export async function performAudit(rawTargetUrl: string): Promise<AuditResult> {
     breakdown.push(...source1.breakdown);
   } else if (source2) {
     totalBytes = source2.totalBytes;
-    confidence = source2.isFallback ? "low" : "medium";
+    confidence = "medium";
     confidenceExplanation.push(
-      source2.isFallback
-        ? `Target anti-bot firewall or API rate-limits restricted direct HTML scraping. Footprint calculated using verified datacenter infrastructure, Green Web Foundation grid data, and server HTTP telemetry.`
-        : `Single-source measurement: Independent DOM discovery succeeded (${Math.round(
-            totalBytes / 1024
-          )} KB), but PageSpeed Insights API was unavailable.`
+      `Single-source measurement: Independent DOM discovery succeeded (${Math.round(
+        totalBytes / 1024
+      )} KB), but PageSpeed Insights API was unavailable or rate-limited.`
     );
 
     for (const [cat, bytes] of Object.entries(source2.categoryBytes)) {

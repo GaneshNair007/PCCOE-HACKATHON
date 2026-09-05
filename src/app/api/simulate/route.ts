@@ -15,17 +15,32 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    const imgComp = Number(body.img_comp ?? 85);
-    const jsDefer = Number(body.js_defer ?? 60);
-    const cacheTtl = Number(body.cache_ttl ?? 30);
-    const greenHosting = Boolean(body.green_hosting ?? true);
+    // Levers default to 0 (no-op reproduces baseline exactly)
+    const imgComp = Number(body.img_comp ?? 0);
+    const jsDefer = Number(body.js_defer ?? 0);
+    const cacheTtl = Number(body.cache_ttl ?? 0);
+    const greenHosting = body.green_hosting !== undefined ? Boolean(body.green_hosting) : Boolean(body.baseline_green ?? false);
 
-    const imgFactor = 1.0 - (imgComp / 100.0) * 0.45;
-    const jsFactor = 1.0 - (jsDefer / 100.0) * 0.20;
-    const cacheFactor = 1.0 - Math.min(cacheTtl / 365.0, 0.15);
+    // If category bytes are provided, apply reductions only to eligible assets
+    const observedImageBytes = Number(body.image_bytes ?? Math.round(baseBytes * 0.4));
+    const observedJsBytes = Number(body.js_bytes ?? Math.round(baseBytes * 0.3));
+    const otherBytes = Math.max(0, baseBytes - observedImageBytes - observedJsBytes);
 
-    const simulatedBytes = Math.round(baseBytes * imgFactor * jsFactor * cacheFactor);
-    const baselineMetrics = calculateCarbonFootprint(baseBytes, false);
+    // Image compression reduces image category transfer
+    const imageSavedBytes = Math.round(observedImageBytes * (imgComp / 100.0) * 0.65);
+    const newImageBytes = Math.max(0, observedImageBytes - imageSavedBytes);
+
+    // Deferring JS does not make bytes disappear on a full journey; it optimizes execution timing and eliminates unused bundles (max 15% reducible)
+    const jsSavedBytes = Math.round(observedJsBytes * (jsDefer / 100.0) * 0.15);
+    const newJsBytes = Math.max(0, observedJsBytes - jsSavedBytes);
+
+    // Repeat visit caching benefit (max 20% on repeat visits)
+    const cacheReductionFactor = cacheTtl > 0 ? Math.min((cacheTtl / 365.0) * 0.10, 0.10) : 0;
+
+    const rawSimulated = newImageBytes + newJsBytes + otherBytes;
+    const simulatedBytes = Math.max(1000, Math.round(rawSimulated * (1.0 - cacheReductionFactor)));
+
+    const baselineMetrics = calculateCarbonFootprint(baseBytes, Boolean(body.baseline_green ?? false));
     const simulatedMetrics = calculateCarbonFootprint(simulatedBytes, greenHosting);
 
     const savingPct = Math.max(

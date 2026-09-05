@@ -186,22 +186,22 @@ export default function FixHubPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border pb-8">
         <div>
           <span className="text-xs font-mono text-lime uppercase font-bold tracking-widest">
-            ENGINEERING WORKBENCH • GUIDANCE MODE
+            ENGINEERING WORKBENCH • REFERENCE GUIDANCE
           </span>
           <h1 className="font-display text-4xl sm:text-6xl text-cream uppercase tracking-wide mt-1">
-            FIX HUB
+            REFERENCE GUIDANCE
           </h1>
           <p className="text-xs sm:text-sm text-sage/80 mt-2 max-w-2xl">
-            Verified, production-ready engineering patterns to eliminate the four most common digital carbon offenders: uncompressed images, heavy scripts, font bloat, and cache misses.
+            Illustrative engineering patterns and reference snippets for common web transfer categories. These are generic guidance examples and do not guarantee specific savings or prove assets are uncompressed or scripts are unused. For verified fixes with task checks, use Savings Lab.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
           <Link
-            href="/"
-            className="px-4 py-2 rounded-xl bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-transform hover:scale-105"
+            href="/savings-lab"
+            className="px-4 py-2 rounded-xl bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-transform hover:scale-105 shadow-[0_0_15px_rgba(203,255,0,0.3)]"
           >
-            Audit Your Target →
+            Open Savings Lab →
           </Link>
         </div>
       </div>
@@ -212,11 +212,11 @@ export default function FixHubPage() {
         </div>
       )}
 
-      {/* Guidance Mode Notice */}
+      {/* Reference Guidance Notice */}
       <div className="p-4 rounded-xl glass-panel border border-surface-border text-xs font-mono text-sage/80 flex items-start gap-2.5">
         <Info className="w-4 h-4 text-lime shrink-0 mt-0.5" />
         <div>
-          <span className="font-bold text-cream">Guidance Mode Policy:</span> Carbonerra audits public websites externally without private source repository access. The code patterns below are framework-tested reference snippets. Copy and paste them into your application codebase to capture measured carbon savings.
+          <span className="font-bold text-cream">Reference Guidance Disclaimer:</span> These patterns are general educational examples. Heavy JavaScript transfer does not prove code is unused, and high image bytes alone do not prove images lack modern compression. Real optimization requires source-level inspection and functional verification in <Link href="/savings-lab" className="text-lime underline">Savings Lab</Link>.
         </div>
       </div>
 
