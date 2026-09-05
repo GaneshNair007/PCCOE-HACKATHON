@@ -30,6 +30,8 @@ import {
   RefreshCw,
   HelpCircle,
   AlertTriangle,
+  XCircle,
+  Terminal,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,6 +42,8 @@ import { TiltCard3D } from "@/components/3d/tilt-card-3d";
 import { HologramGauge3D } from "@/components/3d/hologram-gauge-3d";
 import { PayloadBreakdown } from "@/components/telemetry/payload-breakdown";
 import { HotspotCard } from "@/components/telemetry/hotspot-card";
+import { ApiExplorer } from "@/components/telemetry/api-explorer";
+import { ExplainabilityPanel } from "@/components/telemetry/explainability-panel";
 import { AuditResult } from "@/types/telemetry";
 import { CARBONERRA_CONFIG } from "@/lib/config";
 import Link from "next/link";
@@ -65,6 +69,7 @@ function LandingPageContent() {
   const heroRef = useRef<HTMLDivElement>(null);
   const cockpitRef = useRef<HTMLDivElement>(null);
   const featuresRef = useRef<HTMLDivElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   // GSAP ScrollTrigger animations
   useEffect(() => {
@@ -98,6 +103,12 @@ function LandingPageContent() {
       return;
     }
 
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     setAuditStatus("running");
     setErrorMessage(null);
     setErrorCode(null);
@@ -116,6 +127,7 @@ function LandingPageContent() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: trimmed }),
+        signal: controller.signal,
       });
 
       clearTimeout(phaseTimer);
@@ -132,6 +144,7 @@ function LandingPageContent() {
       setAuditData(data);
       setAuditStatus("completed");
       setSensitivityVariance(0);
+      abortControllerRef.current = null;
 
       // Save to localStorage for fleet / recent history
       try {
@@ -161,8 +174,22 @@ function LandingPageContent() {
     } catch (err: any) {
       clearTimeout(phaseTimer);
       clearTimeout(phaseTimer2);
+      if (err.name === "AbortError" || controller.signal.aborted) {
+        setAuditStatus("idle");
+        setCurrentPhase("");
+        return;
+      }
       setAuditStatus("failed");
       setErrorMessage(err.message || "Network error occurred while connecting to the audit service.");
+    }
+  };
+
+  const cancelAudit = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+      setAuditStatus("idle");
+      setCurrentPhase("");
     }
   };
 
@@ -206,7 +233,7 @@ function LandingPageContent() {
           </h1>
 
           <p className="text-base sm:text-lg text-sage/85 max-w-xl leading-relaxed">
-            Audit any public website. Measures transfer payload across independent crawlers, queries real regional datacenter electrical grid carbon intensity, and computes auditable uncertainty ranges.
+            Turn web payloads into auditable carbon results. Measures transfer weights across independent crawlers, queries real regional datacenter electrical grid carbon intensity, and computes auditable uncertainty ranges.
           </p>
 
           {/* URL Audit Scanner Form */}
@@ -264,20 +291,22 @@ function LandingPageContent() {
                     runAudit(site.url);
                   }}
                   disabled={auditStatus === "running"}
-                  className="text-[11px] font-mono px-3.5 py-1 rounded-full bg-surface-elevated/80 border border-surface-border text-cream hover:text-lime hover:border-lime/50 hover:shadow-[0_0_15px_rgba(203,255,0,0.2)] transition-all cursor-pointer select-none"
+                  className="interactive text-[11px] font-mono px-3.5 py-1 rounded-full bg-surface-elevated/80 border border-surface-border text-cream hover:text-lime hover:border-lime/50 hover:shadow-[0_0_15px_rgba(203,255,0,0.2)] transition-all cursor-pointer select-none"
                 >
                   {site.label} ↗
                 </button>
               ))}
             </div>
 
-            {/* Live Progress Feedback */}
+            {/* Live Progress Feedback with Abort Controller Trigger */}
             <AnimatePresence>
               {auditStatus === "running" && (
                 <motion.div
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
+                  role="status"
+                  aria-live="polite"
                   className="mt-4 p-4 rounded-xl glass-panel border border-lime/30 font-mono text-xs text-lime space-y-2.5"
                 >
                   <div className="flex items-center justify-between">
@@ -285,7 +314,14 @@ function LandingPageContent() {
                       <span className="w-2.5 h-2.5 rounded-full bg-lime animate-ping" />
                       {currentPhase}
                     </span>
-                    <span className="text-sage/60">Live Request</span>
+                    <button
+                      type="button"
+                      onClick={cancelAudit}
+                      className="px-2.5 py-1 rounded-md bg-red-950/60 border border-red-500/40 text-red-300 hover:bg-red-900/70 hover:text-white transition-colors flex items-center gap-1 text-[11px] font-mono cursor-pointer"
+                      title="Abort active audit request"
+                    >
+                      <XCircle className="w-3.5 h-3.5" /> Cancel Audit
+                    </button>
                   </div>
                   <div className="w-full bg-black/50 h-1.5 rounded-full overflow-hidden">
                     <motion.div
@@ -301,6 +337,18 @@ function LandingPageContent() {
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {/* Secondary Action CTA: Developer API & Code Snippets */}
+            <div className="flex flex-wrap items-center gap-3 mt-4">
+              <a
+                href="#api-explorer"
+                className="interactive inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl glass-panel border border-surface-border hover:border-lime/40 text-xs font-mono text-sage/80 hover:text-cream transition-all"
+              >
+                <Terminal className="w-3.5 h-3.5 text-lime" />
+                <span>Explore Live Developer API & Code Export</span>
+                <ArrowRight className="w-3 h-3 text-lime" />
+              </a>
+            </div>
           </div>
 
           {/* Privacy & Methodology Footer Notice */}
@@ -486,6 +534,14 @@ function LandingPageContent() {
                 </div>
               </div>
             )}
+
+            {/* Explainability & Data Provenance Panel (PAIR / IBM Carbon Framework) */}
+            <div className="pt-6">
+              <ExplainabilityPanel
+                auditData={auditData}
+                onRerun={() => runAudit(targetUrl)}
+              />
+            </div>
           </>
         ) : (
           /* Clean Empty Workspace State (No Fake Data) */
@@ -509,13 +565,13 @@ function LandingPageContent() {
       <section ref={featuresRef} className="space-y-10">
         <div className="text-center space-y-3 max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-panel text-xs font-mono text-lime border border-lime/30">
-            <Cpu className="w-3.5 h-3.5" /> EXECUTIVE SUITE
+            <Cpu className="w-3.5 h-3.5" /> EXECUTIVE CAPABILITY SUITE
           </div>
           <h2 className="font-display text-4xl sm:text-5xl text-cream uppercase tracking-tight">
             Complete Digital Sustainability Arsenal
           </h2>
           <p className="text-sm sm:text-base text-sage/80">
-            From single-URL cross-validation to fleet-wide CSV export and CI/CD regression protection.
+            From single-URL dual-source cross-validation to fleet telemetry, what-if modeling, and CI/CD regression protection.
           </p>
         </div>
 
@@ -523,19 +579,35 @@ function LandingPageContent() {
           {/* Card 1: Fleet Dashboard */}
           <div className="feature-card-3d">
             <TiltCard3D maxTilt={12} className="h-full">
-              <Card className="p-6 glass-panel-elevated border border-surface-border h-full flex flex-col justify-between hover:border-lime/50 transition-colors">
+              <Card className="interactive p-6 glass-panel-elevated border border-surface-border h-full flex flex-col justify-between hover:border-lime/50 transition-all">
                 <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
-                    <Globe className="w-5 h-5" />
+                  <div className="flex items-center justify-between">
+                    <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
+                      <Globe className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-mono font-bold text-lime/70 tracking-widest px-2 py-0.5 rounded bg-lime/5 border border-lime/20">
+                      01
+                    </span>
                   </div>
-                  <h3 className="font-display text-xl text-cream uppercase">Fleet Dashboard</h3>
-                  <p className="text-xs text-sage/75 leading-relaxed">
-                    Track your audited domains, export telemetry CSV reports, and filter by real calculated grades.
-                  </p>
+                  <h3 className="font-display text-xl text-cream uppercase">Fleet Telemetry</h3>
+                  <div className="space-y-2 text-xs text-sage/80 leading-relaxed font-sans">
+                    <p>
+                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Problem:</strong>
+                      Multi-property sprawl without auditable baselines or green-hosting verification.
+                    </p>
+                    <p>
+                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Interaction:</strong>
+                      Domain portfolio batch ingestion, real-time filtering, and full CSV exports.
+                    </p>
+                    <p>
+                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Observable Result:</strong>
+                      Verifiable organization-wide eco-score distribution and carbon budgets.
+                    </p>
+                  </div>
                 </div>
                 <Link
                   href="/dashboard"
-                  className="mt-6 inline-flex items-center gap-1.5 text-xs font-mono text-lime font-semibold hover:underline"
+                  className="interactive mt-6 inline-flex items-center gap-1.5 text-xs font-mono text-lime font-semibold hover:underline"
                 >
                   Manage Fleet →
                 </Link>
@@ -546,19 +618,35 @@ function LandingPageContent() {
           {/* Card 2: What-If Simulator */}
           <div className="feature-card-3d">
             <TiltCard3D maxTilt={12} className="h-full">
-              <Card className="p-6 glass-panel-elevated border border-surface-border h-full flex flex-col justify-between hover:border-lime/50 transition-colors">
+              <Card className="interactive p-6 glass-panel-elevated border border-surface-border h-full flex flex-col justify-between hover:border-lime/50 transition-all">
                 <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
-                    <Sliders className="w-5 h-5" />
+                  <div className="flex items-center justify-between">
+                    <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
+                      <Sliders className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-mono font-bold text-lime/70 tracking-widest px-2 py-0.5 rounded bg-lime/5 border border-lime/20">
+                      02
+                    </span>
                   </div>
                   <h3 className="font-display text-xl text-cream uppercase">What-If Simulator</h3>
-                  <p className="text-xs text-sage/75 leading-relaxed">
-                    Model asset compression levers, Next.js Image optimization, and traffic scales on audited baselines.
-                  </p>
+                  <div className="space-y-2 text-xs text-sage/80 leading-relaxed font-sans">
+                    <p>
+                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Problem:</strong>
+                      Engineering commits blind to payload regressions and carbon footprint spikes.
+                    </p>
+                    <p>
+                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Interaction:</strong>
+                      Interactive levers for image transcoding, script tree-shaking, and CDN caching.
+                    </p>
+                    <p>
+                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Observable Result:</strong>
+                      Real-time grams CO2e delta and projected annual offset kilograms.
+                    </p>
+                  </div>
                 </div>
                 <Link
                   href="/simulator"
-                  className="mt-6 inline-flex items-center gap-1.5 text-xs font-mono text-lime font-semibold hover:underline"
+                  className="interactive mt-6 inline-flex items-center gap-1.5 text-xs font-mono text-lime font-semibold hover:underline"
                 >
                   Simulate Levers →
                 </Link>
@@ -569,19 +657,35 @@ function LandingPageContent() {
           {/* Card 3: Emissions Forecasting */}
           <div className="feature-card-3d">
             <TiltCard3D maxTilt={12} className="h-full">
-              <Card className="p-6 glass-panel-elevated border border-surface-border h-full flex flex-col justify-between hover:border-lime/50 transition-colors">
+              <Card className="interactive p-6 glass-panel-elevated border border-surface-border h-full flex flex-col justify-between hover:border-lime/50 transition-all">
                 <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
-                    <Activity className="w-5 h-5" />
+                  <div className="flex items-center justify-between">
+                    <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
+                      <Activity className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-mono font-bold text-lime/70 tracking-widest px-2 py-0.5 rounded bg-lime/5 border border-lime/20">
+                      03
+                    </span>
                   </div>
                   <h3 className="font-display text-xl text-cream uppercase">Emissions Forecasts</h3>
-                  <p className="text-xs text-sage/75 leading-relaxed">
-                    Scenario-based multi-year carbon projections derived from actual audit transfer weights.
-                  </p>
+                  <div className="space-y-2 text-xs text-sage/80 leading-relaxed font-sans">
+                    <p>
+                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Problem:</strong>
+                      Sustainability reports rely on static guesses rather than dynamic multi-year paths.
+                    </p>
+                    <p>
+                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Interaction:</strong>
+                      Traffic scaling models blended with real grid decarbonization trajectories.
+                    </p>
+                    <p>
+                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Observable Result:</strong>
+                      Forward-looking emission bands with auditable confidence intervals.
+                    </p>
+                  </div>
                 </div>
                 <Link
                   href="/forecasts"
-                  className="mt-6 inline-flex items-center gap-1.5 text-xs font-mono text-lime font-semibold hover:underline"
+                  className="interactive mt-6 inline-flex items-center gap-1.5 text-xs font-mono text-lime font-semibold hover:underline"
                 >
                   View Forecasts →
                 </Link>
@@ -592,19 +696,35 @@ function LandingPageContent() {
           {/* Card 4: Regression Shield */}
           <div className="feature-card-3d">
             <TiltCard3D maxTilt={12} className="h-full">
-              <Card className="p-6 glass-panel-elevated border border-surface-border h-full flex flex-col justify-between hover:border-lime/50 transition-colors">
+              <Card className="interactive p-6 glass-panel-elevated border border-surface-border h-full flex flex-col justify-between hover:border-lime/50 transition-all">
                 <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
-                    <ShieldCheck className="w-5 h-5" />
+                  <div className="flex items-center justify-between">
+                    <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
+                      <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-mono font-bold text-lime/70 tracking-widest px-2 py-0.5 rounded bg-lime/5 border border-lime/20">
+                      04
+                    </span>
                   </div>
                   <h3 className="font-display text-xl text-cream uppercase">Regression Shield</h3>
-                  <p className="text-xs text-sage/75 leading-relaxed">
-                    Downloadable GitHub Actions CI/CD workflow preventing pull requests from exceeding carbon budgets.
-                  </p>
+                  <div className="space-y-2 text-xs text-sage/80 leading-relaxed font-sans">
+                    <p>
+                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Problem:</strong>
+                      Asset bloat silently slips past manual code review into production branches.
+                    </p>
+                    <p>
+                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Interaction:</strong>
+                      Automated GitHub Actions workflow generation tailored to domain limits.
+                    </p>
+                    <p>
+                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Observable Result:</strong>
+                      Strict PR checks enforcing maximum byte weight and carbon budgets.
+                    </p>
+                  </div>
                 </div>
                 <Link
                   href="/shield"
-                  className="mt-6 inline-flex items-center gap-1.5 text-xs font-mono text-lime font-semibold hover:underline"
+                  className="interactive mt-6 inline-flex items-center gap-1.5 text-xs font-mono text-lime font-semibold hover:underline"
                 >
                   Inspect Shield →
                 </Link>
@@ -612,6 +732,24 @@ function LandingPageContent() {
             </TiltCard3D>
           </div>
         </div>
+      </section>
+
+      {/* ==========================================================================
+           INTERACTIVE DEVELOPER API EXPLORER (Live Sandbox + Multi-Language Snippets)
+           ========================================================================== */}
+      <section id="api-explorer" className="space-y-8 pt-10 scroll-mt-24">
+        <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-panel text-xs font-mono text-lime border border-lime/30">
+            <Terminal className="w-3.5 h-3.5" /> LIVE INTERACTION SURFACE
+          </div>
+          <h2 className="font-display text-4xl sm:text-5xl text-cream uppercase tracking-tight">
+            Developer Telemetry API
+          </h2>
+          <p className="text-sm sm:text-base text-sage/80">
+            Test real endpoints directly against the production server. Inspect response latency, status codes, and copy production-ready code snippets.
+          </p>
+        </div>
+        <ApiExplorer />
       </section>
 
       {/* ==========================================================================
