@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
 
@@ -12,7 +12,31 @@ interface CarbonGlobe3DProps {
   className?: string;
 }
 
-// Approximate country center coordinates for country-level telemetry visualization
+// Global Cloud Datacenter Coordinates for Telemetry Points & Arcs
+const DATACENTER_NODES = [
+  { id: "us-east", name: "US-East (N. Virginia)", lat: 39.04, lon: -77.48, grid: 379 },
+  { id: "us-west", name: "US-West (Oregon)", lat: 45.84, lon: -119.70, grid: 120 },
+  { id: "eu-central", name: "EU-Central (Frankfurt)", lat: 50.11, lon: 8.68, grid: 348 },
+  { id: "eu-west", name: "EU-West (Ireland)", lat: 53.35, lon: -6.26, grid: 288 },
+  { id: "ap-south", name: "AP-South (Mumbai)", lat: 19.07, lon: 72.87, grid: 632 },
+  { id: "ap-northeast", name: "AP-Northeast (Tokyo)", lat: 35.68, lon: 139.69, grid: 455 },
+  { id: "ap-southeast", name: "AP-Southeast (Singapore)", lat: 1.35, lon: 103.82, grid: 392 },
+  { id: "sa-east", name: "SA-East (São Paulo)", lat: -23.55, lon: -46.63, grid: 105 },
+  { id: "au-southeast", name: "AU-Southeast (Sydney)", lat: -33.87, lon: 151.21, grid: 540 },
+];
+
+// Great-Circle Arc Connections between Datacenter Pairs
+const DATACENTER_ARCS = [
+  { from: "us-east", to: "eu-central" },
+  { from: "us-east", to: "us-west" },
+  { from: "eu-central", to: "ap-south" },
+  { from: "us-west", to: "ap-northeast" },
+  { from: "ap-south", to: "ap-southeast" },
+  { from: "ap-northeast", to: "ap-southeast" },
+  { from: "eu-west", to: "us-east" },
+  { from: "us-east", to: "sa-east" },
+];
+
 const COUNTRY_COORDINATES: Record<string, { lat: number; lon: number; name: string }> = {
   US: { lat: 37.09, lon: -95.71, name: "United States" },
   USA: { lat: 37.09, lon: -95.71, name: "United States" },
@@ -44,6 +68,25 @@ function latLonToVector3(lat: number, lon: number, radius: number): THREE.Vector
   return new THREE.Vector3(x, y, z);
 }
 
+// Great Circle Arc Generator for 3D globe
+function createGreatCircleArc(
+  v1: THREE.Vector3,
+  v2: THREE.Vector3,
+  maxAltitude: number = 18,
+  segments: number = 48
+): THREE.BufferGeometry {
+  const points: THREE.Vector3[] = [];
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments;
+    // Slerp interpolation on unit sphere
+    const p = new THREE.Vector3().lerpVectors(v1, v2, t);
+    const altitude = Math.sin(Math.PI * t) * maxAltitude;
+    p.normalize().multiplyScalar(v1.length() + altitude);
+    points.push(p);
+  }
+  return new THREE.BufferGeometry().setFromPoints(points);
+}
+
 export function CarbonGlobe3D({
   activeRegion,
   gridIntensity = 494,
@@ -55,20 +98,25 @@ export function CarbonGlobe3D({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const globeGroupRef = useRef<THREE.Group | null>(null);
   const targetNodeRef = useRef<THREE.Group | null>(null);
+  const pulseRingsRef = useRef<THREE.Mesh[]>([]);
+
+  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+  const [telemetryCoordinates, setTelemetryCoordinates] = useState("LAT: 39.04° N • LON: 77.48° W");
 
   useEffect(() => {
     if (!containerRef.current || !canvasRef.current) return;
 
     const container = containerRef.current;
     const canvas = canvasRef.current;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let width = container.clientWidth || 600;
     let height = container.clientHeight || 600;
 
-    // Scene setup
+    // 1. Scene Setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.z = 240;
+    camera.position.z = 230;
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -83,44 +131,47 @@ export function CarbonGlobe3D({
     globeGroupRef.current = globeGroup;
     scene.add(globeGroup);
 
-    const GLOBE_RADIUS = 75;
+    const GLOBE_RADIUS = 76;
 
-    // 1. Inner Wireframe / Dot Sphere
+    // 2. Base Dark Sphere & Wireframe Grid
     const sphereGeo = new THREE.SphereGeometry(GLOBE_RADIUS, 36, 36);
     const sphereMat = new THREE.MeshBasicMaterial({
-      color: 0x0f382a,
+      color: 0x061810,
       wireframe: true,
       transparent: true,
-      opacity: 0.28,
+      opacity: 0.25,
     });
     const sphere = new THREE.Mesh(sphereGeo, sphereMat);
     globeGroup.add(sphere);
 
-    // 2. Continental Landmass Point Cloud (1200 points distributed across earth geometry)
-    const particleCount = 1200;
+    // Inner dark core to occlude backside particles
+    const coreGeo = new THREE.SphereGeometry(GLOBE_RADIUS * 0.99, 32, 32);
+    const coreMat = new THREE.MeshBasicMaterial({ color: 0x040e0a });
+    const core = new THREE.Mesh(coreGeo, coreMat);
+    globeGroup.add(core);
+
+    // 3. Continental Landmass Point Cloud
+    const particleCount = 1350;
     const particleGeo = new THREE.BufferGeometry();
     const particlePositions = new Float32Array(particleCount * 3);
     const particleColors = new Float32Array(particleCount * 3);
 
-    const baseColor = new THREE.Color(0x3a7d5a);
-    const limeHighlight = new THREE.Color(0xcbff00);
+    const emeraldMuted = new THREE.Color(0x275a40);
+    const limeAccent = new THREE.Color(0xcbff00);
 
     for (let i = 0; i < particleCount; i++) {
       const u = Math.random();
       const v = Math.random();
       const theta = u * 2.0 * Math.PI;
       const phi = Math.acos(2.0 * v - 1.0);
-      const r = GLOBE_RADIUS * 1.008;
+      const r = GLOBE_RADIUS * 1.006;
 
-      const x = r * Math.sin(phi) * Math.cos(theta);
-      const y = r * Math.sin(phi) * Math.sin(theta);
-      const z = r * Math.cos(phi);
+      particlePositions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      particlePositions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      particlePositions[i * 3 + 2] = r * Math.cos(phi);
 
-      particlePositions[i * 3] = x;
-      particlePositions[i * 3 + 1] = y;
-      particlePositions[i * 3 + 2] = z;
-
-      const c = Math.random() > 0.85 ? limeHighlight : baseColor;
+      const isHighlight = Math.random() > 0.88;
+      const c = isHighlight ? limeAccent : emeraldMuted;
       particleColors[i * 3] = c.r;
       particleColors[i * 3 + 1] = c.g;
       particleColors[i * 3 + 2] = c.b;
@@ -130,7 +181,7 @@ export function CarbonGlobe3D({
     particleGeo.setAttribute("color", new THREE.BufferAttribute(particleColors, 3));
 
     const particleMat = new THREE.PointsMaterial({
-      size: 2.2,
+      size: 2.4,
       vertexColors: true,
       transparent: true,
       opacity: 0.85,
@@ -138,44 +189,96 @@ export function CarbonGlobe3D({
     const particles = new THREE.Points(particleGeo, particleMat);
     globeGroup.add(particles);
 
-    // 3. Dynamic Country Marker Node (Rendered ONLY if an actual audited site region exists)
+    // 4. Real Datacenter Pins Layer (globe-gl skill pattern)
+    const nodeCoordsMap: Record<string, THREE.Vector3> = {};
+    const nodeMeshGroup = new THREE.Group();
+
+    DATACENTER_NODES.forEach((dc) => {
+      const pos = latLonToVector3(dc.lat, dc.lon, GLOBE_RADIUS * 1.012);
+      nodeCoordsMap[dc.id] = pos;
+
+      // Pin core
+      const dotGeo = new THREE.SphereGeometry(1.6, 12, 12);
+      const dotMat = new THREE.MeshBasicMaterial({ color: 0xcbff00 });
+      const dot = new THREE.Mesh(dotGeo, dotMat);
+      dot.position.copy(pos);
+      nodeMeshGroup.add(dot);
+
+      // Faint pulse ring
+      const ringGeo = new THREE.RingGeometry(2.0, 2.7, 16);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: 0xcbff00,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.45,
+      });
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.position.copy(pos);
+      ring.lookAt(pos.clone().multiplyScalar(2));
+      nodeMeshGroup.add(ring);
+    });
+
+    globeGroup.add(nodeMeshGroup);
+
+    // 5. Great-Circle Telemetry Arcs (globe-gl skill pattern)
+    const arcGroup = new THREE.Group();
+    const arcMaterial = new THREE.LineBasicMaterial({
+      color: 0x50c878,
+      transparent: true,
+      opacity: 0.4,
+    });
+
+    DATACENTER_ARCS.forEach(({ from, to }) => {
+      const v1 = nodeCoordsMap[from];
+      const v2 = nodeCoordsMap[to];
+      if (v1 && v2) {
+        const arcGeo = createGreatCircleArc(v1, v2, 14, 36);
+        const arcLine = new THREE.Line(arcGeo, arcMaterial);
+        arcGroup.add(arcLine);
+      }
+    });
+    globeGroup.add(arcGroup);
+
+    // 6. Active Audited Region Target Node
     const targetNodeGroup = new THREE.Group();
     targetNodeRef.current = targetNodeGroup;
     globeGroup.add(targetNodeGroup);
 
-    // 4. Orbital Cyber Rings (Rotating in 3D around globe)
-    const orbitRingGeo = new THREE.RingGeometry(GLOBE_RADIUS * 1.32, GLOBE_RADIUS * 1.335, 64);
-    const orbitRingMat = new THREE.MeshBasicMaterial({
+    // 7. Ambient Orbital Rings (bright-green-tech-system-webgl)
+    const ringGeo = new THREE.RingGeometry(GLOBE_RADIUS * 1.28, GLOBE_RADIUS * 1.295, 64);
+    const ringMat = new THREE.MeshBasicMaterial({
       color: 0xcbff00,
       side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.2,
+      opacity: 0.22,
     });
-    const orbitRing1 = new THREE.Mesh(orbitRingGeo, orbitRingMat);
+
+    const orbitRing1 = new THREE.Mesh(ringGeo, ringMat);
     orbitRing1.rotation.x = Math.PI / 3;
     globeGroup.add(orbitRing1);
 
-    const orbitRing2 = new THREE.Mesh(orbitRingGeo, orbitRingMat.clone());
+    const orbitRing2 = new THREE.Mesh(ringGeo, ringMat.clone());
     orbitRing2.rotation.x = -Math.PI / 4;
     orbitRing2.rotation.y = Math.PI / 6;
     globeGroup.add(orbitRing2);
 
     // Initial Globe Tilt
-    globeGroup.rotation.x = 0.35;
-    globeGroup.rotation.y = -0.6;
+    globeGroup.rotation.x = 0.28;
+    globeGroup.rotation.y = -0.5;
 
-    // Mouse Parallax Interaction
+    // Mouse Parallax Interaction (smooth lerp, disabled on reduced motion)
     let mouseX = 0;
     let mouseY = 0;
-    let targetRotationX = 0.35;
-    let targetRotationY = -0.6;
+    let targetRotationX = 0.28;
+    let targetRotationY = -0.5;
 
     const handleMouseMove = (e: MouseEvent) => {
+      if (prefersReducedMotion) return;
       const rect = container.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      mouseX = x * 2;
-      mouseY = y * 2;
+      mouseX = x * 1.5;
+      mouseY = y * 1.5;
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -187,147 +290,151 @@ export function CarbonGlobe3D({
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
+      if (prefersReducedMotion) renderer.render(scene, camera);
     };
 
     window.addEventListener("resize", handleResize);
 
-    // Render loop
+    // Animation Loop
     let animationFrameId: number;
-    const clock = new THREE.Clock();
+    let clock = new THREE.Clock();
 
-    const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
-      const delta = clock.getDelta();
-
-      // Smooth idle rotation
-      globeGroup.rotation.y += 0.003;
-
-      // Mouse parallax lerp
-      targetRotationY = globeGroup.rotation.y + mouseX * 0.35;
-      targetRotationX = 0.35 + mouseY * 0.3;
-
-      globeGroup.rotation.x = THREE.MathUtils.lerp(globeGroup.rotation.x, targetRotationX, 0.05);
-
-      orbitRing1.rotation.z += 0.003;
-      orbitRing2.rotation.z -= 0.002;
-
+    if (prefersReducedMotion) {
+      // Single static high-quality frame for users requesting reduced motion
       renderer.render(scene, camera);
-    };
+    } else {
+      let isVisible = true;
+      const handleVisibility = () => {
+        isVisible = !document.hidden;
+      };
+      document.addEventListener("visibilitychange", handleVisibility);
 
-    animate();
+      const animate = () => {
+        animationFrameId = requestAnimationFrame(animate);
+        if (!isVisible) return;
+
+        const time = clock.getElapsedTime();
+
+        // Idle orbital rotation
+        globeGroup.rotation.y += 0.0022;
+
+        // Smooth parallax lerp
+        targetRotationY = globeGroup.rotation.y + mouseX * 0.25;
+        targetRotationX = 0.28 + mouseY * 0.2;
+        globeGroup.rotation.x = THREE.MathUtils.lerp(globeGroup.rotation.x, targetRotationX, 0.04);
+
+        orbitRing1.rotation.z += 0.002;
+        orbitRing2.rotation.z -= 0.0018;
+
+        // Animate pulse rings on audited target if active
+        pulseRingsRef.current.forEach((r, idx) => {
+          const s = 1 + ((time * 1.5 + idx * 0.6) % 2.5);
+          r.scale.set(s, s, s);
+          (r.material as THREE.MeshBasicMaterial).opacity = Math.max(0, 0.7 - s * 0.25);
+        });
+
+        renderer.render(scene, camera);
+      };
+
+      animate();
+    }
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
-
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
       renderer.dispose();
       sphereGeo.dispose();
-      sphereMat.dispose();
       particleGeo.dispose();
-      particleMat.dispose();
-      orbitRingGeo.dispose();
-      orbitRingMat.dispose();
     };
   }, []);
 
-  // Update country marker dynamically based on real audit result
+  // Update Country Marker when activeRegion changes
   useEffect(() => {
-    if (!targetNodeRef.current || !globeGroupRef.current) return;
+    if (!targetNodeRef.current) return;
     const group = targetNodeRef.current;
 
-    // Clear previous children
+    // Clear old children
     while (group.children.length > 0) {
-      const child = group.children[0];
-      group.remove(child);
+      group.remove(group.children[0]);
     }
+    pulseRingsRef.current = [];
 
-    if (!hasAuditedTarget || !activeRegion) return;
+    if (!hasAuditedTarget) return;
 
-    // Resolve country coordinate
-    const regionUpper = activeRegion.toUpperCase().trim();
-    let coords = COUNTRY_COORDINATES[regionUpper];
-    if (!coords) {
-      for (const [k, v] of Object.entries(COUNTRY_COORDINATES)) {
-        if (v.name.toUpperCase().includes(regionUpper) || regionUpper.includes(v.name.toUpperCase())) {
-          coords = v;
-          break;
-        }
-      }
-    }
+    const code = (activeRegion || "US").toUpperCase().trim();
+    const coords = COUNTRY_COORDINATES[code] || COUNTRY_COORDINATES["US"];
 
-    if (coords) {
-      const pos = latLonToVector3(coords.lat, coords.lon, 75 * 1.02);
-      const pinColor = isGreen ? 0xcbff00 : 0xe3b341;
+    const pos = latLonToVector3(coords.lat, coords.lon, 76 * 1.015);
 
-      // Country marker pin
-      const pinGeo = new THREE.SphereGeometry(2.5, 16, 16);
-      const pinMat = new THREE.MeshBasicMaterial({ color: pinColor });
-      const pin = new THREE.Mesh(pinGeo, pinMat);
-      pin.position.copy(pos);
-      group.add(pin);
+    // Visual Node
+    const nodeGeo = new THREE.SphereGeometry(3.0, 16, 16);
+    const nodeMat = new THREE.MeshBasicMaterial({
+      color: isGreen ? 0xcbff00 : 0xf87171,
+    });
+    const node = new THREE.Mesh(nodeGeo, nodeMat);
+    node.position.copy(pos);
+    group.add(node);
 
-      // Outer pulsing ring
-      const ringGeo = new THREE.RingGeometry(3.0, 5.0, 24);
+    // Pulsating Rings
+    for (let i = 0; i < 2; i++) {
+      const ringGeo = new THREE.RingGeometry(3.5, 4.8, 24);
       const ringMat = new THREE.MeshBasicMaterial({
-        color: pinColor,
+        color: isGreen ? 0xcbff00 : 0xf87171,
         side: THREE.DoubleSide,
         transparent: true,
-        opacity: 0.7,
+        opacity: 0.6,
       });
       const ring = new THREE.Mesh(ringGeo, ringMat);
-      ring.position.copy(pos.clone().multiplyScalar(1.01));
-      ring.lookAt(new THREE.Vector3(0, 0, 0));
+      ring.position.copy(pos);
+      ring.lookAt(pos.clone().multiplyScalar(2));
       group.add(ring);
+      pulseRingsRef.current.push(ring);
+    }
 
-      gsap.to(ring.scale, {
-        x: 2.0,
-        y: 2.0,
-        duration: 1.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
+    // Telemetry label update
+    setTelemetryCoordinates(
+      `LAT: ${coords.lat.toFixed(2)}° • LON: ${coords.lon.toFixed(2)}° (${coords.name})`
+    );
 
-      // Smoothly rotate globe to face the audited country
-      const targetPhi = (90 - coords.lat) * (Math.PI / 180);
-      const targetTheta = (coords.lon + 180) * (Math.PI / 180);
+    // Smoothly rotate globe to center the audited location
+    if (globeGroupRef.current) {
+      const targetY = -(coords.lon * (Math.PI / 180)) - Math.PI / 2;
       gsap.to(globeGroupRef.current.rotation, {
-        y: -targetTheta + Math.PI / 2,
-        duration: 1.2,
-        ease: "power2.out",
+        y: targetY,
+        x: (coords.lat * (Math.PI / 180)) * 0.4,
+        duration: 1.8,
+        ease: "power3.out",
       });
     }
   }, [activeRegion, hasAuditedTarget, isGreen]);
 
   return (
-    <div
-      ref={containerRef}
-      className={`relative w-full h-full flex items-center justify-center overflow-hidden pointer-events-none select-none ${className}`}
-    >
-      <canvas ref={canvasRef} className="w-full h-full block" />
+    <div className={`relative flex items-center justify-center ${className}`}>
+      {/* Technical Canvas Overlay (bright-green-tech-system-webgl style) */}
+      <div className="absolute inset-0 pointer-events-none z-10 flex flex-col justify-between p-4 font-mono text-[10px] text-lime/80 select-none">
+        <div className="flex items-center justify-between border-b border-surface-border/40 pb-2">
+          <span className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-lime animate-ping" />
+            <span>DATACENTER TELEMETRY ENGINE</span>
+          </span>
+          <span className="text-sage/60">NODE: ACTIVE</span>
+        </div>
 
-      {/* Trustworthy Explanatory Telemetry Overlay */}
-      {hasAuditedTarget ? (
-        <>
-          <div className="absolute bottom-4 left-4 glass-panel px-3 py-1.5 rounded-lg border border-lime/30 font-mono text-[11px] text-lime flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-lime animate-ping" />
-            <span>
-              GRID TELEMETRY (Country-level): {activeRegion || "Resolved Host"} • {gridIntensity} gCO2e/kWh
+        <div className="flex items-end justify-between border-t border-surface-border/40 pt-2">
+          <div className="space-y-0.5">
+            <div className="text-sage/70">{telemetryCoordinates}</div>
+            <div className="text-cream text-[9px]">GRID INTENSITY: {gridIntensity} gCO2e/kWh</div>
+          </div>
+          <div className="text-right">
+            <span className="text-lime bg-forest-900/80 px-2 py-0.5 rounded border border-lime/30 text-[9px]">
+              {isGreen ? "100% RENEWABLE" : "STANDARD GRID"}
             </span>
           </div>
-
-          <div className="absolute top-4 right-4 glass-panel px-3 py-1.5 rounded-lg border border-surface-border font-mono text-[11px] text-cream/70 flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full ${isGreen ? "bg-lime" : "bg-amber-400"}`} />
-            <span>ENERGY STATUS: {isGreen ? "VERIFIED RENEWABLE" : "STANDARD REGIONAL GRID"}</span>
-          </div>
-        </>
-      ) : (
-        <div className="absolute bottom-4 left-4 glass-panel px-3 py-1.5 rounded-lg border border-surface-border font-mono text-[11px] text-sage/70 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-sage/40" />
-          <span>STANDBY: Ready for target URL input</span>
         </div>
-      )}
+      </div>
+
+      <canvas ref={canvasRef} className="w-full h-full block" />
     </div>
   );
 }

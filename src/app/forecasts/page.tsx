@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +19,12 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { AuditResult } from "@/types/telemetry";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function ForecastsPage() {
   const [selectedAudit, setSelectedAudit] = useState<AuditResult | null>(null);
@@ -34,6 +40,11 @@ export default function ForecastsPage() {
     plannedKg: number;
     netZeroKg: number;
   } | null>(null);
+
+  const chartCardRef = useRef<HTMLDivElement>(null);
+  const lineStatusQuoRef = useRef<SVGPolylineElement>(null);
+  const linePlannedRef = useRef<SVGPolylineElement>(null);
+  const lineNetZeroRef = useRef<SVGPolylineElement>(null);
 
   useEffect(() => {
     try {
@@ -153,6 +164,56 @@ export default function ForecastsPage() {
 
   const maxVal = Math.max(...points.map((p) => p.statusQuoKg), 1);
 
+  // GSAP ScrollTrigger Storytelling Reveal for Projection Paths
+  useEffect(() => {
+    if (typeof window === "undefined" || !selectedAudit) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const lines = [
+      lineStatusQuoRef.current,
+      linePlannedRef.current,
+      lineNetZeroRef.current,
+    ].filter(Boolean) as SVGPolylineElement[];
+
+    if (prefersReducedMotion) {
+      lines.forEach((line) => {
+        line.style.strokeDasharray = "none";
+        line.style.strokeDashoffset = "0";
+      });
+      return;
+    }
+
+    lines.forEach((line, idx) => {
+      const length = 2400;
+      gsap.set(line, {
+        strokeDasharray: length,
+        strokeDashoffset: length,
+      });
+
+      gsap.to(line, {
+        strokeDashoffset: 0,
+        duration: 1.6,
+        delay: idx * 0.25,
+        ease: "power2.out",
+        scrollTrigger: chartCardRef.current
+          ? {
+              trigger: chartCardRef.current,
+              start: "top 80%",
+              once: true,
+            }
+          : undefined,
+      });
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => {
+        if (t.vars.trigger === chartCardRef.current) {
+          t.kill();
+        }
+      });
+    };
+  }, [selectedAudit, timeframe, growthRate]);
+
   return (
     <div className="space-y-12 pb-20">
       {/* Header */}
@@ -245,7 +306,7 @@ export default function ForecastsPage() {
           </div>
 
           {/* Interactive SVG Projection Chart */}
-          <Card className="p-6 glass-panel-elevated border border-surface-border space-y-4">
+          <Card ref={chartCardRef} className="tech-frame gradient-border beautiful-md p-6 glass-panel-elevated space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-surface-border pb-4">
               <div className="flex items-center gap-4 text-xs font-mono">
                 <span className="flex items-center gap-1.5 text-red-400">
@@ -279,6 +340,7 @@ export default function ForecastsPage() {
 
                 {/* Status Quo Line (Red) */}
                 <polyline
+                  ref={lineStatusQuoRef}
                   fill="none"
                   stroke="#ff5c5c"
                   strokeWidth="2.5"
@@ -289,6 +351,7 @@ export default function ForecastsPage() {
 
                 {/* Planned Reductions Line (Amber) */}
                 <polyline
+                  ref={linePlannedRef}
                   fill="none"
                   stroke="#e3b341"
                   strokeWidth="2.5"
@@ -299,6 +362,7 @@ export default function ForecastsPage() {
 
                 {/* Net-Zero Target Line (Lime) */}
                 <polyline
+                  ref={lineNetZeroRef}
                   fill="none"
                   stroke="#cbff00"
                   strokeWidth="2.5"
@@ -343,7 +407,7 @@ export default function ForecastsPage() {
 
           {/* Cumulative Scenario Comparison */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
-            <Card className="p-5 glass-panel border border-red-500/30 space-y-1">
+            <Card className="tech-frame gradient-border beautiful-md p-5 glass-panel border border-red-500/30 space-y-1">
               <div className="text-sage/70 uppercase">Cumulative Status Quo</div>
               <div className="text-2xl font-bold text-red-400 font-display">
                 {Math.round(cumulativeStatusQuo)} kg CO2e
@@ -351,7 +415,7 @@ export default function ForecastsPage() {
               <div className="text-[11px] text-sage/60">Assuming no code changes</div>
             </Card>
 
-            <Card className="p-5 glass-panel border border-amber-400/30 space-y-1">
+            <Card className="tech-frame gradient-border beautiful-md p-5 glass-panel border border-amber-400/30 space-y-1">
               <div className="text-sage/70 uppercase">Cumulative Planned</div>
               <div className="text-2xl font-bold text-amber-300 font-display">
                 {Math.round(cumulativePlanned)} kg CO2e
@@ -359,7 +423,7 @@ export default function ForecastsPage() {
               <div className="text-[11px] text-sage/60">With gradual image/script compression</div>
             </Card>
 
-            <Card className="p-5 glass-panel border border-lime/30 space-y-1">
+            <Card className="tech-frame gradient-border beautiful-md p-5 glass-panel border border-lime/30 space-y-1">
               <div className="text-sage/70 uppercase">Cumulative Net-Zero Path</div>
               <div className="text-2xl font-bold text-lime font-display">
                 {Math.round(cumulativeNetZero)} kg CO2e

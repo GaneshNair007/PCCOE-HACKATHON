@@ -23,12 +23,17 @@ export function HotspotCard({ hotspot, index }: HotspotCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.4 }}
-      className="group relative h-[320px] rounded-[2.5rem] p-6 glass-panel overflow-hidden flex flex-col justify-between hover:border-lime/40 transition-all duration-300"
+      className="tech-frame gradient-border beautiful-md group relative h-[320px] rounded-2xl p-6 glass-panel overflow-hidden flex flex-col justify-between hover:border-lime/40 transition-all duration-300"
     >
       <div className="space-y-3 z-10">
-        <Badge variant={isDanger ? "danger" : isWarning ? "warning" : "forest"}>
-          {hotspot.priority}
-        </Badge>
+        <div className="flex items-center justify-between">
+          <Badge variant={isDanger ? "danger" : isWarning ? "warning" : "forest"}>
+            {hotspot.priority}
+          </Badge>
+          <span className="number-detail select-none">
+            0{index + 1}
+          </span>
+        </div>
         <div>
           <h4 className="font-mono text-sm sm:text-base font-bold text-cream truncate">
             {hotspot.title}

@@ -240,11 +240,14 @@ export default function FixHubPage() {
 
       {/* Pattern Cards List */}
       <div className="space-y-8">
-        {filteredPatterns.map((pattern) => (
-          <Card key={pattern.id} className="p-6 glass-panel-elevated border border-surface-border space-y-4">
+        {filteredPatterns.map((pattern, index) => (
+          <Card key={pattern.id} className="tech-frame gradient-border beautiful-md p-6 glass-panel-elevated relative space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-surface-border pb-4">
               <div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
+                  <span className="number-detail select-none">
+                    0{index + 1}
+                  </span>
                   <Badge variant="lime" className="font-mono text-[10px] uppercase">
                     {pattern.category}
                   </Badge>

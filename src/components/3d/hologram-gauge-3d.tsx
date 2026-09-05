@@ -77,7 +77,7 @@ export function HologramGauge3D({
         perspective: "1000px",
         transformStyle: "preserve-3d",
       }}
-      className="relative flex flex-col items-center justify-center p-6 glass-panel-elevated rounded-3xl border border-lime/30 shadow-[0_15px_40px_rgba(0,0,0,0.6)]"
+      className="tech-frame gradient-border-emerald beautiful-lg relative flex flex-col items-center justify-center p-6 glass-panel-elevated rounded-3xl border border-lime/40"
     >
       {/* 3D Glow Ambient Backing */}
       <div

@@ -38,6 +38,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CarbonGlobe3D } from "@/components/3d/carbon-globe-3d";
+import { FallingLeaves } from "@/components/ambient/falling-leaves";
 import { TiltCard3D } from "@/components/3d/tilt-card-3d";
 import { HologramGauge3D } from "@/components/3d/hologram-gauge-3d";
 import { PayloadBreakdown } from "@/components/telemetry/payload-breakdown";
@@ -219,15 +220,18 @@ function LandingPageContent() {
            ========================================================================== */}
       <section
         ref={heroRef}
-        className="relative min-h-[80vh] flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 pt-4 lg:pt-8"
+        className="relative min-h-[80vh] flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12 pt-4 lg:pt-8 overflow-hidden rounded-3xl"
       >
+        {/* Living Ambient Falling Leaves Layer (falling-leaves craft) */}
+        <FallingLeaves className="opacity-90" />
+
         {/* Left Column: Input Workspace */}
-        <div className="flex-1 max-w-2xl space-y-6 text-left z-10">
-          <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl tracking-tight text-cream uppercase leading-[0.9] select-none">
+        <div className="flex-1 max-w-2xl space-y-6 text-left z-10 relative">
+          <h1 className="font-display text-[calc(var(--u)*3.2)] sm:text-[calc(var(--u)*4.6)] lg:text-[calc(var(--u)*5.4)] tracking-tight text-cream uppercase leading-[0.9] select-none">
             MAKE YOUR WEBSITE <span className="text-lime drop-shadow-[0_0_35px_rgba(203,255,0,0.4)]">LIGHTER.</span> PROVE THE IMPROVEMENT.
           </h1>
 
-          <p className="text-base sm:text-lg text-sage/90 max-w-xl leading-relaxed">
+          <p className="text-base sm:text-lg text-[var(--ink-soft)] max-w-xl leading-relaxed">
             Find avoidable downloads, review a practical fix, verify the same user journey uses less data, and protect the improvement in your next release.
           </p>
 
@@ -253,7 +257,7 @@ function LandingPageContent() {
           <div id="scanner-form" className="pt-2">
             <form
               onSubmit={handleAuditSubmit}
-              className="flex flex-col sm:flex-row gap-3 items-center glass-panel-elevated p-2 sm:p-2.5 rounded-2xl sm:rounded-full border border-lime/40 shadow-[0_10px_30px_rgba(203,255,0,0.15)] focus-within:border-lime transition-all"
+              className="tech-frame gradient-border beautiful-md flex flex-col sm:flex-row gap-3 items-center glass-panel-elevated p-2 sm:p-2.5 rounded-2xl sm:rounded-full border border-lime/40 shadow-[0_10px_30px_rgba(203,255,0,0.15)] focus-within:border-lime transition-all"
             >
               <div className="w-full flex-1">
                 <Input
@@ -436,8 +440,8 @@ function LandingPageContent() {
               </div>
             </div>
 
-            {/* Top Evidenced Opportunity Banner */}
-            <div className="p-5 rounded-2xl bg-gradient-to-r from-forest/40 via-surface-elevated to-forest/20 border border-lime/40 shadow-[0_4px_25px_rgba(203,255,0,0.12)] flex flex-col md:flex-row md:items-center justify-between gap-4">
+            {/* Top Evidenced Opportunity Banner (tech-green-dark-mode-modern & beautiful-md) */}
+            <div className="tech-frame gradient-border-emerald beautiful-md p-5 rounded-2xl bg-gradient-to-r from-forest/40 via-surface-elevated to-forest/20 border border-lime/40 shadow-[0_4px_25px_rgba(203,255,0,0.12)] flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-lime text-black">
@@ -499,7 +503,7 @@ function LandingPageContent() {
               <div className="lg:col-span-8 space-y-6">
                 {/* 3D Datacenter Grid Telemetry Banner */}
                 <TiltCard3D maxTilt={8}>
-                  <Card className="p-5 glass-panel-elevated border border-lime/30">
+                  <Card className="tech-frame gradient-border beautiful-md p-5 glass-panel-elevated border border-lime/30">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div className="flex items-start gap-3.5">
                         <div className="p-2.5 rounded-xl bg-lime/10 border border-lime/30 text-lime mt-0.5">
@@ -542,7 +546,7 @@ function LandingPageContent() {
 
                 {/* Transfer Payload Breakdown Visualizer */}
                 <TiltCard3D maxTilt={6}>
-                  <Card className="p-6 glass-panel-elevated border border-surface-border">
+                  <Card className="tech-frame gradient-border beautiful-md p-6 glass-panel-elevated">
                     <PayloadBreakdown
                       totalBytes={auditData.total_bytes}
                       totalMb={auditData.metrics.payload_mb}
@@ -553,7 +557,7 @@ function LandingPageContent() {
 
                 {/* Interactive 3D Sensitivity Chamber Slider */}
                 <TiltCard3D maxTilt={6}>
-                  <Card className="p-5 glass-panel-elevated border border-lime/30 space-y-3">
+                  <Card className="tech-frame gradient-border beautiful-md p-5 glass-panel-elevated space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-xs font-mono text-lime font-bold">
                         <Sliders className="w-4 h-4" /> MODEL SENSITIVITY ASSUMPTION (±20% CACHE VARIANCE)
@@ -642,13 +646,13 @@ function LandingPageContent() {
           {/* Card 1: Fleet Dashboard */}
           <div className="feature-card-3d">
             <TiltCard3D maxTilt={12} className="h-full">
-              <Card className="interactive p-6 glass-panel-elevated border border-surface-border h-full flex flex-col justify-between hover:border-lime/50 transition-all">
+              <Card className="tech-frame gradient-border beautiful-md interactive p-6 glass-panel-elevated h-full flex flex-col justify-between hover:border-lime/50 transition-all">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
                       <Globe className="w-5 h-5" />
                     </div>
-                    <span className="text-xs font-mono font-bold text-lime/70 tracking-widest px-2 py-0.5 rounded bg-lime/5 border border-lime/20">
+                    <span className="number-detail">
                       01
                     </span>
                   </div>
@@ -681,13 +685,13 @@ function LandingPageContent() {
           {/* Card 2: What-If Simulator */}
           <div className="feature-card-3d">
             <TiltCard3D maxTilt={12} className="h-full">
-              <Card className="interactive p-6 glass-panel-elevated border border-surface-border h-full flex flex-col justify-between hover:border-lime/50 transition-all">
+              <Card className="tech-frame gradient-border beautiful-md interactive p-6 glass-panel-elevated h-full flex flex-col justify-between hover:border-lime/50 transition-all">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
                       <Sliders className="w-5 h-5" />
                     </div>
-                    <span className="text-xs font-mono font-bold text-lime/70 tracking-widest px-2 py-0.5 rounded bg-lime/5 border border-lime/20">
+                    <span className="number-detail">
                       02
                     </span>
                   </div>
@@ -720,13 +724,13 @@ function LandingPageContent() {
           {/* Card 3: Emissions Forecasting */}
           <div className="feature-card-3d">
             <TiltCard3D maxTilt={12} className="h-full">
-              <Card className="interactive p-6 glass-panel-elevated border border-surface-border h-full flex flex-col justify-between hover:border-lime/50 transition-all">
+              <Card className="tech-frame gradient-border beautiful-md interactive p-6 glass-panel-elevated h-full flex flex-col justify-between hover:border-lime/50 transition-all">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
                       <Activity className="w-5 h-5" />
                     </div>
-                    <span className="text-xs font-mono font-bold text-lime/70 tracking-widest px-2 py-0.5 rounded bg-lime/5 border border-lime/20">
+                    <span className="number-detail">
                       03
                     </span>
                   </div>
@@ -759,13 +763,13 @@ function LandingPageContent() {
           {/* Card 4: Regression Shield */}
           <div className="feature-card-3d">
             <TiltCard3D maxTilt={12} className="h-full">
-              <Card className="interactive p-6 glass-panel-elevated border border-surface-border h-full flex flex-col justify-between hover:border-lime/50 transition-all">
+              <Card className="tech-frame gradient-border beautiful-md interactive p-6 glass-panel-elevated h-full flex flex-col justify-between hover:border-lime/50 transition-all">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
                       <ShieldCheck className="w-5 h-5" />
                     </div>
-                    <span className="text-xs font-mono font-bold text-lime/70 tracking-widest px-2 py-0.5 rounded bg-lime/5 border border-lime/20">
+                    <span className="number-detail">
                       04
                     </span>
                   </div>
