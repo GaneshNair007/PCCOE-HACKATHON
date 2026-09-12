@@ -47,11 +47,11 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
           <div className="flex items-center gap-2 text-xs font-mono text-lime uppercase tracking-wider mb-1">
             <Scale className="w-4 h-4 text-lime" />
             <span>Human-AI Explainability & Provenance</span>
-            <span className="bg-surface-elevated px-2 py-0.5 rounded text-[10px] text-cream border border-surface-border font-mono">
+            <span className="bg-surface-elevated px-2 py-0.5 rounded text-xs text-cream border border-surface-border font-mono">
               Google PAIR • IBM Carbon for AI
             </span>
           </div>
-          <h3 className="font-display text-2xl sm:text-3xl text-cream uppercase">
+          <h3 className="font-display text-2xl sm:text-3xl text-cream ">
             Score Lineage & Scientific Basis
           </h3>
           <p className="text-xs text-sage/75 mt-1 max-w-xl">
@@ -114,28 +114,28 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
                   <Cpu className="w-4 h-4" />
                   Sustainable Web Design Model v4 Formula Breakdown
                 </div>
-                <div className="p-3 rounded-xl bg-surface-elevated/70 border border-surface-border text-cream/90 space-y-1.5 text-[11px] leading-relaxed">
+                <div className="p-3 rounded-xl bg-surface-elevated/70 border border-surface-border text-cream/90 space-y-1.5 text-xs leading-relaxed">
                   <div>
-                    <span className="text-sage/60">Transferred Payload (B):</span>{" "}
+                    <span className="text-sage/80">Transferred Payload (B):</span>{" "}
                     <span className="text-lime font-bold">{totalBytes.toLocaleString()} bytes</span>{" "}
                     ({(totalBytes / (1024 * 1024)).toFixed(2)} MB)
                   </div>
                   <div>
-                    <span className="text-sage/60">Operational Energy (E_op):</span>{" "}
+                    <span className="text-sage/80">Operational Energy (E_op):</span>{" "}
                     <span>{totalBytes} × {CARBONERRA_CONFIG.operationalKwhPerByte} = </span>
                     <span className="text-cream font-bold">{operationalKwh} kWh</span>
                   </div>
                   <div>
-                    <span className="text-sage/60">Embodied Hardware Energy (E_emb):</span>{" "}
+                    <span className="text-sage/80">Embodied Hardware Energy (E_emb):</span>{" "}
                     <span>{totalBytes} × {CARBONERRA_CONFIG.embodiedKwhPerByte} = </span>
                     <span className="text-cream font-bold">{embodiedKwh} kWh</span>
                   </div>
                   <div className="pt-1 border-t border-surface-border/60">
-                    <span className="text-sage/60">Total Electricity (E_total):</span>{" "}
+                    <span className="text-sage/80">Total Electricity (E_total):</span>{" "}
                     <span className="text-lime font-bold">{totalKwh} kWh</span>
                   </div>
                   <div>
-                    <span className="text-sage/60">Grid Emissions Factor (I_grid):</span>{" "}
+                    <span className="text-sage/80">Grid Emissions Factor (I_grid):</span>{" "}
                     <span className="text-cream font-bold">{auditData.grid_intensity_val} gCO2e/kWh</span>{" "}
                     ({auditData.grid_intensity_source === "resolved_regional" ? "Location-Specific Regional Grid" : "Global Default"})
                   </div>
@@ -155,32 +155,32 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
                   <Server className="w-4 h-4" />
                   Infrastructure Lineage & Verification Chain
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[11px]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                   <div className="p-3 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-1">
-                    <div className="text-sage/60 uppercase text-[10px]">Resolved Hosting IP</div>
+                    <div className="text-sage/80 uppercase text-xs">Resolved Hosting IP</div>
                     <div className="text-cream font-bold">{auditData.record?.gridContext?.resolvedIp || "Public IP Protected"}</div>
                   </div>
                   <div className="p-3 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-1">
-                    <div className="text-sage/60 uppercase text-[10px]">Hosting Country / Region</div>
+                    <div className="text-sage/80 uppercase text-xs">Hosting Country / Region</div>
                     <div className="text-cream font-bold">
                       {auditData.hosting_country} ({auditData.hosting_country_code || "Global"})
                     </div>
                   </div>
                   <div className="p-3 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-1">
-                    <div className="text-sage/60 uppercase text-[10px]">Renewable Hosting State</div>
+                    <div className="text-sage/80 uppercase text-xs">Renewable Hosting State</div>
                     <div className="text-lime font-bold">
                       {auditData.hosting.green ? "Verified Renewable Host" : "Standard Datacenter Grid"}
                     </div>
-                    <div className="text-[10px] text-sage/60">
+                    <div className="text-xs text-sage/80">
                       Source: The Green Web Foundation greencheck
                     </div>
                   </div>
                   <div className="p-3 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-1">
-                    <div className="text-sage/60 uppercase text-[10px]">Grid Carbon Intensity</div>
+                    <div className="text-sage/80 uppercase text-xs">Grid Carbon Intensity</div>
                     <div className="text-lime font-bold">
                       {auditData.grid_intensity_val} gCO2e / kWh
                     </div>
-                    <div className="text-[10px] text-sage/60">
+                    <div className="text-xs text-sage/80">
                       Granularity: {auditData.grid_intensity_source === "resolved_regional" ? "Country-level specific" : "Global baseline fallback"}
                     </div>
                   </div>
@@ -197,20 +197,20 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
                   <Layers className="w-4 h-4" />
                   Sensitivity Banding & Return-Visitor Physics
                 </div>
-                <p className="text-sage/80 text-[11px] leading-relaxed">
+                <p className="text-sage/80 text-xs leading-relaxed">
                   Web pages exhibit divergent footprints between first-time visitors (cold browser cache, full asset download) and returning visitors (warm cache, 60–85% asset reuse). Carbonerra avoids deceptive single-point numbers by modeling a scientific sensitivity range:
                 </p>
                 <div className="flex items-center justify-between p-3.5 rounded-xl bg-surface-elevated/80 border border-surface-border text-cream">
                   <div>
-                    <span className="text-sage/60 block text-[10px] uppercase">Lower Bound (Warm Cache)</span>
+                    <span className="text-sage/80 block text-xs uppercase">Lower Bound (Warm Cache)</span>
                     <span className="text-lime font-bold text-sm">{auditData.range_low_g} g CO2e</span>
                   </div>
                   <div className="text-center">
-                    <span className="text-sage/60 block text-[10px] uppercase">Central Estimate</span>
+                    <span className="text-sage/80 block text-xs uppercase">Central Estimate</span>
                     <span className="text-cream font-bold text-sm">{auditData.co2_grams} g CO2e</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-sage/60 block text-[10px] uppercase">Upper Bound (Cold Cache)</span>
+                    <span className="text-sage/80 block text-xs uppercase">Upper Bound (Cold Cache)</span>
                     <span className="text-amber-400 font-bold text-sm">{auditData.range_high_g} g CO2e</span>
                   </div>
                 </div>
@@ -226,7 +226,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
                   <Info className="w-4 h-4" />
                   Documented Scientific Limitations
                 </div>
-                <ul className="list-disc list-inside space-y-1.5 text-sage/80 text-[11px] leading-relaxed">
+                <ul className="list-disc list-inside space-y-1.5 text-sage/80 text-xs leading-relaxed">
                   {CARBONERRA_CONFIG.standardLimitations.map((lim, idx) => (
                     <li key={idx}>{lim}</li>
                   ))}
@@ -237,7 +237,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
 
           {/* Human Control Bar (PAIR Guidance) */}
           <div className="pt-3 border-t border-surface-border/60 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
-            <div className="flex items-center gap-2 text-sage/70 text-[11px]">
+            <div className="flex items-center gap-2 text-sage/70 text-xs">
               <ShieldCheck className="w-3.5 h-3.5 text-lime" />
               <span>Human-in-the-loop: You can audit, simulate, or export at any time.</span>
             </div>

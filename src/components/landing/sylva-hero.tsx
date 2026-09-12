@@ -2,7 +2,35 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import { Search, Loader2, Sparkles, Globe, Terminal, ShieldCheck, ArrowRight } from "lucide-react";
+import { Search, Loader2, Sparkles, Pause, Play } from "lucide-react";
+
+interface HeroAnimation {
+  setActive: (active: boolean) => void;
+  dispose: () => void;
+  scan?: () => void;
+}
+
+type SylvaWindow = Window & {
+  initSylvaScene?: (root: HTMLElement, options: { active: boolean }) => HeroAnimation;
+  initLiquidMetal?: (root: HTMLElement, options: { active: boolean }) => HeroAnimation;
+};
+
+// A loaded script is shared; each route mount owns its own animation instance.
+const scriptLoads = new Map<string, Promise<void>>();
+function loadHeroScript(src: string) {
+  const pending = scriptLoads.get(src);
+  if (pending) return pending;
+  const promise = new Promise<void>((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = false;
+    script.onload = () => resolve();
+    script.onerror = () => { script.remove(); scriptLoads.delete(src); reject(new Error('Hero script failed: ' + src)); };
+    document.body.appendChild(script);
+  });
+  scriptLoads.set(src, promise);
+  return promise;
+}
 
 interface SylvaHeroProps {
   onRunAudit: (url: string) => void;
@@ -21,171 +49,113 @@ export function SylvaHero({
   targetUrl,
   setTargetUrl,
 }: SylvaHeroProps) {
-  const [scriptsLoaded, setScriptsLoaded] = useState(false);
-  const [showAuditInput, setShowAuditInput] = useState(true);
+  const [motionPaused, setMotionPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const animations = useRef<HeroAnimation[]>([]);
+  const activeRef = useRef(false);
+  const submittedAtRef = useRef(-Infinity);
 
   useEffect(() => {
-    // Ensure document.documentElement has "js" class for mask clip-paths
-    document.documentElement.classList.add("js");
-
-    let isMounted = true;
-
-    const loadScript = (src: string) => {
-      return new Promise<void>((resolve, reject) => {
-        const existing = document.querySelector(`script[src="${src}"]`);
-        if (existing) {
-          resolve();
-          return;
-        }
-        const s = document.createElement("script");
-        s.src = src;
-        s.async = false;
-        s.onload = () => resolve();
-        s.onerror = (e) => reject(e);
-        document.body.appendChild(s);
-      });
+    const root = heroRef.current;
+    if (!root) return;
+    let mounted = true;
+    let visible = root.getBoundingClientRect().bottom > 0;
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => {
+      const active = visible && !document.hidden && !media.matches && root.dataset.userPaused !== 'true';
+      activeRef.current = active;
+      setReducedMotion(media.matches);
+      root.dataset.motion = active ? 'running' : 'paused';
+      animations.current.forEach((animation) => animation.setActive(active));
     };
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
+    observer.observe(root);
+    media.addEventListener('change', sync);
+    document.addEventListener('visibilitychange', sync);
+    sync();
 
-    async function initSylva() {
+    const initialize = async () => {
       try {
-        await loadScript("/inner-green-assets/three.min.js");
-        if (!isMounted) return;
-        await loadScript("/inner-green-assets/sylva-liquid-metal.js");
-        if (!isMounted) return;
-        await loadScript("/inner-green-assets/sylva-scene.js");
-        if (!isMounted) return;
-
-        // Mount Liquid Metal dispersion shaders
-        if (typeof (window as any).initLiquidMetal === "function") {
-          (window as any).initLiquidMetal();
-        }
-
-        setScriptsLoaded(true);
-      } catch (err) {
-        console.error("Failed to load Sylva Hero scripts:", err);
+        await loadHeroScript('/inner-green-assets/three.min.js');
+        await loadHeroScript('/inner-green-assets/sylva-liquid-metal.js');
+        await loadHeroScript('/inner-green-assets/sylva-scene.js');
+        if (!mounted) return;
+        const runtime = window as SylvaWindow;
+        const options = { active: activeRef.current };
+        const scene = runtime.initSylvaScene?.(root, options);
+        const liquid = runtime.initLiquidMetal?.(root, options);
+        animations.current = [scene, liquid].filter((animation): animation is HeroAnimation => !!animation);
+        sync();
+      } catch (error) {
+        root.classList.add('is-ready', 'intro-done');
+        console.error('Failed to load Sylva Hero scripts:', error);
       }
-    }
-
-    initSylva();
-
+    };
+    void initialize();
     return () => {
-      isMounted = false;
+      mounted = false;
+      observer.disconnect();
+      media.removeEventListener('change', sync);
+      document.removeEventListener('visibilitychange', sync);
+      animations.current.forEach((animation) => animation.dispose());
+      animations.current = [];
     };
   }, []);
 
-  const handleSubmitAudit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!targetUrl.trim()) {
-      setShowAuditInput(true);
-      inputRef.current?.focus();
-      return;
-    }
-    // Trigger 3D scan pulse on the moss root
-    if (typeof (window as any).__triggerSylvaScan === "function") {
-      (window as any).__triggerSylvaScan();
-    }
-    onRunAudit(targetUrl);
+  useEffect(() => {
+    const root = heroRef.current;
+    if (!root) return;
+    root.dataset.userPaused = String(motionPaused);
+    // The animation controllers also gate against the user's pause setting.
+    animations.current.forEach((animation) => animation.setActive(activeRef.current && !motionPaused));
+    if (!motionPaused) document.dispatchEvent(new Event('visibilitychange'));
+    else root.dataset.motion = 'paused';
+  }, [motionPaused]);
+
+  const focusAudit = () => {
+    inputRef.current?.focus({ preventScroll: true });
+    inputRef.current?.scrollIntoView({ block: 'center', behavior: reducedMotion ? 'instant' : 'smooth' });
+  };
+
+  const runAudit = (url: string) => {
+    if (auditStatus === 'running' || performance.now() - submittedAtRef.current < 500) return;
+    if (!url.trim()) { focusAudit(); return; }
+    submittedAtRef.current = performance.now();
+    animations.current.forEach((animation) => animation.scan?.());
+    onRunAudit(url);
+  };
+
+  const handleSubmitAudit = (event: React.FormEvent) => {
+    event.preventDefault();
+    runAudit(targetUrl);
   };
 
   const handlePillClick = () => {
-    if (!showAuditInput) {
-      setShowAuditInput(true);
-      setTimeout(() => inputRef.current?.focus(), 50);
-    } else {
-      if (targetUrl.trim()) {
-        if (typeof (window as any).__triggerSylvaScan === "function") {
-          (window as any).__triggerSylvaScan();
-        }
-        onRunAudit(targetUrl);
-      } else {
-        inputRef.current?.focus();
-      }
-    }
+    if (targetUrl.trim()) runAudit(targetUrl);
+    else focusAudit();
   };
 
   return (
     <div className="relative w-full">
       {/* Load Sylva Hero CSS */}
-      <link rel="stylesheet" href="/inner-green-assets/sylva.css" />
 
       {/* Main Sylva Hero Container */}
-      <main className="hero" id="hero">
-        <canvas id="scene"></canvas>
-
-        {/* Apple-style floating dock */}
-        <div className="dock-wrap">
-          <nav className="dock par-dock" style={{ ["--pd" as any]: 5 }} data-spec aria-label="Primary Navigation">
-            <Link
-              className="dock-item dock-mark"
-              data-dock
-              data-spec
-              data-burst
-              href="/"
-              style={{ ["--d" as any]: "120ms" }}
-              aria-label="Carbonerra — home"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="#cbff00" stroke="#cbff00" />
-              </svg>
-            </Link>
-            <a className="dock-item is-active" data-dock data-spec data-burst href="#hero" style={{ ["--d" as any]: "180ms" }}>
-              <span className="glyph" aria-hidden="true">
-                <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="currentColor" fill="none" strokeWidth="1.5"/><path d="M8 4v4l2.5 2.5" stroke="currentColor" strokeWidth="1.5"/></svg>
-              </span>
-              <span>Scanner</span>
-            </a>
-            <Link className="dock-item" data-dock data-spec data-burst href="/savings-lab" style={{ ["--d" as any]: "230ms" }}>
-              <span className="glyph" aria-hidden="true">
-                <svg viewBox="0 0 16 16"><path d="M2 13h12M4 9l3-3 3 2 4-5" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>
-              </span>
-              <span>Savings Lab</span>
-            </Link>
-            <Link className="dock-item" data-dock data-spec data-burst href="/shield" style={{ ["--d" as any]: "280ms" }}>
-              <span className="glyph" aria-hidden="true">
-                <svg viewBox="0 0 16 16"><path d="M8 2l5 2.5v4c0 3.5-2.5 6-5 6.5-2.5-.5-5-3-5-6.5v-4L8 2z" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>
-              </span>
-              <span>Shield</span>
-            </Link>
-            <Link className="dock-item" data-dock data-spec data-burst href="/evidence" style={{ ["--d" as any]: "330ms" }}>
-              <span className="glyph" aria-hidden="true">
-                <svg viewBox="0 0 16 16"><path d="M3 3h10v10H3zM6 6h4M6 9h4" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>
-              </span>
-              <span>Evidence</span>
-            </Link>
-            <Link className="dock-item" data-dock data-spec data-burst href="/dashboard" style={{ ["--d" as any]: "380ms" }}>
-              <span className="glyph" aria-hidden="true">
-                <svg viewBox="0 0 16 16"><path d="M2 3h5v5H2zM9 3h5v3H9zM9 8h5v5H9zM2 10h5v3H2z" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg>
-              </span>
-              <span>Fleet</span>
-            </Link>
-            <button
-              onClick={() => {
-                setShowAuditInput(true);
-                setTimeout(() => inputRef.current?.focus(), 50);
-              }}
-              className="dock-item dock-item--enter"
-              data-dock
-              data-spec
-              data-burst
-              type="button"
-              style={{ ["--d" as any]: "430ms" }}
-            >
-              <span className="glyph" aria-hidden="true">
-                <svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5" stroke="currentColor" fill="none" strokeWidth="1.4"/><path d="m10.5 10.5 3.5 3.5" stroke="currentColor" strokeWidth="1.4"/></svg>
-              </span>
-              <span>Audit Now</span>
-            </button>
-          </nav>
-        </div>
+      <section ref={heroRef} className="hero sylva-hero" id="hero" aria-labelledby="hero-headline">
+        <canvas id="scene" aria-hidden="true"></canvas>
+        <button className="hero-motion-toggle" type="button" onClick={() => setMotionPaused((paused) => !paused)} aria-pressed={motionPaused} disabled={reducedMotion}>
+          {motionPaused || reducedMotion ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
+          {reducedMotion ? "Motion reduced" : motionPaused ? "Resume motion" : "Pause motion"}
+        </button>
 
         {/* Centered 1600 × 880 Stage */}
         <div className="stage" id="stage">
           {/* Subtle column guide lines */}
           <div className="guides fade" style={{ ["--d" as any]: "900ms" }} aria-hidden="true">
-            <i style={{ left: "calc(405 * var(--u))" }}></i>
-            <i style={{ left: "calc(748 * var(--u))" }}></i>
-            <i style={{ left: "calc(1091 * var(--u))" }}></i>
+            <i style={{ left: "calc(405 * var(--hero-unit))" }}></i>
+            <i style={{ left: "calc(748 * var(--hero-unit))" }}></i>
+            <i style={{ left: "calc(1091 * var(--hero-unit))" }}></i>
           </div>
 
           {/* Ghost Wordmark */}
@@ -216,10 +186,7 @@ export function SylvaHero({
               className="knob knob--about mask-circle"
               style={{ ["--d" as any]: "1100ms" }}
               aria-label="Run Dual-Source Audit"
-              onClick={() => {
-                setShowAuditInput(true);
-                setTimeout(() => inputRef.current?.focus(), 50);
-              }}
+              onClick={focusAudit}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="#1b1e18" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="#1b1e18" />
@@ -228,7 +195,7 @@ export function SylvaHero({
           </span>
 
           {/* Headline */}
-          <h1 className="headline" style={{ ["--pd" as any]: 18, ["--pr" as any]: 1.2 }}>
+          <h1 id="hero-headline" className="headline" style={{ ["--pd" as any]: 18, ["--pr" as any]: 1.2 }}>
             <span><i style={{ ["--d" as any]: "260ms" }}>Audit the carbon</i></span>
             <span><i style={{ ["--d" as any]: "360ms" }}>behind every byte</i></span>
           </h1>
@@ -248,6 +215,7 @@ export function SylvaHero({
                   className="liquid-button liquid-button--explore btn"
                   type="button"
                   onClick={handlePillClick}
+                  disabled={auditStatus === "running"}
                 >
                   <svg className="ico" viewBox="0 0 115 115" aria-hidden="true">
                     <g stroke="currentColor" strokeWidth="11" strokeLinecap="round">
@@ -272,17 +240,13 @@ export function SylvaHero({
                   <button
                     className="liquid-button liquid-button--play btn"
                     type="button"
-                    aria-label="Trigger 3D Wireframe Pulse"
+                    aria-label="Run website audit"
+                    disabled={auditStatus === 'running'}
                     onClick={() => {
-                      if (typeof (window as any).__triggerSylvaScan === "function") {
-                        (window as any).__triggerSylvaScan();
-                      }
-                      if (!targetUrl.trim()) {
-                        setTargetUrl("https://stripe.com");
-                        onRunAudit("https://stripe.com");
-                      } else {
-                        onRunAudit(targetUrl);
-                      }
+                      if (auditStatus === 'running') return;
+                      const url = targetUrl.trim() || 'https://stripe.com';
+                      if (!targetUrl.trim()) setTargetUrl(url);
+                      runAudit(url);
                     }}
                   >
                     <svg className="ico" viewBox="0 0 24 24" aria-hidden="true">
@@ -353,40 +317,33 @@ export function SylvaHero({
           </a>
 
           {/* Live Backend Audit Floating HUD (seamlessly styled in Sylva's glass aesthetic) */}
-          <div
-            className={`absolute z-30 transition-all duration-500 ${
-              showAuditInput
-                ? "opacity-100 translate-y-0 pointer-events-auto"
-                : "opacity-0 -translate-y-4 pointer-events-none"
-            }`}
-            style={{
-              left: "calc(46 * var(--u))",
-              bottom: "calc(130 * var(--u))",
-              width: "calc(680 * var(--u))",
-            }}
-          >
+          <div className="hero-audit-form">
             <form
               onSubmit={handleSubmitAudit}
               data-spec
               className="p-3.5 rounded-2xl glass-panel-elevated shadow-2xl space-y-2.5 transition-all"
             >
-              <div className="flex items-center justify-between px-1">
+              <div className="hero-audit-heading flex items-center justify-between gap-2 px-1">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse" />
                   <span className="text-[11px] font-mono font-bold tracking-widest text-[#cbff00] uppercase">
                     SWDM v4 DUAL-SOURCE ENGINE
                   </span>
                 </div>
-                <span className="text-[10px] font-mono text-white/50">
+                <span className="hero-audit-detail text-[10px] font-mono text-white/60">
                   Lighthouse + Static DOM Concordance
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="flex-1 relative flex items-center">
+              <div className="hero-audit-entry flex items-center gap-2">
+                <div className="min-w-0 flex-1 relative flex items-center">
                   <Search className="w-4 h-4 text-[#cbff00] absolute left-3 pointer-events-none" />
                   <input
                     ref={inputRef}
                     type="text"
+                    inputMode="url"
+                    autoComplete="url"
+                    aria-label="Website URL to audit"
+                    disabled={auditStatus === "running"}
                     value={targetUrl}
                     onChange={(e) => setTargetUrl(e.target.value)}
                     placeholder="Enter website URL to audit (e.g. stripe.com)"
@@ -413,18 +370,17 @@ export function SylvaHero({
               </div>
 
               {/* Benchmark presets */}
-              <div className="flex items-center gap-1.5 text-[10px] font-mono text-white/60 pt-1">
+              <div className="hero-presets flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-white/60 pt-1">
                 <span>Presets:</span>
                 {["stripe.com", "vercel.com", "pccoepune.com", "github.com"].map((preset) => (
                   <button
                     key={preset}
                     type="button"
+                    disabled={auditStatus === 'running'}
                     onClick={() => {
+                      if (auditStatus === 'running') return;
                       setTargetUrl(`https://${preset}`);
-                      if (typeof (window as any).__triggerSylvaScan === "function") {
-                        (window as any).__triggerSylvaScan();
-                      }
-                      onRunAudit(`https://${preset}`);
+                      runAudit(`https://${preset}`);
                     }}
                     className="px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/10 text-white/80 border border-white/10 hover:border-[#cbff00]/40 transition"
                   >
@@ -435,7 +391,7 @@ export function SylvaHero({
 
               {/* Status / Phase update */}
               {auditStatus === "running" && (
-                <div className="text-[11px] font-mono text-[#cbff00] flex items-center gap-1.5 pt-1">
+                <div role="status" className="text-[11px] font-mono text-[#cbff00] flex items-center gap-1.5 pt-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#cbff00] animate-ping" />
                   <span>{currentPhase || "Running dual-source audit..."}</span>
                 </div>
@@ -443,14 +399,14 @@ export function SylvaHero({
 
               {/* Error notification */}
               {errorMessage && (
-                <div className="text-[11px] font-mono text-red-400 pt-1">
+                <div role="alert" className="text-[11px] font-mono text-red-400 pt-1">
                   {errorMessage}
                 </div>
               )}
             </form>
           </div>
         </div>
-      </main>
+      </section>
     </div>
   );
 }

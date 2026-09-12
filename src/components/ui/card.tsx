@@ -11,18 +11,18 @@ export interface CardProps extends HTMLMotionProps<"div"> {
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, hoverEffect = true, glow = "none", specular = true, children, ...props }, ref) => {
+  ({ className, hoverEffect = false, glow = "none", specular = false, children, ...props }, ref) => {
     return (
       <motion.div
         ref={ref}
-        whileHover={hoverEffect ? { y: -4, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } } : undefined}
+
         data-spec={specular ? "" : undefined}
         className={cn(
-          "rounded-[2rem] p-6 transition-all duration-300 relative overflow-hidden",
+          "ct-card rounded-[2rem] p-6 relative min-w-0",
           "glass-panel text-cream",
-          glow === "lime" && "border-lime/40 shadow-lime",
-          glow === "forest" && "border-forest-700/50 shadow-forest",
-          hoverEffect && "hover:border-lime/40 hover:shadow-[0_16px_36px_rgba(10,14,8,0.45)]",
+          glow === "lime" && "border-lime/30",
+          glow === "forest" && "border-forest-700/50",
+          hoverEffect && "ct-card-interactive",
           className
         )}
         {...props}

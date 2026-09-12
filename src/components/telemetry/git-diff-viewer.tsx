@@ -21,9 +21,9 @@ export function GitDiffViewer({
           <GitCommit className="w-3.5 h-3.5 text-lime" />
           <span className="text-cream font-bold">{filePath}</span>
         </div>
-        <div className="flex items-center gap-2 text-[11px]">
+        <div className="flex items-center gap-2 text-xs">
           <span className="text-lime">{commitId}</span>
-          <span className="text-sage/60">by {author}</span>
+          <span className="text-sage/80">by {author}</span>
         </div>
       </div>
 
@@ -39,7 +39,7 @@ export function GitDiffViewer({
                 : "text-sage/70"
             }`}
           >
-            <span className="select-none text-sage/40 w-4">
+            <span className="select-none text-sage/75 w-4">
               {line.type === "remove" ? "-" : line.type === "add" ? "+" : " "}
             </span>
             <span className="whitespace-pre">{line.text}</span>

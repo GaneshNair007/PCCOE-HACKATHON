@@ -3,10 +3,11 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { PageIntro, SectionHeading, Reveal } from "@/components/ui/page";
 import {
   Sparkles,
   Zap,
@@ -30,11 +31,12 @@ import { Experiment, VerificationResult } from "@/lib/storage/types";
 
 function SavingsLabContent() {
   const searchParams = useSearchParams();
+  const reduceMotion = useReducedMotion();
   const projectIdParam = searchParams.get("projectId") || "campus-events";
   const initialAuditId = searchParams.get("auditId") || "";
   const initialTargetUrl = searchParams.get("targetUrl") || "";
 
-  // Progression steps: 1: Evidence, 2: Review Fix, 3: Test Candidate, 4: Verify, 5: Protect
+  // Progression steps: 1: Evidence, 2: Review fix, 3: Test candidate, 4: Verify, 5: Protect
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [experiment, setExperiment] = useState<Experiment | null>(null);
@@ -145,8 +147,8 @@ function SavingsLabContent() {
 
   const stages = [
     { num: 1, label: "Evidence", desc: "Observed waste & journey" },
-    { num: 2, label: "Review Fix", desc: "Source diff & approval" },
-    { num: 3, label: "Test Candidate", desc: "Task checks & transfer" },
+    { num: 2, label: "Review fix", desc: "Source diff & approval" },
+    { num: 3, label: "Test candidate", desc: "Task checks & transfer" },
     { num: 4, label: "Verify", desc: "Receipt & methodology" },
     { num: 5, label: "Protect", desc: "Shield CI regression gate" },
   ];
@@ -154,40 +156,31 @@ function SavingsLabContent() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto pb-16">
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-surface-border/60 pb-5">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-lime uppercase tracking-wider mb-1.5">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>MEASURE → DIAGNOSE → PRIORITIZE → REDUCE → IMPLEMENT → VERIFY → PREVENT</span>
-          </div>
-          <h1 className="font-display text-4xl sm:text-5xl text-cream tracking-tight uppercase">
-            Savings Lab
-          </h1>
-          <p className="text-sage/80 text-sm mt-1 max-w-2xl">
-            Connect observed web transfer waste to a reviewable source change. Check that the same user task still works with less data, verify the outcome, and protect the improvement.
-          </p>
-        </div>
+      <PageIntro
+        eyebrow={<><Sparkles className="w-4 h-4" /> Measure · improve · verify</>}
+        title="Savings Lab"
+        description="Connect observed web transfer waste to a reviewable source change. Check that the same user task still works with less data, verify the outcome, and protect the improvement."
+      />
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 rounded-2xl bg-surface border border-surface-border p-4">
           <Badge variant="outline" className="font-mono text-xs text-lime border-lime/30">
             Project: campus-events
           </Badge>
           <Badge variant="outline" className="font-mono text-xs text-sage/70">
-            Controlled Demo Site
+            Controlled demo site
           </Badge>
           <Link
             href="/demo/event"
             target="_blank"
             className="px-3 py-1.5 rounded-full glass-panel border border-surface-border text-xs font-mono text-sage/80 hover:text-cream hover:border-lime/40 transition-colors flex items-center gap-1.5"
           >
-            <span>Open Target Site</span>
+            <span>Open target site</span>
             <ExternalLink className="w-3 h-3 text-lime" />
           </Link>
         </div>
-      </div>
 
       {/* 5-Stage Stepper Navigation */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+      <Reveal className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         {stages.map((st) => {
           const isActive = currentStep === st.num;
           const isDone = currentStep > st.num;
@@ -195,32 +188,37 @@ function SavingsLabContent() {
             <button
               key={st.num}
               data-spec
+              type="button"
+              aria-current={isActive ? "step" : undefined}
+              aria-label={`Step ${st.num}: ${st.label}${isDone ? ", completed" : isActive ? ", current" : ""}`}
               onClick={() => setCurrentStep(st.num)}
               className={`text-left p-3.5 rounded-2xl border transition-all cursor-pointer ${
                 isActive
-                  ? "glass-panel-elevated border-lime/60 shadow-[0_0_20px_rgba(203,255,0,0.2)]"
+                  ? "glass-panel-elevated border-lime/60 ring-1 ring-lime/20"
                   : isDone
                   ? "glass-panel border-lime/20 text-cream"
-                  : "glass-panel border-white/5 text-sage/50 opacity-70 hover:opacity-100"
+                  : "glass-panel border-surface-border text-sage hover:border-sage/50"
               }`}
             >
-              <div className="flex items-center justify-between mb-1">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-1">
                 <span className="font-mono text-xs font-bold text-lime">0{st.num}</span>
                 {isDone && <CheckCircle2 className="w-3.5 h-3.5 text-lime" />}
-                {isActive && <div className="w-2 h-2 rounded-full bg-lime animate-pulse" />}
+                {isActive && <div className="w-2 h-2 rounded-full bg-lime" aria-hidden="true" />}
               </div>
-              <div className="font-display text-sm uppercase tracking-wide text-cream">{st.label}</div>
+              <div className="font-display text-base text-cream">{st.label}</div>
               <div className="text-[11px] font-mono text-sage/60 mt-0.5">{st.desc}</div>
             </button>
           );
         })}
-      </div>
+      </Reveal>
+
+      {isLoading && <p role="status" className="rounded-2xl bg-surface p-4 text-sm text-sage">Loading the experiment and recorded baseline…</p>}
 
       {errorMessage && (
-        <div className="p-4 rounded-2xl bg-red-950/40 border border-red-500/40 text-red-200 text-xs font-mono flex items-start gap-3">
+        <div role="alert" className="p-4 rounded-2xl bg-red-950/40 border border-red-500/40 text-red-200 text-xs font-mono flex items-start gap-3">
           <AlertTriangle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
           <div>
-            <div className="font-bold uppercase">Workflow Notice</div>
+            <div className="font-bold uppercase">Workflow notice</div>
             <div>{errorMessage}</div>
           </div>
         </div>
@@ -232,24 +230,24 @@ function SavingsLabContent() {
       <AnimatePresence mode="wait">
         <motion.div
           key={currentStep}
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -16 }}
-          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          exit={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -8 }}
+          transition={{ duration: reduceMotion ? 0 : 0.32, ease: [0.22, 1, 0.36, 1] }}
         >
           {/* =========================================================================
               STAGE 1: EVIDENCE (Observed Waste & Journey Definition)
               ========================================================================= */}
           {currentStep === 1 && (
             <div className="space-y-6">
-          <Card className="p-6 sm:p-8 glass-panel-elevated border border-lime/30 space-y-6">
+          <Card className="p-5 sm:p-8 glass-panel-elevated border border-surface-border space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
               <div>
                 <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">
-                  STAGE 1: OBSERVED EVIDENCE
+                  Stage 1 · Observed evidence
                 </span>
-                <h2 className="font-display text-2xl sm:text-3xl text-cream uppercase mt-2">
-                  Campus Event Registration Journey
+                <h2 className="font-display text-2xl sm:text-3xl text-cream mt-2">
+                  Campus event registration journey
                 </h2>
                 <div className="text-xs font-mono text-sage/70 mt-1">
                   Target: <span className="text-cream">/demo/event?variant=baseline</span> • Baseline Runs: 3 Recorded Passes
@@ -266,7 +264,7 @@ function SavingsLabContent() {
 
             {/* Observed Hotspot Card */}
             <div className="p-5 rounded-2xl bg-surface/50 border border-surface-border space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
                   <span className="text-xs font-mono text-red-300 font-bold uppercase">
@@ -281,17 +279,17 @@ function SavingsLabContent() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
                 <div className="p-3.5 rounded-xl bg-surface-elevated/70 border border-surface-border">
                   <div className="text-sage/60 text-[10px] uppercase">Resource URL</div>
-                  <div className="text-cream truncate font-bold mt-1">/demo/assets/campus-hackathon-hero.jpg</div>
+                  <div className="text-cream break-all font-bold mt-1">/demo/assets/campus-hackathon-hero.jpg</div>
                   <div className="text-[10px] text-sage/60 mt-1">First-Party Static Asset</div>
                 </div>
                 <div className="p-3.5 rounded-xl bg-surface-elevated/70 border border-surface-border">
                   <div className="text-sage/60 text-[10px] uppercase">Observed Transfer Weight</div>
-                  <div className="text-cream font-bold mt-1">2,420,000 bytes (2.42 MB)</div>
+                  <div className="text-cream font-bold mt-1 break-words">2,420,000 bytes (2.42 MB)</div>
                   <div className="text-[10px] text-red-400 mt-1">Raw uncompressed JPEG</div>
                 </div>
                 <div className="p-3.5 rounded-xl bg-surface-elevated/70 border border-surface-border">
                   <div className="text-sage/60 text-[10px] uppercase">Source Code Location</div>
-                  <div className="text-cream font-bold mt-1">src/app/demo/event/page.tsx:L76</div>
+                  <div className="text-cream font-bold mt-1 break-words">src/app/demo/event/page.tsx:L76</div>
                   <div className="text-[10px] text-lime mt-1">Directly mappable component</div>
                 </div>
               </div>
@@ -299,10 +297,7 @@ function SavingsLabContent() {
 
             {/* Journey Definition & Assertions */}
             <div className="space-y-3">
-              <h3 className="font-display text-lg text-cream uppercase flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-lime" />
-                <span>Deterministic Task Assertions (Functional Guardrails)</span>
-              </h3>
+              <SectionHeading title="Task assertions" description="Functional guardrails for the registration journey." />
               <p className="text-xs text-sage/70">
                 To prevent false optimizations (e.g. deleting features or lazy-loading broken forms), Carbonerra verifies that these three exact assertions pass on every candidate test:
               </p>
@@ -340,9 +335,9 @@ function SavingsLabContent() {
               <Button
                 variant="lime"
                 onClick={() => setCurrentStep(2)}
-                className="font-bold tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(203,255,0,0.3)]"
+                className="font-bold tracking-normal flex items-center gap-2"
               >
-                <span>REVIEW PROPOSED FIX</span>
+                <span>Review proposed fix</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
@@ -355,14 +350,14 @@ function SavingsLabContent() {
           ========================================================================= */}
       {currentStep === 2 && (
         <div className="space-y-6">
-          <Card className="p-6 sm:p-8 glass-panel-elevated border border-lime/30 space-y-6">
+          <Card className="p-5 sm:p-8 glass-panel-elevated border border-surface-border space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
               <div>
                 <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">
-                  STAGE 2: REVIEW FIX & PROPOSED PATCH
+                  Stage 2 · Review fix & proposed patch
                 </span>
-                <h2 className="font-display text-2xl sm:text-3xl text-cream uppercase mt-2">
-                  First-Party Image Optimization Patch
+                <h2 className="font-display text-2xl sm:text-3xl text-cream mt-2">
+                  First-party image optimization patch
                 </h2>
                 <div className="text-xs font-mono text-sage/70 mt-1">
                   Rule: <span className="text-cream">responsive_webp_conversion</span> • Class: Image Component Refactor
@@ -397,7 +392,7 @@ function SavingsLabContent() {
 
             {/* Unified Diff Viewer */}
             <div className="space-y-2">
-              <div className="flex items-center justify-between text-xs font-mono text-sage/70">
+              <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-sage/70">
                 <span className="flex items-center gap-2">
                   <FileCode className="w-4 h-4 text-lime" />
                   <span>Target: src/app/demo/event/page.tsx</span>
@@ -405,7 +400,7 @@ function SavingsLabContent() {
                 <span className="text-lime font-bold">Reviewable Git Unified Diff</span>
               </div>
 
-              <div className="rounded-2xl bg-black/80 border border-surface-border p-4 font-mono text-xs overflow-x-auto leading-relaxed shadow-inner">
+              <div tabIndex={0} role="region" aria-label="Proposed image optimization source diff" className="rounded-2xl bg-black/80 border border-surface-border p-4 font-mono text-xs overflow-x-auto leading-relaxed shadow-inner">
                 <pre className="text-sage/80">
                   <span className="text-sage/40">--- a/src/app/demo/event/page.tsx</span>{"\n"}
                   <span className="text-sage/40">+++ b/src/app/demo/event/page.tsx</span>{"\n"}
@@ -430,10 +425,11 @@ function SavingsLabContent() {
                 <div className="text-xs text-sage/80">
                   No automated patch is applied without engineering sign-off. Reviewer:
                   <input
+                    aria-label="Reviewer name"
                     type="text"
                     value={reviewerName}
                     onChange={(e) => setReviewerName(e.target.value)}
-                    className="ml-2 px-2 py-0.5 rounded bg-surface border border-surface-border text-cream font-mono text-xs"
+                    className="mt-2 w-full min-h-11 px-3 py-2 rounded-xl bg-surface border border-surface-border text-cream font-mono text-xs focus:outline-none focus:ring-2 focus:ring-lime/30"
                   />
                 </div>
               </div>
@@ -442,10 +438,10 @@ function SavingsLabContent() {
                 variant="lime"
                 onClick={handleApprovePatch}
                 isLoading={isApproving}
-                className="font-bold tracking-wider shrink-0 shadow-[0_0_20px_rgba(203,255,0,0.3)]"
+                className="font-bold tracking-normal shrink-0"
               >
                 <Check className="w-4 h-4 mr-1.5" />
-                APPROVE & STAGE CANDIDATE
+                Approve & stage candidate
               </Button>
             </div>
           </Card>
@@ -453,18 +449,18 @@ function SavingsLabContent() {
       )}
 
       {/* =========================================================================
-          STAGE 3: TEST CANDIDATE (Task Preservation & Verification)
+          Stage 3 · Test candidate (Task Preservation & Verification)
           ========================================================================= */}
       {currentStep === 3 && (
         <div className="space-y-6">
-          <Card className="p-6 sm:p-8 glass-panel-elevated border border-lime/30 space-y-6">
+          <Card className="p-5 sm:p-8 glass-panel-elevated border border-surface-border space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
               <div>
                 <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">
-                  STAGE 3: TEST CANDIDATE
+                  Stage 3 · Test candidate
                 </span>
-                <h2 className="font-display text-2xl sm:text-3xl text-cream uppercase mt-2">
-                  Candidate Verification Workbench
+                <h2 className="font-display text-2xl sm:text-3xl text-cream mt-2">
+                  Candidate verification workbench
                 </h2>
                 <div className="text-xs font-mono text-sage/70 mt-1">
                   Runs 3 alternating baseline vs candidate passes under matching cold-cache network conditions.
@@ -482,14 +478,14 @@ function SavingsLabContent() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Option 1: The Optimized Candidate (Demonstrates Success) */}
               <div className="p-6 rounded-2xl bg-surface/50 border border-lime/40 space-y-4 hover:border-lime transition-all">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-center justify-between gap-3">
                   <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-lime text-black">
                     RECOMMENDED CANDIDATE
                   </span>
                   <span className="text-xs font-mono text-lime">Modern WebP</span>
                 </div>
-                <h3 className="font-display text-xl text-cream uppercase">
-                  Test Optimized Candidate (3x Passes)
+                <h3 className="font-display text-xl text-cream">
+                  Test optimized candidate (3 passes)
                 </h3>
                 <p className="text-xs font-mono text-sage/80 leading-relaxed">
                   Executes 3 alternating runs against <span className="text-cream">/demo/event?variant=optimized</span>. Measures network transfer bytes while verifying that all 3 task assertions pass.
@@ -500,23 +496,23 @@ function SavingsLabContent() {
                   onClick={() => handleTestCandidate("optimized")}
                   isLoading={isTesting && testVariant === "optimized"}
                   disabled={isTesting}
-                  className="w-full font-bold tracking-wider shadow-[0_0_15px_rgba(203,255,0,0.3)]"
+                  className="w-full h-auto min-h-12 py-3 whitespace-normal font-medium tracking-normal"
                 >
                   <Activity className="w-4 h-4 mr-2" />
-                  RUN CANDIDATE VERIFICATION (OPTIMIZED)
+                  Verify optimized candidate
                 </Button>
               </div>
 
               {/* Option 2: The Broken Candidate (The Memorable Twist!) */}
               <div className="p-6 rounded-2xl bg-surface/50 border border-amber-500/40 space-y-4 hover:border-amber-400 transition-all">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-center justify-between gap-3">
                   <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
                     SIGNATURE TASK PRESERVATION CHECK
                   </span>
                   <span className="text-xs font-mono text-amber-300">Flawed Refactor</span>
                 </div>
-                <h3 className="font-display text-xl text-cream uppercase">
-                  Test Broken Candidate (Demonstrate Rejection)
+                <h3 className="font-display text-xl text-cream">
+                  Test broken candidate (demonstrate rejection)
                 </h3>
                 <p className="text-xs font-mono text-sage/80 leading-relaxed">
                   Executes candidate runs where transfer is low (~25 KB) but the registration step is broken (HTTP 500). Proves that Carbonerra strictly rejects candidates that sacrifice user functionality.
@@ -527,23 +523,23 @@ function SavingsLabContent() {
                   onClick={() => handleTestCandidate("broken")}
                   isLoading={isTesting && testVariant === "broken"}
                   disabled={isTesting}
-                  className="w-full font-bold tracking-wider border-amber-500/40 text-amber-300 hover:bg-amber-950/40"
+                  className="w-full h-auto min-h-12 py-3 whitespace-normal font-medium tracking-normal border-amber-500/40 text-amber-300 hover:bg-amber-950/40"
                 >
                   <AlertTriangle className="w-4 h-4 mr-2 text-amber-400" />
-                  RUN CANDIDATE VERIFICATION (BROKEN)
+                  Verify broken candidate
                 </Button>
               </div>
             </div>
 
             {/* Verification Results Display */}
             {verification && (
-              <div className="pt-6 border-t border-surface-border/60 space-y-5">
+              <div aria-live="polite" className="pt-6 border-t border-surface-border/60 space-y-5">
                 {/* Rejection / Pass Banner */}
                 {verification.outcome === "functional_checks_failed" ? (
                   <div className="p-5 rounded-2xl bg-red-950/50 border border-red-500/60 text-red-200 space-y-2 font-mono">
                     <div className="flex items-center gap-2 text-red-400 font-bold text-base uppercase">
                       <XCircle className="w-5 h-5" />
-                      CANDIDATE REJECTED: TASK PRESERVATION ASSERTION FAILED
+                      Candidate rejected: task preservation assertion failed
                     </div>
                     <p className="text-xs text-red-200 leading-relaxed">
                       Although total transfer bytes dropped significantly ({Math.round(verification.candidateMedianBytes / 1024)} KB vs {Math.round(verification.baselineMedianBytes / 1024)} KB), the candidate failed required journey assertion: <strong>#registration-success (form submission reached success confirmation)</strong>.
@@ -554,10 +550,10 @@ function SavingsLabContent() {
                   </div>
                 ) : verification.outcome === "observed_improvement" ? (
                   <div className="p-5 rounded-2xl bg-forest/30 border border-lime/60 text-cream space-y-2 font-mono">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
                       <div className="flex items-center gap-2 text-lime font-bold text-base uppercase">
                         <CheckCircle2 className="w-5 h-5" />
-                        CANDIDATE VERIFIED: OBSERVED TRANSFER REDUCTION PROVEN
+                        Candidate verified: observed transfer reduction proven
                       </div>
                       <Badge variant="lime" className="font-bold font-mono">
                         {verification.percentSaved}% OBSERVED REDUCTION
@@ -570,15 +566,16 @@ function SavingsLabContent() {
                 ) : null}
 
                 {/* Triple Run Comparison Table */}
-                <div className="rounded-2xl border border-surface-border overflow-hidden">
-                  <table className="w-full text-left font-mono text-xs">
+                <div tabIndex={0} role="region" aria-label="Scrollable verification comparison" className="rounded-2xl border border-surface-border overflow-x-auto">
+                  <table className="w-full min-w-[620px] text-left font-mono text-xs">
+                    <caption className="sr-only">Baseline and candidate verification comparison</caption>
                     <thead className="bg-surface-elevated/80 text-sage/70 border-b border-surface-border">
                       <tr>
-                        <th className="p-3">Run Group</th>
-                        <th className="p-3">Median Transfer</th>
-                        <th className="p-3">Carbon Model</th>
-                        <th className="p-3">Task Assertions</th>
-                        <th className="p-3">Status</th>
+                        <th scope="col" className="p-3">Run Group</th>
+                        <th scope="col" className="p-3">Median Transfer</th>
+                        <th scope="col" className="p-3">Carbon Model</th>
+                        <th scope="col" className="p-3">Task Assertions</th>
+                        <th scope="col" className="p-3">Status</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-surface-border/60">
@@ -618,9 +615,9 @@ function SavingsLabContent() {
                     <Button
                       variant="lime"
                       onClick={() => setCurrentStep(4)}
-                      className="font-bold tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(203,255,0,0.3)]"
+                      className="font-bold tracking-normal flex items-center gap-2"
                     >
-                      <span>INSPECT RECEIPT & EVIDENCE</span>
+                      <span>Inspect receipt & evidence</span>
                       <ArrowRight className="w-4 h-4" />
                     </Button>
                   </div>
@@ -636,14 +633,14 @@ function SavingsLabContent() {
           ========================================================================= */}
       {currentStep === 4 && (
         <div className="space-y-6">
-          <Card className="p-6 sm:p-8 glass-panel-elevated border border-lime/30 space-y-6">
+          <Card className="p-5 sm:p-8 glass-panel-elevated border border-surface-border space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
               <div>
                 <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">
-                  STAGE 4: DEPLOYMENT VERIFICATION
+                  Stage 4 · Deployment verification
                 </span>
-                <h2 className="font-display text-2xl sm:text-3xl text-cream uppercase mt-2">
-                  Verified Improvement Evidence
+                <h2 className="font-display text-2xl sm:text-3xl text-cream mt-2">
+                  Verified improvement evidence
                 </h2>
                 <div className="text-xs font-mono text-sage/70 mt-1">
                   Deployment Status: <span className="text-lime font-bold">Verified in local production build</span> • Staging: Awaiting credentials
@@ -664,7 +661,7 @@ function SavingsLabContent() {
                 {experiment && (
                   <Link
                     href={`/evidence?experimentId=${experiment.id}`}
-                    className="px-4 py-2 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-transform hover:scale-105 flex items-center gap-1.5"
+                    className="px-4 py-2 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-colors flex items-center gap-1.5"
                   >
                     <span>Full Evidence Page →</span>
                   </Link>
@@ -705,9 +702,9 @@ function SavingsLabContent() {
               <Button
                 variant="lime"
                 onClick={() => setCurrentStep(5)}
-                className="font-bold tracking-wider flex items-center gap-2 shadow-[0_0_20px_rgba(203,255,0,0.3)]"
+                className="font-bold tracking-normal flex items-center gap-2"
               >
-                <span>PROTECT IN RELEASE SHIELD</span>
+                <span>Protect in Release Shield</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
@@ -720,14 +717,14 @@ function SavingsLabContent() {
           ========================================================================= */}
       {currentStep === 5 && (
         <div className="space-y-6">
-          <Card className="p-6 sm:p-8 glass-panel-elevated border border-lime/30 space-y-6">
+          <Card className="p-5 sm:p-8 glass-panel-elevated border border-surface-border space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
               <div>
                 <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">
-                  STAGE 5: PREVENT REGRESSION
+                  Stage 5 · Prevent regression
                 </span>
-                <h2 className="font-display text-2xl sm:text-3xl text-cream uppercase mt-2">
-                  Carbonerra Release Shield Integration
+                <h2 className="font-display text-2xl sm:text-3xl text-cream mt-2">
+                  Carbonerra Release Shield integration
                 </h2>
                 <div className="text-xs font-mono text-sage/70 mt-1">
                   Promote verified candidate outcome as immutable release budget ceiling.
@@ -764,10 +761,10 @@ function SavingsLabContent() {
 
               <Link
                 href="/shield"
-                className="px-5 py-2.5 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-transform hover:scale-105 shadow-[0_0_20px_rgba(203,255,0,0.3)] flex items-center gap-2"
+                className="px-5 py-2.5 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-colors flex items-center gap-2"
               >
                 <ShieldCheck className="w-4 h-4" />
-                OPEN RELEASE SHIELD WORKBENCH →
+                Open Release Shield workbench →
               </Link>
             </div>
           </Card>

@@ -7,8 +7,8 @@
   }
 
   /* ── design unit: 1u === 1px on the 1600 × 880 reference frame ───────── */
-  :root{
-    --u: calc(100vw / 1600);
+  .sylva-hero{
+    --hero-unit: calc(100vw / 1600);
 
     --ink:            #ffffff;
     --ink-soft:       rgba(255,255,255,.62);
@@ -22,12 +22,11 @@
     --ease: cubic-bezier(.22,.61,.36,1);
     --ease-out: cubic-bezier(.16,1,.3,1);
   }
-  @media (min-width:1900px){ :root{ --u: calc(1900px / 1600); } }
+  @media (min-width:1900px){ .sylva-hero{ --hero-unit: calc(1900px / 1600); } }
 
-  *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+  :where(.sylva-hero *){ box-sizing:border-box; }
 
-  html{ background:#383b34; }
-  body{
+  .sylva-hero{
     font-family:'Lexend',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
     font-weight:300;
     color:var(--ink);
@@ -38,11 +37,11 @@
   }
 
   /* ── hero shell ──────────────────────────────────────────────────────── */
-  .hero{
+  .sylva-hero{
     position:relative;
     width:100%;
     height:100svh;
-    min-height:calc(880 * var(--u));
+    min-height:calc(880 * var(--hero-unit));
     overflow:hidden;
     isolation:isolate;
     /* the reference screen reads a near-flat #4a4d44 corner to corner —
@@ -55,7 +54,7 @@
   /* The floor of light the root stands in. Sampled off the reference: the
      background climbs from 73 luma at the nav to ~128 at y 850, brightest
      around the middle of the bottom edge. */
-  .hero::after{
+  .sylva-hero::after{
     content:'';
     position:absolute; inset:0;
     background:
@@ -67,41 +66,41 @@
   /* The whole composition lives on a centred 1600 × 880 stage.
      Centred with margins rather than a transform on purpose: a transform would
      open a stacking context and trap every child below #scene. */
-  .stage{
+  .sylva-hero .stage{
     position:absolute; left:50%; top:50%;
-    margin-left:calc(-800 * var(--u));
-    margin-top:calc(-440 * var(--u));
-    width:calc(1600 * var(--u));
-    height:calc(880 * var(--u));
+    margin-left:calc(-800 * var(--hero-unit));
+    margin-top:calc(-440 * var(--hero-unit));
+    width:calc(1600 * var(--hero-unit));
+    height:calc(880 * var(--hero-unit));
   }
 
   /* ── column guides (z 1) ─────────────────────────────────────────────── */
-  .guides{ position:absolute; inset:calc(-40 * var(--u)) 0; z-index:1; pointer-events:none; }
-  .guides i{
+  .sylva-hero .guides{ position:absolute; inset:calc(-40 * var(--hero-unit)) 0; z-index:1; pointer-events:none; }
+  .sylva-hero .guides i{
     position:absolute; top:0; bottom:0; width:1px;
     background:linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--rule) 12%, var(--rule) 78%, rgba(255,255,255,0) 100%);
   }
 
   /* ── ghost wordmark (z 1) ────────────────────────────────────────────── */
-  .ghost{
+  .sylva-hero .ghost{
     position:absolute; z-index:1;
-    left:calc(6 * var(--u)); bottom:calc(-64 * var(--u));
-    font-size:calc(195 * var(--u));
+    left:calc(6 * var(--hero-unit)); bottom:calc(-64 * var(--hero-unit));
+    font-size:calc(195 * var(--hero-unit));
     line-height:.78;
     font-weight:400;
-    letter-spacing:calc(10 * var(--u));
+    letter-spacing:calc(10 * var(--hero-unit));
     color:rgba(255,255,255,.05);
     white-space:nowrap; user-select:none; pointer-events:none;
   }
 
   /* ── three.js canvas (z 3 — above card 1, below everything else) ─────── */
-  #scene{
+  .sylva-hero #scene{
     position:absolute; inset:0; z-index:3;
     width:100%; height:100%;
     pointer-events:none;
     opacity:0; transition:opacity .7s var(--ease);
   }
-  .is-ready #scene{ opacity:1; }
+  .sylva-hero.is-ready #scene{ opacity:1; }
 
   /* ── nav: a floating dock (z 5) ──────────────────────────────────────
      A centred capsule of pills that magnify as the pointer nears them, over
@@ -110,18 +109,18 @@
      The wrapper does the centring so the capsule itself is free to carry the
      pointer-parallax transform; putting both on one element means whichever
      is written last wins and the dock jumps out of centre. */
-  .dock-wrap{
+  .sylva-hero .dock-wrap{
     position:absolute; z-index:5;
-    top:calc(38 * var(--u)); left:0; right:0;
+    top:calc(38 * var(--hero-unit)); left:0; right:0;
     display:flex; justify-content:center;
     pointer-events:none;
   }
-  .dock{
+  .sylva-hero .dock{
     pointer-events:auto;
-    display:flex; align-items:flex-start; gap:calc(3 * var(--u));
-    height:calc(46 * var(--u));
-    padding:calc(5 * var(--u));
-    border-radius:calc(14 * var(--u));
+    display:flex; align-items:flex-start; gap:calc(3 * var(--hero-unit));
+    height:calc(46 * var(--hero-unit));
+    padding:calc(5 * var(--hero-unit));
+    border-radius:calc(14 * var(--hero-unit));
     border:1px solid rgba(255,255,255,.11);
     /* No backdrop-filter. It sits over a canvas that repaints every frame,
        so the backdrop has to be re-sampled and re-blurred every frame too —
@@ -131,28 +130,28 @@
     background:
       linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,0) 42%),
       rgba(34,40,31,.74);
-    box-shadow:0 calc(8 * var(--u)) calc(22 * var(--u)) rgba(10,14,8,.30),
+    box-shadow:0 calc(8 * var(--hero-unit)) calc(22 * var(--hero-unit)) rgba(10,14,8,.30),
                inset 0 1px rgba(255,255,255,.06);
     isolation:isolate;
   }
   /* Anchored at the top so growth runs downward, out of the headline's way —
      a dock that grew from its centre would push into the nav's own row. */
-  .dock-item{
+  .sylva-hero .dock-item{
     position:relative; z-index:6;
     display:inline-flex; align-items:center; justify-content:center;
     flex:none;
-    height:calc(36 * var(--u));
-    gap:calc(8 * var(--u));
-    padding:0 calc(13 * var(--u));
+    height:calc(36 * var(--hero-unit));
+    gap:calc(8 * var(--hero-unit));
+    padding:0 calc(13 * var(--hero-unit));
     transform-origin:50% 0;
     border:1px solid transparent;
-    border-radius:calc(10 * var(--u));
+    border-radius:calc(10 * var(--hero-unit));
     background:rgba(255,255,255,.04);
     color:var(--ink-faint);
     text-decoration:none; cursor:pointer;
     font-family:inherit;
-    font-size:calc(11 * var(--u)); font-weight:500;
-    letter-spacing:calc(1.5 * var(--u)); text-transform:uppercase;
+    font-size:calc(11 * var(--hero-unit)); font-weight:500;
+    letter-spacing:calc(1.5 * var(--hero-unit)); text-transform:uppercase;
     white-space:nowrap;
     will-change:width,height,transform;
     transition:color .18s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
@@ -160,51 +159,51 @@
   /* A magnified pill hangs below the capsule, so it needs to be its own
      opaque tile — a translucent white wash at that size reads as a milky
      rectangle stuck to the bar rather than as a key lifting off it. */
-  .dock-item[data-near="true"]{
+  .sylva-hero .dock-item[data-near="true"]{
     z-index:7;
     color:var(--ink);
     border-color:rgba(255,255,255,.19);
     background:rgba(31,37,28,.94);
-    box-shadow:0 calc(7 * var(--u)) calc(16 * var(--u)) rgba(10,14,8,.30);
+    box-shadow:0 calc(7 * var(--hero-unit)) calc(16 * var(--hero-unit)) rgba(10,14,8,.30);
   }
-  .dock-item .glyph{
-    width:calc(14 * var(--u)); height:calc(14 * var(--u)); flex:none;
+  .sylva-hero .dock-item .glyph{
+    width:calc(14 * var(--hero-unit)); height:calc(14 * var(--hero-unit)); flex:none;
     opacity:.66; transition:opacity .18s var(--ease);
   }
-  .dock-item .glyph svg{
+  .sylva-hero .dock-item .glyph svg{
     display:block; width:100%; height:100%;
     fill:none; stroke:currentColor; stroke-width:1.25;
     stroke-linecap:round; stroke-linejoin:round;
   }
-  .dock-item[data-near="true"] .glyph{ opacity:1; }
+  .sylva-hero .dock-item[data-near="true"] .glyph{ opacity:1; }
 
   /* the mark is the dock's anchor: a solid pale tile, the one opaque thing
      in a bar made of glass */
-  .dock-mark{
-    width:calc(36 * var(--u)); padding:0;
+  .sylva-hero .dock-mark{
+    width:calc(36 * var(--hero-unit)); padding:0;
     background:#eef1e7; border-color:#eef1e7; color:#23261f;
     overflow:hidden;
   }
-  .dock-mark svg{ width:58%; height:58%; display:block; fill:currentColor; }
+  .sylva-hero .dock-mark svg{ width:58%; height:58%; display:block; fill:currentColor; }
   /* the near state paints .dock-item white, which on the pale mark tile
      would be a white glyph on a white ground */
-  .dock-mark[data-near="true"]{ background:#fff; border-color:#fff; color:#1b1e18; }
+  .sylva-hero .dock-mark[data-near="true"]{ background:#fff; border-color:#fff; color:#1b1e18; }
 
   /* the current section wears the cards' paper, so the nav and the cards
      read as the same material */
-  .dock-item.is-active{
+  .sylva-hero .dock-item.is-active{
     background:var(--card); border-color:var(--card); color:var(--card-ink);
-    box-shadow:0 calc(6 * var(--u)) calc(16 * var(--u)) rgba(12,17,9,.24);
+    box-shadow:0 calc(6 * var(--hero-unit)) calc(16 * var(--hero-unit)) rgba(12,17,9,.24);
   }
-  .dock-item.is-active .glyph{ opacity:.8; }
-  .dock-item--enter{ color:var(--ink); background:rgba(255,255,255,.075); }
+  .sylva-hero .dock-item.is-active .glyph{ opacity:.8; }
+  .sylva-hero .dock-item--enter{ color:var(--ink); background:rgba(255,255,255,.075); }
 
   /* ── specular rim ────────────────────────────────────────────────────
      A conic gradient masked down to the border, whose start angle points at
      the pointer and whose opacity falls off with distance. It is the reason
      the glass reads as a lit edge rather than as a flat translucent box. */
-  [data-spec]{ --spec-angle:2.4rad; --spec-bright:0; }
-  [data-spec]::after{
+  .sylva-hero [data-spec]{ --spec-angle:2.4rad; --spec-bright:0; }
+  .sylva-hero [data-spec]::after{
     content:''; position:absolute; inset:-1px; z-index:5;
     padding:1px; border-radius:inherit; pointer-events:none;
     opacity:var(--spec-bright);
@@ -217,28 +216,28 @@
             mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite:xor; mask-composite:exclude;
   }
-  .dock{ position:relative; }
+  .sylva-hero .dock{ position:relative; }
 
   /* ── hero copy (z 4) ─────────────────────────────────────────────────── */
-  .headline{
+  .sylva-hero .headline{
     position:absolute; z-index:4;
-    left:calc(46 * var(--u)); top:calc(202 * var(--u));
-    font-size:calc(63 * var(--u)); line-height:calc(65 * var(--u));
-    font-weight:300; letter-spacing:calc(-0.4 * var(--u));
+    left:calc(46 * var(--hero-unit)); top:calc(202 * var(--hero-unit));
+    font-size:calc(63 * var(--hero-unit)); line-height:calc(65 * var(--hero-unit));
+    font-weight:300; letter-spacing:calc(-0.4 * var(--hero-unit));
     color:var(--ink);
   }
   /* No overflow clip: cropping a 63u face to wipe it in cuts the descenders
      of "Step" and "living" at the moment they land. The padding stays even
      though the clip is gone — it set the two lines' metrics, and removing it
      would shift line two. */
-  .headline span{ display:block; padding-bottom:.04em; }
-  .headline span i{ display:inline-block; font-style:normal; }
+  .sylva-hero .headline span{ display:block; padding-bottom:.04em; }
+  .sylva-hero .headline span i{ display:inline-block; font-style:normal; }
 
-  .lede{
+  .sylva-hero .lede{
     position:absolute; z-index:4;
-    left:calc(520 * var(--u)); top:calc(196 * var(--u));
-    width:calc(208 * var(--u));
-    font-size:calc(16.5 * var(--u)); line-height:calc(22 * var(--u));
+    left:calc(520 * var(--hero-unit)); top:calc(196 * var(--hero-unit));
+    width:calc(208 * var(--hero-unit));
+    font-size:calc(16.5 * var(--hero-unit)); line-height:calc(22 * var(--hero-unit));
     font-weight:300; color:var(--ink-soft);
   }
 
@@ -246,20 +245,20 @@
      The original five-pass WebGL2 renderer now mounts directly in this
      document. Its canvas, sizing, glass plate, shader constants and input
      model are unchanged; only the iframe boundary has been removed. */
-  .pill-clip{
+  .sylva-hero .pill-clip{
     position:absolute; z-index:4;
-    left:calc(644 * var(--u)); top:calc(360 * var(--u));
-    width:calc(410 * var(--u)); height:calc(270 * var(--u));
-    margin:calc(-135 * var(--u)) 0 0 calc(-205 * var(--u));
-    clip-path:inset(calc(72 * var(--u)) calc(60 * var(--u))
-                    calc(26 * var(--u)) calc(60 * var(--u)) round calc(62 * var(--u)));
+    left:calc(644 * var(--hero-unit)); top:calc(360 * var(--hero-unit));
+    width:calc(410 * var(--hero-unit)); height:calc(270 * var(--hero-unit));
+    margin:calc(-135 * var(--hero-unit)) 0 0 calc(-205 * var(--hero-unit));
+    clip-path:inset(calc(72 * var(--hero-unit)) calc(60 * var(--hero-unit))
+                    calc(26 * var(--hero-unit)) calc(60 * var(--hero-unit)) round calc(62 * var(--hero-unit)));
   }
-  .pill{
-    position:absolute; inset:0; --mr:calc(150 * var(--u));
+  .sylva-hero .pill{
+    position:absolute; inset:0; --mr:calc(150 * var(--hero-unit));
     display:grid; place-items:center;
   }
 
-  .liquid-stage{
+  .sylva-hero .liquid-stage{
     --lu:calc(var(--h) / 516);
     --bh:var(--h);
     --pad:calc(900 * var(--lu));
@@ -272,10 +271,10 @@
     font-optical-sizing:auto;
     -webkit-font-smoothing:antialiased;
   }
-  .liquid-stage--explore{ --h:calc(60.156 * var(--u)); }
-  .liquid-stage--play{ --h:calc(88.2288 * var(--u)); }
+  .sylva-hero .liquid-stage--explore{ --h:calc(60.156 * var(--hero-unit)); }
+  .sylva-hero .liquid-stage--play{ --h:calc(88.2288 * var(--hero-unit)); }
 
-  .liquid-plate{
+  .sylva-hero .liquid-plate{
     position:absolute;
     inset:var(--pad);
     border-radius:999px;
@@ -291,7 +290,7 @@
     transition:box-shadow .38s cubic-bezier(.22,.61,.36,1),
                background .38s cubic-bezier(.22,.61,.36,1);
   }
-  .liquid-stage.hot .liquid-plate{
+  .sylva-hero .liquid-stage.hot .liquid-plate{
     background:
       linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.02) 44%, rgba(255,255,255,0) 64%),
       rgba(8,10,8,.50);
@@ -302,9 +301,9 @@
       inset 0 1px 0 rgba(255,255,255,.17),
       inset 0 calc(var(--h) * -0.02) calc(var(--h) * 0.05) rgba(255,255,255,.06);
   }
-  .liquid-fx{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .sylva-hero .liquid-fx{ position:absolute; inset:0; width:100%; height:100%; display:block; }
 
-  .liquid-button{
+  .sylva-hero .liquid-button{
     position:relative;
     height:var(--bh);
     border:0; background:none;
@@ -314,29 +313,29 @@
     font-family:inherit; font-weight:500; line-height:1; letter-spacing:0;
     cursor:pointer; -webkit-tap-highlight-color:transparent; outline:none;
   }
-  .liquid-button:focus-visible{
+  .sylva-hero .liquid-button:focus-visible{
     outline:calc(4 * var(--lu)) solid rgba(255,255,255,.55);
     outline-offset:calc(10 * var(--lu));
   }
-  .liquid-button .ico{ display:block; flex:none; overflow:visible; }
-  .liquid-button .lbl{ display:block; transform:translateY(calc(2 * var(--lu))); }
-  .liquid-button--explore{
+  .sylva-hero .liquid-button .ico{ display:block; flex:none; overflow:visible; }
+  .sylva-hero .liquid-button .lbl{ display:block; transform:translateY(calc(2 * var(--lu))); }
+  .sylva-hero .liquid-button--explore{
     padding:0 calc(224 * var(--lu)) 0 calc(95 * var(--lu));
     gap:calc(112 * var(--lu));
     font-size:calc(140 * var(--lu));
   }
-  .liquid-button--explore .ico{
+  .sylva-hero .liquid-button--explore .ico{
     width:calc(150 * var(--lu)); height:calc(150 * var(--lu));
   }
-  .liquid-button--play{
+  .sylva-hero .liquid-button--play{
     width:var(--bh); height:var(--bh); padding:0;
   }
-  .liquid-button--play .ico{
+  .sylva-hero .liquid-button--play .ico{
     width:calc(176 * var(--lu)); height:calc(176 * var(--lu));
     margin-left:calc(14 * var(--lu));
   }
-  .liquid-button--play .lbl{ display:none; }
-  .liquid-stage.press .liquid-plate{
+  .sylva-hero .liquid-button--play .lbl{ display:none; }
+  .sylva-hero .liquid-stage.press .liquid-plate{
     background:
       linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.01) 44%, rgba(255,255,255,0) 64%),
       rgba(7,9,7,.55);
@@ -349,92 +348,92 @@
   }
 
   /* ── play button (z 4) ─────────────────────────────────────────────── */
-  .play-wrap{
+  .sylva-hero .play-wrap{
     position:absolute; z-index:4; pointer-events:none;
-    left:calc(187 * var(--u)); top:calc(431 * var(--u));
-    width:calc(170 * var(--u)); height:calc(170 * var(--u));
+    left:calc(187 * var(--hero-unit)); top:calc(431 * var(--hero-unit));
+    width:calc(170 * var(--hero-unit)); height:calc(170 * var(--hero-unit));
   }
-  .play-wrap > *{ pointer-events:auto; }
-  .play-clip{
+  .sylva-hero .play-wrap > *{ pointer-events:auto; }
+  .sylva-hero .play-clip{
     position:absolute; left:50%; top:50%;
-    width:calc(396 * var(--u)); height:calc(396 * var(--u));
-    margin:calc(-198 * var(--u)) 0 0 calc(-198 * var(--u));
-    clip-path:inset(calc(131 * var(--u)) calc(106 * var(--u))
-                    calc(73 * var(--u)) calc(106 * var(--u)) round calc(92 * var(--u)));
+    width:calc(396 * var(--hero-unit)); height:calc(396 * var(--hero-unit));
+    margin:calc(-198 * var(--hero-unit)) 0 0 calc(-198 * var(--hero-unit));
+    clip-path:inset(calc(131 * var(--hero-unit)) calc(106 * var(--hero-unit))
+                    calc(73 * var(--hero-unit)) calc(106 * var(--hero-unit)) round calc(92 * var(--hero-unit)));
   }
-  .play-glass{ position:absolute; inset:0; display:grid; place-items:center; }
-  .play-ring{
+  .sylva-hero .play-glass{ position:absolute; inset:0; display:grid; place-items:center; }
+  .sylva-hero .play-ring{
     position:absolute; inset:0; pointer-events:none;
     border:1px solid rgba(255,255,255,.17); border-radius:50%;
   }
-  .play-ring::after{
-    content:''; position:absolute; inset:calc(-1 * var(--u));
+  .sylva-hero .play-ring::after{
+    content:''; position:absolute; inset:calc(-1 * var(--hero-unit));
     border:1px solid rgba(255,255,255,.32); border-radius:50%;
     opacity:0; transform:scale(.86);
     transition:opacity .7s var(--ease), transform .9s var(--ease-out);
   }
-  .play-clip:hover ~ .play-ring::after,
-  .play-clip:focus-within ~ .play-ring::after{ opacity:1; transform:scale(1.06); }
+  .sylva-hero .play-clip:hover ~ .play-ring::after,
+  .sylva-hero .play-clip:focus-within ~ .play-ring::after{ opacity:1; transform:scale(1.06); }
 
   /* ── stats (z 4) ─────────────────────────────────────────────────────── */
-  .stat{ position:absolute; z-index:4; display:flex; align-items:flex-start; gap:calc(9 * var(--u)); }
-  .stat--a{ left:calc(1250 * var(--u)); top:calc(216 * var(--u)); }
-  .stat--b{ left:calc(1346 * var(--u)); top:calc(326 * var(--u)); }
-  .stat .mark{ width:calc(32 * var(--u)); height:calc(32 * var(--u)); flex:none; margin-top:calc(2 * var(--u)); color:rgba(255,255,255,.34); }
-  .stat .mark svg{ width:100%; height:100%; display:block; }
-  .stat dt{ font-size:calc(13.5 * var(--u)); font-weight:300; color:var(--ink-soft); line-height:calc(19 * var(--u)); }
-  .stat dt, .stat dd{ text-shadow:0 calc(2 * var(--u)) calc(16 * var(--u)) rgba(10,14,8,.6); }
-  .stat .mark svg{ filter:drop-shadow(0 calc(2 * var(--u)) calc(10 * var(--u)) rgba(10,14,8,.6)); }
-  .stat dd{ font-size:calc(13.5 * var(--u)); font-weight:600; color:var(--ink); line-height:calc(21 * var(--u)); }
+  .sylva-hero .stat{ position:absolute; z-index:4; display:flex; align-items:flex-start; gap:calc(9 * var(--hero-unit)); }
+  .sylva-hero .stat--a{ left:calc(1250 * var(--hero-unit)); top:calc(216 * var(--hero-unit)); }
+  .sylva-hero .stat--b{ left:calc(1346 * var(--hero-unit)); top:calc(326 * var(--hero-unit)); }
+  .sylva-hero .stat .mark{ width:calc(32 * var(--hero-unit)); height:calc(32 * var(--hero-unit)); flex:none; margin-top:calc(2 * var(--hero-unit)); color:rgba(255,255,255,.34); }
+  .sylva-hero .stat .mark svg{ width:100%; height:100%; display:block; }
+  .sylva-hero .stat dt{ font-size:calc(13.5 * var(--hero-unit)); font-weight:300; color:var(--ink-soft); line-height:calc(19 * var(--hero-unit)); }
+  .sylva-hero .stat dt, .sylva-hero .stat dd{ text-shadow:0 calc(2 * var(--hero-unit)) calc(16 * var(--hero-unit)) rgba(10,14,8,.6); }
+  .sylva-hero .stat .mark svg{ filter:drop-shadow(0 calc(2 * var(--hero-unit)) calc(10 * var(--hero-unit)) rgba(10,14,8,.6)); }
+  .sylva-hero .stat dd{ font-size:calc(13.5 * var(--hero-unit)); font-weight:600; color:var(--ink); line-height:calc(21 * var(--hero-unit)); }
 
   /* ── cards ───────────────────────────────────────────────────────────── */
-  .card{
+  .sylva-hero .card{
     position:absolute;
-    background:var(--card); border-radius:calc(46 * var(--u));
-    box-shadow:0 calc(30 * var(--u)) calc(70 * var(--u)) rgba(16,21,13,.30);
+    background:var(--card); border-radius:calc(46 * var(--hero-unit));
+    box-shadow:0 calc(30 * var(--hero-unit)) calc(70 * var(--hero-unit)) rgba(16,21,13,.30);
     transition:box-shadow .8s var(--ease);
   }
   /* No z-index here on purpose. z-index:auto keeps the card out of its own
      stacking context, so the body paints under #scene (the moss drapes over
      its shoulder) while .knob, at z 4, still sits in front of the moss. */
-  .card--about{
-    left:calc(890 * var(--u)); top:calc(200 * var(--u));
-    width:calc(330 * var(--u)); height:calc(305 * var(--u));
+  .sylva-hero .card--about{
+    left:calc(890 * var(--hero-unit)); top:calc(200 * var(--hero-unit));
+    width:calc(330 * var(--hero-unit)); height:calc(305 * var(--hero-unit));
   }
-  .card--stove{
+  .sylva-hero .card--stove{
     z-index:4; will-change:transform;
-    left:calc(1237 * var(--u)); top:calc(482 * var(--u));
-    width:calc(328 * var(--u)); height:calc(310 * var(--u));
+    left:calc(1237 * var(--hero-unit)); top:calc(482 * var(--hero-unit));
+    width:calc(328 * var(--hero-unit)); height:calc(310 * var(--hero-unit));
   }
-  .card .label{
-    position:absolute; left:calc(38 * var(--u));
-    font-size:calc(15.5 * var(--u)); font-weight:300; color:var(--card-label);
+  .sylva-hero .card .label{
+    position:absolute; left:calc(38 * var(--hero-unit));
+    font-size:calc(15.5 * var(--hero-unit)); font-weight:300; color:var(--card-label);
   }
-  .card h2{
-    position:absolute; left:calc(38 * var(--u));
-    font-size:calc(21 * var(--u)); line-height:calc(24 * var(--u));
-    font-weight:400; letter-spacing:calc(-0.4 * var(--u)); color:var(--card-ink);
+  .sylva-hero .card h2{
+    position:absolute; left:calc(38 * var(--hero-unit));
+    font-size:calc(21 * var(--hero-unit)); line-height:calc(24 * var(--hero-unit));
+    font-weight:400; letter-spacing:calc(-0.4 * var(--hero-unit)); color:var(--card-ink);
   }
-  .card--about .label{ top:calc(148 * var(--u)); }
-  .card--about h2{ top:calc(172 * var(--u)); width:calc(260 * var(--u)); font-size:calc(19 * var(--u)); line-height:calc(23 * var(--u)); }
-  .card--stove .label{ top:calc(40 * var(--u)); }
-  .card--stove h2{ top:calc(64 * var(--u)); width:calc(260 * var(--u)); font-size:calc(19 * var(--u)); line-height:calc(23 * var(--u)); }
+  .sylva-hero .card--about .label{ top:calc(148 * var(--hero-unit)); }
+  .sylva-hero .card--about h2{ top:calc(172 * var(--hero-unit)); width:calc(260 * var(--hero-unit)); font-size:calc(19 * var(--hero-unit)); line-height:calc(23 * var(--hero-unit)); }
+  .sylva-hero .card--stove .label{ top:calc(40 * var(--hero-unit)); }
+  .sylva-hero .card--stove h2{ top:calc(64 * var(--hero-unit)); width:calc(260 * var(--hero-unit)); font-size:calc(19 * var(--hero-unit)); line-height:calc(23 * var(--hero-unit)); }
   /* Both cards carry a plate. The Field Note reads downward — label, title,
      then the photograph — so its window sits at the foot of the card; the
      Ethos card reads the other way up, so its window is at the head and the
      copy sits under it. Same frame, mirrored. */
-  .card figure{
-    position:absolute; left:calc(14 * var(--u)); right:calc(14 * var(--u));
-    border-radius:calc(34 * var(--u)); overflow:hidden;
+  .sylva-hero .card figure{
+    position:absolute; left:calc(14 * var(--hero-unit)); right:calc(14 * var(--hero-unit));
+    border-radius:calc(34 * var(--hero-unit)); overflow:hidden;
     isolation:isolate; background:#263025;
   }
-  .card--stove figure{ bottom:calc(14 * var(--u)); height:calc(158 * var(--u)); }
-  .card--about figure{ top:calc(14 * var(--u)); height:calc(122 * var(--u)); }
+  .sylva-hero .card--stove figure{ bottom:calc(14 * var(--hero-unit)); height:calc(158 * var(--hero-unit)); }
+  .sylva-hero .card--about figure{ top:calc(14 * var(--hero-unit)); height:calc(122 * var(--hero-unit)); }
   /* The plate is its own depth plane. It travels against the card and the
      moss, so the landscape feels like a small window rather than a
      photograph glued to the surface. */
-  .portal-media{
-    position:absolute; inset:calc(-9 * var(--u)); z-index:1; display:block;
+  .sylva-hero .portal-media{
+    position:absolute; inset:calc(-9 * var(--hero-unit)); z-index:1; display:block;
     will-change:transform,clip-path;
     transform:
       perspective(900px)
@@ -443,14 +442,14 @@
       rotateX(calc(var(--py,0) * .9deg));
     transform-origin:50% 50%;
   }
-  .portal-media img{
+  .sylva-hero .portal-media img{
     width:100%; height:100%; object-fit:cover; display:block;
     transform:scale(1.08);
     filter:saturate(.92) contrast(1.03);
     transition:transform 1.25s var(--ease-out),filter .8s var(--ease);
   }
-  .card:hover .portal-media img{ transform:scale(1.13); filter:saturate(1.04) contrast(1.04); }
-  .pixel-reveal{
+  .sylva-hero .card:hover .portal-media img{ transform:scale(1.13); filter:saturate(1.04) contrast(1.04); }
+  .sylva-hero .pixel-reveal{
     position:absolute; inset:0; z-index:3; width:100%; height:100%;
     pointer-events:none; opacity:0; mix-blend-mode:screen;
   }
@@ -459,47 +458,47 @@
      9u on every side to give the parallax rotation somewhere to go. Offsetting
      by that 9u in calc() rather than by a translate percentage keeps the
      glow on the edge at every breakpoint, whatever size the plate is. */
-  .card figure::after{
+  .sylva-hero .card figure::after{
     content:''; position:absolute; z-index:2;
-    filter:blur(calc(2 * var(--u))); opacity:0; pointer-events:none;
-    top:0; bottom:0; width:26%; left:calc(-13% - 9 * var(--u));
+    filter:blur(calc(2 * var(--hero-unit))); opacity:0; pointer-events:none;
+    top:0; bottom:0; width:26%; left:calc(-13% - 9 * var(--hero-unit));
     background:linear-gradient(90deg,transparent,rgba(229,244,209,.2) 42%,rgba(252,255,246,.72) 54%,transparent);
   }
 
-  .knob-float{
+  .sylva-hero .knob-float{
     position:absolute; z-index:4; pointer-events:none;
-    left:calc(1142 * var(--u)); top:calc(427 * var(--u));
-    width:calc(58 * var(--u)); height:calc(58 * var(--u));
+    left:calc(1142 * var(--hero-unit)); top:calc(427 * var(--hero-unit));
+    width:calc(58 * var(--hero-unit)); height:calc(58 * var(--hero-unit));
   }
-  .knob-float > *{ pointer-events:auto; }
-  .knob--about{ left:0; top:0; }
-  .card .knob, .knob--about{
-    position:absolute; z-index:4; right:calc(20 * var(--u)); bottom:calc(20 * var(--u));
-    width:calc(58 * var(--u)); height:calc(58 * var(--u));
+  .sylva-hero .knob-float > *{ pointer-events:auto; }
+  .sylva-hero .knob--about{ left:0; top:0; }
+  .sylva-hero .card .knob, .sylva-hero .knob--about{
+    position:absolute; z-index:4; right:calc(20 * var(--hero-unit)); bottom:calc(20 * var(--hero-unit));
+    width:calc(58 * var(--hero-unit)); height:calc(58 * var(--hero-unit));
     border:0; border-radius:50%; cursor:pointer;
     background:#fbfcf8; display:grid; place-items:center;
-    box-shadow:0 calc(6 * var(--u)) calc(16 * var(--u)) rgba(16,21,13,.18);
+    box-shadow:0 calc(6 * var(--hero-unit)) calc(16 * var(--hero-unit)) rgba(16,21,13,.18);
     transition:transform .5s var(--ease-out), background .4s var(--ease);
   }
-  .knob--about{ right:auto; bottom:auto; width:calc(58 * var(--u)); height:calc(58 * var(--u)); }
-  .card--stove .knob{ width:calc(54 * var(--u)); height:calc(54 * var(--u)); right:calc(26 * var(--u)); bottom:calc(26 * var(--u)); }
-  .card .knob svg, .knob--about svg{ width:calc(19 * var(--u)); height:calc(19 * var(--u)); display:block; color:#3f453a; }
-  .card .knob:hover, .knob--about:hover{ transform:scale(1.1) rotate(8deg); background:#fff; }
-  .card:hover{ box-shadow:0 calc(38 * var(--u)) calc(84 * var(--u)) rgba(16,21,13,.36); }
+  .sylva-hero .knob--about{ right:auto; bottom:auto; width:calc(58 * var(--hero-unit)); height:calc(58 * var(--hero-unit)); }
+  .sylva-hero .card--stove .knob{ width:calc(54 * var(--hero-unit)); height:calc(54 * var(--hero-unit)); right:calc(26 * var(--hero-unit)); bottom:calc(26 * var(--hero-unit)); }
+  .sylva-hero .card .knob svg, .sylva-hero .knob--about svg{ width:calc(19 * var(--hero-unit)); height:calc(19 * var(--hero-unit)); display:block; color:#3f453a; }
+  .sylva-hero .card .knob:hover, .sylva-hero .knob--about:hover{ transform:scale(1.1) rotate(8deg); background:#fff; }
+  .sylva-hero .card:hover{ box-shadow:0 calc(38 * var(--hero-unit)) calc(84 * var(--hero-unit)) rgba(16,21,13,.36); }
 
   /* ── scroll cue (z 4) ────────────────────────────────────────────────── */
-  .scroll{
+  .sylva-hero .scroll{
     position:absolute; z-index:4;
-    left:calc(846 * var(--u)); top:calc(690 * var(--u));
-    display:flex; align-items:center; gap:calc(12 * var(--u));
+    left:calc(846 * var(--hero-unit)); top:calc(690 * var(--hero-unit));
+    display:flex; align-items:center; gap:calc(12 * var(--hero-unit));
     writing-mode:vertical-rl;
-    font-size:calc(11 * var(--u)); font-weight:400;
-    letter-spacing:calc(4.4 * var(--u));
+    font-size:calc(11 * var(--hero-unit)); font-weight:400;
+    letter-spacing:calc(4.4 * var(--hero-unit));
     color:rgba(255,255,255,.5);
     text-transform:uppercase; text-decoration:none;
   }
-  .scroll .track{ position:relative; width:1px; height:calc(56 * var(--u)); background:rgba(255,255,255,.18); overflow:hidden; }
-  .scroll .track::after{
+  .sylva-hero .scroll .track{ position:relative; width:1px; height:calc(56 * var(--hero-unit)); background:rgba(255,255,255,.18); overflow:hidden; }
+  .sylva-hero .scroll .track::after{
     content:''; position:absolute; inset:0 0 auto; height:40%;
     background:rgba(255,255,255,.75);
     animation:trickle 2.6s var(--ease) infinite;
@@ -516,41 +515,41 @@
      with clip-path. Once the intro has run, .intro-done drops the clip
      entirely — a live clip-path would open a stacking context on the About
      card and trap its knob under the moss. */
-  .js .mask{ clip-path:inset(100% 0 0 0 round var(--mr,0px)); }
-  .is-ready .mask{
+  .sylva-hero.js .mask{ clip-path:inset(100% 0 0 0 round var(--mr,0px)); }
+  .sylva-hero.is-ready .mask{
     clip-path:inset(0 0 0 0 round var(--mr,0px));
     transition:clip-path 1.05s var(--ease-out) var(--d,0ms);
   }
-  .js .mask-circle{ clip-path:circle(0% at 50% 50%); }
-  .is-ready .mask-circle{
+  .sylva-hero.js .mask-circle{ clip-path:circle(0% at 50% 50%); }
+  .sylva-hero.is-ready .mask-circle{
     clip-path:circle(76% at 50% 50%);
     transition:clip-path 1.1s var(--ease-out) var(--d,0ms);
   }
-  .js .fade{ opacity:0; }
-  .is-ready .fade{ opacity:1; transition:opacity 1.3s var(--ease) var(--d,0ms); }
+  .sylva-hero.js .fade{ opacity:0; }
+  .sylva-hero.is-ready .fade{ opacity:1; transition:opacity 1.3s var(--ease) var(--d,0ms); }
 
-  .intro-done .mask, .intro-done .mask-circle{ clip-path:none; transition:none; }
+  .sylva-hero.intro-done .mask, .sylva-hero.intro-done .mask-circle{ clip-path:none; transition:none; }
 
-  .card{ --mr:calc(46 * var(--u)); }
+  .sylva-hero .card{ --mr:calc(46 * var(--hero-unit)); }
 
   /* the dock drops in tile by tile; the capsule itself only fades, because
      a clip on it would cut the pills off as they magnify past its edge */
-  .js .dock{ opacity:0; }
-  .is-ready .dock{ opacity:1; transition:opacity .8s var(--ease) 80ms; }
-  .js .dock-item{ clip-path:inset(0 0 105% 0); }
-  .is-ready .dock-item{
+  .sylva-hero.js .dock{ opacity:0; }
+  .sylva-hero.is-ready .dock{ opacity:1; transition:opacity .8s var(--ease) 80ms; }
+  .sylva-hero.js .dock-item{ clip-path:inset(0 0 105% 0); }
+  .sylva-hero.is-ready .dock-item{
     clip-path:inset(0 0 -30% 0);
     transition:clip-path .9s var(--ease-out) var(--d,0ms),
                color .18s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
   }
-  .intro-done .dock-item{ clip-path:none; }
+  .sylva-hero.intro-done .dock-item{ clip-path:none; }
 
   /* A short rise under a fade rather than a full-height wipe: with nothing
      cropping it, a 105% travel would start line one sitting on top of line
      two. .headline itself carries the pointer parallax, so the transform has
      to go on the inner <i>. */
-  .js .headline span i{ opacity:0; transform:translateY(calc(16 * var(--u))); }
-  .is-ready .headline span i{
+  .sylva-hero.js .headline span i{ opacity:0; transform:translateY(calc(16 * var(--hero-unit))); }
+  .sylva-hero.is-ready .headline span i{
     opacity:1; transform:none;
     transition:opacity 1.05s var(--ease) var(--d,0ms),
                transform 1.25s var(--ease-out) var(--d,0ms);
@@ -560,15 +559,15 @@
      stepped clip exposes the photograph while sampled pixel-dots gather along
      the advancing edge (the dots themselves are painted by canvas).
      Both plates scan across, the Ethos one a beat ahead of the Field Note. */
-  .js .portal-media{ clip-path:inset(0 100% 0 0 round calc(25 * var(--u))); }
-  .is-ready .card--about .portal-media{ animation:portal-cut 1.45s steps(12,end) .92s both; }
-  .is-ready .card--stove .portal-media{ animation:portal-cut 1.45s steps(12,end) 1.08s both; }
-  .is-ready .card--about figure::after{ animation:portal-scan 1.45s steps(12,end) .92s both; }
-  .is-ready .card--stove figure::after{ animation:portal-scan 1.45s steps(12,end) 1.08s both; }
-  .intro-done .portal-media{ clip-path:none; animation:none; }
+  .sylva-hero.js .portal-media{ clip-path:inset(0 100% 0 0 round calc(25 * var(--hero-unit))); }
+  .sylva-hero.is-ready .card--about .portal-media{ animation:portal-cut 1.45s steps(12,end) .92s both; }
+  .sylva-hero.is-ready .card--stove .portal-media{ animation:portal-cut 1.45s steps(12,end) 1.08s both; }
+  .sylva-hero.is-ready .card--about figure::after{ animation:portal-scan 1.45s steps(12,end) .92s both; }
+  .sylva-hero.is-ready .card--stove figure::after{ animation:portal-scan 1.45s steps(12,end) 1.08s both; }
+  .sylva-hero.intro-done .portal-media{ clip-path:none; animation:none; }
   @keyframes portal-cut{
-    from{ clip-path:inset(0 100% 0 0 round calc(25 * var(--u))); }
-    to{ clip-path:inset(0 0 0 0 round calc(25 * var(--u))); }
+    from{ clip-path:inset(0 100% 0 0 round calc(25 * var(--hero-unit))); }
+    to{ clip-path:inset(0 0 0 0 round calc(25 * var(--hero-unit))); }
   }
   /* The glow travels by animating its own offset, not by a translate
      percentage. A translate is a percentage of the glow's width, so the
@@ -577,22 +576,22 @@
      In calc() the travel is exactly the media box: 100% of the plate plus
      the 9u of overscan at each end, at every breakpoint. */
   @keyframes portal-scan{
-    0%{ left:calc(-13% - 9 * var(--u)); opacity:0; }
+    0%{ left:calc(-13% - 9 * var(--hero-unit)); opacity:0; }
     10%{ opacity:.75; }
     88%{ opacity:.55; }
-    100%{ left:calc(87% + 9 * var(--u)); opacity:0; }
+    100%{ left:calc(87% + 9 * var(--hero-unit)); opacity:0; }
   }
 
   /* No clip on the canvas: the root draws itself in behind the survey pulse,
      and a CSS wipe on top of that would be two reveals fighting each other.
      The fade is only here to cover the first compiled frame. */
-  .is-ready #scene{ transition:opacity .45s var(--ease); }
+  .sylva-hero.is-ready #scene{ transition:opacity .45s var(--ease); }
 
   /* ── pointer parallax ────────────────────────────────────────────────
      --px / --py are written on .hero once per frame (-1…1). Each layer
      declares how far it rides (--pd, px at full deflection) and how much
      it turns (--pr, degrees), which is what gives the plane its depth. */
-  .par{
+  .sylva-hero .par{
     transform:
       perspective(1400px)
       translate3d(calc(var(--px,0) * var(--pd,0) * -1px),
@@ -603,100 +602,151 @@
   }
   /* the floating knob turns about the About card's centre, not its own,
      so it stays glued to the corner it belongs to */
-  .knob-float{ transform-origin:calc(-87 * var(--u)) calc(-74.5 * var(--u)); }
-  .card--about{ transform-origin:50% 50%; }
+  .sylva-hero .knob-float{ transform-origin:calc(-87 * var(--hero-unit)) calc(-74.5 * var(--hero-unit)); }
+  .sylva-hero .card--about{ transform-origin:50% 50%; }
 
   /* ── keyboard focus ──────────────────────────────────────────────────── */
-  a:focus-visible, button:focus-visible{
+  .sylva-hero a:focus-visible, .sylva-hero button:focus-visible{
     outline:2px solid rgba(255,255,255,.85);
-    outline-offset:calc(4 * var(--u));
-    border-radius:calc(6 * var(--u));
+    outline-offset:calc(4 * var(--hero-unit));
+    border-radius:calc(6 * var(--hero-unit));
   }
-  .card .knob:focus-visible, .knob--about:focus-visible, .play:focus-visible{ outline-color:rgba(28,34,22,.9); }
+  .sylva-hero .card .knob:focus-visible, .sylva-hero .knob--about:focus-visible, .sylva-hero .play:focus-visible{ outline-color:rgba(28,34,22,.9); }
 
   @media (prefers-reduced-motion:reduce){
-    .mask,.mask-circle,.fade,#scene,
-    .dock,.dock-item,
-    .headline span i{ opacity:1 !important; clip-path:none !important; transform:none !important; transition:none !important; }
-    .par{ transform:none !important; }
-    .portal-media{ clip-path:none !important; animation:none !important; transform:none !important; }
-    .pixel-reveal,.card figure::after{ display:none !important; }
-    .portal-media img{ transform:none !important; transition:none !important; }
-    .scroll .track::after{ animation:none; }
-    #scene{ transition:none; }
+    .sylva-hero .mask,.sylva-hero .mask-circle,.sylva-hero .fade,.sylva-hero #scene,.sylva-hero .dock,.sylva-hero .dock-item,.sylva-hero .headline span i{ opacity:1 !important; clip-path:none !important; transform:none !important; transition:none !important; }
+    .sylva-hero .par{ transform:none !important; }
+    .sylva-hero .portal-media{ clip-path:none !important; animation:none !important; transform:none !important; }
+    .sylva-hero .pixel-reveal,.sylva-hero .card figure::after{ display:none !important; }
+    .sylva-hero .portal-media img{ transform:none !important; transition:none !important; }
+    .sylva-hero .scroll .track::after{ animation:none; }
+    .sylva-hero #scene{ transition:none; }
   }
 
   /* ── narrow screens: one column, the moss becomes a band between the
         copy and the cards (760 design units wide) ───────────────────────── */
   @media (max-width:900px){
-    :root{ --u: calc(100vw / 760); }
-    .hero{ height:auto; min-height:100svh; }
-    .stage{
+    .sylva-hero{ --hero-unit: calc(100vw / 760); }
+    .sylva-hero{ height:auto; min-height:100svh; }
+    .sylva-hero .stage{
       position:relative; left:auto; top:auto; margin:0;
-      width:100%; height:calc(1625 * var(--u));
+      width:100%; height:calc(1625 * var(--hero-unit));
     }
-    .hero::after{
+    .sylva-hero::after{
       background:
         radial-gradient(90% 30% at 50% 74%, rgba(238,243,231,.40) 0%, rgba(238,243,231,.14) 46%, rgba(238,243,231,0) 82%),
         linear-gradient(180deg, rgba(238,243,231,0) 62%, rgba(238,243,231,.05) 100%);
     }
-    .guides i:nth-child(3){ display:none; }
-    .guides i:nth-child(1){ left:calc(253 * var(--u)) !important; }
-    .guides i:nth-child(2){ left:calc(506 * var(--u)) !important; }
+    .sylva-hero .guides i:nth-child(3){ display:none; }
+    .sylva-hero .guides i:nth-child(1){ left:calc(253 * var(--hero-unit)) !important; }
+    .sylva-hero .guides i:nth-child(2){ left:calc(506 * var(--hero-unit)) !important; }
 
     /* one column: the labels come off and the dock keeps only its glyphs,
        because at this scale the type would be four pixels tall */
     /* Floored with max(), not left on the design unit alone: this breakpoint
-       runs from 900px down to 320px, so a pure --u dock is a 24px bar with
+       runs from 900px down to 320px, so a pure --hero-unit dock is a 24px bar with
        12px targets on a phone. The floor only bites at the small end. */
-    .dock-wrap{ top:calc(30 * var(--u)); }
-    .dock{
-      height:max(56px, calc(58 * var(--u)));
-      padding:max(6px, calc(6 * var(--u)));
-      gap:max(4px, calc(4 * var(--u)));
-      border-radius:max(17px, calc(18 * var(--u)));
+    .sylva-hero .dock-wrap{ top:calc(30 * var(--hero-unit)); }
+    .sylva-hero .dock{
+      height:max(56px, calc(58 * var(--hero-unit)));
+      padding:max(6px, calc(6 * var(--hero-unit)));
+      gap:max(4px, calc(4 * var(--hero-unit)));
+      border-radius:max(17px, calc(18 * var(--hero-unit)));
     }
-    .dock-item{
-      height:max(44px, calc(46 * var(--u)));
-      width:max(44px, calc(46 * var(--u)));
-      padding:0; border-radius:max(12px, calc(13 * var(--u)));
+    .sylva-hero .dock-item{
+      height:max(44px, calc(46 * var(--hero-unit)));
+      width:max(44px, calc(46 * var(--hero-unit)));
+      padding:0; border-radius:max(12px, calc(13 * var(--hero-unit)));
     }
-    .dock-item span:not(.glyph){ display:none; }
-    .dock-item .glyph{ width:max(19px, calc(20 * var(--u))); height:max(19px, calc(20 * var(--u))); }
-    .dock-mark svg{ width:52%; height:52%; }
-    .knob-float{ left:calc(644 * var(--u)); top:calc(1218 * var(--u)); transform-origin:calc(-264 * var(--u)) calc(-43 * var(--u)); }
-    .headline{ left:calc(34 * var(--u)); top:calc(128 * var(--u)); font-size:calc(62 * var(--u)); line-height:calc(66 * var(--u)); }
-    .lede{ left:calc(34 * var(--u)); top:calc(288 * var(--u)); width:calc(400 * var(--u)); font-size:calc(19 * var(--u)); line-height:calc(27 * var(--u)); }
+    .sylva-hero .dock-item span:not(.glyph){ display:none; }
+    .sylva-hero .dock-item .glyph{ width:max(19px, calc(20 * var(--hero-unit))); height:max(19px, calc(20 * var(--hero-unit))); }
+    .sylva-hero .dock-mark svg{ width:52%; height:52%; }
+    .sylva-hero .knob-float{ left:calc(644 * var(--hero-unit)); top:calc(1218 * var(--hero-unit)); transform-origin:calc(-264 * var(--hero-unit)) calc(-43 * var(--hero-unit)); }
+    .sylva-hero .headline{ left:calc(34 * var(--hero-unit)); top:calc(128 * var(--hero-unit)); font-size:calc(62 * var(--hero-unit)); line-height:calc(66 * var(--hero-unit)); }
+    .sylva-hero .lede{ left:calc(34 * var(--hero-unit)); top:calc(288 * var(--hero-unit)); width:calc(400 * var(--hero-unit)); font-size:calc(19 * var(--hero-unit)); line-height:calc(27 * var(--hero-unit)); }
     /* one column: the frame keeps its aspect, re-anchored to the left rail */
-    .pill-clip{
-      left:calc(34 * var(--u)); top:calc(430 * var(--u));
-      width:calc(506 * var(--u)); height:calc(334 * var(--u));
-      margin:calc(-167 * var(--u)) 0 0 calc(-79 * var(--u));
-      clip-path:inset(calc(93 * var(--u)) calc(74 * var(--u)) calc(1 * var(--u)) calc(74 * var(--u)) round calc(76 * var(--u)));
+    .sylva-hero .pill-clip{
+      left:calc(34 * var(--hero-unit)); top:calc(430 * var(--hero-unit));
+      width:calc(506 * var(--hero-unit)); height:calc(334 * var(--hero-unit));
+      margin:calc(-167 * var(--hero-unit)) 0 0 calc(-79 * var(--hero-unit));
+      clip-path:inset(calc(93 * var(--hero-unit)) calc(74 * var(--hero-unit)) calc(1 * var(--hero-unit)) calc(74 * var(--hero-unit)) round calc(76 * var(--hero-unit)));
     }
-    .liquid-stage--explore{ --h:calc(74.4152 * var(--u)); }
-    .play-wrap{ display:none; }
+    .sylva-hero .liquid-stage--explore{ --h:calc(74.4152 * var(--hero-unit)); }
+    .sylva-hero .play-wrap{ display:none; }
 
-    .stat{ gap:calc(11 * var(--u)); }
-    .stat .mark{ width:calc(36 * var(--u)); height:calc(36 * var(--u)); }
-    .stat dt{ font-size:calc(16 * var(--u)); line-height:calc(22 * var(--u)); }
-    .stat dd{ font-size:calc(16.5 * var(--u)); line-height:calc(24 * var(--u)); }
-    .stat--a{ left:calc(34 * var(--u));  top:calc(540 * var(--u)); }
-    .stat--b{ left:calc(396 * var(--u)); top:calc(540 * var(--u)); }
+    .sylva-hero .stat{ gap:calc(11 * var(--hero-unit)); }
+    .sylva-hero .stat .mark{ width:calc(36 * var(--hero-unit)); height:calc(36 * var(--hero-unit)); }
+    .sylva-hero .stat dt{ font-size:calc(16 * var(--hero-unit)); line-height:calc(22 * var(--hero-unit)); }
+    .sylva-hero .stat dd{ font-size:calc(16.5 * var(--hero-unit)); line-height:calc(24 * var(--hero-unit)); }
+    .sylva-hero .stat--a{ left:calc(34 * var(--hero-unit));  top:calc(540 * var(--hero-unit)); }
+    .sylva-hero .stat--b{ left:calc(396 * var(--hero-unit)); top:calc(540 * var(--hero-unit)); }
 
-    .card{ border-radius:calc(40 * var(--u)); }
-    .card--about{ left:calc(34 * var(--u)); top:calc(1050 * var(--u)); width:calc(692 * var(--u)); height:calc(250 * var(--u)); }
-    .card--about .label{ top:calc(96 * var(--u)); }
-    .card--about h2{ top:calc(124 * var(--u)); width:calc(400 * var(--u)); font-size:calc(32 * var(--u)); line-height:calc(36 * var(--u)); }
-    .card--stove{ left:calc(34 * var(--u)); top:calc(1324 * var(--u)); width:calc(692 * var(--u)); height:calc(268 * var(--u)); }
-    .card--stove h2{ font-size:calc(32 * var(--u)); }
+    .sylva-hero .card{ border-radius:calc(40 * var(--hero-unit)); }
+    .sylva-hero .card--about{ left:calc(34 * var(--hero-unit)); top:calc(1050 * var(--hero-unit)); width:calc(692 * var(--hero-unit)); height:calc(250 * var(--hero-unit)); }
+    .sylva-hero .card--about .label{ top:calc(96 * var(--hero-unit)); }
+    .sylva-hero .card--about h2{ top:calc(124 * var(--hero-unit)); width:calc(400 * var(--hero-unit)); font-size:calc(32 * var(--hero-unit)); line-height:calc(36 * var(--hero-unit)); }
+    .sylva-hero .card--stove{ left:calc(34 * var(--hero-unit)); top:calc(1324 * var(--hero-unit)); width:calc(692 * var(--hero-unit)); height:calc(268 * var(--hero-unit)); }
+    .sylva-hero .card--stove h2{ font-size:calc(32 * var(--hero-unit)); }
     /* one column: both plates become a thumbnail on the card's outer edge,
        the Ethos one still anchored to the top */
-    .card--stove figure{ left:auto; right:calc(16 * var(--u)); bottom:calc(16 * var(--u)); width:calc(300 * var(--u)); height:calc(150 * var(--u)); }
-    .card--about figure{ left:auto; right:calc(16 * var(--u)); top:calc(16 * var(--u)); width:calc(224 * var(--u)); height:calc(218 * var(--u)); }
-    .card .knob{ right:calc(24 * var(--u)); bottom:calc(24 * var(--u)); }
-    .card--stove .knob{ right:calc(30 * var(--u)); bottom:calc(30 * var(--u)); }
+    .sylva-hero .card--stove figure{ left:auto; right:calc(16 * var(--hero-unit)); bottom:calc(16 * var(--hero-unit)); width:calc(300 * var(--hero-unit)); height:calc(150 * var(--hero-unit)); }
+    .sylva-hero .card--about figure{ left:auto; right:calc(16 * var(--hero-unit)); top:calc(16 * var(--hero-unit)); width:calc(224 * var(--hero-unit)); height:calc(218 * var(--hero-unit)); }
+    .sylva-hero .card .knob{ right:calc(24 * var(--hero-unit)); bottom:calc(24 * var(--hero-unit)); }
+    .sylva-hero .card--stove .knob{ right:calc(30 * var(--hero-unit)); bottom:calc(30 * var(--hero-unit)); }
 
-    .scroll{ left:calc(702 * var(--u)); top:calc(470 * var(--u)); }
-    .ghost{ font-size:calc(184 * var(--u)); letter-spacing:calc(14 * var(--u)); bottom:calc(660 * var(--u)); left:calc(-10 * var(--u)); }
+    .sylva-hero .scroll{ left:calc(702 * var(--hero-unit)); top:calc(470 * var(--hero-unit)); }
+    .sylva-hero .ghost{ font-size:calc(184 * var(--hero-unit)); letter-spacing:calc(14 * var(--hero-unit)); bottom:calc(660 * var(--hero-unit)); left:calc(-10 * var(--hero-unit)); }
   }
+
+/* Keep controls readable independently of the illustration's design scale. */
+.sylva-hero .hero-motion-toggle {
+  position:absolute; top:104px; right:24px; z-index:6;
+  display:flex; align-items:center; gap:7px; min-height:36px;
+  padding:8px 12px; border:1px solid rgba(255,255,255,.2); border-radius:999px;
+  background:rgba(27,33,23,.65); color:#fff; font-size:12px; cursor:pointer;
+}
+.sylva-hero .hero-motion-toggle:disabled { cursor:default; opacity:.7; }
+.sylva-hero .hero-audit-form {
+  position:absolute; z-index:5; left:calc(46 * var(--hero-unit));
+  bottom:calc(130 * var(--hero-unit)); width:calc(680 * var(--hero-unit));
+}
+.sylva-hero .hero-audit-form form { background:rgba(31,38,26,.88); border:1px solid rgba(255,255,255,.18); backdrop-filter:blur(20px); }
+.sylva-hero .hero-audit-form input { min-height:44px; font-size:14px; }
+.sylva-hero .hero-audit-form button { min-height:36px; }
+.sylva-hero button:disabled { cursor:wait; }
+.sylva-hero[data-motion='paused'] *, .sylva-hero[data-motion='paused'] *::before, .sylva-hero[data-motion='paused'] *::after { animation-play-state:paused !important; }
+.sylva-hero[data-motion='paused'] .par { transform:none !important; }
+.sylva-hero[data-motion='paused'] .mask, .sylva-hero[data-motion='paused'] .mask-circle,
+.sylva-hero[data-motion='paused'] .portal-media { clip-path:none; }
+@media (max-width:900px) {
+  .sylva-hero .hero-motion-toggle { top:88px; right:16px; }
+  .sylva-hero .stage { height:auto; min-height:calc(1625 * var(--hero-unit)); margin-top:64px; padding-top:calc(1625 * var(--hero-unit)); padding-bottom:24px; }
+  .sylva-hero .hero-audit-form { position:relative; left:auto; bottom:auto; width:auto; margin:16px max(16px, calc(34 * var(--hero-unit))) 0; }
+  .sylva-hero .hero-audit-detail { display:none; }
+  .sylva-hero .hero-audit-form input { font-size:16px; }
+  .sylva-hero .hero-audit-entry { flex-wrap:wrap; }
+  .sylva-hero .hero-audit-entry > div { flex-basis:100%; }
+  .sylva-hero .hero-audit-entry > button { width:100%; justify-content:center; min-height:44px; }
+  .sylva-hero .hero-presets { gap:6px; }
+  .sylva-hero .hero-presets button { min-height:36px; }
+}
+
+/* Keep prose clear of the scene at laptop and desktop sizes. */
+@media(min-width:901px){
+.sylva-hero .headline{top:calc(156 * var(--hero-unit));}
+.sylva-hero .lede{left:calc(46 * var(--hero-unit));top:calc(326 * var(--hero-unit));width:calc(580 * var(--hero-unit));font-size:max(14px,calc(17 * var(--hero-unit)));line-height:1.6;}
+.sylva-hero .pill-clip{left:calc(216 * var(--hero-unit));top:calc(464 * var(--hero-unit));}
+.sylva-hero .play-wrap{display:none;}
+}
+
+@media(max-width:900px){
+.sylva-hero .lede{width:calc(680 * var(--hero-unit));font-size:14px;line-height:1.5;}
+.sylva-hero .pill-clip{top:calc(490 * var(--hero-unit));}
+.sylva-hero .stat--a,.sylva-hero .stat--b{top:calc(620 * var(--hero-unit));}
+.sylva-hero .stat dt,.sylva-hero .stat dd{font-size:12px;line-height:1.5;}
+.sylva-hero .stat .mark{display:none;}
+.sylva-hero .card .label{font-size:12px;line-height:1.4;}
+.sylva-hero .card h2{font-size:max(16px,calc(32 * var(--hero-unit)));line-height:1.2;}
+.sylva-hero .card--stove h2{max-width:52%;}
+.sylva-hero .hero-presets,.sylva-hero .hero-presets button{font-size:12px;}
+}

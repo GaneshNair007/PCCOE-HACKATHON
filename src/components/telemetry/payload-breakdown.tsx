@@ -127,13 +127,13 @@ export function PayloadBreakdown({
                 <Icon className="w-3.5 h-3.5" />
               </div>
               <div className="min-w-0">
-                <div className="text-[10px] font-mono uppercase text-sage/70 truncate">
+                <div className="text-xs font-mono uppercase text-sage/70 truncate">
                   {item.category}
                 </div>
                 <div className="text-xs font-mono font-bold text-cream">
                   {formatBytes(item.bytes)}
                 </div>
-                <div className={`text-[10px] font-mono ${config.text}`}>
+                <div className={`text-xs font-mono ${config.text}`}>
                   {item.pct_of_total}% share
                 </div>
               </div>

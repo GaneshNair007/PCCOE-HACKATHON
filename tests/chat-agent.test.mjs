@@ -112,6 +112,14 @@ test("Carbonerra Chat Workspace — Grounded Tool Execution Suite", async (t) =>
   await t.test("7. POST /api/chat tests candidate and asserts task preservation", async () => {
     assert.ok(sharedExpId, "Shared experiment ID must be established");
 
+    // Candidate execution requires the same explicit approval as the Savings Lab UI.
+    const approval = await fetch(`${BASE_URL}/api/experiments/${sharedExpId}/approve`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ approvedBy: "test-engineer" }),
+    });
+    assert.equal(approval.status, 200);
+
     const testRes = await fetch(`${BASE_URL}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

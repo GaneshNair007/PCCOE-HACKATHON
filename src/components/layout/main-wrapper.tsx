@@ -12,8 +12,8 @@ export function MainWrapper({ children }: { children: React.ReactNode }) {
     <main
       id="main-content"
       className={cn(
-        "flex-1 w-full relative z-10",
-        !isHome && "pt-24 px-4 sm:px-8 max-w-7xl mx-auto"
+        "flex-1 w-full relative z-10 min-w-0",
+        !isHome && "ct-page-shell"
       )}
     >
       {children}

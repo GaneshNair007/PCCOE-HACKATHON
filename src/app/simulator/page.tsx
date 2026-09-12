@@ -3,23 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
-import { Modal } from "@/components/ui/modal";
-import {
-  Sliders,
-  Sparkles,
-  ShieldCheck,
-  Check,
-  Copy,
-  Layers,
-  Trees,
-  Zap,
-  TrendingDown,
-  FileCode,
-  AlertCircle,
-  Server,
-} from "lucide-react";
+import { PageIntro, SectionHeading } from "@/components/ui/page";
+import { Sliders, Copy, Server } from "lucide-react";
 import Link from "next/link";
 import { AuditResult } from "@/types/telemetry";
 
@@ -148,7 +134,6 @@ export default function SimulatorPage() {
 
   // Real Baseline Numbers
   const baselineCo2 = selectedAudit ? selectedAudit.co2_grams : 0;
-  const baselinePayloadBytes = selectedAudit ? selectedAudit.total_bytes : 0;
   const baselinePayloadMb = selectedAudit ? selectedAudit.metrics.payload_mb : 0;
 
   // Real calculation factors
@@ -200,10 +185,15 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
 }`,
   };
 
-  const copyPatch = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedPatch(true);
-    setNotification("Code pattern copied to clipboard!");
+  const copyPatch = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedPatch(true);
+      setNotification("Code pattern copied to clipboard.");
+    } catch {
+      setCopiedPatch(false);
+      setNotification("Could not copy automatically. Select and copy the code below.");
+    }
     setTimeout(() => {
       setCopiedPatch(false);
       setNotification(null);
@@ -211,53 +201,50 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
   };
 
   return (
-    <div className="space-y-12 pb-20">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border pb-8">
-        <div>
-          <span className="text-xs font-mono text-lime uppercase font-bold tracking-widest">
-            SCENARIO ESTIMATION ENGINE
-          </span>
-          <h1 className="font-display text-4xl sm:text-6xl text-cream uppercase tracking-wide mt-1">
-            WHAT-IF SIMULATOR
-          </h1>
-          <p className="text-xs sm:text-sm text-sage/80 mt-2 max-w-2xl">
-            Simulate the impact of asset compression, code-splitting, and hosting decisions against an audited baseline.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          {recentAudits.length > 0 && (
+    <div className="min-w-0 space-y-8 pb-12">
+      <PageIntro
+        eyebrow="What-if simulator"
+        title="Explore a lighter website."
+        description="Simulate the impact of asset compression, code-splitting, and hosting decisions against an audited baseline."
+        actions={recentAudits.length > 0 ? (
             <select
+              aria-label="Select monitored simulation baseline"
               onChange={(e) => handleSelectDomain(e.target.value)}
-              className="bg-surface-elevated border border-surface-border text-xs font-mono px-3 py-2 rounded-xl text-cream"
+              className="w-full max-w-xs bg-surface-elevated border border-surface-border text-xs font-mono px-3 py-2 rounded-xl text-cream"
               value={selectedAudit?.domain || ""}
             >
               <option value="" disabled>
-                Select Monitored Baseline...
+                Select monitored baseline…
               </option>
+              {selectedAudit && !recentAudits.some((audit) => audit.domain === selectedAudit.domain) && (
+                <option value={selectedAudit.domain}>{selectedAudit.domain} (current baseline)</option>
+              )}
               {recentAudits.map((a: any) => (
                 <option key={a.domain} value={a.domain}>
                   {a.domain} ({a.grade}, {a.co2}g)
                 </option>
               ))}
             </select>
-          )}
-        </div>
-      </div>
+        ) : undefined}
+      />
 
+      {notification && <div role="status" className="rounded-xl border border-lime/20 bg-surface p-4 text-sm text-lime">{notification}</div>}
+      <div className="rounded-2xl border border-surface-border glass-panel p-4 text-xs text-sage/80 leading-relaxed">
+        <span className="font-semibold text-cream">Illustrative scenario estimates.</span> Sliders model potential changes against the selected audit; they do not verify implemented savings. Validate changes in <Link href="/savings-lab" className="text-lime underline">Savings Lab</Link>.
+        {isDemoBaseline && <span className="block mt-1 text-amber-300">Demo dataset selected. These are sample values, not measurements of your website.</span>}
+      </div>
 
       {selectedAudit ? (
         <>
           {/* Active Baseline Status */}
           <div className="p-5 rounded-2xl glass-panel border border-surface-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs">
-            <div className="flex items-center gap-3">
+            <div className="flex min-w-0 items-center gap-3">
               <div className="p-2 rounded-lg bg-lime/10 border border-lime/30 text-lime">
                 <Server className="w-4 h-4" />
               </div>
-              <div>
-                <div className="text-sage/60 uppercase">Selected Baseline Audit</div>
-                <div className="text-cream font-bold text-sm flex items-center gap-2">
+              <div className="min-w-0">
+                <div className="text-sage/60">Selected Baseline Audit</div>
+                <div className="text-cream font-bold text-sm flex flex-wrap items-center gap-2 break-all">
                   {selectedAudit.domain}
                   <Badge variant={selectedAudit.eco_score === "A+" || selectedAudit.eco_score === "A" ? "lime" : "outline"}>
                     Grade {selectedAudit.eco_score}
@@ -266,7 +253,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
               </div>
             </div>
 
-            <div className="flex items-center gap-6 text-sage/80">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sage/80">
               <div>
                 <span className="text-sage/60">Baseline CO2:</span>{" "}
                 <span className="text-cream font-bold">{selectedAudit.co2_grams}g</span>
@@ -284,11 +271,9 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
           {/* Simulator Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left Levers Column */}
-            <div className="lg:col-span-6 space-y-6">
+            <div className="min-w-0 lg:col-span-6 space-y-6">
               <Card className="p-6 glass-panel-elevated border border-surface-border space-y-6">
-                <h3 className="font-display text-xl text-cream uppercase flex items-center gap-2">
-                  <Sliders className="w-5 h-5 text-lime" /> Optimization Levers
-                </h3>
+                <SectionHeading title="Adjust your scenario" description="Move each control to explore the estimated impact." />
 
                 {/* Lever 1: Image Compression */}
                 <div className="space-y-2 font-mono">
@@ -298,6 +283,8 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                   </div>
                   <input
                     type="range"
+                    aria-label="Modern image compression"
+                    aria-valuetext={`${imgComp} percent`}
                     min="0"
                     max="95"
                     step="5"
@@ -319,6 +306,8 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                   </div>
                   <input
                     type="range"
+                    aria-label="JavaScript deferral and tree-shaking"
+                    aria-valuetext={`${jsDefer} percent`}
                     min="0"
                     max="90"
                     step="5"
@@ -340,6 +329,8 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                   </div>
                   <input
                     type="range"
+                    aria-label="Static cache time to live"
+                    aria-valuetext={`${cacheTtl} days`}
                     min="1"
                     max="365"
                     step="7"
@@ -357,6 +348,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                   </div>
                   <input
                     type="checkbox"
+                    aria-label="Transition to verified green hosting"
                     checked={greenHosting}
                     onChange={(e) => setGreenHosting(e.target.checked)}
                     className="w-4 h-4 accent-lime cursor-pointer"
@@ -371,6 +363,8 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                   </div>
                   <input
                     type="range"
+                    aria-label="Monthly pageviews"
+                    aria-valuetext={`${viewsMultiplier.toLocaleString()} views per month`}
                     min="10000"
                     max="1000000"
                     step="10000"
@@ -383,21 +377,19 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
             </div>
 
             {/* Right Output Projections Column */}
-            <div className="lg:col-span-6 space-y-6">
+            <div className="min-w-0 lg:col-span-6 space-y-6">
               <Card className="p-6 glass-panel-elevated border border-lime/30 space-y-6">
-                <h3 className="font-display text-xl text-cream uppercase flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-lime" /> Simulated Outcome
-                </h3>
+                <SectionHeading title="Your simulated outcome" description="Estimates update as you adjust the scenario." />
 
-                <div className="grid grid-cols-2 gap-4 font-mono">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono">
                   <div className="p-4 rounded-xl bg-surface-elevated border border-surface-border">
-                    <div className="text-[11px] text-sage/60 uppercase">Est. CO2 / Visit</div>
+                    <div className="text-[11px] text-sage/60">Est. CO2 / visit</div>
                     <div className="text-3xl font-bold text-lime mt-1">{calculatedCo2}g</div>
                     <div className="text-[11px] text-sage/70 mt-1">From {baselineCo2}g (-{savingPct}%)</div>
                   </div>
 
                   <div className="p-4 rounded-xl bg-surface-elevated border border-surface-border">
-                    <div className="text-[11px] text-sage/60 uppercase">Est. Payload</div>
+                    <div className="text-[11px] text-sage/60">Est. payload</div>
                     <div className="text-3xl font-bold text-cream mt-1">{calculatedPayloadMb} MB</div>
                     <div className="text-[11px] text-sage/70 mt-1">From {baselinePayloadMb} MB</div>
                   </div>
@@ -405,7 +397,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
 
                 {/* Annual Savings */}
                 <div className="p-5 rounded-2xl bg-lime/10 border border-lime/30 font-mono space-y-2">
-                  <div className="text-xs text-lime font-bold uppercase">Estimated Annual Reduction</div>
+                  <div className="text-xs text-lime font-bold">Estimated annual reduction</div>
                   <div className="text-4xl font-display text-cream">
                     {annualCo2KgSaved} <span className="text-base font-normal font-mono text-sage">kg CO2e / yr</span>
                   </div>
@@ -416,9 +408,9 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
 
                 {/* Example AST Code Guidance Drawer */}
                 <div className="space-y-3 pt-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-cream uppercase">
-                      Example Remediation Pattern
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <span className="text-xs font-mono font-bold text-cream">
+                      Example remediation pattern
                     </span>
                     <Button
                       variant="outline"
@@ -427,7 +419,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                       className="text-xs font-mono flex items-center gap-1.5"
                     >
                       <Copy className="w-3.5 h-3.5" />
-                      {copiedPatch ? "COPIED" : "COPY CODE"}
+                      {copiedPatch ? "Copied" : "Copy code"}
                     </Button>
                   </div>
 
@@ -435,17 +427,19 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                     {(["nextjs", "html", "headers"] as const).map((tab) => (
                       <button
                         key={tab}
+                        type="button"
+                        aria-pressed={activePatchTab === tab}
                         onClick={() => setActivePatchTab(tab)}
                         className={`px-3 py-1 rounded-lg ${
                           activePatchTab === tab ? "bg-lime text-black font-bold" : "text-sage hover:text-cream"
                         }`}
                       >
-                        {tab.toUpperCase()}
+                        {{ nextjs: "Next.js", html: "HTML", headers: "Headers" }[tab]}
                       </button>
                     ))}
                   </div>
 
-                  <pre className="p-4 rounded-xl bg-black/70 border border-surface-border overflow-x-auto text-[11px] font-mono text-lime/90 leading-relaxed max-h-48">
+                  <pre tabIndex={0} aria-label="Example remediation code" className="max-w-full p-4 rounded-xl bg-black/70 border border-surface-border overflow-auto text-xs font-mono text-lime/90 leading-relaxed max-h-48">
                     {patchSnippets[activePatchTab]}
                   </pre>
                 </div>
@@ -455,20 +449,20 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
         </>
       ) : (
         /* Empty State */
-        <div className="p-12 text-center rounded-3xl glass-panel-elevated border border-surface-border space-y-4">
+        <div className="p-6 sm:p-10 text-center rounded-3xl glass-panel-elevated border border-surface-border space-y-4">
           <div className="w-14 h-14 rounded-2xl bg-surface-elevated border border-surface-border text-sage flex items-center justify-center mx-auto">
             <Sliders className="w-7 h-7" />
           </div>
-          <h3 className="font-display text-2xl text-cream uppercase">No Baseline Audit Selected</h3>
+          <h2 className="font-display text-2xl text-cream">Start with a baseline</h2>
           <p className="text-xs sm:text-sm text-sage/75 max-w-md mx-auto">
             Run an audit on the home page first to use your site&apos;s actual transfer bytes as the simulation baseline, or load a sample dataset.
           </p>
-          <div className="pt-2 flex justify-center gap-3">
+          <div className="pt-2 flex flex-wrap justify-center gap-3">
             <Link href="/" className="px-4 py-2 rounded-xl bg-lime text-black font-mono font-bold text-xs">
-              Go to Scanner →
+              Audit a website →
             </Link>
             <Button variant="outline" size="sm" onClick={handleLoadDemoBaseline} className="text-xs font-mono">
-              Load Demo Baseline
+              Load demo baseline
             </Button>
           </div>
         </div>

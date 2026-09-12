@@ -4,20 +4,8 @@ import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  Cpu,
-  Sparkles,
-  Copy,
-  Check,
-  Code,
-  ArrowRight,
-  Zap,
-  CheckCircle2,
-  FileCode,
-  Layers,
-  Info,
-  ExternalLink,
-} from "lucide-react";
+import { PageIntro } from "@/components/ui/page";
+import { Copy, Info } from "lucide-react";
 import Link from "next/link";
 
 interface RemediationPattern {
@@ -34,7 +22,7 @@ const PATTERNS: RemediationPattern[] = [
   {
     id: "avif-image",
     category: "Images",
-    title: "Next-Gen Image Component with AVIF/WebP Encoding",
+    title: "Next-generation images with AVIF/WebP encoding",
     description:
       "Replaces uncompressed raster PNG/JPEG images with an adaptive <picture> container or Next.js Image component, cutting transfer weight by 45–70%.",
     targetFramework: "Next.js / HTML5",
@@ -77,7 +65,7 @@ export function HeroBanner() {
   {
     id: "script-defer",
     category: "JavaScript",
-    title: "Third-Party Tag Deferral & Dynamic Script Loading",
+    title: "Third-party tag deferral & dynamic script loading",
     description:
       "Defers Google Tag Manager, analytics trackers, and chat widgets until after main DOM hydration, preventing render-blocking CPU energy waste.",
     targetFramework: "JavaScript / Next.js Script",
@@ -115,7 +103,7 @@ window.addEventListener('load', () => {
   {
     id: "font-subset",
     category: "Fonts",
-    title: "Web Font Subsetting & WOFF2 Preloading",
+    title: "Web font subsetting & WOFF2 preloading",
     description:
       "Eliminates external font round-trips to third-party CDNs by self-hosting compressed WOFF2 fonts with unicode character subsetting.",
     targetFramework: "CSS / Web Fonts",
@@ -142,7 +130,7 @@ window.addEventListener('load', () => {
   {
     id: "cache-compression",
     category: "Compression & Cache",
-    title: "Immutable Asset Caching & Brotli Compression",
+    title: "Immutable asset caching & Brotli compression",
     description:
       "Configures CDN edge servers to serve static assets with 1-year immutable cache headers and modern Brotli (br) compression.",
     targetFramework: "Nginx / Cloudflare / Apache",
@@ -166,10 +154,15 @@ export default function FixHubPage() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [notification, setNotification] = useState<string | null>(null);
 
-  const handleCopy = (id: string, code: string) => {
-    navigator.clipboard.writeText(code);
-    setCopiedId(id);
-    setNotification("Remediation pattern copied to clipboard!");
+  const handleCopy = async (id: string, code: string) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedId(id);
+      setNotification("Code pattern copied to clipboard.");
+    } catch {
+      setCopiedId(null);
+      setNotification("Could not copy automatically. Select and copy the code below.");
+    }
     setTimeout(() => {
       setCopiedId(null);
       setNotification(null);
@@ -181,33 +174,23 @@ export default function FixHubPage() {
   );
 
   return (
-    <div className="space-y-12 pb-20">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border pb-8">
-        <div>
-          <span className="text-xs font-mono text-lime uppercase font-bold tracking-widest">
-            ENGINEERING WORKBENCH • REFERENCE GUIDANCE
-          </span>
-          <h1 className="font-display text-4xl sm:text-6xl text-cream uppercase tracking-wide mt-1">
-            REFERENCE GUIDANCE
-          </h1>
-          <p className="text-xs sm:text-sm text-sage/80 mt-2 max-w-2xl">
-            Illustrative engineering patterns and reference snippets for common web transfer categories. These are generic guidance examples and do not guarantee specific savings or prove assets are uncompressed or scripts are unused. For verified fixes with task checks, use Savings Lab.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
+    <div className="min-w-0 space-y-8 pb-12">
+      <PageIntro
+        eyebrow="Reference guidance"
+        title="Small changes. Lighter pages."
+        description="Illustrative engineering patterns and reference snippets for common web transfer categories. These are generic guidance examples and do not guarantee specific savings or prove assets are uncompressed or scripts are unused. For verified fixes with task checks, use Savings Lab."
+        actions={
           <Link
             href="/savings-lab"
-            className="px-4 py-2 rounded-xl bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-transform hover:scale-105 shadow-[0_0_15px_rgba(203,255,0,0.3)]"
+            className="inline-flex items-center justify-center px-5 py-3 rounded-full bg-lime text-black font-medium text-sm hover:bg-lime/90 transition-colors"
           >
             Open Savings Lab →
           </Link>
-        </div>
-      </div>
+        }
+      />
 
       {notification && (
-        <div className="p-3 rounded-xl bg-lime/10 border border-lime/30 text-lime text-xs font-mono">
+        <div role="status" className="p-3 rounded-xl bg-surface border border-lime/30 text-lime text-sm">
           {notification}
         </div>
       )}
@@ -216,16 +199,18 @@ export default function FixHubPage() {
       <div className="p-4 rounded-xl glass-panel border border-surface-border text-xs font-mono text-sage/80 flex items-start gap-2.5">
         <Info className="w-4 h-4 text-lime shrink-0 mt-0.5" />
         <div>
-          <span className="font-bold text-cream">Reference Guidance Disclaimer:</span> These patterns are general educational examples. Heavy JavaScript transfer does not prove code is unused, and high image bytes alone do not prove images lack modern compression. Real optimization requires source-level inspection and functional verification in <Link href="/savings-lab" className="text-lime underline">Savings Lab</Link>.
+          <span className="font-bold text-cream">Reference guidance disclaimer:</span> These patterns are general educational examples. Heavy JavaScript transfer does not prove code is unused, and high image bytes alone do not prove images lack modern compression. Real optimization requires source-level inspection and functional verification in <Link href="/savings-lab" className="text-lime underline">Savings Lab</Link>.
         </div>
       </div>
 
       {/* Category Tabs */}
-      <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
-        <span className="text-sage/60 mr-2 uppercase">Filter by Category:</span>
+      <div className="flex flex-wrap items-center gap-2 font-mono text-xs" role="group" aria-label="Filter reference patterns by category">
+        <span className="text-sage/60 mr-2">Category:</span>
         {["ALL", "Images", "JavaScript", "Fonts", "Compression & Cache"].map((cat) => (
           <button
             key={cat}
+            type="button"
+            aria-pressed={selectedCategory === cat}
             onClick={() => setSelectedCategory(cat)}
             className={`px-3.5 py-1.5 rounded-full font-bold transition-all ${
               selectedCategory === cat
@@ -233,7 +218,7 @@ export default function FixHubPage() {
                 : "bg-surface-elevated border border-surface-border text-sage hover:text-cream"
             }`}
           >
-            {cat}
+            {cat === "ALL" ? "All patterns" : cat}
           </button>
         ))}
       </div>
@@ -241,22 +226,22 @@ export default function FixHubPage() {
       {/* Pattern Cards List */}
       <div className="space-y-8">
         {filteredPatterns.map((pattern, index) => (
-          <Card key={pattern.id} className="tech-frame gradient-border beautiful-md p-6 glass-panel-elevated relative space-y-4">
+          <Card key={pattern.id} className="min-w-0 p-5 sm:p-6 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-surface-border pb-4">
-              <div>
-                <div className="flex items-center gap-3">
-                  <span className="number-detail select-none">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                  <span className="font-mono text-xs text-sage/50" aria-hidden="true">
                     0{index + 1}
                   </span>
-                  <Badge variant="lime" className="font-mono text-[10px] uppercase">
+                  <Badge variant="lime" className="font-mono text-xs">
                     {pattern.category}
                   </Badge>
                   <span className="text-xs font-mono text-sage/70">Framework: {pattern.targetFramework}</span>
                 </div>
-                <h3 className="font-display text-2xl text-cream uppercase mt-1.5">{pattern.title}</h3>
-                <p className="text-xs text-sage/80 mt-1 max-w-3xl leading-relaxed">{pattern.description}</p>
+                <h2 className="font-display text-2xl text-cream mt-3">{pattern.title}</h2>
+                <p className="text-sm text-sage/80 mt-2 max-w-3xl leading-relaxed">{pattern.description}</p>
                 <div className="text-[11px] font-mono text-lime/80 mt-1.5">
-                  <span className="text-sage/60">Where to Apply:</span> {pattern.whereToApply}
+                  <span className="text-sage/60">Where to apply:</span> {pattern.whereToApply}
                 </div>
               </div>
 
@@ -267,12 +252,12 @@ export default function FixHubPage() {
                 className="shrink-0 font-mono text-xs flex items-center gap-1.5"
               >
                 <Copy className="w-3.5 h-3.5" />
-                {copiedId === pattern.id ? "COPIED PATTERN" : "COPY CODE PATTERN"}
+                {copiedId === pattern.id ? "Copied" : "Copy code"}
               </Button>
             </div>
 
             {/* Code Display */}
-            <pre className="p-4 rounded-xl bg-black/80 border border-surface-border overflow-x-auto text-xs font-mono text-lime/90 leading-relaxed max-h-72">
+            <pre tabIndex={0} aria-label={`${pattern.title} code example`} className="max-w-full p-4 rounded-xl bg-black/80 border border-surface-border overflow-auto text-xs font-mono text-lime/90 leading-relaxed max-h-72">
               {pattern.code}
             </pre>
           </Card>

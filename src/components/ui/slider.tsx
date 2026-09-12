@@ -7,15 +7,18 @@ export interface SliderProps extends React.InputHTMLAttributes<HTMLInputElement>
 }
 
 export function Slider({ className, label, valueDisplay, ...props }: SliderProps) {
+  const id = React.useId();
   return (
     <div className={cn("space-y-2.5", className)}>
-      <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider">
-        <span className="text-sage">{label}</span>
+      <div className="flex items-center justify-between text-sm font-medium gap-4">
+        <label htmlFor={props.id || id} className="text-sage">{label}</label>
         <span className="font-mono text-lime font-bold">{valueDisplay}</span>
       </div>
       <input
         type="range"
-        className="w-full h-2 bg-surface-elevated rounded-lg appearance-none cursor-pointer accent-lime focus:outline-none focus:ring-1 focus:ring-lime"
+        id={id}
+        aria-valuetext={valueDisplay}
+        className="w-full h-6 bg-surface-elevated rounded-lg appearance-none cursor-pointer accent-lime focus:outline-none focus:ring-1 focus:ring-lime"
         {...props}
       />
     </div>

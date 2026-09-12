@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { Modal } from "@/components/ui/modal";
+import { SectionHeading, Reveal } from "@/components/ui/page";
+
+
 import {
   Zap,
   ArrowRight,
@@ -39,8 +41,6 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CarbonGlobe3D } from "@/components/3d/carbon-globe-3d";
 import { SylvaHero } from "@/components/landing/sylva-hero";
-import { FallingLeaves } from "@/components/ambient/falling-leaves";
-import { TiltCard3D } from "@/components/3d/tilt-card-3d";
 import { HologramGauge3D } from "@/components/3d/hologram-gauge-3d";
 import { PayloadBreakdown } from "@/components/telemetry/payload-breakdown";
 import { HotspotCard } from "@/components/telemetry/hotspot-card";
@@ -73,30 +73,7 @@ function LandingPageContent() {
   const featuresRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
-  // GSAP ScrollTrigger animations
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    if (featuresRef.current) {
-      const cards = featuresRef.current.querySelectorAll(".feature-card-3d");
-      gsap.fromTo(
-        cards,
-        { opacity: 0, y: 40, rotateX: 10 },
-        {
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: featuresRef.current,
-            start: "top 85%",
-          },
-        }
-      );
-    }
-  }, []);
+  const reducedMotion = useReducedMotion();
 
   const runAudit = async (urlToScan: string) => {
     const trimmed = urlToScan.trim();
@@ -171,7 +148,7 @@ function LandingPageContent() {
 
       // Smooth scroll to 3D cockpit
       setTimeout(() => {
-        cockpitRef.current?.scrollIntoView({ behavior: "smooth" });
+        cockpitRef.current?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
       }, 300);
     } catch (err: any) {
       clearTimeout(phaseTimer);
@@ -229,11 +206,11 @@ function LandingPageContent() {
       />
 
       {/* Main Container below full-width hero */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-28 pb-28 pt-16">
+      <div className="ct-home-content">
         {/* ==========================================================================
              AUDIT COCKPIT: Only renders when a real audit has completed
              ========================================================================== */}
-        <section ref={cockpitRef} className="space-y-8 scroll-mt-28">
+        <section id="cockpit" ref={cockpitRef} className="space-y-8 scroll-mt-28">
           {auditStatus === "completed" && auditData ? (
             <>
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-surface-border/60 pb-4">
@@ -241,7 +218,7 @@ function LandingPageContent() {
                   <div className="flex items-center gap-2 text-xs font-mono text-lime uppercase tracking-wider mb-1">
                     <Sparkles className="w-3.5 h-3.5" /> Real Telemetry Audit Result
                 </div>
-                <h2 className="font-display text-4xl sm:text-5xl text-cream tracking-tight uppercase">
+                <h2 className="font-display text-4xl sm:text-5xl text-cream tracking-tight ">
                   {auditData.domain}
                 </h2>
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-sage/70 mt-1">
@@ -274,8 +251,8 @@ function LandingPageContent() {
               </div>
             </div>
 
-            {/* Top Evidenced Opportunity Banner (tech-green-dark-mode-modern & beautiful-md) */}
-            <div className="tech-frame gradient-border-emerald beautiful-md p-5 rounded-2xl bg-gradient-to-r from-forest/40 via-surface-elevated to-forest/20 border border-lime/40 shadow-[0_4px_25px_rgba(203,255,0,0.12)] flex flex-col md:flex-row md:items-center justify-between gap-4">
+            {/* Top Evidenced Opportunity Banner (tech-green-dark-mode-modern & ) */}
+            <div className=" -emerald  p-5 rounded-2xl bg-gradient-to-r from-forest/40 via-surface-elevated to-forest/20 border border-lime/40 shadow-[0_4px_25px_rgba(203,255,0,0.12)] flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-lime text-black">
@@ -319,7 +296,7 @@ function LandingPageContent() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
               {/* Left Column: 3D Holographic EcoScore Chamber */}
               <div className="lg:col-span-4">
-                <TiltCard3D maxTilt={10} scale={1.02}>
+                <div className="min-w-0">
                   <HologramGauge3D
                     score={auditData.eco_score}
                     co2Grams={displayedCo2 !== null ? displayedCo2 : auditData.co2_grams}
@@ -330,14 +307,14 @@ function LandingPageContent() {
                     discrepancyPct={auditData.cross_validation?.discrepancy_pct}
                     onOpenMethodology={() => setShowMethodologyModal(true)}
                   />
-                </TiltCard3D>
+                </div>
               </div>
 
               {/* Right Column: 3D Exploded Payload & Datacenter Grid Cards */}
               <div className="lg:col-span-8 space-y-6">
                 {/* 3D Datacenter Grid Telemetry Banner + Interactive Globe */}
-                <TiltCard3D maxTilt={8}>
-                  <Card className="tech-frame gradient-border beautiful-md p-5 glass-panel-elevated border border-lime/30">
+                <div className="min-w-0">
+                  <Card className="   p-5 glass-panel-elevated border border-lime/30">
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
                       <div className="md:col-span-7 space-y-3">
                         <div className="flex items-start gap-3.5">
@@ -389,22 +366,22 @@ function LandingPageContent() {
                       </div>
                     </div>
                   </Card>
-                </TiltCard3D>
+                </div>
 
                 {/* Transfer Payload Breakdown Visualizer */}
-                <TiltCard3D maxTilt={6}>
-                  <Card className="tech-frame gradient-border beautiful-md p-6 glass-panel-elevated">
+                <div className="min-w-0">
+                  <Card className="   p-6 glass-panel-elevated">
                     <PayloadBreakdown
                       totalBytes={auditData.total_bytes}
                       totalMb={auditData.metrics.payload_mb}
                       breakdown={auditData.breakdown}
                     />
                   </Card>
-                </TiltCard3D>
+                </div>
 
                 {/* Interactive 3D Sensitivity Chamber Slider */}
-                <TiltCard3D maxTilt={6}>
-                  <Card className="tech-frame gradient-border beautiful-md p-5 glass-panel-elevated space-y-3">
+                <div className="min-w-0">
+                  <Card className="   p-5 glass-panel-elevated space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-xs font-mono text-lime font-bold">
                         <Sliders className="w-4 h-4" /> MODEL SENSITIVITY ASSUMPTION (±20% CACHE VARIANCE)
@@ -415,6 +392,8 @@ function LandingPageContent() {
                     </div>
                     <input
                       type="range"
+                      aria-label="Model sensitivity cache variance"
+                      aria-valuetext={`${sensitivityVariance}% cache variance`}
                       min="-20"
                       max="20"
                       step="5"
@@ -431,14 +410,14 @@ function LandingPageContent() {
                       Attributional model sensitivity scenario. This explores SWDM caching bounds; it is not a statistically validated confidence interval.
                     </p>
                   </Card>
-                </TiltCard3D>
+                </div>
               </div>
             </div>
 
             {/* Hotspot Recommendations Section */}
             {auditData.hotspots && auditData.hotspots.length > 0 && (
               <div className="space-y-4 pt-4">
-                <h3 className="font-display text-2xl text-cream uppercase flex items-center gap-2">
+                <h3 className="font-display text-2xl text-cream  flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-lime" /> Detected Carbon Hotspots (Observed Evidence)
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -469,7 +448,7 @@ function LandingPageContent() {
               <span className="px-3 py-1 rounded-full bg-lime/10 border border-lime/30 text-[11px] font-mono text-lime font-bold uppercase tracking-wider">
                 SWDM v4 Telemetry Engine Active
               </span>
-              <h3 className="font-display text-3xl sm:text-4xl text-cream uppercase tracking-wide">
+              <h3 className="font-display text-3xl sm:text-4xl text-cream  tracking-tight">
                 Auditing {targetUrl || "Target Host"}
               </h3>
               <p className="text-sm font-mono text-lime max-w-lg mx-auto flex items-center justify-center gap-2">
@@ -488,8 +467,8 @@ function LandingPageContent() {
               <Zap className="w-7 h-7" />
             </div>
             <div className="space-y-2">
-              <h3 className="font-display text-3xl sm:text-4xl text-cream uppercase tracking-wide">
-                Live Audit Cockpit Ready
+              <h3 className="font-display text-3xl sm:text-4xl text-cream  tracking-tight">
+                Your audit workspace is ready
               </h3>
               <p className="text-sm text-sage/75 max-w-lg mx-auto">
                 Enter any public website URL in the hero dock above to trigger the live dual-source accuracy engine. Or launch an instant benchmark scan below:
@@ -520,175 +499,19 @@ function LandingPageContent() {
       {/* ==========================================================================
            3D FEATURE MATRIX: Staggered GSAP ScrollTrigger Section
            ========================================================================== */}
-      <section ref={featuresRef} className="space-y-10">
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-panel text-xs font-mono text-lime border border-lime/30">
-            <Cpu className="w-3.5 h-3.5" /> EXECUTIVE CAPABILITY SUITE
-          </div>
-          <h2 className="font-display text-4xl sm:text-5xl text-cream uppercase tracking-tight">
-            Complete Digital Sustainability Arsenal
-          </h2>
-          <p className="text-sm sm:text-base text-sage/80">
-            From single-URL dual-source cross-validation to fleet telemetry, what-if modeling, and CI/CD regression protection.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Card 1: Fleet Dashboard */}
-          <div className="feature-card-3d">
-            <TiltCard3D maxTilt={12} className="h-full">
-              <Card className="tech-frame gradient-border beautiful-md interactive p-6 glass-panel-elevated h-full flex flex-col justify-between hover:border-lime/50 transition-all">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
-                      <Globe className="w-5 h-5" />
-                    </div>
-                    <span className="number-detail">
-                      01
-                    </span>
-                  </div>
-                  <h3 className="font-display text-xl text-cream uppercase">Fleet Telemetry</h3>
-                  <div className="space-y-2 text-xs text-sage/80 leading-relaxed font-sans">
-                    <p>
-                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Problem:</strong>
-                      Multi-property sprawl without auditable baselines or green-hosting verification.
-                    </p>
-                    <p>
-                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Interaction:</strong>
-                      Domain portfolio batch ingestion, real-time filtering, and full CSV exports.
-                    </p>
-                    <p>
-                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Observable Result:</strong>
-                      Verifiable organization-wide eco-score distribution and carbon budgets.
-                    </p>
-                  </div>
-                </div>
-                <Link
-                  href="/dashboard"
-                  className="interactive mt-6 inline-flex items-center gap-1.5 text-xs font-mono text-lime font-semibold hover:underline"
-                >
-                  Manage Fleet →
-                </Link>
-              </Card>
-            </TiltCard3D>
-          </div>
-
-          {/* Card 2: What-If Simulator */}
-          <div className="feature-card-3d">
-            <TiltCard3D maxTilt={12} className="h-full">
-              <Card className="tech-frame gradient-border beautiful-md interactive p-6 glass-panel-elevated h-full flex flex-col justify-between hover:border-lime/50 transition-all">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
-                      <Sliders className="w-5 h-5" />
-                    </div>
-                    <span className="number-detail">
-                      02
-                    </span>
-                  </div>
-                  <h3 className="font-display text-xl text-cream uppercase">What-If Simulator</h3>
-                  <div className="space-y-2 text-xs text-sage/80 leading-relaxed font-sans">
-                    <p>
-                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Problem:</strong>
-                      Engineering commits blind to payload regressions and carbon footprint spikes.
-                    </p>
-                    <p>
-                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Interaction:</strong>
-                      Interactive levers for image transcoding, script tree-shaking, and CDN caching.
-                    </p>
-                    <p>
-                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Observable Result:</strong>
-                      Real-time grams CO2e delta and projected annual offset kilograms.
-                    </p>
-                  </div>
-                </div>
-                <Link
-                  href="/simulator"
-                  className="interactive mt-6 inline-flex items-center gap-1.5 text-xs font-mono text-lime font-semibold hover:underline"
-                >
-                  Simulate Levers →
-                </Link>
-              </Card>
-            </TiltCard3D>
-          </div>
-
-          {/* Card 3: Emissions Forecasting */}
-          <div className="feature-card-3d">
-            <TiltCard3D maxTilt={12} className="h-full">
-              <Card className="tech-frame gradient-border beautiful-md interactive p-6 glass-panel-elevated h-full flex flex-col justify-between hover:border-lime/50 transition-all">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
-                      <Activity className="w-5 h-5" />
-                    </div>
-                    <span className="number-detail">
-                      03
-                    </span>
-                  </div>
-                  <h3 className="font-display text-xl text-cream uppercase">Emissions Forecasts</h3>
-                  <div className="space-y-2 text-xs text-sage/80 leading-relaxed font-sans">
-                    <p>
-                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Problem:</strong>
-                      Sustainability reports rely on static guesses rather than dynamic multi-year paths.
-                    </p>
-                    <p>
-                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Interaction:</strong>
-                      Traffic scaling models blended with real grid decarbonization trajectories.
-                    </p>
-                    <p>
-                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Observable Result:</strong>
-                      Forward-looking emission bands with auditable confidence intervals.
-                    </p>
-                  </div>
-                </div>
-                <Link
-                  href="/forecasts"
-                  className="interactive mt-6 inline-flex items-center gap-1.5 text-xs font-mono text-lime font-semibold hover:underline"
-                >
-                  View Forecasts →
-                </Link>
-              </Card>
-            </TiltCard3D>
-          </div>
-
-          {/* Card 4: Regression Shield */}
-          <div className="feature-card-3d">
-            <TiltCard3D maxTilt={12} className="h-full">
-              <Card className="tech-frame gradient-border beautiful-md interactive p-6 glass-panel-elevated h-full flex flex-col justify-between hover:border-lime/50 transition-all">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center">
-                      <ShieldCheck className="w-5 h-5" />
-                    </div>
-                    <span className="number-detail">
-                      04
-                    </span>
-                  </div>
-                  <h3 className="font-display text-xl text-cream uppercase">Regression Shield</h3>
-                  <div className="space-y-2 text-xs text-sage/80 leading-relaxed font-sans">
-                    <p>
-                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Problem:</strong>
-                      Asset bloat silently slips past manual code review into production branches.
-                    </p>
-                    <p>
-                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Interaction:</strong>
-                      Automated GitHub Actions workflow generation tailored to domain limits.
-                    </p>
-                    <p>
-                      <strong className="text-cream font-mono text-[11px] block text-lime/90 uppercase">Observable Result:</strong>
-                      Strict PR checks enforcing maximum byte weight and carbon budgets.
-                    </p>
-                  </div>
-                </div>
-                <Link
-                  href="/shield"
-                  className="interactive mt-6 inline-flex items-center gap-1.5 text-xs font-mono text-lime font-semibold hover:underline"
-                >
-                  Inspect Shield →
-                </Link>
-              </Card>
-            </TiltCard3D>
-          </div>
+      <section ref={featuresRef} className="space-y-8">
+        <SectionHeading eyebrow="Explore CarbonTerra" title="A lighter web. A clearer picture."
+          description="From a single website to your entire fleet. Measure impact, explore improvements, and protect the progress you make." />
+        <div className="ct-home-capabilities">
+          {[
+            { icon: Globe, title: "Fleet telemetry", href: "/dashboard", action: "Manage your fleet", copy: "Manage domain portfolios with saved audit baselines, green-hosting verification, real-time filtering, and CSV exports." },
+            { icon: Sliders, title: "What-if simulator", href: "/simulator", action: "Explore the levers", copy: "Model image transcoding, script tree-shaking, and CDN caching. Compare grams of CO₂e and projected annual savings before you commit." },
+            { icon: TrendingDown, title: "Emissions forecasts", href: "/forecasts", action: "View scenarios", copy: "Explore traffic growth and grid decarbonization assumptions through forward-looking emission paths. Scenarios remain distinct from measured outcomes." },
+            { icon: ShieldCheck, title: "Regression Shield", href: "/shield", action: "Set a release budget", copy: "Evaluate byte and carbon budgets, inspect breaches, and generate a GitHub Actions workflow to protect your improvements." },
+          ].map(({icon: Icon, title, href, action, copy}) => <Reveal key={href} className="ct-capability">
+            <Icon size={25} strokeWidth={1.5} aria-hidden="true" /><h3>{title}</h3><p>{copy}</p>
+            <Link href={href}>{action}<ArrowRight size={17} className="ml-2" aria-hidden="true" /></Link>
+          </Reveal>)}
         </div>
       </section>
 
@@ -700,8 +523,8 @@ function LandingPageContent() {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-panel text-xs font-mono text-lime border border-lime/30">
             <Terminal className="w-3.5 h-3.5" /> LIVE INTERACTION SURFACE
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl text-cream uppercase tracking-tight">
-            Developer Telemetry API
+          <h2 className="font-display text-4xl sm:text-5xl text-cream  tracking-tight">
+            Developer telemetry API
           </h2>
           <p className="text-sm sm:text-base text-sage/80">
             Test real endpoints directly against the production server. Inspect response latency, status codes, and copy production-ready code snippets.
@@ -713,37 +536,14 @@ function LandingPageContent() {
       {/* ==========================================================================
            METHODOLOGY MODAL (Full Provenance & Caveats)
            ========================================================================== */}
-      <AnimatePresence>
-        {showMethodologyModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="w-full max-w-2xl max-h-[85vh] overflow-y-auto glass-panel-elevated rounded-3xl p-6 sm:p-8 border border-lime/40 shadow-[0_20px_60px_rgba(0,0,0,0.8)] space-y-6"
-            >
-              <div className="flex items-center justify-between border-b border-surface-border/60 pb-4">
-                <div className="flex items-center gap-2">
-                  <Scale className="w-5 h-5 text-lime" />
-                  <h3 className="font-display text-2xl text-cream uppercase">
-                    Carbonerra Methodology & Accuracy Design
-                  </h3>
-                </div>
-                <button
-                  onClick={() => setShowMethodologyModal(false)}
-                  className="p-1 rounded-full text-sage/60 hover:text-cream cursor-pointer"
-                >
-                  ✕
-                </button>
-              </div>
-
-              <div className="space-y-4 text-xs sm:text-sm text-sage/85 leading-relaxed font-sans">
+      <Modal isOpen={showMethodologyModal} onClose={() => setShowMethodologyModal(false)} title="Methodology & accuracy">
+<div className="space-y-4 text-xs sm:text-sm text-sage/85 leading-relaxed font-sans">
                 <p className="italic text-sage/70">
                   {CARBONERRA_CONFIG.terminology.disclaimer}
                 </p>
 
                 <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-                  <h4 className="font-mono font-bold text-lime text-xs uppercase">
+                  <h4 className="font-mono font-bold text-lime text-xs ">
                     1. Reference Implementation ({CARBONERRA_CONFIG.referenceStandard})
                   </h4>
                   <p className="text-xs">
@@ -752,7 +552,7 @@ function LandingPageContent() {
                 </div>
 
                 <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-                  <h4 className="font-mono font-bold text-lime text-xs uppercase">
+                  <h4 className="font-mono font-bold text-lime text-xs ">
                     2. Dual-Source Cross-Validation
                   </h4>
                   <p className="text-xs">
@@ -761,7 +561,7 @@ function LandingPageContent() {
                 </div>
 
                 <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-                  <h4 className="font-mono font-bold text-lime text-xs uppercase">
+                  <h4 className="font-mono font-bold text-lime text-xs ">
                     3. Real Datacenter Grid Intensity
                   </h4>
                   <p className="text-xs">
@@ -770,7 +570,7 @@ function LandingPageContent() {
                 </div>
 
                 <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-                  <h4 className="font-mono font-bold text-lime text-xs uppercase">
+                  <h4 className="font-mono font-bold text-lime text-xs ">
                     4. Sensitivity Banding (±20%)
                   </h4>
                   <p className="text-xs">
@@ -779,7 +579,7 @@ function LandingPageContent() {
                 </div>
 
                 <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-                  <h4 className="font-mono font-bold text-lime text-xs uppercase">
+                  <h4 className="font-mono font-bold text-lime text-xs ">
                     5. Known Methodological Limitations
                   </h4>
                   <ul className="text-xs list-disc list-inside space-y-1 text-sage/75">
@@ -800,10 +600,7 @@ function LandingPageContent() {
                   CLOSE METHODOLOGY
                 </Button>
               </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+      </Modal>
       </div>
     </div>
   );

@@ -16,8 +16,83 @@
  * ====================================================================== */
 (function () {
   'use strict';
+  window.initSylvaScene = function (root, options) {
+  var disposed = false;
+  var active = options ? options.active : true;
+  var cleanups = [], animationFrames = new Set(), timers = new Set();
+  function listen(target, event, callback, settings) {
+    target.addEventListener(event, callback, settings);
+    cleanups.push(function () { target.removeEventListener(event, callback, settings); });
+  }
+  function requestAnimationFrame(callback) {
+    if (disposed) return 0;
+    var id = window.requestAnimationFrame(function (time) {
+      animationFrames.delete(id);
+      if (!disposed) callback(time);
+    });
+    animationFrames.add(id);
+    return id;
+  }
+  function setTimeout(callback, delay) {
+    var id = window.setTimeout(function () { timers.delete(id); if (!disposed) callback(); }, delay);
+    timers.add(id);
+    return id;
+  }
+  function dispose() {
+    if (disposed) return;
+    disposed = true;
+    animationFrames.forEach(window.cancelAnimationFrame.bind(window));
+    timers.forEach(window.clearTimeout.bind(window));
+    cleanups.forEach(function (cleanup) { cleanup(); });
+    var resources = new Set();
+    function release(resource) {
+      if (!resource || resources.has(resource)) return;
+      resources.add(resource);
+      if (resource.dispose) resource.dispose();
+    }
+    if (scene) scene.traverse(function (node) {
+      release(node.geometry);
+      var materials = Array.isArray(node.material) ? node.material : [node.material];
+      materials.forEach(function (material) {
+        if (!material) return;
+        Object.keys(material).forEach(function (key) { if (material[key] && material[key].isTexture) release(material[key]); });
+        if (material.uniforms) Object.keys(material.uniforms).forEach(function (key) {
+          var value = material.uniforms[key].value;
+          if (value && value.isTexture) release(value);
+        });
+        release(material);
+      });
+    });
+    release(poleTex);
+    if (renderer) { renderer.renderLists.dispose(); renderer.dispose(); renderer.forceContextLoss(); }
+    root.classList.remove('js', 'is-ready', 'intro-done');
+    root.style.removeProperty('--px'); root.style.removeProperty('--py');
+  }
+  var controller = {
+    dispose: dispose,
+    setActive: function (enabled) {
+      active = !!enabled && root.dataset.userPaused !== 'true';
+      REDUCED = !active;
+      if (!active) {
+        ticking = false;
+        window.cancelAnimationFrame(tickFrame);
+        animationFrames.delete(tickFrame);
+        smooth.x = smooth.y = pointer.x = pointer.y = 0;
+        root.style.setProperty('--px', '0'); root.style.setProperty('--py', '0');
+        scanning = false;
+        if (uScanOn) uScanOn.value = 0;
+        if (uWire) uWire.value = 0;
+        root.classList.add('intro-done');
+        if (renderer && clock) renderFrame();
+      } else { lastTick = 0; if (clock) clock.getDelta(); startTick(); }
+    },
+    scan: function () {
+      if (!active || disposed || !renderer) return;
+      scanning = true; scanT = 0; uScanOn.value = 1; uScanR.value = 0;
+    }
+  };
 
-  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var REDUCED = !active;
 
   /* ── pointer parallax ───────────────────────────────────────────────
      Every layer that carries a --pd gets .par; the loop writes the eased
@@ -32,16 +107,19 @@
                  '.stat--a,.stat--b,.card--about,.knob-float,.card--stove,.scroll';
 
   var pointer = { x: 0, y: 0 }, smooth = { x: 0, y: 0 };
-  var heroEl = document.getElementById('hero');
+  var heroEl = root;
   var lastX = null, lastY = null;
-  var ticking = false, parOn = false;
+  var ticking = false, parOn = false, tickFrame = 0;
 
   /* one rAF for the whole page: it eases the pointer, publishes it, and
      renders the GL scene if there is one */
   function startTick() {
-    if (ticking) return;
+    if (ticking || !active || disposed) return;
     ticking = true;
-    (function loop() { requestAnimationFrame(loop); tick(); })();
+    (function loop() {
+      if (!active || disposed) { ticking = false; return; }
+      tick(); tickFrame = requestAnimationFrame(loop);
+    })();
   }
 
   var lastTick = 0;
@@ -61,7 +139,7 @@
       var nx = Math.round(smooth.x * 1000) / 1000, ny = Math.round(smooth.y * 1000) / 1000;
       if (nx !== lastX || ny !== lastY) {
         lastX = nx; lastY = ny;
-        if (!heroEl) heroEl = document.getElementById('hero'); if (heroEl) heroEl.style.setProperty('--px', nx);
+        if (!heroEl) heroEl = root; if (heroEl) heroEl.style.setProperty('--px', nx);
         if (heroEl) heroEl.style.setProperty('--py', ny);
       }
     }
@@ -70,13 +148,13 @@
 
   function startParallax() {
     startTick();
-    if (REDUCED || parOn) return;
+    if (parOn) return;
     parOn = true;
-    var nodes = document.querySelectorAll(PARALLAX);
+    var nodes = root.querySelectorAll(PARALLAX);
     for (var i = 0; i < nodes.length; i++) nodes[i].classList.add('par');
 
-    window.addEventListener('pointermove', function (e) {
-      if (e.pointerType === 'touch') return;
+    listen(window, 'pointermove', function (e) {
+      if (!active || e.pointerType === 'touch') return;
       pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
       pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
       /* the GL camera is framed on .hero, not on the window — on the narrow
@@ -87,14 +165,14 @@
       ndc.y = -((e.clientY - r.top) / r.height) * 2 + 1;
     }, { passive: true });
 
-    window.addEventListener('pointerleave', function () {
+    listen(window, 'pointerleave', function () {
       pointer.x = pointer.y = 0; ndc.x = 10;
     });
   }
 
-  var canvas   = document.getElementById('scene');
-  var hero     = document.getElementById('hero');
-  var stageEl  = document.getElementById('stage');
+  var canvas   = root.querySelector('#scene');
+  var hero     = root;
+  var stageEl  = root.querySelector('#stage');
   var NARROW   = window.matchMedia('(max-width: 900px)');
 
   /* ── where the two roots sit on the 1600 × 880 reference frame ───────
@@ -134,7 +212,7 @@
   function startPortalReveal() {
     if (REDUCED || portalStarted) return;
     portalStarted = true;
-    var figs = document.querySelectorAll('.portal');
+    var figs = root.querySelectorAll('.portal');
     for (var i = 0; i < figs.length; i++) revealPortal(figs[i]);
   }
 
@@ -148,6 +226,7 @@
 
     function launch() {
       setTimeout(function () {
+        if (!active) return;
         var box = canvasEl.getBoundingClientRect();
         if (!box.width || !box.height) return;
 
@@ -182,6 +261,7 @@
         var startedAt = performance.now();
 
         function paint(now) {
+          if (!active) { canvasEl.style.opacity = '0'; return; }
           var t = Math.min(1, (now - startedAt) / CUT_MS);
           var stepped = Math.floor(t * CUT_STEPS) / CUT_STEPS;
           var front = (stepped * span - over) / reach;
@@ -234,7 +314,7 @@
     }
 
     if (img.complete && img.naturalWidth) launch();
-    else img.addEventListener('load', launch, { once:true });
+    else listen(img, 'load', launch, { once:true });
   }
 
   /* ── the dock ────────────────────────────────────────────────────────
@@ -369,95 +449,28 @@
     if (!moving) SPEC.dirty = false;
   }
 
-  function initDock() {
-    var root = document.querySelector('.dock');
-    if (!root) return;
-    DOCK.root = root;
-    DOCK.items = [].map.call(root.querySelectorAll('[data-dock]'), function (el) {
-      return { el: el, w: 0, h: 0, v: 0, vel: 0, target: 0 };
-    });
-    SPEC.items = [].map.call(document.querySelectorAll('[data-spec]'), function (el) {
-      return { el: el, ang: 2.4, tAng: 2.4, br: 0, tBr: 0, focused: false,
-               reach: el.classList.contains('dock') ? 250 : 185 };
-    });
-    SPEC.on = fineHover();
-
-    measureDock();
-    /* the labels set the pill widths, so the base measure is wrong until the
-       real face has landed */
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureDock);
-    window.addEventListener('resize', measureDock);
-
-    window.addEventListener('pointermove', function (e) {
-      if (e.pointerType === 'touch') return;
-      aimX = e.clientX; aimY = e.clientY; aimSeen = true; aimMoved = true; DOCK.key = false;
-      DOCK.dirty = SPEC.dirty = true;
-    }, { passive: true });
-
-    window.addEventListener('pointerleave', function () {
-      aimSeen = false;
-      dockRest();
-      for (var i = 0; i < SPEC.items.length; i++) SPEC.items[i].tBr = SPEC.items[i].focused ? 0.9 : 0;
-      SPEC.dirty = true;
-    });
-
-    /* keyboard gets the same magnification, centred on the focused pill */
-    root.addEventListener('focusin', function (e) {
-      var item = e.target.closest('[data-dock]');
-      if (!item || !DOCK.on) return;
-      var idx = DOCK.items.map(function (st) { return st.el; }).indexOf(item);
-      DOCK.items.forEach(function (st, i) {
-        st.target = i === idx ? 1 : Math.abs(i - idx) === 1 ? 0.24 : 0;
-        st.el.dataset.near = st.target > 0.08 ? 'true' : 'false';
-      });
-      DOCK.live = false; DOCK.key = true; DOCK.dirty = true;
-    });
-    root.addEventListener('focusout', function () {
-      requestAnimationFrame(function () {
-        if (!root.contains(document.activeElement)) { DOCK.key = false; dockRest(); }
-      });
-    });
-    for (var i = 0; i < SPEC.items.length; i++) (function (st) {
-      st.el.addEventListener('focusin', function () { st.focused = true; SPEC.dirty = true; });
-      st.el.addEventListener('focusout', function () { st.focused = false; SPEC.dirty = true; });
-    })(SPEC.items[i]);
-
-    /* the current section moves with the click, and the pill throws a
-       handful of pollen — the page already has an emitter for that */
-    root.addEventListener('click', function (e) {
-      var item = e.target.closest('[data-dock]');
-      if (!item) return;
-      e.preventDefault();
-      if (!item.classList.contains('dock-mark')) {
-        for (var i = 0; i < DOCK.items.length; i++) DOCK.items[i].el.classList.remove('is-active');
-        item.classList.add('is-active');
-      }
-      burstAt(e.clientX, e.clientY);
-    });
-  }
-
   function ready() {
-    if (readyStarted) return;
+    if (readyStarted || disposed) return;
     readyStarted = true;
     /* The pre-intro styles come from .js on <html>, set while the head was
        parsing, and this runs in the same task as the rest of the script — so
        nothing has forced the browser to compute them yet. Without a recalc
        here it computes once, sees the finished state, and every transition is
        skipped. */
-    void document.body.offsetHeight;
-    document.body.classList.add('is-ready');
+    root.classList.add('js');
+    void root.offsetHeight;
+    root.classList.add('is-ready');
     startParallax();
     startPortalReveal();
-    initDock();
     /* the wipes are done — drop the clips so nothing keeps a stacking
        context alive (the About knob has to stay above the moss) */
-    setTimeout(function () { document.body.classList.add('intro-done'); }, REDUCED ? 0 : 2900);
+    setTimeout(function () { root.classList.add('intro-done'); }, REDUCED ? 0 : 2900);
   }
 
   /* pointer in NDC, read by the moss shaders through a plane raycast */
   var ndc = { x: 10, y: 10 };
 
-  if (!window.THREE) { ready(); return; }
+  if (!window.THREE) { ready(); return controller; }
 
   /* ================================================================== *
    * deterministic noise — the same meadow grows on every reload
@@ -1690,8 +1703,8 @@
     var q = /[?&]blades=(\d+)/.exec(location.search);
     if (q) { BLADES_NEAR = +q[1]; BLADES_FAR = Math.round(+q[1] * 0.21); }
 
-    if (!canvas) canvas = document.getElementById('scene');
-    if (!hero) hero = document.getElementById('hero');
+    if (!canvas) canvas = root.querySelector('#scene');
+    if (!hero) hero = root;
     renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: !small });
     renderer.setClearColor(0x000000, 0);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.6 : 2));
@@ -1751,7 +1764,7 @@
 
     buildAmbient();
     layout();
-    window.addEventListener('resize', layout);
+    listen(window, 'resize', layout);
     clock = new THREE.Clock();
 
     /* Hold the pulse for a page nobody is looking at: a background tab gets
@@ -2465,6 +2478,7 @@
      on. Each root is modelled in its own 10-unit-wide box and scaled into
      place around a pinned landmark, exactly as the artwork was. */
   function layout() {
+    if (disposed || !renderer) return;
     W = hero.clientWidth; H = hero.clientHeight;
     renderer.setSize(W, H, false);
     camera.fov = 2 * Math.atan((H / 2) / DIST) * 180 / Math.PI;
@@ -2553,7 +2567,8 @@
   /* ── frame ─────────────────────────────────────────────────────────── */
   var frames = 0;
   function renderFrame() {
-    var dt = Math.min(clock.getDelta(), 0.05);
+    if (disposed) return;
+    var dt = active ? Math.min(clock.getDelta(), 0.05) : 0;
     if (!REDUCED) uTime.value += dt;
 
     camera.position.x = -smooth.x * 26;
@@ -2592,7 +2607,7 @@
     emitSpray(dt);
 
     renderer.render(scene, camera);
-    if (++frames === 2) window.__ready = true;
+    frames++;
   }
 
   /* ── boot ──────────────────────────────────────────────────────────── */
@@ -2607,12 +2622,10 @@
   }); });
 
   
-  // Global Carbonerra holographic scan wave trigger
-  window.__triggerSylvaScan = function() {
-    scanning = true;
-    scanT = 0;
-  };
+  // Each route instance owns its scan trigger through the controller.
 
   /* never leave the page invisible if something stalls */
   setTimeout(ready, 4000);
+  return controller;
+  };
 })();

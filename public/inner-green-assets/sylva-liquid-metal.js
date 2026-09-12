@@ -2,7 +2,19 @@
 (function () {
   'use strict';
 
-  function mountLiquidMetal(host) {
+  function mountLiquidMetal(host, options) {
+    let disposed = false, active = options ? options.active : true, raf = 0;
+    const cleanups = [], shaders = [], programs = [], targets = [];
+    let resizeObserver;
+    const listen = (target, event, callback, settings) => {
+      target.addEventListener(event, callback, settings);
+      cleanups.push(() => target.removeEventListener(event, callback, settings));
+    };
+    const requestAnimationFrame = callback => {
+      if (disposed || !active) return 0;
+      raf = globalThis.requestAnimationFrame(callback);
+      return raf;
+    };
     const hostWindow = globalThis;
     const document = {
       body: host,
@@ -16,7 +28,7 @@
     };
     const window = {
       devicePixelRatio: hostWindow.devicePixelRatio,
-      addEventListener: hostWindow.addEventListener.bind(hostWindow)
+      addEventListener: (event, callback, settings) => listen(hostWindow, event, callback, settings)
     };
 
 /* =====================================================================
@@ -467,16 +479,17 @@ const R = window.__R = {
 };
 
 if(!gl){
-  document.body.innerHTML = '<p style="color:#888;font:14px system-ui">WebGL2 is required for this page.</p>';
+  cv.hidden = true;
+  return { setActive() {}, dispose() {} };
 } else {
 
 function sh(type, src){
-  const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+  const s = gl.createShader(type); shaders.push(s); gl.shaderSource(s, src); gl.compileShader(s);
   if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s) + '\n' + src);
   return s;
 }
 function prog(fs){
-  const p = gl.createProgram();
+  const p = gl.createProgram(); programs.push(p);
   gl.attachShader(p, sh(gl.VERTEX_SHADER, VERT));
   gl.attachShader(p, sh(gl.FRAGMENT_SHADER, fs));
   gl.bindAttribLocation(p, 0, 'position');
@@ -506,7 +519,7 @@ function makeTarget(){
   const fbo = gl.createFramebuffer();
   gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
   gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
-  return {tex, fbo, w:0, h:0};
+  const target = {tex, fbo, w:0, h:0}; targets.push(target); return target;
 }
 function sizeTarget(t, w, h){
   if(t.w === w && t.h === h) return;
@@ -545,7 +558,8 @@ function resize(){
   sizeTarget(T_a, dw, dh); sizeTarget(T_b, dw, dh);
   needResize = false;
 }
-new ResizeObserver(() => { needResize = true; }).observe(stage);
+resizeObserver = new ResizeObserver(() => { needResize = true; if (!active && !disposed) { drawn = null; frame(performance.now()); } });
+resizeObserver.observe(stage);
 
 function drawTo(t){
   gl.bindFramebuffer(gl.FRAMEBUFFER, t ? t.fbo : null);
@@ -567,6 +581,7 @@ const ptr = {x:0, y:0}, ptrS = {x:0, y:0};
 let ptrAmt = 0, ptrSpeed = 0;
 
 function addRipple(x, y){
+  if (!active || calm.matches) return;
   const r = RIP[ripNext];
   ripNext = (ripNext + 1) % RIP.length;
   r.x = x; r.y = y; r.t = clock; r.on = 1;
@@ -596,9 +611,10 @@ const IDLE_HZ = 30;
 let lastDraw = 0;
 
 function frame(now){
+  if (disposed) return;
   const dtRaw = (now - last) / 1000; last = now;
   const dt = Math.min(dtRaw, 1/20);
-  if(!calm.matches) clock += dt;
+  if(active && !calm.matches) clock += dt;
 
   // asymmetric ease: quick to bloom, a touch quicker to die
   const k = hoverTarget > hover ? 1 - Math.pow(0.0012, dt) : 1 - Math.pow(0.00012, dt);
@@ -751,20 +767,21 @@ function frame(now){
    ripple from wherever it landed.  Works for mouse, touch and keyboard. */
 const on = {over:false, press:false, focus:false};
 const sync = () => {
+  if (!active || disposed) return;
   hoverTarget = (on.over || on.press || on.focus) ? 1 : 0;
   pressTarget = on.press ? 1 : 0;
   document.body.classList.toggle('hot', hoverTarget > 0.5);
   document.body.classList.toggle('press', on.press);
 };
 
-btn.addEventListener('pointerenter', e => {
+listen(btn, 'pointerenter', e => {
   if(e.pointerType !== 'mouse') return;
   // land the well where the cursor actually entered, not where it last was
   [ptr.x, ptr.y] = localPt(e);
   ptrS.x = ptr.x; ptrS.y = ptr.y; ptrSpeed = 0;
   on.over = true; sync();
 });
-btn.addEventListener('pointerleave', e => { if(e.pointerType === 'mouse'){ on.over = false; sync(); } });
+listen(btn, 'pointerleave', e => { if(e.pointerType === 'mouse'){ on.over = false; sync(); } });
 
 // the cursor drags the metal; tracked on the window so a press can slide off
 // the button, but only measured while the button is actually engaged
@@ -773,7 +790,7 @@ window.addEventListener('pointermove', e => {
   [ptr.x, ptr.y] = localPt(e);
 }, {passive:true});
 
-btn.addEventListener('pointerdown', e => {
+listen(btn, 'pointerdown', e => {
   [ptr.x, ptr.y] = localPt(e);
   on.press = true; sync();
   addRipple(ptr.x, ptr.y);
@@ -782,53 +799,57 @@ window.addEventListener('pointerup',     () => { on.press = false; sync(); });
 window.addEventListener('pointercancel', () => { on.press = false; sync(); });
 // only keyboard focus keeps it lit — a mouse click shouldn't leave the button
 // glowing after the pointer has moved away
-btn.addEventListener('focus', () => {
+listen(btn, 'focus', () => {
   on.focus = btn.matches(':focus-visible'); sync();
 });
-btn.addEventListener('blur', () => { on.focus = false; sync(); });
+listen(btn, 'blur', () => { on.focus = false; sync(); });
 
 // keyboard activation gets the same treatment, rippling from the centre
-btn.addEventListener('keydown', e => {
+listen(btn, 'keydown', e => {
   if(e.key !== 'Enter' && e.key !== ' ' || e.repeat) return;
   on.press = true; sync(); addRipple(0, 0);
 });
-btn.addEventListener('keyup', e => {
+listen(btn, 'keyup', e => {
   if(e.key !== 'Enter' && e.key !== ' ') return;
   on.press = false; sync();
 });
 
 resize();
-requestAnimationFrame(frame);
+frame(performance.now());
 
-// tiny console hooks for tuning
-window.__set = (o = {}, e = {}, c = {}, r = {}) => {
-  Object.assign(P, o); Object.assign(E, e); Object.assign(C, c); Object.assign(R, r);
-  drawn = null;
+return {
+  setActive(enabled) {
+    if (disposed) return;
+    active = !!enabled && host.closest('.sylva-hero')?.dataset.userPaused !== 'true';
+    globalThis.cancelAnimationFrame(raf);
+    last = performance.now();
+    if (active) requestAnimationFrame(frame);
+  },
+  dispose() {
+    if (disposed) return;
+    disposed = true;
+    globalThis.cancelAnimationFrame(raf);
+    resizeObserver?.disconnect();
+    cleanups.forEach(cleanup => cleanup());
+    targets.forEach(target => { gl.deleteTexture(target.tex); gl.deleteFramebuffer(target.fbo); });
+    shaders.forEach(shader => gl.deleteShader(shader));
+    programs.forEach(program => gl.deleteProgram(program));
+    gl.deleteBuffer(vbo); gl.deleteVertexArray(vao);
+    gl.getExtension('WEBGL_lose_context')?.loseContext();
+    host.classList.remove('hot', 'press');
+  }
 };
-window.__hover  = v => { on.over = !!v; sync(); };
-window.__press  = v => { on.press = !!v; sync(); if(v) addRipple(0, 0); };
-window.__ripple = (x = 0, y = 0) => addRipple(x, y);
-window.__seek   = v => { clock = v; drawn = null; };
 }
-
   }
 
-  const hosts = globalThis.document.querySelectorAll('[data-liquid-metal]');
-  for (let i = 0; i < hosts.length; i++) mountLiquidMetal(hosts[i]);
-})();
-
-if (typeof window !== 'undefined') {
-  window.initLiquidMetal = function() {
-    try {
-      var hosts = document.querySelectorAll('[data-liquid-metal]');
-      hosts.forEach(function(host) {
-        if (!host._liquidMetalMounted) {
-          host._liquidMetalMounted = true;
-          mountLiquidMetal(host);
-        }
-      });
-    } catch(e) {
-      console.warn('initLiquidMetal error:', e);
-    }
+  window.initLiquidMetal = function(root, options) {
+    const instances = Array.from(root.querySelectorAll('[data-liquid-metal]'), host => {
+      try { return mountLiquidMetal(host, options); }
+      catch (error) { console.warn('Liquid metal unavailable:', error); return null; }
+    }).filter(Boolean);
+    return {
+      setActive(active) { instances.forEach(instance => instance.setActive(active)); },
+      dispose() { instances.forEach(instance => instance.dispose()); }
+    };
   };
-}
+})();

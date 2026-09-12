@@ -1,30 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  LineChart,
-  AlertTriangle,
-  TrendingUp,
-  Calendar,
-  Info,
-  ShieldCheck,
-  CheckCircle2,
-  Clock,
-  Sparkles,
-  ArrowRight,
-  Server,
-} from "lucide-react";
+import { PageIntro, SectionHeading } from "@/components/ui/page";
+import { LineChart, Info } from "lucide-react";
 import Link from "next/link";
 import { AuditResult } from "@/types/telemetry";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 export default function ForecastsPage() {
   const [selectedAudit, setSelectedAudit] = useState<AuditResult | null>(null);
@@ -33,18 +15,13 @@ export default function ForecastsPage() {
 
   const [timeframe, setTimeframe] = useState<"6M" | "12M" | "24M">("12M");
   const [growthRate, setGrowthRate] = useState<number>(10); // % monthly traffic growth
-  const [monthlyViews, setMonthlyViews] = useState<number>(100000);
+  const monthlyViews = 100000;
   const [hoveredPoint, setHoveredPoint] = useState<{
     month: string;
     statusQuoKg: number;
     plannedKg: number;
     netZeroKg: number;
   } | null>(null);
-
-  const chartCardRef = useRef<HTMLDivElement>(null);
-  const lineStatusQuoRef = useRef<SVGPolylineElement>(null);
-  const linePlannedRef = useRef<SVGPolylineElement>(null);
-  const lineNetZeroRef = useRef<SVGPolylineElement>(null);
 
   useEffect(() => {
     try {
@@ -164,82 +141,21 @@ export default function ForecastsPage() {
 
   const maxVal = Math.max(...points.map((p) => p.statusQuoKg), 1);
 
-  // GSAP ScrollTrigger Storytelling Reveal for Projection Paths
-  useEffect(() => {
-    if (typeof window === "undefined" || !selectedAudit) return;
-
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const lines = [
-      lineStatusQuoRef.current,
-      linePlannedRef.current,
-      lineNetZeroRef.current,
-    ].filter(Boolean) as SVGPolylineElement[];
-
-    if (prefersReducedMotion) {
-      lines.forEach((line) => {
-        line.style.strokeDasharray = "none";
-        line.style.strokeDashoffset = "0";
-      });
-      return;
-    }
-
-    lines.forEach((line, idx) => {
-      const length = 2400;
-      gsap.set(line, {
-        strokeDasharray: length,
-        strokeDashoffset: length,
-      });
-
-      gsap.to(line, {
-        strokeDashoffset: 0,
-        duration: 1.6,
-        delay: idx * 0.25,
-        ease: "power2.out",
-        scrollTrigger: chartCardRef.current
-          ? {
-              trigger: chartCardRef.current,
-              start: "top 80%",
-              once: true,
-            }
-          : undefined,
-      });
-    });
-
-    const chartEl = chartCardRef.current;
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => {
-        if (t.vars.trigger === chartEl) {
-          t.kill();
-        }
-      });
-    };
-  }, [selectedAudit, timeframe, growthRate]);
-
   return (
-    <div className="space-y-12 pb-20">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border pb-8">
-        <div>
-          <span className="text-xs font-mono text-lime uppercase font-bold tracking-widest">
-            SCENARIO FORECASTING
-          </span>
-          <h1 className="font-display text-4xl sm:text-6xl text-cream uppercase tracking-wide mt-1">
-            EMISSIONS FORECASTS
-          </h1>
-          <p className="text-xs sm:text-sm text-sage/80 mt-2 max-w-2xl">
-            Model future digital carbon trajectory based on real baseline transfer weights, projected traffic growth, and planned engineering remediations.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          {recentAudits.length > 0 && (
+    <div className="min-w-0 space-y-8 pb-12">
+      <PageIntro
+        eyebrow="Emissions forecasts"
+        title="See the possibilities ahead."
+        description="Model future digital carbon trajectory based on real baseline transfer weights, projected traffic growth, and planned engineering remediations."
+        actions={recentAudits.length > 0 ? (
             <select
+              aria-label="Select monitored forecast baseline"
               onChange={(e) => handleSelectDomain(e.target.value)}
-              className="bg-surface-elevated border border-surface-border text-xs font-mono px-3 py-2 rounded-xl text-cream"
+              className="w-full max-w-xs bg-surface-elevated border border-surface-border text-xs font-mono px-3 py-2 rounded-xl text-cream"
               value={selectedAudit?.domain || ""}
             >
               <option value="" disabled>
-                Select Monitored Baseline...
+                Select monitored baseline…
               </option>
               {recentAudits.map((a: any) => (
                 <option key={a.domain} value={a.domain}>
@@ -247,12 +163,11 @@ export default function ForecastsPage() {
                 </option>
               ))}
             </select>
-          )}
-        </div>
-      </div>
+        ) : undefined}
+      />
 
       {/* Persistent Forecast Disclaimer */}
-      <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-400/30 text-xs font-mono text-amber-200 flex items-start gap-2.5">
+      <div className="p-4 rounded-2xl bg-surface border border-amber-400/30 text-xs text-amber-200 flex items-start gap-2.5 leading-relaxed">
         <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
         <div>
           <span className="font-bold">Scenario forecast, not a prediction of measured future emissions.</span> Calculations apply your configured monthly growth rate ({growthRate}%) and engineering reduction schedule against the chosen audit baseline.
@@ -269,18 +184,20 @@ export default function ForecastsPage() {
           {/* Controls Bar */}
           <div className="p-6 rounded-2xl glass-panel-elevated border border-surface-border grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
             <div>
-              <div className="text-sage/60 uppercase">Baseline Domain</div>
-              <div className="text-cream font-bold text-sm mt-1">{selectedAudit.domain}</div>
+              <div className="text-sage/60">Baseline domain</div>
+              <div className="text-cream font-bold text-sm mt-1 break-all">{selectedAudit.domain}</div>
               <div className="text-[11px] text-lime">{selectedAudit.co2_grams}g CO2e / visit</div>
             </div>
 
             <div>
               <div className="flex justify-between">
-                <span className="text-sage/60 uppercase">Monthly Traffic Growth</span>
+                <span className="text-sage/60">Monthly traffic growth</span>
                 <span className="text-lime font-bold">+{growthRate}% / mo</span>
               </div>
               <input
                 type="range"
+                aria-label="Monthly traffic growth"
+                aria-valuetext={`${growthRate} percent per month`}
                 min="0"
                 max="30"
                 step="2"
@@ -291,10 +208,13 @@ export default function ForecastsPage() {
             </div>
 
             <div className="flex items-center justify-between sm:justify-end gap-2">
-              <span className="text-sage/60 uppercase">Horizon:</span>
+              <span className="text-sage/60">Horizon:</span>
               {(["6M", "12M", "24M"] as const).map((tf) => (
                 <button
                   key={tf}
+                  type="button"
+                  aria-pressed={timeframe === tf}
+                  aria-label={`${parseInt(tf)} month forecast horizon`}
                   onClick={() => setTimeframe(tf)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
                     timeframe === tf ? "bg-lime text-black" : "bg-surface-elevated border border-surface-border text-sage hover:text-cream"
@@ -307,43 +227,44 @@ export default function ForecastsPage() {
           </div>
 
           {/* Interactive SVG Projection Chart */}
-          <Card ref={chartCardRef} className="tech-frame gradient-border beautiful-md p-6 glass-panel-elevated space-y-4">
+          <Card className="p-5 sm:p-6 space-y-4">
+            <SectionHeading title="Compare your scenarios" description="Monthly estimated emissions in kg CO2e. The renewable + AVIF scenario is a reduction pathway, not a claim of zero emissions." />
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-surface-border pb-4">
-              <div className="flex items-center gap-4 text-xs font-mono">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono">
                 <span className="flex items-center gap-1.5 text-red-400">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                  Status Quo ({growthRate}% Growth)
+                  Status quo ({growthRate}% growth)
                 </span>
                 <span className="flex items-center gap-1.5 text-amber-400">
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                  Planned Asset Reductions
+                  Planned asset reductions
                 </span>
                 <span className="flex items-center gap-1.5 text-lime">
                   <span className="w-2.5 h-2.5 rounded-full bg-lime" />
-                  Net-Zero (Renewable + AVIF)
+                  Net-zero pathway (renewable + AVIF)
                 </span>
               </div>
 
-              {hoveredPoint && (
-                <div className="text-xs font-mono text-cream bg-black/60 px-3 py-1 rounded-lg border border-surface-border">
-                  {hoveredPoint.month}: Status Quo {hoveredPoint.statusQuoKg}kg • Planned {hoveredPoint.plannedKg}kg • Net-Zero {hoveredPoint.netZeroKg}kg
-                </div>
-              )}
+            </div>
+            <div className="min-h-10 text-xs font-mono text-sage" aria-hidden="true">
+              {hoveredPoint ? `${hoveredPoint.month}: Status quo ${hoveredPoint.statusQuoKg}kg · Planned ${hoveredPoint.plannedKg}kg · Net-zero pathway ${hoveredPoint.netZeroKg}kg` : "Hover a point for details, or open the monthly values below."}
             </div>
 
             {/* SVG Chart */}
-            <div className="h-64 w-full relative">
-              <svg viewBox="0 0 800 240" className="w-full h-full overflow-visible">
+            <div className="h-52 sm:h-64 w-full relative px-2">
+              <svg viewBox="0 0 800 240" role="img" aria-labelledby="forecast-chart-title forecast-chart-description" className="w-full h-full overflow-visible">
+                <title id="forecast-chart-title">Monthly emissions by scenario</title>
+                <desc id="forecast-chart-description">Compare status quo, planned reductions, and renewable hosting with AVIF over {monthsCount} months. Exact values are available in the table below.</desc>
                 {/* Grid Lines */}
                 {[0, 60, 120, 180, 240].map((y) => (
-                  <line key={y} x1="0" y1={y} x2="800" y2={y} stroke="rgba(204, 213, 174, 0.1)" strokeDasharray="4 4" />
+                  <line key={y} x1="0" y1={y} x2="800" y2={y} stroke="currentColor" className="text-sage/10" strokeDasharray="4 4" />
                 ))}
 
                 {/* Status Quo Line (Red) */}
                 <polyline
-                  ref={lineStatusQuoRef}
                   fill="none"
-                  stroke="#ff5c5c"
+                  stroke="currentColor"
+                  className="text-red-400"
                   strokeWidth="2.5"
                   points={points
                     .map((p, i) => `${(i / (points.length - 1)) * 800},${240 - (p.statusQuoKg / maxVal) * 220}`)
@@ -352,9 +273,9 @@ export default function ForecastsPage() {
 
                 {/* Planned Reductions Line (Amber) */}
                 <polyline
-                  ref={linePlannedRef}
                   fill="none"
-                  stroke="#e3b341"
+                  stroke="currentColor"
+                  className="text-amber-400"
                   strokeWidth="2.5"
                   points={points
                     .map((p, i) => `${(i / (points.length - 1)) * 800},${240 - (p.plannedKg / maxVal) * 220}`)
@@ -363,9 +284,9 @@ export default function ForecastsPage() {
 
                 {/* Net-Zero Target Line (Lime) */}
                 <polyline
-                  ref={lineNetZeroRef}
                   fill="none"
-                  stroke="#cbff00"
+                  stroke="currentColor"
+                  className="text-lime"
                   strokeWidth="2.5"
                   points={points
                     .map((p, i) => `${(i / (points.length - 1)) * 800},${240 - (p.netZeroKg / maxVal) * 220}`)
@@ -382,8 +303,8 @@ export default function ForecastsPage() {
                       cx={x}
                       cy={y}
                       r="6"
-                      fill="#ff5c5c"
-                      className="cursor-pointer hover:scale-150 transition-transform"
+                      fill="currentColor"
+                      className="cursor-pointer text-red-400"
                       onMouseEnter={() =>
                         setHoveredPoint({
                           month: p.label,
@@ -404,28 +325,38 @@ export default function ForecastsPage() {
               <span>Horizon ({timeframe})</span>
               <span>{points[points.length - 1]?.label || "End"}</span>
             </div>
+            <details className="border-t border-surface-border pt-3">
+              <summary className="cursor-pointer text-sm text-sage">View monthly forecast values</summary>
+              <div className="mt-3 max-w-full overflow-x-auto" role="region" aria-label="Monthly forecast values" tabIndex={0}>
+                <table className="w-full min-w-[520px] text-left text-xs font-mono">
+                  <caption className="sr-only">Estimated emissions in kg CO2e per month</caption>
+                  <thead className="text-sage"><tr><th scope="col" className="p-3">Month</th><th scope="col" className="p-3">Status quo</th><th scope="col" className="p-3">Planned</th><th scope="col" className="p-3">Net-zero pathway</th></tr></thead>
+                  <tbody>{points.map((point) => <tr key={point.label} className="border-t border-surface-border"><th scope="row" className="p-3 text-cream">{point.label}</th><td className="p-3 text-red-400">{point.statusQuoKg} kg</td><td className="p-3 text-amber-300">{point.plannedKg} kg</td><td className="p-3 text-lime">{point.netZeroKg} kg</td></tr>)}</tbody>
+                </table>
+              </div>
+            </details>
           </Card>
 
           {/* Cumulative Scenario Comparison */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
-            <Card className="tech-frame gradient-border beautiful-md p-5 glass-panel border border-red-500/30 space-y-1">
-              <div className="text-sage/70 uppercase">Cumulative Status Quo</div>
+            <Card className="p-5 glass-panel border border-red-500/30 space-y-1">
+              <div className="text-sage/70">Cumulative status quo</div>
               <div className="text-2xl font-bold text-red-400 font-display">
                 {Math.round(cumulativeStatusQuo)} kg CO2e
               </div>
               <div className="text-[11px] text-sage/60">Assuming no code changes</div>
             </Card>
 
-            <Card className="tech-frame gradient-border beautiful-md p-5 glass-panel border border-amber-400/30 space-y-1">
-              <div className="text-sage/70 uppercase">Cumulative Planned</div>
+            <Card className="p-5 glass-panel border border-amber-400/30 space-y-1">
+              <div className="text-sage/70">Cumulative planned</div>
               <div className="text-2xl font-bold text-amber-300 font-display">
                 {Math.round(cumulativePlanned)} kg CO2e
               </div>
               <div className="text-[11px] text-sage/60">With gradual image/script compression</div>
             </Card>
 
-            <Card className="tech-frame gradient-border beautiful-md p-5 glass-panel border border-lime/30 space-y-1">
-              <div className="text-sage/70 uppercase">Cumulative Net-Zero Path</div>
+            <Card className="p-5 glass-panel border border-lime/30 space-y-1">
+              <div className="text-sage/70">Cumulative net-zero pathway</div>
               <div className="text-2xl font-bold text-lime font-display">
                 {Math.round(cumulativeNetZero)} kg CO2e
               </div>
@@ -435,20 +366,20 @@ export default function ForecastsPage() {
         </>
       ) : (
         /* Empty State */
-        <div className="p-12 text-center rounded-3xl glass-panel-elevated border border-surface-border space-y-4">
+        <div className="p-6 sm:p-10 text-center rounded-3xl glass-panel-elevated border border-surface-border space-y-4">
           <div className="w-14 h-14 rounded-2xl bg-surface-elevated border border-surface-border text-sage flex items-center justify-center mx-auto">
             <LineChart className="w-7 h-7" />
           </div>
-          <h3 className="font-display text-2xl text-cream uppercase">No Baseline Audit Selected</h3>
+          <h2 className="font-display text-2xl text-cream">Start with a baseline</h2>
           <p className="text-xs sm:text-sm text-sage/75 max-w-md mx-auto">
             Forecasts require an audited website to determine initial payload weight and electricity intensity. Run an audit on the home page or load a demo baseline.
           </p>
-          <div className="pt-2 flex justify-center gap-3">
+          <div className="pt-2 flex flex-wrap justify-center gap-3">
             <Link href="/" className="px-4 py-2 rounded-xl bg-lime text-black font-mono font-bold text-xs">
-              Go to Scanner →
+              Audit a website →
             </Link>
             <Button variant="outline" size="sm" onClick={handleLoadDemoBaseline} className="text-xs font-mono">
-              Load Demo Baseline
+              Load demo baseline
             </Button>
           </div>
         </div>

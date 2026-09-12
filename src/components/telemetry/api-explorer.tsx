@@ -188,11 +188,11 @@ print(res.json())`;
           <div className="flex items-center gap-2 text-xs font-mono text-lime uppercase tracking-wider mb-1">
             <Terminal className="w-4 h-4 text-lime" />
             <span>Interactive API Explorer</span>
-            <span className="bg-lime/10 px-2 py-0.5 rounded text-[10px] text-lime border border-lime/30">
+            <span className="bg-lime/10 px-2 py-0.5 rounded text-xs text-lime border border-lime/30">
               Live Gateway
             </span>
           </div>
-          <h3 className="font-display text-2xl sm:text-3xl text-cream uppercase">
+          <h3 className="font-display text-2xl sm:text-3xl text-cream ">
             Test Carbonerra Endpoints
           </h3>
           <p className="text-xs text-sage/75 mt-1 max-w-xl">
@@ -228,7 +228,7 @@ print(res.json())`;
               }`}
             >
               <span
-                className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                className={`px-1.5 py-0.5 rounded text-xs font-bold ${
                   isSelected
                     ? "bg-black/20 text-black"
                     : ep.method === "POST"
@@ -249,13 +249,13 @@ print(res.json())`;
         <div className="flex items-center gap-2.5 truncate">
           <Badge
             variant={selectedEndpoint.method === "POST" ? "lime" : "outline"}
-            className="font-mono text-[10px] uppercase font-bold"
+            className="font-mono text-xs uppercase font-bold"
           >
             {selectedEndpoint.method}
           </Badge>
           <span className="text-cream font-bold truncate">{selectedEndpoint.path}</span>
         </div>
-        <div className="text-[11px] text-sage/60 shrink-0">
+        <div className="text-xs text-sage/80 shrink-0">
           {selectedEndpoint.description}
         </div>
       </div>
@@ -268,7 +268,7 @@ print(res.json())`;
             <span className="text-cream font-bold flex items-center gap-1.5">
               <Code2 className="w-3.5 h-3.5 text-lime" /> Request Payload (JSON)
             </span>
-            <span className="text-sage/60 text-[11px]">
+            <span className="text-sage/80 text-xs">
               {selectedEndpoint.method === "GET" ? "No body required" : "Editable parameters"}
             </span>
           </div>
@@ -282,33 +282,33 @@ print(res.json())`;
               placeholder="{}"
             />
           ) : (
-            <div className="p-6 rounded-xl bg-black/40 border border-surface-border/60 text-center text-xs font-mono text-sage/60">
+            <div className="p-6 rounded-xl bg-black/40 border border-surface-border/60 text-center text-xs font-mono text-sage/80">
               This endpoint accepts URL query parameters and does not require a request body.
             </div>
           )}
 
           {/* Quick Copy Snippets (cURL, JS, Python) */}
           <div className="space-y-2 pt-2 border-t border-surface-border/50">
-            <div className="flex items-center justify-between text-[11px] font-mono text-sage/70">
+            <div className="flex items-center justify-between text-xs font-mono text-sage/70">
               <span>Code Snippets for Production:</span>
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => handleCopyCode("curl", generateCurlSnippet())}
-                  className="px-2 py-1 rounded bg-surface-elevated border border-surface-border hover:border-lime/40 text-[10px] text-cream flex items-center gap-1 cursor-pointer"
+                  className="px-2 py-1 rounded bg-surface-elevated border border-surface-border hover:border-lime/40 text-xs text-cream flex items-center gap-1 cursor-pointer"
                 >
                   {copiedFormat === "curl" ? <Check className="w-3 h-3 text-lime" /> : <Copy className="w-3 h-3" />}
                   cURL
                 </button>
                 <button
                   onClick={() => handleCopyCode("js", generateJsSnippet())}
-                  className="px-2 py-1 rounded bg-surface-elevated border border-surface-border hover:border-lime/40 text-[10px] text-cream flex items-center gap-1 cursor-pointer"
+                  className="px-2 py-1 rounded bg-surface-elevated border border-surface-border hover:border-lime/40 text-xs text-cream flex items-center gap-1 cursor-pointer"
                 >
                   {copiedFormat === "js" ? <Check className="w-3 h-3 text-lime" /> : <Copy className="w-3 h-3" />}
                   JavaScript
                 </button>
                 <button
                   onClick={() => handleCopyCode("py", generatePythonSnippet())}
-                  className="px-2 py-1 rounded bg-surface-elevated border border-surface-border hover:border-lime/40 text-[10px] text-cream flex items-center gap-1 cursor-pointer"
+                  className="px-2 py-1 rounded bg-surface-elevated border border-surface-border hover:border-lime/40 text-xs text-cream flex items-center gap-1 cursor-pointer"
                 >
                   {copiedFormat === "py" ? <Check className="w-3 h-3 text-lime" /> : <Copy className="w-3 h-3" />}
                   Python
@@ -327,7 +327,7 @@ print(res.json())`;
             {responseStatus !== null && (
               <div className="flex items-center gap-2">
                 <span
-                  className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono ${
+                  className={`px-2 py-0.5 rounded text-xs font-bold font-mono ${
                     responseStatus >= 200 && responseStatus < 300
                       ? "bg-lime/20 text-lime border border-lime/40"
                       : "bg-red-500/20 text-red-300 border border-red-500/40"
@@ -336,7 +336,7 @@ print(res.json())`;
                   {responseStatus} {responseStatus === 200 ? "OK" : "ERROR"}
                 </span>
                 {latencyMs !== null && (
-                  <span className="text-[11px] text-sage/70 font-mono">
+                  <span className="text-xs text-sage/70 font-mono">
                     {latencyMs} ms
                   </span>
                 )}
@@ -351,12 +351,12 @@ print(res.json())`;
                 <span className="text-xs">Executing server query...</span>
               </div>
             ) : responseBody ? (
-              <pre className="text-cream/90 text-[11px] leading-relaxed whitespace-pre-wrap break-all">
+              <pre className="text-cream/90 text-xs leading-relaxed whitespace-pre-wrap break-all">
                 {JSON.stringify(responseBody, null, 2)}
               </pre>
             ) : (
-              <div className="h-44 flex flex-col items-center justify-center gap-2 text-sage/50 text-center">
-                <Terminal className="w-6 h-6 text-sage/40" />
+              <div className="h-44 flex flex-col items-center justify-center gap-2 text-sage/80 text-center">
+                <Terminal className="w-6 h-6 text-sage/75" />
                 <span>Click &quot;Send Request&quot; above to execute query against live API.</span>
               </div>
             )}

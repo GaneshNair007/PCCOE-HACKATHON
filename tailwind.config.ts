@@ -10,12 +10,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#080d0b",
+        background: "rgb(var(--canvas-rgb) / <alpha-value>)",
         surface: {
-          DEFAULT: "#0e1713",
-          elevated: "#15221c",
-          border: "rgba(204, 213, 174, 0.12)",
-          glass: "rgba(14, 23, 19, 0.75)",
+          DEFAULT: "rgb(var(--surface-rgb) / <alpha-value>)",
+          elevated: "rgb(var(--elevated-rgb) / <alpha-value>)",
+          border: "rgb(var(--border-rgb) / <alpha-value>)",
+          glass: "rgb(var(--surface-rgb) / 0.9)",
         },
         forest: {
           950: "#04150e",
@@ -25,19 +25,19 @@ const config: Config = {
           600: "#0f9964",
         },
         lime: {
-          DEFAULT: "#cbff00",
+          DEFAULT: "rgb(var(--accent-rgb) / <alpha-value>)",
           glow: "rgba(203, 255, 0, 0.25)",
-          hover: "#b8e600",
+          hover: "var(--color-accent-hover)",
         },
         sage: {
-          DEFAULT: "#ccd5ae",
+          DEFAULT: "rgb(var(--sage-rgb) / <alpha-value>)",
           muted: "rgba(204, 213, 174, 0.65)",
         },
         olive: "#e9edc9",
-        cream: "#fefae0",
+        cream: "rgb(var(--cream-rgb) / <alpha-value>)",
       },
       fontFamily: {
-        display: ["Anton", "sans-serif"],
+        display: ["var(--font-display)", "sans-serif"],
         sans: ["Lexend", "Inter", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
         lexend: ["Lexend", "sans-serif"],

@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import "@flowstack-ui/brick/styles.css";
 import "./globals.css";
+import "../../public/inner-green-assets/sylva.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { NoiseOverlay } from "@/components/layout/noise-overlay";
 import { AgenticChat } from "@/components/chat/agentic-chat";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll";
-import { CyberGrid3D } from "@/components/3d/cyber-grid-3d";
-import { CursorOrb3D } from "@/components/3d/cursor-orb-3d";
 
 import { MainWrapper } from "@/components/layout/main-wrapper";
 
 export const metadata: Metadata = {
-  title: "CARBONERRA — 3D Cyber-Physical Digital Sustainability Telemetry | PCCOE Hackathon",
+  title: "CarbonTerra — Digital sustainability workspace",
   description:
     "Executive-grade digital sustainability telemetry and 3D predictive carbon optimization platform. SWDM v4 verified with real datacenter grid telemetry.",
 };
@@ -22,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <body className="min-h-screen flex flex-col bg-[#060a08] text-[#ccd5ae] relative overflow-x-hidden selection:bg-lime selection:text-black">
+    <html lang="en" className="dark">
+      <body className="min-h-screen flex flex-col relative selection:bg-lime selection:text-black">
         {/* Accessible Skip Link for Keyboard & Screen Reader Users */}
         <a
           href="#main-content"
@@ -32,13 +32,10 @@ export default function RootLayout({
           Skip to main content
         </a>
         <SmoothScrollProvider>
-          <NoiseOverlay />
-          <CyberGrid3D />
-          <CursorOrb3D />
           <Header />
           <MainWrapper>{children}</MainWrapper>
           <Footer />
-          <AgenticChat />
+          <Suspense fallback={null}><AgenticChat /></Suspense>
         </SmoothScrollProvider>
       </body>
     </html>

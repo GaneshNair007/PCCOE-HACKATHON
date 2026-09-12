@@ -3,10 +3,10 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { PageIntro, SectionHeading, Reveal } from "@/components/ui/page";
 import {
   ShieldCheck,
   CheckCircle2,
@@ -96,7 +96,7 @@ function EvidenceContent() {
 
   if (isLoading) {
     return (
-      <div className="p-16 text-center space-y-3 font-mono text-sage/70">
+      <div role="status" aria-live="polite" className="p-8 sm:p-16 rounded-3xl bg-surface text-center space-y-3 font-mono text-sage/70">
         <Activity className="w-8 h-8 text-lime animate-spin mx-auto" />
         <div>Compiling immutable audit run evidence and task assertion logs...</div>
       </div>
@@ -105,8 +105,15 @@ function EvidenceContent() {
 
   return (
     <div className="space-y-8 max-w-6xl mx-auto pb-16 print:p-0 print:space-y-4">
+      <div className="print:hidden">
+        <PageIntro
+          eyebrow={<><ShieldCheck className="w-4 h-4" /> Evidence & verification</>}
+          title="Evidence that travels with your work."
+          description="Review the measured transfer, task checks, and methodology behind an improvement. Keep the receipt with your release."
+        />
+      </div>
       {/* Back Navigation Bar (Screen only) */}
-      <div className="flex items-center justify-between print:hidden border-b border-surface-border/60 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-surface p-4 print:hidden">
         <Link
           href={`/savings-lab${receipt ? `?experimentId=${receipt.experimentId}` : ""}`}
           className="inline-flex items-center gap-2 text-xs font-mono text-sage/70 hover:text-cream transition-colors"
@@ -115,7 +122,7 @@ function EvidenceContent() {
           <span>Back to Savings Lab Workflow</span>
         </Link>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <Button
             variant="outline"
             size="sm"
@@ -141,9 +148,9 @@ function EvidenceContent() {
 
       {/* Error or Missing Verification Prompt */}
       {errorMessage && !receipt && (
-        <Card className="p-8 text-center glass-panel-elevated border border-amber-500/40 space-y-4">
+        <Card role="status" aria-live="polite" className="p-8 text-center glass-panel-elevated border border-amber-500/40 space-y-4">
           <AlertTriangle className="w-10 h-10 text-amber-400 mx-auto" />
-          <h2 className="font-display text-2xl text-cream uppercase">Verification Pending</h2>
+          <h2 className="font-display text-2xl text-cream">Verification pending</h2>
           <p className="text-sm font-mono text-sage/80 max-w-lg mx-auto">
             {errorMessage}
           </p>
@@ -152,35 +159,30 @@ function EvidenceContent() {
               href="/savings-lab"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-lime text-black font-mono font-bold text-xs"
             >
-              <span>RUN CANDIDATE TEST IN SAVINGS LAB →</span>
+              <span>Run candidate test in Savings Lab →</span>
             </Link>
           </div>
         </Card>
       )}
 
       {receipt && (
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="space-y-6"
-        >
+        <Reveal className="space-y-6">
           {/* Main Evidence Record Document */}
-          <Card className="p-6 sm:p-10 glass-panel-elevated border border-lime/30 space-y-8 print:border-none print:shadow-none print:p-0">
+          <Card className="p-6 sm:p-10 glass-panel-elevated border border-surface-border space-y-8 print:border-none print:shadow-none print:p-0">
             {/* Header Document Metadata */}
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-surface-border/60 pb-6">
               <div className="space-y-2">
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">
-                    EVIDENCE RECORD (RECEIPT)
+                    Evidence record
                   </span>
-                  <span className="text-xs font-mono text-sage/60">
+                  <span className="text-xs font-mono text-sage/60 break-all">
                     ID: {receipt.experimentId}
                   </span>
                 </div>
-                <h1 className="font-display text-3xl sm:text-4xl text-cream uppercase tracking-tight">
-                  Improvement Verification Receipt
-                </h1>
+                <h2 className="font-display text-3xl sm:text-4xl text-cream tracking-tight">
+                  Improvement verification receipt
+                </h2>
                 <div className="text-xs font-mono text-sage/70 flex flex-wrap items-center gap-3">
                   <span>Project: <strong>{receipt.projectId}</strong></span>
                   <span>•</span>
@@ -271,20 +273,18 @@ function EvidenceContent() {
 
             {/* Compared Runs Breakdown Table */}
             <div className="space-y-3">
-              <h3 className="font-display text-xl text-cream uppercase flex items-center gap-2">
-                <Layers className="w-4 h-4 text-lime" />
-                <span>Compared Run Telemetry (3x Alternating Baseline vs Candidate)</span>
-              </h3>
+              <SectionHeading title="Compared run telemetry" description="Three alternating baseline and candidate passes." />
 
-              <div className="rounded-2xl border border-surface-border overflow-hidden">
-                <table className="w-full text-left font-mono text-xs">
+              <div tabIndex={0} role="region" aria-label="Scrollable compared run telemetry" className="rounded-2xl border border-surface-border overflow-x-auto print:overflow-visible">
+                <table className="w-full min-w-[620px] print:min-w-0 text-left font-mono text-xs">
+                  <caption className="sr-only">Baseline and candidate journey transfer, carbon estimates, and task checks</caption>
                   <thead className="bg-surface-elevated text-sage/70 border-b border-surface-border">
                     <tr>
-                      <th className="p-3">Run Group</th>
-                      <th className="p-3">Recorded Runs</th>
-                      <th className="p-3">Median Transfer</th>
-                      <th className="p-3">Model CO2e</th>
-                      <th className="p-3">Task Preservation</th>
+                      <th scope="col" className="p-3">Run Group</th>
+                      <th scope="col" className="p-3">Recorded Runs</th>
+                      <th scope="col" className="p-3">Median Transfer</th>
+                      <th scope="col" className="p-3">Model CO2e</th>
+                      <th scope="col" className="p-3">Task Preservation</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-surface-border/60">
@@ -315,12 +315,12 @@ function EvidenceContent() {
 
             {/* Affected Resource & Patch Summary */}
             <div className="space-y-3">
-              <h3 className="font-display text-xl text-cream uppercase flex items-center gap-2">
+              <h3 className="font-display text-xl text-cream flex items-center gap-2">
                 <FileCode className="w-4 h-4 text-lime" />
-                <span>Source Code Patch Reference & Reviewer Sign-Off</span>
+                <span>Source patch & reviewer sign-off</span>
               </h3>
 
-              <div className="p-4 rounded-xl bg-surface/50 border border-surface-border text-xs font-mono space-y-2">
+              <div className="p-4 rounded-xl bg-surface/50 border border-surface-border text-xs font-mono space-y-2 break-words [overflow-wrap:anywhere]">
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-surface-border/60 pb-2">
                   <span className="text-sage/70">
                     Affected Resource: <strong className="text-cream">{receipt.patchSummary.affectedResource}</strong>
@@ -347,14 +347,14 @@ function EvidenceContent() {
 
               <Link
                 href="/shield"
-                className="px-5 py-2.5 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-transform hover:scale-105 shadow-[0_0_20px_rgba(203,255,0,0.3)] flex items-center gap-2"
+                className="px-5 py-3 rounded-full bg-lime text-black font-medium text-sm hover:bg-lime/90 transition-colors flex items-center justify-center gap-2 shrink-0"
               >
                 <ShieldCheck className="w-4 h-4" />
-                <span>CONFIGURE RELEASE SHIELD →</span>
+                <span>Configure Release Shield →</span>
               </Link>
             </div>
           </Card>
-        </motion.div>
+        </Reveal>
       )}
     </div>
   );

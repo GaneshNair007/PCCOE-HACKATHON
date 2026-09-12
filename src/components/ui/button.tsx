@@ -14,28 +14,27 @@ export interface ButtonProps extends Omit<HTMLMotionProps<"button">, "children">
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "lime", size = "md", isLoading, children, disabled, ...props }, ref) => {
     const variants = {
-      lime: "bg-lime text-forest-950 font-extrabold hover:bg-lime-hover shadow-lime active:scale-[0.98]",
-      forest: "bg-forest-900 text-cream font-bold hover:bg-forest-800 border border-forest-700 active:scale-[0.98]",
-      outline: "bg-transparent text-sage border border-surface-border hover:bg-surface-elevated hover:text-cream active:scale-[0.98]",
-      ghost: "bg-transparent text-sage hover:bg-surface-elevated hover:text-cream active:scale-[0.98]",
-      danger: "bg-red-950/80 text-red-300 border border-red-800/60 hover:bg-red-900/80 active:scale-[0.98]",
+      lime: "bg-lime text-forest-950 font-extrabold hover:bg-lime-hover  ",
+      forest: "bg-forest-900 text-cream font-bold hover:bg-forest-800 border border-forest-700 ",
+      outline: "bg-transparent text-sage border border-surface-border hover:bg-surface-elevated hover:text-cream ",
+      ghost: "bg-transparent text-sage hover:bg-surface-elevated hover:text-cream ",
+      danger: "bg-red-950/80 text-red-300 border border-red-800/60 hover:bg-red-900/80 ",
     };
 
     const sizes = {
-      sm: "px-3 py-1.5 text-xs rounded-full tracking-wider uppercase",
-      md: "px-5 py-2.5 text-xs sm:text-sm rounded-full tracking-wider uppercase font-bold",
-      lg: "px-7 py-3.5 text-sm sm:text-base rounded-full tracking-wider uppercase font-extrabold",
-      icon: "w-10 h-10 rounded-full flex items-center justify-center p-0",
+      sm: "min-h-11 px-4 py-2 text-sm rounded-full tracking-normal ",
+      md: "px-5 py-2.5 text-xs sm:text-sm rounded-full tracking-normal  font-bold",
+      lg: "px-7 py-3.5 text-sm sm:text-base rounded-full tracking-normal  font-extrabold",
+      icon: "w-11 h-11 rounded-full flex items-center justify-center p-0",
     };
 
     return (
       <motion.button
         ref={ref}
-        whileHover={{ scale: disabled || isLoading ? 1 : 1.02 }}
-        whileTap={{ scale: disabled || isLoading ? 1 : 0.98 }}
         disabled={disabled || isLoading}
+        aria-busy={isLoading || undefined}
         className={cn(
-          "inline-flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime/50 disabled:opacity-50 disabled:pointer-events-none cursor-pointer",
+          "ct-button inline-flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-lime/50 disabled:opacity-50 disabled:pointer-events-none cursor-pointer",
           variants[variant],
           sizes[size],
           className

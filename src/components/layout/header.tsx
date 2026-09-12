@@ -1,176 +1,55 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Leaf, Menu, X, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
-import { Zap, Activity, Sliders, LineChart, Cpu, ShieldCheck, Menu, X } from "lucide-react";
-
+const destinations = [
+  { label: "Scanner", href: "/" }, { label: "Savings Lab", href: "/savings-lab" },
+  { label: "Evidence", href: "/evidence" }, { label: "Fleet", href: "/dashboard" },
+  { label: "Simulator", href: "/simulator" }, { label: "Forecasts", href: "/forecasts" },
+  { label: "Fix Hub", href: "/fix-hub" }, { label: "Shield", href: "/shield" },
+  { label: "Campus demo", href: "/demo/event" },
+];
 export function Header() {
   const pathname = usePathname();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolledPastHero, setScrolledPastHero] = useState(false);
-
-  React.useEffect(() => {
-    if (pathname !== "/") {
-      setScrolledPastHero(true);
-      return;
-    }
-    const handleScroll = () => {
-      setScrolledPastHero(window.scrollY > 420);
+  const [open, setOpen] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
+  const header = useRef<HTMLElement>(null);
+  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    if (!open) return;
+    const dismiss = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { setOpen(false); toggle.current?.focus(); }
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
-
-  const showHeader = pathname !== "/" || scrolledPastHero;
-
-  const navItems = [
-    { label: "OVERVIEW", href: "/", icon: Zap },
-    { label: "SAVINGS LAB", href: "/savings-lab", icon: Sliders },
-    { label: "EVIDENCE", href: "/evidence", icon: Activity },
-    { label: "SHIELD", href: "/shield", icon: ShieldCheck },
-  ];
-
-  const secondaryNavItems = [
-    { label: "Fleet Telemetry", href: "/dashboard" },
-    { label: "What-If Simulator", href: "/simulator" },
-    { label: "Emissions Forecasts", href: "/forecasts" },
-    { label: "Reference Guidance", href: "/fix-hub" },
-    { label: "Campus Demo Site", href: "/demo/event" },
-  ];
-
-  return (
-    <header
-      className={cn(
-        "fixed top-4 left-0 right-0 z-40 px-4 sm:px-8 max-w-7xl mx-auto flex items-center justify-between transition-all duration-500 ease-out",
-        showHeader
-          ? "opacity-100 translate-y-0 pointer-events-auto"
-          : "opacity-0 -translate-y-8 pointer-events-none"
-      )}
-    >
-      {/* Brand Logo */}
-      <Link
-        href="/"
-        data-spec
-        className="flex items-center gap-2.5 px-4 py-2.5 rounded-full glass-panel-elevated group transition-all"
-      >
-        <div className="w-7 h-7 rounded-full bg-lime text-forest-950 flex items-center justify-center font-bold text-xs shadow-lime group-hover:rotate-12 transition-transform">
-          ⚡
-        </div>
-        <span className="font-sans font-bold tracking-widest text-cream text-base sm:text-lg">
-          CARBONERRA
-        </span>
+    const outside = (event: PointerEvent) => {
+      if (!header.current?.contains(event.target as Node)) setOpen(false);
+    };
+    document.addEventListener("keydown", dismiss);
+    document.addEventListener("pointerdown", outside);
+    return () => { document.removeEventListener("keydown", dismiss); document.removeEventListener("pointerdown", outside); };
+  }, [open]);
+  return <header ref={header} className="ct-navigation">
+    <div className="ct-nav-bar">
+      <Link href="/" className="ct-brand" aria-label="CarbonTerra home">
+        <span className="ct-brand-mark"><Leaf size={20} aria-hidden="true" /></span><span>CarbonTerra</span>
       </Link>
-
-      {/* Desktop Navigation Pill: Overview | Savings Lab | Evidence | Shield */}
-      <nav data-spec className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel shadow-glass">
-        {navItems.map((item) => {
-          const isActive = pathname === item.href;
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "relative px-4 py-2 rounded-full text-xs font-mono font-bold tracking-wider transition-all flex items-center gap-2",
-                isActive
-                  ? "text-forest-950 font-extrabold"
-                  : "text-sage hover:text-cream hover:bg-surface-elevated/60"
-              )}
-            >
-              {isActive && (
-                <motion.div
-                  layoutId="activeNavPill"
-                  className="absolute inset-0 rounded-full bg-lime shadow-lime"
-                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                />
-              )}
-              <span className="relative z-10 flex items-center gap-1.5">
-                <Icon className="w-3.5 h-3.5" />
-                {item.label}
-              </span>
-            </Link>
-          );
-        })}
+      <nav className="ct-desktop-nav" aria-label="Primary navigation">
+        {destinations.slice(0, 5).map(item => <Link key={item.href} href={item.href}
+          aria-current={pathname === item.href ? "page" : undefined}
+          className={cn("ct-nav-link", pathname === item.href && "is-active")}>{item.label}</Link>)}
       </nav>
-
-      {/* Right Budget Status Pill & Mobile Menu Button */}
-      <div className="flex items-center gap-2 sm:gap-3">
-        <Link
-          href="/shield"
-          data-spec
-          title="Regression Shield Active Budget"
-          className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel border border-lime/30 text-[11px] font-mono tracking-wider font-semibold text-cream hover:border-lime/60 transition-colors"
-        >
-          <span className="text-sage">BUDGET:</span>
-          <span className="text-lime font-bold">350 KB</span>
-          <span className="text-sage/60">/ STRICT</span>
-          <span className="text-xs">🛡️</span>
-        </Link>
-
-        {/* Mobile Hamburger Toggle */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2.5 rounded-full glass-panel text-cream hover:bg-surface-elevated"
-          aria-label="Toggle navigation menu"
-        >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </div>
-
-      {/* Mobile Drawer Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="lg:hidden absolute top-16 left-4 right-4 p-5 rounded-3xl glass-panel-elevated shadow-2xl flex flex-col gap-2 z-50 border border-lime/30"
-          >
-            <div className="text-[10px] font-mono uppercase text-sage/60 px-3 pb-1 border-b border-surface-border">
-              Primary Workflow
-            </div>
-            {navItems.map((item) => {
-              const isActive = pathname === item.href;
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    "px-4 py-2.5 rounded-xl text-xs font-mono font-bold tracking-wider flex items-center gap-2.5",
-                    isActive
-                      ? "bg-lime text-black"
-                      : "text-sage hover:text-cream hover:bg-surface-elevated"
-                  )}
-                >
-                  <Icon className="w-4 h-4" />
-                  {item.label}
-                </Link>
-              );
-            })}
-            <div className="text-[10px] font-mono uppercase text-sage/60 px-3 pt-3 pb-1 border-b border-surface-border">
-              Secondary Exploration
-            </div>
-            <div className="grid grid-cols-2 gap-2 pt-1">
-              {secondaryNavItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-1.5 rounded-lg text-[11px] font-mono text-sage/80 hover:text-lime hover:bg-surface-elevated/80"
-                >
-                  {item.label} →
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
-  );
+      <button ref={toggle} className="ct-nav-toggle" aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={open} aria-controls="all-navigation" onClick={() => setOpen(!open)}>
+        <span className="hidden sm:inline">{open ? "Close" : "Explore"}</span>{open ? <X size={19} /> : <Menu size={19} />}
+      </button>
+    </div>
+    {open && <nav id="all-navigation" aria-label="All CarbonTerra tools" className="ct-nav-menu">
+      {destinations.map(item => <Link key={item.href} href={item.href} onClick={() => setOpen(false)}
+        aria-current={pathname === item.href ? "page" : undefined}
+        className={cn("ct-menu-link", pathname === item.href && "is-active")}>
+        {item.label}<ArrowUpRight size={15} aria-hidden="true" />
+      </Link>)}
+    </nav>}
+  </header>;
 }

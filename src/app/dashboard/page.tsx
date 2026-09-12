@@ -6,24 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
-import {
-  Activity,
-  Globe,
-  Zap,
-  ArrowUpRight,
-  Plus,
-  RefreshCw,
-  CheckCircle,
-  AlertTriangle,
-  Download,
-  Search,
-  Trash2,
-  Filter,
-  Layers,
-  ShieldCheck,
-  AlertCircle,
-  Info,
-} from "lucide-react";
+import { PageIntro, SectionHeading } from "@/components/ui/page";
+import { Globe, RefreshCw, Download, Search, Trash2, AlertCircle, Info } from "lucide-react";
 import Link from "next/link";
 import { EcoScoreGrade } from "@/types/telemetry";
 
@@ -212,6 +196,7 @@ export default function DashboardPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   // Fleet summary statistics
@@ -225,22 +210,12 @@ export default function DashboardPage() {
       : null;
 
   return (
-    <div className="space-y-12 pb-20">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border pb-8">
-        <div>
-          <span className="text-xs font-mono text-lime uppercase font-bold tracking-widest">
-            REAL FLEET MONITORING
-          </span>
-          <h1 className="font-display text-4xl sm:text-6xl text-cream uppercase tracking-wide mt-1">
-            FLEET CARBON DASHBOARD
-          </h1>
-          <p className="text-xs sm:text-sm text-sage/80 mt-2 max-w-2xl">
-            Real multi-site sustainability monitoring. Every metric is recorded from actual executed SWDM v4 audits.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3">
+    <div className="min-w-0 space-y-8 pb-12">
+      <PageIntro
+        eyebrow="Fleet monitoring"
+        title="Your fleet, in perspective."
+        description="Real multi-site sustainability monitoring. Every metric is recorded from actual executed SWDM v4 audits."
+        actions={
           <Button
             variant="outline"
             size="sm"
@@ -248,23 +223,23 @@ export default function DashboardPage() {
             disabled={sites.length === 0}
             className="text-xs font-mono font-bold flex items-center gap-1.5"
           >
-            <Download className="w-4 h-4 text-lime" />
-            EXPORT CSV
+            <Download className="w-4 h-4" />
+            Export CSV
           </Button>
-        </div>
-      </div>
+        }
+      />
 
       {/* Fleet KPI Cards (Derived strictly from real fleet audits) */}
       {sites.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <Card className="p-6 glass-panel-elevated border border-surface-border">
-            <div className="text-xs font-mono text-sage/70 uppercase">Monitored Domains</div>
+            <div className="text-xs font-mono text-sage/70">Monitored domains</div>
             <div className="font-display text-4xl text-cream mt-2">{sites.length}</div>
             <div className="text-xs text-sage/60 mt-1">Active in local fleet storage</div>
           </Card>
 
           <Card className="p-6 glass-panel-elevated border border-surface-border">
-            <div className="text-xs font-mono text-sage/70 uppercase">Avg Estimated CO2e</div>
+            <div className="text-xs font-mono text-sage/70">Average estimated CO2e</div>
             <div className="font-display text-4xl text-lime mt-2">
               {avgCo2} <span className="text-xs font-mono text-cream font-normal">g / visit</span>
             </div>
@@ -272,7 +247,7 @@ export default function DashboardPage() {
           </Card>
 
           <Card className="p-6 glass-panel-elevated border border-surface-border">
-            <div className="text-xs font-mono text-sage/70 uppercase">Green Hosting Adoption</div>
+            <div className="text-xs font-mono text-sage/70">Green hosting adoption</div>
             <div className="font-display text-4xl text-cream mt-2">{greenPct}%</div>
             <div className="text-xs text-sage/60 mt-1">Verified renewable power</div>
           </Card>
@@ -282,11 +257,13 @@ export default function DashboardPage() {
       {/* Add New Domain Form */}
       <Card className="p-6 glass-panel-elevated border border-lime/30">
         <form onSubmit={handleAddDomain} className="space-y-3">
-          <div className="text-xs font-mono text-lime font-bold uppercase flex items-center gap-1.5">
-            <Plus className="w-4 h-4" /> Audit & Add Real Domain to Fleet
-          </div>
+          <SectionHeading title="Add a website to your fleet" description="Audit a public domain to save its latest carbon estimate." />
+          <label htmlFor="fleet-domain" className="sr-only">Public website domain</label>
           <div className="flex flex-col sm:flex-row gap-3">
             <Input
+              id="fleet-domain"
+              aria-invalid={!!auditError}
+              aria-describedby={auditError ? "fleet-audit-error" : undefined}
               value={newDomainInput}
               onChange={(e) => {
                 setNewDomainInput(e.target.value);
@@ -303,11 +280,11 @@ export default function DashboardPage() {
               isLoading={isAuditingNew}
               className="font-bold tracking-wider shrink-0"
             >
-              {isAuditingNew ? "AUDITING..." : "AUDIT & ADD"}
+              {isAuditingNew ? "Auditing…" : "Audit & add"}
             </Button>
           </div>
           {auditError && (
-            <p className="text-xs text-red-400 font-mono flex items-center gap-1.5">
+            <p id="fleet-audit-error" role="alert" className="text-xs text-red-400 font-mono flex items-center gap-1.5">
               <AlertCircle className="w-3.5 h-3.5" /> {auditError}
             </p>
           )}
@@ -319,6 +296,7 @@ export default function DashboardPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex-1 max-w-sm">
             <Input
+              aria-label="Search audited domains"
               icon={<Search className="w-4 h-4 text-sage/60" />}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -328,11 +306,14 @@ export default function DashboardPage() {
           </div>
 
           {/* Grade Filter Pills */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+          <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label="Filter fleet by grade">
             <span className="text-xs font-mono text-sage/60 mr-1">Grade:</span>
             {["ALL", "A+", "A", "B", "C", "D", "F"].map((grade) => (
               <button
                 key={grade}
+                type="button"
+                aria-pressed={selectedGrade === grade}
+                aria-label={grade === "ALL" ? "All grades" : `Grade ${grade}`}
                 onClick={() => setSelectedGrade(grade)}
                 className={`px-3 py-1 rounded-full text-xs font-mono font-bold transition-all ${
                   selectedGrade === grade
@@ -340,7 +321,7 @@ export default function DashboardPage() {
                     : "bg-surface-elevated border border-surface-border text-sage hover:text-cream"
                 }`}
               >
-                {grade}
+                {grade === "ALL" ? "All" : grade}
               </button>
             ))}
           </div>
@@ -349,17 +330,18 @@ export default function DashboardPage() {
 
       {/* Monitored Domains Table / Empty State */}
       {filteredSites.length > 0 ? (
-        <div className="overflow-x-auto rounded-2xl glass-panel border border-surface-border">
-          <table className="w-full text-left font-mono text-xs">
-            <thead className="border-b border-surface-border bg-surface-elevated/80 text-sage/70 uppercase">
+        <div className="max-w-full overflow-x-auto rounded-2xl glass-panel border border-surface-border" role="region" aria-label="Fleet audit results" tabIndex={0}>
+          <table className="w-full min-w-[760px] text-left font-mono text-xs">
+            <caption className="sr-only">Saved fleet audits and their estimated emissions per visit</caption>
+            <thead className="border-b border-surface-border bg-surface-elevated/80 text-sage/70">
               <tr>
-                <th className="p-4">Domain</th>
-                <th className="p-4">EcoScore</th>
-                <th className="p-4">Est. CO2 / Visit</th>
-                <th className="p-4">Payload</th>
-                <th className="p-4">Hosting</th>
-                <th className="p-4">Last Audited</th>
-                <th className="p-4 text-right">Actions</th>
+                <th scope="col" className="p-4">Domain</th>
+                <th scope="col" className="p-4">EcoScore</th>
+                <th scope="col" className="p-4">Est. CO2 / visit</th>
+                <th scope="col" className="p-4">Payload</th>
+                <th scope="col" className="p-4">Hosting</th>
+                <th scope="col" className="p-4">Last audited</th>
+                <th scope="col" className="p-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-surface-border/40">
@@ -393,6 +375,7 @@ export default function DashboardPage() {
                       isLoading={refreshingDomain === site.domain}
                       className="p-1.5"
                       title="Re-audit domain"
+                      aria-label={`Re-audit ${site.domain}`}
                     >
                       <RefreshCw className="w-3.5 h-3.5" />
                     </Button>
@@ -402,6 +385,7 @@ export default function DashboardPage() {
                       onClick={() => setDeleteConfirmDomain(site.domain)}
                       className="p-1.5 text-red-400 hover:text-red-300"
                       title="Remove from fleet"
+                      aria-label={`Remove ${site.domain} from fleet`}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </Button>
@@ -413,22 +397,20 @@ export default function DashboardPage() {
         </div>
       ) : isLoaded ? (
         /* Real Empty State */
-        <div className="p-12 text-center rounded-3xl glass-panel-elevated border border-surface-border space-y-4">
+        <div className="p-6 sm:p-10 text-center rounded-3xl glass-panel-elevated border border-surface-border space-y-4">
           <div className="w-14 h-14 rounded-2xl bg-surface-elevated border border-surface-border text-sage flex items-center justify-center mx-auto">
             <Globe className="w-7 h-7" />
           </div>
-          <h3 className="font-display text-2xl text-cream uppercase">No Domains in Fleet Yet</h3>
+          <h2 className="font-display text-2xl text-cream">{sites.length ? "No matching websites" : "Your fleet starts here"}</h2>
           <p className="text-xs sm:text-sm text-sage/75 max-w-md mx-auto">
-            Add a website using the input above or audit any site from the home page. Domains and real measurements will be automatically tracked here.
+            {sites.length ? "Try a different domain or grade filter to find a saved audit." : "Add a website using the input above or audit any site from the home page. Domains and real measurements will be automatically tracked here."}
           </p>
         </div>
       ) : null}
 
       {/* Delete Confirmation Modal */}
-      {deleteConfirmDomain && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="p-6 rounded-2xl glass-panel-elevated border border-surface-border max-w-md w-full space-y-4 font-mono">
-            <h3 className="text-base font-bold text-cream">Remove {deleteConfirmDomain}?</h3>
+      <Modal isOpen={!!deleteConfirmDomain} onClose={() => setDeleteConfirmDomain(null)} title={`Remove ${deleteConfirmDomain || "website"}?`}>
+          <div className="space-y-4">
             <p className="text-xs text-sage/80">
               This domain and its saved audit record will be removed from your fleet monitoring list.
             </p>
@@ -440,14 +422,13 @@ export default function DashboardPage() {
                 variant="outline"
                 size="sm"
                 className="border-red-500/50 text-red-400 hover:bg-red-950"
-                onClick={() => handleDelete(deleteConfirmDomain)}
+                onClick={() => deleteConfirmDomain && handleDelete(deleteConfirmDomain)}
               >
-                Confirm Remove
+                Remove website
               </Button>
             </div>
           </div>
-        </div>
-      )}
+      </Modal>
 
       {/* Legal & Methodology Notice */}
       <div className="p-4 rounded-xl glass-panel border border-surface-border text-[11px] font-mono text-sage/70 flex items-start gap-2.5">
