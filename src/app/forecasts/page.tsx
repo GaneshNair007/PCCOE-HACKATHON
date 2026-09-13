@@ -142,7 +142,7 @@ export default function ForecastsPage() {
   const maxVal = Math.max(...points.map((p) => p.statusQuoKg), 1);
 
   return (
-    <div className="min-w-0 space-y-8 pb-12">
+    <div className="world-forecasts min-w-0 space-y-8 pb-12">
       <PageIntro
         eyebrow="Emissions forecasts"
         title="See the possibilities ahead."
@@ -182,7 +182,7 @@ export default function ForecastsPage() {
       {selectedAudit ? (
         <>
           {/* Controls Bar */}
-          <div className="p-6 rounded-2xl glass-panel-elevated border border-surface-border grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
+          <div className="world-forecast-controls p-6 rounded-2xl glass-panel-elevated border border-surface-border grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
             <div>
               <div className="text-sage/60">Baseline domain</div>
               <div className="text-cream font-bold text-sm mt-1 break-all">{selectedAudit.domain}</div>
@@ -227,7 +227,7 @@ export default function ForecastsPage() {
           </div>
 
           {/* Interactive SVG Projection Chart */}
-          <Card className="p-5 sm:p-6 space-y-4">
+          <Card className="world-chart p-5 sm:p-6 space-y-4">
             <SectionHeading title="Compare your scenarios" description="Monthly estimated emissions in kg CO2e. The renewable + AVIF scenario is a reduction pathway, not a claim of zero emissions." />
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-surface-border pb-4">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono">
@@ -338,7 +338,7 @@ export default function ForecastsPage() {
           </Card>
 
           {/* Cumulative Scenario Comparison */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
+          <div className="world-open-metrics grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
             <Card className="p-5 glass-panel border border-red-500/30 space-y-1">
               <div className="text-sage/70">Cumulative status quo</div>
               <div className="text-2xl font-bold text-red-400 font-display">

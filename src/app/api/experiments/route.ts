@@ -7,7 +7,7 @@ import { Experiment } from "@/lib/storage/types";
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const projectId = searchParams.get("projectId") || undefined;
-  const experiments = StorageRepository.listExperiments(projectId);
+  const experiments = await StorageRepository.listExperiments(projectId);
   return NextResponse.json({
     status: "success",
     experiments,
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
       updatedAt: new Date().toISOString(),
     };
 
-    StorageRepository.saveExperiment(experiment);
+    await StorageRepository.saveExperiment(experiment);
 
     return NextResponse.json({
       status: "success",

@@ -201,7 +201,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
   };
 
   return (
-    <div className="min-w-0 space-y-8 pb-12">
+    <div className="world-simulator min-w-0 space-y-8 pb-12">
       <PageIntro
         eyebrow="What-if simulator"
         title="Explore a lighter website."
@@ -269,7 +269,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
           </div>
 
           {/* Simulator Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="world-simulator-grid grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left Levers Column */}
             <div className="min-w-0 lg:col-span-6 space-y-6">
               <Card className="p-6 glass-panel-elevated border border-surface-border space-y-6">
@@ -378,7 +378,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
 
             {/* Right Output Projections Column */}
             <div className="min-w-0 lg:col-span-6 space-y-6">
-              <Card className="p-6 glass-panel-elevated border border-lime/30 space-y-6">
+              <Card className="world-paper world-outcome p-6 space-y-6">
                 <SectionHeading title="Your simulated outcome" description="Estimates update as you adjust the scenario." />
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono">

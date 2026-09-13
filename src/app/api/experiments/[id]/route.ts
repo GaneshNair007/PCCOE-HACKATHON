@@ -6,7 +6,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const experiment = StorageRepository.getExperiment(params.id);
+  const experiment = await StorageRepository.getExperiment(params.id);
   if (!experiment) {
     return NextResponse.json(
       { status: "error", message: "Experiment not found" },
@@ -14,13 +14,9 @@ export async function GET(
     );
   }
 
-  const baselineRuns = experiment.baselineRunIds
-    .map((id) => StorageRepository.getRun(id))
-    .filter(Boolean);
-  const candidateRuns = experiment.candidateRunIds
-    .map((id) => StorageRepository.getRun(id))
-    .filter(Boolean);
-  const verification = StorageRepository.getVerificationByExperiment(experiment.id);
+  const baselineRuns = (await Promise.all(experiment.baselineRunIds.map((id) => StorageRepository.getRun(id)))).filter(Boolean);
+  const candidateRuns = (await Promise.all(experiment.candidateRunIds.map((id) => StorageRepository.getRun(id)))).filter(Boolean);
+  const verification = await StorageRepository.getVerificationByExperiment(experiment.id);
   const patch = generateEventHeroImagePatch(experiment.id);
 
   return NextResponse.json({

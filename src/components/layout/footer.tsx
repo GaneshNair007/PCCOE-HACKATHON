@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { CheckCircle2, Zap } from "lucide-react";
+import { CheckCircle2, Zap, ArrowUpRight } from "lucide-react";
 
 export function Footer() {
   const [email, setEmail] = useState("");
@@ -18,8 +18,9 @@ export function Footer() {
   };
 
   return (
-    <footer className="ct-footer w-full text-sage mt-16 py-12 px-6 sm:px-12">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+    <footer className="ct-footer world-footer w-full text-sage" data-world-shot="resolve">
+      <div className="world-footer-invitation"><div className="world-chapter-label">Rooted in a better web</div><h2>Leave a lighter<br />footprint.</h2><Link href="/savings-lab">Make your next improvement <ArrowUpRight size={21} /></Link></div>
+      <div className="world-footer-content max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
         {/* Newsletter Signup (Left 6 Cols) */}
         <div className="md:col-span-6 space-y-4">
           <div className="flex items-center gap-2">
@@ -90,6 +91,7 @@ export function Footer() {
         </div>
       </div>
 
+      <div className="world-footer-wordmark" aria-hidden="true">CarbonTerra</div>
       {/* Bottom Legal Row */}
       <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-surface-border/40 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-sage/80 gap-4">
         <span>© 2026 CarbonTerra PLATFORM INC. • PCCOE HACKATHON EDITION</span>

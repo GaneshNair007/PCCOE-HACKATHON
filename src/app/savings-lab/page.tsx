@@ -154,7 +154,7 @@ function SavingsLabContent() {
   ];
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto pb-16">
+    <div className="world-savings space-y-8 max-w-7xl mx-auto pb-16">
       {/* Header Banner */}
       <PageIntro
         eyebrow={<><Sparkles className="w-4 h-4" /> Measure · improve · verify</>}
@@ -180,7 +180,7 @@ function SavingsLabContent() {
         </div>
 
       {/* 5-Stage Stepper Navigation */}
-      <Reveal className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+      <Reveal className="world-step-trail grid grid-cols-2 sm:grid-cols-5 gap-3">
         {stages.map((st) => {
           const isActive = currentStep === st.num;
           const isDone = currentStep > st.num;
@@ -240,7 +240,7 @@ function SavingsLabContent() {
               ========================================================================= */}
           {currentStep === 1 && (
             <div className="space-y-6">
-          <Card className="p-5 sm:p-8 glass-panel-elevated border border-surface-border space-y-6">
+          <Card className="world-workbench p-5 sm:p-8 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
               <div>
                 <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">
@@ -350,7 +350,7 @@ function SavingsLabContent() {
           ========================================================================= */}
       {currentStep === 2 && (
         <div className="space-y-6">
-          <Card className="p-5 sm:p-8 glass-panel-elevated border border-surface-border space-y-6">
+          <Card className="world-workbench p-5 sm:p-8 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
               <div>
                 <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">
@@ -453,7 +453,7 @@ function SavingsLabContent() {
           ========================================================================= */}
       {currentStep === 3 && (
         <div className="space-y-6">
-          <Card className="p-5 sm:p-8 glass-panel-elevated border border-surface-border space-y-6">
+          <Card className="world-workbench p-5 sm:p-8 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
               <div>
                 <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">
@@ -633,7 +633,7 @@ function SavingsLabContent() {
           ========================================================================= */}
       {currentStep === 4 && (
         <div className="space-y-6">
-          <Card className="p-5 sm:p-8 glass-panel-elevated border border-surface-border space-y-6">
+          <Card className="world-workbench p-5 sm:p-8 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
               <div>
                 <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">
@@ -717,7 +717,7 @@ function SavingsLabContent() {
           ========================================================================= */}
       {currentStep === 5 && (
         <div className="space-y-6">
-          <Card className="p-5 sm:p-8 glass-panel-elevated border border-surface-border space-y-6">
+          <Card className="world-workbench p-5 sm:p-8 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
               <div>
                 <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">

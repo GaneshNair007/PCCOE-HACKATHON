@@ -210,7 +210,7 @@ export default function DashboardPage() {
       : null;
 
   return (
-    <div className="min-w-0 space-y-8 pb-12">
+    <div className="world-fleet min-w-0 space-y-8 pb-12">
       <PageIntro
         eyebrow="Fleet monitoring"
         title="Your fleet, in perspective."
@@ -231,7 +231,7 @@ export default function DashboardPage() {
 
       {/* Fleet KPI Cards (Derived strictly from real fleet audits) */}
       {sites.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="world-fleet-metrics grid grid-cols-1 sm:grid-cols-3 gap-6">
           <Card className="p-6 glass-panel-elevated border border-surface-border">
             <div className="text-xs font-mono text-sage/70">Monitored domains</div>
             <div className="font-display text-4xl text-cream mt-2">{sites.length}</div>
@@ -255,7 +255,7 @@ export default function DashboardPage() {
       )}
 
       {/* Add New Domain Form */}
-      <Card className="p-6 glass-panel-elevated border border-lime/30">
+      <Card className="world-fleet-entry p-6 glass-panel-elevated border border-lime/30">
         <form onSubmit={handleAddDomain} className="space-y-3">
           <SectionHeading title="Add a website to your fleet" description="Audit a public domain to save its latest carbon estimate." />
           <label htmlFor="fleet-domain" className="sr-only">Public website domain</label>

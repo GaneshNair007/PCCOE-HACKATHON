@@ -28,7 +28,7 @@ export async function evaluateBudget(
     customMode,
   } = options;
 
-  let budget = StorageRepository.getBudget(projectId);
+  let budget = await StorageRepository.getBudget(projectId);
   if (!budget) {
     budget = {
       id: `budget_${projectId}`,
@@ -44,7 +44,7 @@ export async function evaluateBudget(
       mode: customMode || "strict",
       updatedAt: new Date().toISOString(),
     };
-    StorageRepository.saveBudget(budget);
+    await StorageRepository.saveBudget(budget);
   }
 
   // Override with custom ceiling / mode if provided by caller

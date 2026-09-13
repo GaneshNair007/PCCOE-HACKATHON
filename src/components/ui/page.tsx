@@ -18,6 +18,7 @@ export function Reveal({ children, className }: { children: React.ReactNode; cla
 
 export function PageIntro({ eyebrow, title, description, actions, children, className }: HeadingProps) {
   return <header className={cn("ct-page-intro", className)}>
+    <div className="world-intro-mark" aria-hidden="true"><span /><i /><span /></div>
     <div className="ct-intro-heading">
       <div className="min-w-0">
         {eyebrow && <div className="ct-eyebrow">{eyebrow}</div>}

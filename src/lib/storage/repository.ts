@@ -5,6 +5,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { createRedisRepository } from './redis-repository';
 import {
   Project,
   Journey,
@@ -130,7 +131,10 @@ function initStore(): StorageState {
 }
 
 // In-memory synced state
-let store: StorageState = initStore();
+let store: StorageState = process.env.VERCEL ? {
+  projects: {[SEED_PROJECT.id]: SEED_PROJECT}, journeys: {[SEED_JOURNEY.id]: SEED_JOURNEY},
+  runs: {}, experiments: {}, verifications: {}, budgets: {[SEED_PROJECT.id]: SEED_BUDGET},
+} : initStore();
 
 function persistStore() {
   try {
@@ -143,7 +147,7 @@ function persistStore() {
   }
 }
 
-export const StorageRepository = {
+const LocalStorageRepository = {
   // Projects
   getProjects(): Project[] {
     return Object.values(store.projects);
@@ -259,3 +263,11 @@ export const StorageRepository = {
     persistStore();
   },
 };
+
+const redisUrl = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+export const storageMode = redisUrl && redisToken ? 'shared-redis' : process.env.VERCEL ? 'unconfigured-serverless' : 'local-file';
+export const sharedRepository = redisUrl && redisToken ? createRedisRepository(redisUrl, redisToken, {project: SEED_PROJECT, journey: SEED_JOURNEY, budget: SEED_BUDGET}) : null;
+// Never report a successful serverless write that only existed in one warm function.
+const unavailableRepository = new Proxy(LocalStorageRepository, {get() {return () => {throw new Error('Production storage is not configured. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN in Vercel.');};}});
+export const StorageRepository = sharedRepository || (process.env.VERCEL ? unavailableRepository : LocalStorageRepository);

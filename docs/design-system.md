@@ -1,5 +1,7 @@
 # CarbonTerra interface system
 
+> Historical first-pass notes. The current full-site Sylva environment and backend integration are documented in [living-world.md](living-world.md).
+
 ## Reference and scope
 
 The matching moss hero was found on `demo` at `6b7e809`, while `main` at `1157fd4` contained the older globe design. The live opening page was inspected and matched the demo composition. The referenced video file was not available in this session; this is an adaptation of the matching source and browser appearance, not a pixel-perfect reconstruction of the recording.

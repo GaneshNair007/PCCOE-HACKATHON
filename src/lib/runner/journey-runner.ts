@@ -28,7 +28,7 @@ export async function executeJourneyPass(
   options: SingleRunOptions
 ): Promise<AuditRun> {
   const { projectId, journeyId, targetBaseUrl, variant, runIndex } = options;
-  const journey = StorageRepository.getJourney(journeyId);
+  const journey = await StorageRepository.getJourney(journeyId);
   const targetPath = journey ? journey.targetPath : "/demo/event";
   const demoVariant =
     variant === "broken_candidate" || (variant as string) === "broken"
@@ -254,7 +254,7 @@ export async function executeJourneyPass(
     },
   };
 
-  StorageRepository.saveRun(runRecord);
+  await StorageRepository.saveRun(runRecord);
   return runRecord;
 }
 
@@ -367,10 +367,10 @@ export async function runTripleVerification(
     receiptGeneratedAt: new Date().toISOString(),
   };
 
-  StorageRepository.saveVerification(result);
+  await StorageRepository.saveVerification(result);
 
   if (experimentId) {
-    StorageRepository.updateExperiment(experimentId, {
+    await StorageRepository.updateExperiment(experimentId, {
       candidateRunIds: candidateRuns.map((r) => r.id),
       status: outcome === "observed_improvement" ? "candidate_tested" : "rejected",
     });

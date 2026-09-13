@@ -118,7 +118,7 @@ GUIDELINES:
 
     // 3. Candidate Verification & Task Preservation: "test candidate", "verify candidate", "test broken"
     if (lower.includes("test candidate") || lower.includes("verify candidate") || lower.includes("test broken") || lower.includes("run verification")) {
-      const allExps = StorageRepository.listExperiments();
+      const allExps = await StorageRepository.listExperiments();
       const expId = context.experimentId || (allExps.length > 0 ? allExps[0].id : null);
 
       if (!expId) {
@@ -172,7 +172,7 @@ ${toolOutput.breaches.length > 0 ? `\n**Budget Breaches Detected**:\n${toolOutpu
 
     // 5. Improvement Receipt Generation: "generate receipt", "view receipt", "evidence receipt"
     if (lower.includes("generate receipt") || lower.includes("view receipt") || lower.includes("evidence receipt")) {
-      const allExps = StorageRepository.listExperiments();
+      const allExps = await StorageRepository.listExperiments();
       const expId = context.experimentId || (allExps.length > 0 ? allExps[0].id : null);
 
       if (!expId) {
@@ -201,11 +201,11 @@ ${toolOutput.breaches.length > 0 ? `\n**Budget Breaches Detected**:\n${toolOutpu
     if (lower.includes("simulate") || lower.includes("what if") || (lower.includes("compress") && lower.includes("%")) || (lower.includes("defer") && lower.includes("%"))) {
       let baseBytes = 0;
       if (context.auditId) {
-        const run = StorageRepository.getRun(context.auditId);
+        const run = await StorageRepository.getRun(context.auditId);
         if (run) baseBytes = run.totalBytes;
       }
       if (!baseBytes) {
-        const recentRuns = StorageRepository.listRuns();
+        const recentRuns = await StorageRepository.listRuns();
         if (recentRuns.length > 0) baseBytes = recentRuns[0].totalBytes;
       }
       if (!baseBytes) {
@@ -273,8 +273,8 @@ ${toolOutput.breaches.length > 0 ? `\n**Budget Breaches Detected**:\n${toolOutpu
 
     // 8. Explain for Executive / Score Details: "explain for exec", "why is this a C", "details"
     if (lower.includes("explain for exec") || lower.includes("executive brief") || lower.includes("why is this a") || lower.includes("score details")) {
-      const recentRuns = StorageRepository.listRuns();
-      const targetRun = context.auditId ? StorageRepository.getRun(context.auditId) : recentRuns[0];
+      const recentRuns = await StorageRepository.listRuns();
+      const targetRun = context.auditId ? await StorageRepository.getRun(context.auditId) : recentRuns[0];
 
       if (!targetRun) {
         reply = "No audit data found in storage yet. Ask me to audit a website first (e.g. 'check stripe.com'), and I will prepare a comprehensive sustainability executive brief.";

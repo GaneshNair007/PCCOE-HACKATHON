@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import "@flowstack-ui/brick/styles.css";
+import "@designcodeio/threeui/style.css";
 import "./globals.css";
 import "../../public/inner-green-assets/sylva.css";
+import "./living-world.css";
+import { LivingWorld } from "@/components/world/living-world";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { AgenticChat } from "@/components/chat/agentic-chat";
@@ -32,10 +35,12 @@ export default function RootLayout({
           Skip to main content
         </a>
         <SmoothScrollProvider>
+          <LivingWorld>
           <Header />
           <MainWrapper>{children}</MainWrapper>
           <Footer />
           <Suspense fallback={null}><AgenticChat /></Suspense>
+          </LivingWorld>
         </SmoothScrollProvider>
       </body>
     </html>

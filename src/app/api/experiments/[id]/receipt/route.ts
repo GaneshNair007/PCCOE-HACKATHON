@@ -6,7 +6,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const experiment = StorageRepository.getExperiment(params.id);
+  const experiment = await StorageRepository.getExperiment(params.id);
   if (!experiment) {
     return NextResponse.json(
       { status: "error", message: "Experiment not found" },
@@ -14,7 +14,7 @@ export async function GET(
     );
   }
 
-  const verification = StorageRepository.getVerificationByExperiment(experiment.id);
+  const verification = await StorageRepository.getVerificationByExperiment(experiment.id);
   if (!verification) {
     return NextResponse.json(
       {
@@ -25,7 +25,7 @@ export async function GET(
     );
   }
 
-  const receipt = generateImprovementReceipt(verification, experiment);
+  const receipt = await generateImprovementReceipt(verification, experiment);
   return NextResponse.json({
     status: "success",
     receipt,

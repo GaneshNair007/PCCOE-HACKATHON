@@ -194,7 +194,7 @@ function LandingPageContent() {
   return (
     <div className="w-full">
       {/* ==========================================================================
-           SYLVA LIVING WORLD HERO: 100% Exact Reference UI + Live Audit Integration
+           SYLVA ARRIVAL: live CarbonTerra controls within the persistent authored world
            ========================================================================== */}
       <SylvaHero
         onRunAudit={runAudit}
@@ -210,7 +210,7 @@ function LandingPageContent() {
         {/* ==========================================================================
              AUDIT COCKPIT: Only renders when a real audit has completed
              ========================================================================== */}
-        <section id="cockpit" ref={cockpitRef} className="space-y-8 scroll-mt-28">
+        <section id="cockpit" ref={cockpitRef} className="world-audit-chapter space-y-8 scroll-mt-28" data-world-shot="measure">
           {auditStatus === "completed" && auditData ? (
             <>
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-surface-border/60 pb-4">
@@ -461,67 +461,47 @@ function LandingPageContent() {
             </div>
           </div>
         ) : (
-          /* Clean Empty Workspace State with Quick-Scan Launchers */
-          <div className="p-10 sm:p-14 text-center rounded-3xl glass-panel-elevated border border-surface-border space-y-6">
-            <div className="w-14 h-14 rounded-2xl bg-lime/10 border border-lime/30 text-lime flex items-center justify-center mx-auto">
-              <Zap className="w-7 h-7" />
+          <>
+            <div className="world-chapter-label">01 / A closer look</div>
+            <div className="world-ready">
+              <h3>Every byte leaves<br />a footprint.</h3>
+              <p>Your audit workspace is ready. Enter a public website above, or explore a benchmark below. Real measurements reveal where a lighter experience can begin.</p>
+              <div className="world-presets">
+                {BENCHMARK_PRESETS.map(p => <button key={p.url} onClick={() => {setTargetUrl(p.url); runAudit(p.url);}}><Sparkles size={14} /><span>Audit {p.label}</span></button>)}
+              </div>
             </div>
-            <div className="space-y-2">
-              <h3 className="font-display text-3xl sm:text-4xl text-cream  tracking-tight">
-                Your audit workspace is ready
-              </h3>
-              <p className="text-sm text-sage/75 max-w-lg mx-auto">
-                Enter any public website URL in the hero dock above to trigger the live dual-source accuracy engine. Or launch an instant benchmark scan below:
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-              {BENCHMARK_PRESETS.map((p) => (
-                <button
-                  key={p.url}
-                  onClick={() => {
-                    setTargetUrl(p.url);
-                    if (typeof (window as any).__triggerSylvaScan === "function") {
-                      (window as any).__triggerSylvaScan();
-                    }
-                    runAudit(p.url);
-                  }}
-                  className="px-4 py-2 rounded-full glass-panel border border-surface-border hover:border-lime/50 text-xs font-mono text-cream hover:text-lime transition-all hover:scale-105 flex items-center gap-1.5 cursor-pointer shadow-sm"
-                >
-                  <Sparkles className="w-3 h-3 text-lime" />
-                  <span>Audit {p.label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+            <aside className="world-audit-aside" aria-label="Measurement approach">
+              <img src="/landing-pages/inner-green-assets/card-ethos.jpg" alt="Moss resting on weathered stones" width={174} height={174} loading="lazy" />
+              <p>Look closer.<br />Measure what matters.</p>
+            </aside>
+          </>
+
         )}
       </section>
 
       {/* ==========================================================================
            3D FEATURE MATRIX: Staggered GSAP ScrollTrigger Section
            ========================================================================== */}
-      <section ref={featuresRef} className="space-y-8">
-        <SectionHeading eyebrow="Explore CarbonTerra" title="A lighter web. A clearer picture."
-          description="From a single website to your entire fleet. Measure impact, explore improvements, and protect the progress you make." />
-        <div className="ct-home-capabilities">
-          {[
-            { icon: Globe, title: "Fleet telemetry", href: "/dashboard", action: "Manage your fleet", copy: "Manage domain portfolios with saved audit baselines, green-hosting verification, real-time filtering, and CSV exports." },
-            { icon: Sliders, title: "What-if simulator", href: "/simulator", action: "Explore the levers", copy: "Model image transcoding, script tree-shaking, and CDN caching. Compare grams of CO₂e and projected annual savings before you commit." },
-            { icon: TrendingDown, title: "Emissions forecasts", href: "/forecasts", action: "View scenarios", copy: "Explore traffic growth and grid decarbonization assumptions through forward-looking emission paths. Scenarios remain distinct from measured outcomes." },
-            { icon: ShieldCheck, title: "Regression Shield", href: "/shield", action: "Set a release budget", copy: "Evaluate byte and carbon budgets, inspect breaches, and generate a GitHub Actions workflow to protect your improvements." },
-          ].map(({icon: Icon, title, href, action, copy}) => <Reveal key={href} className="ct-capability">
-            <Icon size={25} strokeWidth={1.5} aria-hidden="true" /><h3>{title}</h3><p>{copy}</p>
-            <Link href={href}>{action}<ArrowRight size={17} className="ml-2" aria-hidden="true" /></Link>
-          </Reveal>)}
-        </div>
+      <section className="world-stories" data-world-shot="roots">
+        <SectionHeading eyebrow="02 / Connected by nature" title="A living system. A lighter web." description="Follow the impact of your work, from the first measurement to the improvements that last." />
+        {[
+          {n:"01",title:"See the whole ecosystem.",label:"Fleet telemetry",href:"/dashboard",action:"Explore your fleet",shot:"canopy",image:"card-ethos.jpg",copy:"Your websites are connected by the choices you make. Monitor saved audit baselines, verify green hosting, filter your portfolio, and export the full picture."},
+          {n:"02",title:"Make room for something better.",label:"What-if simulator",href:"/simulator",action:"Explore the possibilities",shot:"measure",image:"card-ecostove.jpg",copy:"Model image compression, JavaScript changes, and caching. Explore their estimated impact before you commit, with transparent assumptions beside every scenario."},
+          {n:"03",title:"Look beyond the horizon.",label:"Emissions forecasts",href:"/forecasts",action:"Follow the forecast",shot:"roots",image:"card-ethos.jpg",copy:"Explore traffic growth and grid decarbonization through forward-looking emission paths. Keep possible futures distinct from measured outcomes."},
+          {n:"04",title:"Protect the progress you make.",label:"Regression Shield",href:"/shield",action:"Set your release budget",shot:"clearing",image:"card-ecostove.jpg",copy:"Give your improvements a future. Evaluate byte and carbon budgets, inspect breaches, and generate a workflow that helps keep every release on course."},
+        ].map(story => <article key={story.href} className="world-story" data-world-shot={story.shot}>
+          <figure className="world-story-image"><img src={"/landing-pages/inner-green-assets/"+story.image} alt="Native moss and vegetation in the Sylva landscape" width={360} height={450} loading="lazy" /><span>CARBONTERRA / {story.n}</span></figure>
+          <div><span className="world-story-number">{story.n} / {story.label}</span><h3>{story.title}</h3><p>{story.copy}</p><Link href={story.href}>{story.action}<ArrowRight strokeWidth={1.3} /></Link></div>
+        </article>)}
       </section>
 
       {/* ==========================================================================
            INTERACTIVE DEVELOPER API EXPLORER (Live Sandbox + Multi-Language Snippets)
            ========================================================================== */}
-      <section id="api-explorer" className="space-y-8 pt-10 scroll-mt-24">
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-panel text-xs font-mono text-lime border border-lime/30">
-            <Terminal className="w-3.5 h-3.5" /> LIVE INTERACTION SURFACE
+      <section id="api-explorer" className="world-api-chapter space-y-8 scroll-mt-24" data-world-shot="clearing">
+        <div className="world-api-intro">
+          <div className="world-chapter-label">
+            <Terminal className="w-3.5 h-3.5" /> 03 / Under the surface
           </div>
           <h2 className="font-display text-4xl sm:text-5xl text-cream  tracking-tight">
             Developer telemetry API

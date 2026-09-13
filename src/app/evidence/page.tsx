@@ -104,7 +104,7 @@ function EvidenceContent() {
   }
 
   return (
-    <div className="space-y-8 max-w-6xl mx-auto pb-16 print:p-0 print:space-y-4">
+    <div className="world-evidence space-y-8 max-w-6xl mx-auto pb-16 print:p-0 print:space-y-4">
       <div className="print:hidden">
         <PageIntro
           eyebrow={<><ShieldCheck className="w-4 h-4" /> Evidence & verification</>}
@@ -148,7 +148,7 @@ function EvidenceContent() {
 
       {/* Error or Missing Verification Prompt */}
       {errorMessage && !receipt && (
-        <Card role="status" aria-live="polite" className="p-8 text-center glass-panel-elevated border border-amber-500/40 space-y-4">
+        <Card role="status" aria-live="polite" className="world-pending p-8 space-y-4">
           <AlertTriangle className="w-10 h-10 text-amber-400 mx-auto" />
           <h2 className="font-display text-2xl text-cream">Verification pending</h2>
           <p className="text-sm font-mono text-sage/80 max-w-lg mx-auto">
@@ -168,7 +168,7 @@ function EvidenceContent() {
       {receipt && (
         <Reveal className="space-y-6">
           {/* Main Evidence Record Document */}
-          <Card className="p-6 sm:p-10 glass-panel-elevated border border-surface-border space-y-8 print:border-none print:shadow-none print:p-0">
+          <Card className="world-paper world-evidence-document p-6 sm:p-10 space-y-8 print:border-none print:shadow-none print:p-0">
             {/* Header Document Metadata */}
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-surface-border/60 pb-6">
               <div className="space-y-2">

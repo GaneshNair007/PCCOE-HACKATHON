@@ -10,7 +10,7 @@ export async function POST(
     const decision = body.decision === "rejected" ? "rejected" : "approved";
     const reviewerNotes = body.notes || "Approved responsive image WebP optimization.";
 
-    const experiment = StorageRepository.getExperiment(params.id);
+    const experiment = await StorageRepository.getExperiment(params.id);
     if (!experiment) {
       return NextResponse.json(
         { status: "error", message: "Experiment not found" },
@@ -18,7 +18,7 @@ export async function POST(
       );
     }
 
-    const updated = StorageRepository.updateExperiment(experiment.id, {
+    const updated = await StorageRepository.updateExperiment(experiment.id, {
       reviewerDecision: decision,
       reviewedAt: new Date().toISOString(),
       reviewerNotes,

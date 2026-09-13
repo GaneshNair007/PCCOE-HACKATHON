@@ -49,16 +49,12 @@ export interface ImprovementReceipt {
   disclaimer: string;
 }
 
-export function generateImprovementReceipt(
+export async function generateImprovementReceipt(
   verification: VerificationResult,
   experiment: Experiment
-): ImprovementReceipt {
-  const baselineRuns = experiment.baselineRunIds
-    .map((id) => StorageRepository.getRun(id))
-    .filter(Boolean) as AuditRun[];
-  const candidateRuns = experiment.candidateRunIds
-    .map((id) => StorageRepository.getRun(id))
-    .filter(Boolean) as AuditRun[];
+): Promise<ImprovementReceipt> {
+  const baselineRuns = (await Promise.all(experiment.baselineRunIds.map((id) => StorageRepository.getRun(id)))).filter(Boolean) as AuditRun[];
+  const candidateRuns = (await Promise.all(experiment.candidateRunIds.map((id) => StorageRepository.getRun(id)))).filter(Boolean) as AuditRun[];
 
   return {
     receiptVersion: "2.0.0-savings-lab",

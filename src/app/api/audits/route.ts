@@ -3,7 +3,7 @@ import { performAudit, getAllAuditRecords } from "@/lib/scanner";
 import { checkRateLimit } from "@/lib/security";
 
 export async function GET() {
-  const records = getAllAuditRecords();
+  const records = await getAllAuditRecords();
   return NextResponse.json({
     status: "success",
     count: records.length,

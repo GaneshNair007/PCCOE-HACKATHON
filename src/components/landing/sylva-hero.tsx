@@ -1,36 +1,10 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
-import { Search, Loader2, Sparkles, Pause, Play } from "lucide-react";
+import { Search, Loader2, Sparkles } from "lucide-react";
 
-interface HeroAnimation {
-  setActive: (active: boolean) => void;
-  dispose: () => void;
-  scan?: () => void;
-}
-
-type SylvaWindow = Window & {
-  initSylvaScene?: (root: HTMLElement, options: { active: boolean }) => HeroAnimation;
-  initLiquidMetal?: (root: HTMLElement, options: { active: boolean }) => HeroAnimation;
-};
-
-// A loaded script is shared; each route mount owns its own animation instance.
-const scriptLoads = new Map<string, Promise<void>>();
-function loadHeroScript(src: string) {
-  const pending = scriptLoads.get(src);
-  if (pending) return pending;
-  const promise = new Promise<void>((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = src;
-    script.async = false;
-    script.onload = () => resolve();
-    script.onerror = () => { script.remove(); scriptLoads.delete(src); reject(new Error('Hero script failed: ' + src)); };
-    document.body.appendChild(script);
-  });
-  scriptLoads.set(src, promise);
-  return promise;
-}
+import { useLivingWorld } from "@/components/world/living-world";
 
 interface SylvaHeroProps {
   onRunAudit: (url: string) => void;
@@ -49,70 +23,9 @@ export function SylvaHero({
   targetUrl,
   setTargetUrl,
 }: SylvaHeroProps) {
-  const [motionPaused, setMotionPaused] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const { scan, reducedMotion } = useLivingWorld();
   const inputRef = useRef<HTMLInputElement>(null);
-  const heroRef = useRef<HTMLElement>(null);
-  const animations = useRef<HeroAnimation[]>([]);
-  const activeRef = useRef(false);
   const submittedAtRef = useRef(-Infinity);
-
-  useEffect(() => {
-    const root = heroRef.current;
-    if (!root) return;
-    let mounted = true;
-    let visible = root.getBoundingClientRect().bottom > 0;
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => {
-      const active = visible && !document.hidden && !media.matches && root.dataset.userPaused !== 'true';
-      activeRef.current = active;
-      setReducedMotion(media.matches);
-      root.dataset.motion = active ? 'running' : 'paused';
-      animations.current.forEach((animation) => animation.setActive(active));
-    };
-    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
-    observer.observe(root);
-    media.addEventListener('change', sync);
-    document.addEventListener('visibilitychange', sync);
-    sync();
-
-    const initialize = async () => {
-      try {
-        await loadHeroScript('/inner-green-assets/three.min.js');
-        await loadHeroScript('/inner-green-assets/sylva-liquid-metal.js');
-        await loadHeroScript('/inner-green-assets/sylva-scene.js');
-        if (!mounted) return;
-        const runtime = window as SylvaWindow;
-        const options = { active: activeRef.current };
-        const scene = runtime.initSylvaScene?.(root, options);
-        const liquid = runtime.initLiquidMetal?.(root, options);
-        animations.current = [scene, liquid].filter((animation): animation is HeroAnimation => !!animation);
-        sync();
-      } catch (error) {
-        root.classList.add('is-ready', 'intro-done');
-        console.error('Failed to load Sylva Hero scripts:', error);
-      }
-    };
-    void initialize();
-    return () => {
-      mounted = false;
-      observer.disconnect();
-      media.removeEventListener('change', sync);
-      document.removeEventListener('visibilitychange', sync);
-      animations.current.forEach((animation) => animation.dispose());
-      animations.current = [];
-    };
-  }, []);
-
-  useEffect(() => {
-    const root = heroRef.current;
-    if (!root) return;
-    root.dataset.userPaused = String(motionPaused);
-    // The animation controllers also gate against the user's pause setting.
-    animations.current.forEach((animation) => animation.setActive(activeRef.current && !motionPaused));
-    if (!motionPaused) document.dispatchEvent(new Event('visibilitychange'));
-    else root.dataset.motion = 'paused';
-  }, [motionPaused]);
 
   const focusAudit = () => {
     inputRef.current?.focus({ preventScroll: true });
@@ -123,7 +36,7 @@ export function SylvaHero({
     if (auditStatus === 'running' || performance.now() - submittedAtRef.current < 500) return;
     if (!url.trim()) { focusAudit(); return; }
     submittedAtRef.current = performance.now();
-    animations.current.forEach((animation) => animation.scan?.());
+    scan();
     onRunAudit(url);
   };
 
@@ -139,16 +52,10 @@ export function SylvaHero({
 
   return (
     <div className="relative w-full">
-      {/* Load Sylva Hero CSS */}
+      {/* Interactive DOM belongs to the same persistent Sylva world as every route. */}
 
       {/* Main Sylva Hero Container */}
-      <section ref={heroRef} className="hero sylva-hero" id="hero" aria-labelledby="hero-headline">
-        <canvas id="scene" aria-hidden="true"></canvas>
-        <button className="hero-motion-toggle" type="button" onClick={() => setMotionPaused((paused) => !paused)} aria-pressed={motionPaused} disabled={reducedMotion}>
-          {motionPaused || reducedMotion ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
-          {reducedMotion ? "Motion reduced" : motionPaused ? "Resume motion" : "Pause motion"}
-        </button>
-
+      <section className="hero sylva-hero world-hero is-ready intro-done" id="hero" data-world-shot="arrival" aria-labelledby="hero-headline">
         {/* Centered 1600 × 880 Stage */}
         <div className="stage" id="stage">
           {/* Subtle column guide lines */}
@@ -168,13 +75,12 @@ export function SylvaHero({
             <figure className="portal" data-delay="920">
               <span className="portal-media">
                 <img
-                  src="/inner-green-assets/card-ethos.jpg"
+                  src="/landing-pages/inner-green-assets/card-ethos.jpg"
                   alt="Dual-Source Synthetic Engine & Static DOM Verification"
                   loading="eager"
                   decoding="async"
                 />
               </span>
-              <canvas className="pixel-reveal" aria-hidden="true"></canvas>
             </figure>
             <p className="label">Dual-Source Engine</p>
             <h2>Lighthouse &amp; DOM Concordance</h2>
@@ -210,7 +116,6 @@ export function SylvaHero({
             <div className="pill mask" style={{ ["--d" as any]: "600ms", ["--pd" as any]: 15, ["--pr" as any]: 1.4 }}>
               <div className="liquid-stage liquid-stage--explore" data-liquid-metal="explore">
                 <div className="liquid-plate plate" aria-hidden="true"></div>
-                <canvas className="liquid-fx" aria-hidden="true"></canvas>
                 <button
                   className="liquid-button liquid-button--explore btn"
                   type="button"
@@ -236,7 +141,6 @@ export function SylvaHero({
               <span className="play-glass mask-circle" style={{ ["--d" as any]: "900ms" }}>
                 <span className="liquid-stage liquid-stage--play" data-liquid-metal="play">
                   <span className="liquid-plate plate" aria-hidden="true"></span>
-                  <canvas className="liquid-fx" aria-hidden="true"></canvas>
                   <button
                     className="liquid-button liquid-button--play btn"
                     type="button"
@@ -292,13 +196,12 @@ export function SylvaHero({
             <figure className="portal" data-delay="1080">
               <span className="portal-media">
                 <img
-                  src="/inner-green-assets/card-ecostove.jpg"
+                  src="/landing-pages/inner-green-assets/card-ecostove.jpg"
                   alt="Automated CI/CD 350 KB Release Budget Guard"
                   loading="eager"
                   decoding="async"
                 />
               </span>
-              <canvas className="pixel-reveal" aria-hidden="true"></canvas>
             </figure>
             <Link
               href="/shield"
@@ -321,7 +224,7 @@ export function SylvaHero({
             <form
               onSubmit={handleSubmitAudit}
               data-spec
-              className="p-3.5 rounded-2xl glass-panel-elevated shadow-2xl space-y-2.5 transition-all"
+              className="hero-audit-dock p-3.5 rounded-2xl glass-panel-elevated shadow-2xl space-y-2.5 transition-all"
             >
               <div className="hero-audit-heading flex items-center justify-between gap-2 px-1">
                 <div className="flex items-center gap-2">

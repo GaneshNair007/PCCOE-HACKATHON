@@ -12,7 +12,7 @@ export function MainWrapper({ children }: { children: React.ReactNode }) {
     <main
       id="main-content"
       className={cn(
-        "flex-1 w-full relative z-10 min-w-0",
+        "world-workspace flex-1 w-full relative z-10 min-w-0",
         !isHome && "ct-page-shell"
       )}
     >

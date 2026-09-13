@@ -174,7 +174,7 @@ export default function FixHubPage() {
   );
 
   return (
-    <div className="min-w-0 space-y-8 pb-12">
+    <div className="world-fixes min-w-0 space-y-8 pb-12">
       <PageIntro
         eyebrow="Reference guidance"
         title="Small changes. Lighter pages."
@@ -226,7 +226,7 @@ export default function FixHubPage() {
       {/* Pattern Cards List */}
       <div className="space-y-8">
         {filteredPatterns.map((pattern, index) => (
-          <Card key={pattern.id} className="min-w-0 p-5 sm:p-6 space-y-4">
+          <Card key={pattern.id} className="world-pattern min-w-0 p-5 sm:p-6 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-surface-border pb-4">
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-2">

@@ -20,6 +20,7 @@ import { PageIntro, SectionHeading, Reveal } from "@/components/ui/page";
 export function DemoEventContent({ variant }: { variant: "baseline" | "optimized" | "broken" }) {
 
   const [name, setName] = useState("");
+  const [heroUnavailable, setHeroUnavailable] = useState(false);
   const [email, setEmail] = useState("");
   const [dept, setDept] = useState("Computer Engineering");
   const [team, setTeam] = useState("");
@@ -63,7 +64,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
   const isBroken = variant === "broken";
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-16 font-sans">
+    <div className="world-campus max-w-4xl mx-auto space-y-8 pb-16 font-sans">
       {/* Controlled demo site Notice Banner */}
       <div className="p-4 rounded-2xl bg-surface border border-surface-border text-xs font-mono text-sage flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
@@ -93,12 +94,15 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
       </PageIntro>
 
       {/* First-Party Event Hero Image Component */}
-      <div className="relative rounded-3xl overflow-hidden border border-surface-border bg-surface-elevated">
+      <div className="world-campus-banner relative rounded-3xl overflow-hidden border border-surface-border bg-surface-elevated">
+        {heroUnavailable && variant !== 'broken' && <div className="world-campus-banner-fallback"><span>Campus event · banner preview unavailable</span><p>Grow ideas.<br />Leave an impact.</p></div>}
         {variant === "baseline" && (
           <div>
             {/* Uncompressed 2.4MB JPEG without responsive srcset */}
             <img
               id="event-hero-img"
+              onError={() => setHeroUnavailable(true)}
+              style={{opacity: heroUnavailable ? 0 : 1}}
               src="/demo/assets/campus-hackathon-hero.jpg"
               alt="PCCOE Green Campus Hackathon 2026 Banner"
               className="w-full h-72 sm:h-96 object-cover"
@@ -116,6 +120,8 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
               <source srcSet="/demo/assets/campus-hackathon-hero.webp" type="image/webp" />
               <img
                 id="event-hero-img"
+                onError={() => setHeroUnavailable(true)}
+                style={{opacity: heroUnavailable ? 0 : 1}}
                 src="/demo/assets/campus-hackathon-hero.webp"
                 alt="PCCOE Green Campus Hackathon 2026 Banner"
                 width="1200"

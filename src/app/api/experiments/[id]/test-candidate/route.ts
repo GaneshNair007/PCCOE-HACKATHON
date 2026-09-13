@@ -11,7 +11,7 @@ export async function POST(
     const candidateVariant =
       body.candidateVariant === "broken_candidate" ? "broken_candidate" : "candidate";
 
-    const experiment = StorageRepository.getExperiment(params.id);
+    const experiment = await StorageRepository.getExperiment(params.id);
     if (!experiment) {
       return NextResponse.json(
         { status: "error", message: "Experiment not found" },
@@ -30,7 +30,7 @@ export async function POST(
       experiment.id
     );
 
-    const updatedExperiment = StorageRepository.getExperiment(experiment.id);
+    const updatedExperiment = await StorageRepository.getExperiment(experiment.id);
 
     return NextResponse.json({
       status: "success",

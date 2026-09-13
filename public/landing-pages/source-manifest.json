@@ -1,0 +1,17 @@
+{
+  "package": "@designcodeio/threeui",
+  "version": "1.2.0",
+  "component": "SylvaHero",
+  "variant": "living-green",
+  "catalogRevision": "SHA-256 05f359ce157a",
+  "originalHtmlSha256": "69c3694bd63f44ef9f007ebe4dac57a83e4402e0cdf6b54dd10b96dd4f05e197",
+  "adapterSha256": "e08a9a597b4147b35faba3957f0f2eab3d775e1974547ce0680463ecb851a2da",
+  "sourceCatalog": "https://raw.githubusercontent.com/MengTo/threeui/main/public/source-code.json",
+  "modifications": [
+    "Extract authored scene from hero DOM",
+    "Parent-controlled camera choreography and scan",
+    "Pause, visibility and reduced motion",
+    "Bounded DPR and frame rate",
+    "Local asset base and recovery notice"
+  ]
+}

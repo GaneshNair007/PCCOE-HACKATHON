@@ -22,6 +22,7 @@ import {
 } from "./carbon";
 import { validateAndResolveUrl } from "./security";
 import { CARBONERRA_CONFIG } from "./config";
+import { sharedRepository } from './storage/repository';
 
 // Global in-memory cache for audit records
 const globalRef = globalThis as any;
@@ -863,6 +864,7 @@ export async function performAudit(rawTargetUrl: string): Promise<AuditResult> {
   // 10. Persist in memory maps
   auditRecords.set(auditId, auditRecord);
   auditCache.set(normalizedUrl, { timestamp: Date.now(), result });
+  if (sharedRepository) await sharedRepository.saveTelemetry(result);
 
   return result;
 }
@@ -879,7 +881,8 @@ export function getCachedAudit(url?: string): AuditResult | null {
   return null;
 }
 
-export function getRecentAudits(limit = 10): AuditResult[] {
+export async function getRecentAudits(limit = 10): Promise<AuditResult[]> {
+  if (sharedRepository) return (await sharedRepository.listTelemetry()).slice(0, limit);
   const values = Array.from(auditCache.values()).map((v) => v.result);
   return values.slice(-limit).reverse();
 }
@@ -888,6 +891,7 @@ export function getAuditRecordById(id: string): AuditRecord | null {
   return auditRecords.get(id) || null;
 }
 
-export function getAllAuditRecords(): AuditRecord[] {
+export async function getAllAuditRecords(): Promise<AuditRecord[]> {
+  if (sharedRepository) return (await sharedRepository.listTelemetry()).map(a => a.record).filter((r): r is AuditRecord => !!r);
   return Array.from(auditRecords.values()).reverse();
 }

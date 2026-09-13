@@ -30,7 +30,7 @@ export const investigateAuditSchema = z.object({
 
 export async function executeInvestigateAudit(args: { targetUrl?: string; auditId?: string }) {
   if (args.auditId) {
-    const run = StorageRepository.getRun(args.auditId);
+    const run = await StorageRepository.getRun(args.auditId);
     if (run) {
       return {
         source: "stored_audit_run",
@@ -178,7 +178,7 @@ export async function executePrepareExperiment(args: {
     updatedAt: new Date().toISOString(),
   };
 
-  StorageRepository.saveExperiment(experiment);
+  await StorageRepository.saveExperiment(experiment);
 
   return {
     experimentId: experiment.id,
@@ -214,7 +214,7 @@ export async function executeTestCandidate(args: {
   variant?: "candidate" | "broken_candidate" | "optimized" | "broken";
   targetBaseUrl?: string;
 }) {
-  const exp = StorageRepository.getExperiment(args.experimentId);
+  const exp = await StorageRepository.getExperiment(args.experimentId);
   if (!exp) {
     throw new Error(`Experiment ${args.experimentId} not found.`);
   }
@@ -365,16 +365,16 @@ export const generateReceiptSchema = z.object({
 });
 
 export async function executeGenerateReceipt(args: { experimentId: string }) {
-  const exp = StorageRepository.getExperiment(args.experimentId);
+  const exp = await StorageRepository.getExperiment(args.experimentId);
   if (!exp) {
     throw new Error(`Experiment ${args.experimentId} not found in repository.`);
   }
-  const verification = StorageRepository.getVerificationByExperiment(args.experimentId);
+  const verification = await StorageRepository.getVerificationByExperiment(args.experimentId);
   if (!verification) {
     throw new Error(`No verification result found for experiment ${args.experimentId}. Run candidate verification first.`);
   }
 
-  const receipt = generateImprovementReceipt(verification, exp);
+  const receipt = await generateImprovementReceipt(verification, exp);
   return {
     receiptVersion: receipt.receiptVersion,
     experimentId: receipt.experimentId,

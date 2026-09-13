@@ -152,7 +152,7 @@ jobs:
   };
 
   return (
-    <div className="space-y-10 max-w-7xl mx-auto pb-20">
+    <div className="world-shield space-y-10 max-w-7xl mx-auto pb-20">
       {/* Header */}
       <PageIntro
         eyebrow={<><ShieldCheck className="w-4 h-4" /> Protect your progress</>}
@@ -191,7 +191,7 @@ jobs:
       )}
 
       {/* Real Interactive Gate Testing Workbench */}
-      <Card className="p-5 sm:p-8 glass-panel-elevated border border-surface-border space-y-6">
+      <Card className="world-workbench world-shield-workbench p-5 sm:p-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-4">
           <SectionHeading
             eyebrow="Interactive gate workbench"
@@ -207,7 +207,7 @@ jobs:
         </div>
 
         {/* 3 Real Execution Triggers */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+        <div className="world-budget-tests grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
           {/* Trigger 1: Baseline (Demonstrates Strict Budget Failure) */}
           <div className="p-4 rounded-xl bg-surface/50 border border-red-500/30 space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-3">
