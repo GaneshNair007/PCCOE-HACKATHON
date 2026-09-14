@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { generateText } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import {
-  carbonerraAiTools,
+  createCarbonerraAiTools,
   executeInvestigateAudit,
   executeCompareAudits,
   executePrepareExperiment,
@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
     const body: ChatRequestBody = await req.json();
     const message = (body.message || "").trim();
     const context = body.context || {};
+    const targetBaseUrl = req.nextUrl.origin;
 
     if (!message) {
       return NextResponse.json(
@@ -49,7 +50,7 @@ GUIDELINES:
 3. Every metric or calculation you state for tools must come directly from tool outputs.
 4. Active context: ${JSON.stringify(context)}.`,
           prompt: message,
-          tools: carbonerraAiTools,
+          tools: createCarbonerraAiTools(targetBaseUrl),
         });
 
         const primaryToolCall = (aiResponse.toolCalls as any)?.[0];
@@ -101,10 +102,10 @@ GUIDELINES:
     if (lower.includes("prepare experiment") || lower.includes("create experiment") || lower.includes("start experiment") || lower.includes("new experiment")) {
       const projectId = context.projectId || "campus-events";
       toolUsed = `prepare_experiment({ projectId: "${projectId}" })`;
-      toolOutput = await executePrepareExperiment({ projectId });
+      toolOutput = await executePrepareExperiment({ projectId, targetBaseUrl });
 
       reply = `Savings Lab experiment **${toolOutput.experimentId}** initialized for project **${toolOutput.projectId}**:
-1. **Baseline Established**: Completed 3 real headless user journey passes. Median observed transfer: **${(toolOutput.baselineMedianBytes / 1024).toFixed(1)} KB**.
+1. **Baseline Established**: Completed 3 controlled HTTP journey passes. Median observed transfer: **${(toolOutput.baselineMedianBytes / 1024).toFixed(1)} KB**.
 2. **Waste Identified**: Primary hotspot is hero JPEG image (\`${toolOutput.patchProposal.affectedResource}\`).
 3. **Patch Generated**: Proposing Next.js modern WebP picture element (\`${toolOutput.patchProposal.replacementResource}\`) with **${toolOutput.patchProposal.estimatedSavingPct}%** projected reduction.
 4. **Status**: Marked as \`${toolOutput.status}\`. Ready for candidate verification.`;
@@ -129,7 +130,7 @@ GUIDELINES:
       const isBroken = lower.includes("broken");
       const variant = isBroken ? "broken_candidate" : "candidate";
       toolUsed = `test_candidate({ experimentId: "${expId}", variant: "${variant}" })`;
-      toolOutput = await executeTestCandidate({ experimentId: expId, variant });
+      toolOutput = await executeTestCandidate({ experimentId: expId, variant, targetBaseUrl });
 
       if (toolOutput.outcome === "VERIFIED_IMPROVEMENT") {
         reply = `Verification PASSED for experiment **${toolOutput.experimentId}**:
@@ -156,7 +157,7 @@ GUIDELINES:
     if (lower.includes("evaluate release shield") || lower.includes("evaluate budget") || (lower.includes("budget") && (lower.includes("shield") || lower.includes("ci") || lower.includes("evaluate")))) {
       const variant = lower.includes("broken") ? "broken_candidate" : lower.includes("candidate") ? "candidate" : "baseline";
       toolUsed = `evaluate_budget({ variant: "${variant}" })`;
-      toolOutput = await executeEvaluateBudget({ variant });
+      toolOutput = await executeEvaluateBudget({ variant, targetBaseUrl });
 
       const statusIcon = toolOutput.passed ? "PASS" : toolOutput.isWarning ? "WARN" : "FAIL";
       reply = `CI Release Shield evaluation completed (Status: **${statusIcon}**, Mode: \`${toolOutput.mode}\`, Exit Code: \`${toolOutput.exitCode}\`):

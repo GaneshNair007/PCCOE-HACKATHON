@@ -22,6 +22,8 @@ The page compositions use light editorial headings, asymmetric chapters, ivory e
 
 ## Backend and production connection
 
+The package selects Node.js 24, matching the tested runtime and the AI SDK's Node.js 22+ requirement. Chat experiment, candidate and budget tools use the incoming site's origin in both grounded and Gemini execution, so production does not call a local development server.
+
 All repository consumers now await persistence. Local development keeps the existing file repository. Vercel uses a persistent Upstash-compatible Redis REST database with server-only `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` (or Vercel's `KV_REST_API_*` aliases). `CARBONTERRA_STORAGE_PREFIX` isolates environments.
 
 Shared storage covers audit telemetry, experiments, run evidence, approvals, verification and budgets. Record fields avoid unrelated-request overwrites; experiment field updates are atomic; empty arrays survive updates. Runs and verification records cannot be overwritten with different values. Storage errors propagate instead of reporting a successful durable write. `/api/health` checks the connection and reports HTTP 503 when production storage is missing or unavailable.

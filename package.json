@@ -2,6 +2,9 @@
   "name": "carbonerra-platform",
   "version": "2.0.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev -p 3001",
     "prepare:world": "node scripts/prepare-sylva-world.mjs",

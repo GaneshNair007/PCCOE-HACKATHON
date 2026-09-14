@@ -391,8 +391,9 @@ export async function executeGenerateReceipt(args: { experimentId: string }) {
   };
 }
 
-// Vercel AI SDK Tool Registry
-export const carbonerraAiTools = {
+// Bind controlled journey tools to this deployment, including serverless hosts.
+export function createCarbonerraAiTools(targetBaseUrl: string) {
+  return {
   investigate_audit: tool({
     description: "Audits a live public website URL using real network inspection or retrieves an existing immutable audit run.",
     inputSchema: investigateAuditSchema,
@@ -406,17 +407,17 @@ export const carbonerraAiTools = {
   prepare_experiment: tool({
     description: "Initiates a Savings Lab experiment: executes 3 baseline passes on a user journey, identifies payload waste, and prepares a reviewable code patch.",
     inputSchema: prepareExperimentSchema,
-    execute: async (args) => executePrepareExperiment(args),
+    execute: async (args) => executePrepareExperiment({ ...args, targetBaseUrl }),
   }),
   test_candidate: tool({
     description: "Executes 3 verification passes on a candidate variant and asserts critical user tasks still succeed with less transferred data.",
     inputSchema: testCandidateSchema,
-    execute: async (args) => executeTestCandidate(args),
+    execute: async (args) => executeTestCandidate({ ...args, targetBaseUrl }),
   }),
   evaluate_budget: tool({
     description: "Evaluates a release against CI Release Shield performance and digital carbon budget ceilings.",
     inputSchema: evaluateBudgetSchema,
-    execute: async (args) => executeEvaluateBudget(args),
+    execute: async (args) => executeEvaluateBudget({ ...args, targetBaseUrl }),
   }),
   simulate_scenario: tool({
     description: "Simulates digital carbon reductions using the Sustainable Web Design Model v4 against observed transfer data. Zero levers produce zero delta.",
@@ -428,4 +429,5 @@ export const carbonerraAiTools = {
     inputSchema: generateReceiptSchema,
     execute: async (args) => executeGenerateReceipt(args),
   }),
-};
+  };
+}
