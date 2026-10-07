@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700;800&display=swap');
 @font-face { font-family: 'Lexend'; src: url('/inner-green-assets/lexend-latin.woff2') format('woff2'); font-weight: 100 900; font-style: normal; font-display: swap; }
 @tailwind base;
 @tailwind components;
@@ -5,7 +6,8 @@
 /* CarbonTerra: colors and composition adapted from the approved Sylva hero. */
 :root {
   color-scheme: dark;
-  --font-display: 'Lexend', system-ui, sans-serif;
+  --font-ubuntu: 'Ubuntu', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Ubuntu', 'Lexend', system-ui, sans-serif;
   --font-body: 'Lexend', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-code: 'JetBrains Mono', Consolas, monospace;
   --canvas-rgb: 74 77 68;
@@ -82,7 +84,7 @@
 
 @layer base {
   body { min-width: 320px; -webkit-font-smoothing: antialiased; }
-  h1, h2, h3, h4 { font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+  h1, h2, h3, h4 { font-family: var(--font-ubuntu), 'Ubuntu', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
   button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
   input, textarea, select { font-size: max(1rem, 16px); }
   button { cursor: pointer; }
@@ -93,7 +95,31 @@
   pre { max-width: 100%; overflow-x: auto; tab-size: 2; }
   table { font-variant-numeric: tabular-nums; }
 }
-.font-display { font-family: var(--font-body); font-weight: 700; letter-spacing: .02em; text-transform: uppercase; }
+.font-display { font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; }
+
+/* Ubuntu font for headings that are in CAPITAL AND BOLD */
+h1[class*="uppercase"], h1.uppercase,
+h2[class*="uppercase"], h2.uppercase,
+h3[class*="uppercase"], h3.uppercase,
+h4[class*="uppercase"], h4.uppercase,
+h5[class*="uppercase"], h5.uppercase,
+h6[class*="uppercase"], h6.uppercase,
+h1[class*="font-bold"][class*="uppercase"],
+h2[class*="font-bold"][class*="uppercase"],
+h3[class*="font-bold"][class*="uppercase"],
+h4[class*="font-bold"][class*="uppercase"],
+h1[class*="uppercase"][class*="font-bold"],
+h2[class*="uppercase"][class*="font-bold"],
+h3[class*="uppercase"][class*="font-bold"],
+h4[class*="uppercase"][class*="font-bold"],
+[role="heading"][class*="uppercase"][class*="font-bold"],
+[role="heading"][class*="font-bold"][class*="uppercase"],
+.font-display[class*="uppercase"],
+.font-display.uppercase {
+  font-family: var(--font-ubuntu), 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
 .glass-panel, .gradient-border { background: var(--color-surface); border: 1px solid rgb(var(--border-rgb)); box-shadow: var(--shadow-card); }
 .glass-panel-elevated, .gradient-border-emerald { background: var(--color-surface-elevated); border: 1px solid #626c59; box-shadow: var(--shadow-floating); }
 .tech-frame::before, .tech-frame::after, [data-spec]::after { content: none; }

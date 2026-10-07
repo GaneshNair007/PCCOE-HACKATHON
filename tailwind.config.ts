@@ -37,7 +37,8 @@ const config: Config = {
         cream: "rgb(var(--cream-rgb) / <alpha-value>)",
       },
       fontFamily: {
-        display: ["var(--font-display)", "sans-serif"],
+        ubuntu: ["var(--font-ubuntu)", "Ubuntu", "sans-serif"],
+        display: ["var(--font-ubuntu)", "Ubuntu", "var(--font-display)", "sans-serif"],
         sans: ["Lexend", "Inter", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
         lexend: ["Lexend", "sans-serif"],
