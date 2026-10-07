@@ -101,8 +101,8 @@ export function SylvaHero({
           </span>
 
           {/* Headline */}
-          <h1 id="hero-headline" className="headline" style={{ ["--pd" as any]: 18, ["--pr" as any]: 1.2 }}>
-            <span><i style={{ ["--d" as any]: "260ms" }}>Audit the carbon</i></span>
+          <h1 id="hero-headline" className="headline font-bold uppercase" style={{ ["--pd" as any]: 18, ["--pr" as any]: 1.2 }}>
+            <span><i style={{ ["--d" as any]: "260ms" }}>Audit the carbon </i></span>
             <span><i style={{ ["--d" as any]: "360ms" }}>behind every byte</i></span>
           </h1>
 

@@ -71,8 +71,18 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .ct-menu-link:hover, .ct-menu-link.is-active { background: rgba(203, 255, 0, 0.12); border-color: rgba(203, 255, 0, 0.35); color: #cbff00; transform: translateY(-1px); box-shadow: 0 4px 15px -2px rgba(0, 0, 0, 0.3); }
 .world-hero.sylva-hero { background: transparent; min-height: 900px; height: 100svh; overflow: visible; }
 .world-hero.sylva-hero::after { display: none; }
-.world-hero .headline { font-family: 'Lexend',sans-serif; font-weight: 300; }
-.world-hero .headline span { font-weight: 300; letter-spacing: -.006em; }
+.world-hero .headline {
+  font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+}
+.world-hero .headline span,
+.world-hero .headline span i {
+  font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+}
 .world-hero .lede { font-size: 16.5px; font-weight: 300; color: #e4e8df; }
 .world-hero .card { box-shadow: 0 35px 75px -25px #1c2c184f; border-radius: 36px; }
 .world-hero .card p, .world-hero .card h2 { font-weight: 300; }
