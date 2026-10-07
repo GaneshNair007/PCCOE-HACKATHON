@@ -5,13 +5,21 @@ import { generateEventHeroImagePatch } from "@/lib/runner/image-patch";
 import { Experiment } from "@/lib/storage/types";
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const projectId = searchParams.get("projectId") || undefined;
-  const experiments = await StorageRepository.listExperiments(projectId);
-  return NextResponse.json({
-    status: "success",
-    experiments,
-  });
+  try {
+    const { searchParams } = new URL(req.url);
+    const projectId = searchParams.get("projectId") || undefined;
+    const experiments = await StorageRepository.listExperiments(projectId);
+    return NextResponse.json({
+      status: "success",
+      experiments,
+    });
+  } catch (err: any) {
+    return NextResponse.json({
+      status: "error",
+      message: err.message || "Failed to list experiments",
+      experiments: [],
+    }, { status: 500 });
+  }
 }
 
 export async function POST(req: NextRequest) {

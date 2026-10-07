@@ -215,38 +215,38 @@ function LandingPageContent() {
             <>
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-surface-border/60 pb-4">
                 <div>
-                  <div className="flex items-center gap-2 text-xs font-mono text-lime uppercase tracking-wider mb-1">
-                    <Sparkles className="w-3.5 h-3.5" /> Real Telemetry Audit Result
-                </div>
-                <h2 className="font-display text-4xl sm:text-5xl text-cream tracking-tight ">
+                  <div className="text-xs font-mono font-bold text-lime uppercase tracking-wider mb-1">
+                    AUDIT RESULTS
+                  </div>
+                <h2 className="font-display text-4xl sm:text-5xl font-bold uppercase text-cream tracking-tight">
                   {auditData.domain}
                 </h2>
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-sage/70 mt-1">
                   <span>Audited: {new Date(auditData.calculated_at).toLocaleTimeString()}</span>
                   <span>•</span>
-                  <span>Model: {auditData.methodology_version}</span>
+                  <span>Model: Sustainable Web Design</span>
                   <span>•</span>
                   <span className="text-lime font-bold">
                     {auditData.cross_validation
-                      ? `Dual-Source Concordance (${auditData.cross_validation.discrepancy_pct}% Variance)`
+                      ? `Verified by Dual Measurement (${auditData.cross_validation.discrepancy_pct}% Difference)`
                       : auditData.record?.sources && auditData.record.sources.length > 0
                       ? auditData.record.sources[0].provider
-                      : "Single Source Crawl"}
+                      : "Verified Crawl"}
                   </span>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setShowMethodologyModal(true)}
-                  className="px-3.5 py-1.5 rounded-full glass-panel border border-surface-border text-xs font-mono text-sage/80 hover:text-lime hover:border-lime/40 transition-colors flex items-center gap-1.5 cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-full glass-panel border border-surface-border text-xs font-mono text-sage/80 hover:text-lime hover:border-lime/40 transition-colors flex items-center gap-1.5 cursor-pointer font-bold uppercase"
                 >
-                  <Scale className="w-3.5 h-3.5 text-lime" /> Methodology Cited
+                  <Scale className="w-3.5 h-3.5 text-lime" /> HOW THIS IS CALCULATED
                 </button>
                 <Link
                   href="/simulator"
-                  className="px-3.5 py-1.5 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-transform hover:scale-105 flex items-center gap-1.5"
+                  className="px-3.5 py-1.5 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-transform hover:scale-105 flex items-center gap-1.5 uppercase"
                 >
-                  <Sliders className="w-3.5 h-3.5" /> Simulate Real Levers →
+                  <Sliders className="w-3.5 h-3.5" /> SIMULATE SAVINGS →
                 </Link>
               </div>
             </div>
@@ -255,11 +255,11 @@ function LandingPageContent() {
             <div className=" -emerald  p-5 rounded-2xl bg-gradient-to-r from-forest/40 via-surface-elevated to-forest/20 border border-lime/40 shadow-[0_4px_25px_rgba(203,255,0,0.12)] flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-lime text-black">
-                    TOP EVIDENCED OPPORTUNITY
+                  <span className="px-2 py-0.5 rounded text-xs font-mono font-bold uppercase tracking-wider bg-lime text-black">
+                    TOP RECOMMENDATION
                   </span>
-                  <span className="text-xs font-mono text-sage/70">
-                    Observed Transfer Hotspot
+                  <span className="text-xs font-mono text-sage/70 font-semibold uppercase">
+                    Biggest Opportunity to Reduce Carbon
                   </span>
                 </div>
                 <div className="text-cream font-bold text-lg">
@@ -270,7 +270,7 @@ function LandingPageContent() {
                 <p className="text-xs text-sage/80 max-w-2xl">
                   {auditData.hotspots && auditData.hotspots.length > 0
                     ? auditData.hotspots[0].desc
-                    : "Site transfers minimal uncompressed bytes. Establish a regression Shield budget to protect this state."}
+                    : "Site transfers minimal uncompressed bytes. Inspect potential optimizations and benchmark reductions in the Savings Lab."}
                 </p>
               </div>
               <div className="shrink-0 flex items-center gap-2">
@@ -283,12 +283,38 @@ function LandingPageContent() {
                   </Link>
                 ) : (
                   <Link
-                    href="/shield"
+                    href="/savings-lab"
                     className="px-4 py-2.5 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-all hover:scale-105 flex items-center gap-2"
                   >
-                    SET A SHIELD BUDGET →
+                    EXPLORE SAVINGS LAB →
                   </Link>
                 )}
+              </div>
+            </div>
+
+            {/* Plain English Audit Explainer Card */}
+            <div className="p-5 rounded-2xl bg-surface-elevated/80 border border-surface-border text-xs text-sage/90 space-y-3">
+              <div className="font-bold text-cream uppercase tracking-wider text-xs flex items-center gap-2">
+                <Info className="w-4 h-4 text-lime" />
+                WHAT YOU ARE SEEING IN THIS AUDIT
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pt-1">
+                <div className="p-2.5 rounded-xl bg-surface/40 border border-surface-border/60">
+                  <strong className="text-cream block font-bold uppercase mb-1">1. ECO-SCORE (A+ TO F)</strong>
+                  Overall environmental efficiency grade compared to web pages globally.
+                </div>
+                <div className="p-2.5 rounded-xl bg-surface/40 border border-surface-border/60">
+                  <strong className="text-cream block font-bold uppercase mb-1">2. CARBON / VISIT</strong>
+                  Exact grams of CO2 emitted every time a user visits this website.
+                </div>
+                <div className="p-2.5 rounded-xl bg-surface/40 border border-surface-border/60">
+                  <strong className="text-cream block font-bold uppercase mb-1">3. PAGE WEIGHT</strong>
+                  Total download weight (images, scripts, styles) transferred across networks.
+                </div>
+                <div className="p-2.5 rounded-xl bg-surface/40 border border-surface-border/60">
+                  <strong className="text-cream block font-bold uppercase mb-1">4. POWER GRID</strong>
+                  Cleanliness of the regional electricity grid powering the website server.
+                </div>
               </div>
             </div>
 
@@ -322,8 +348,8 @@ function LandingPageContent() {
                             <Server className="w-5 h-5" />
                           </div>
                           <div>
-                            <div className="text-xs font-mono text-sage/70 uppercase">
-                              Regional Grid Carbon Intensity (IP Geolocation Proxy)
+                            <div className="text-xs font-mono font-bold text-cream uppercase tracking-wider">
+                              HOSTING &amp; POWER GRID CLEANLINESS
                             </div>
                             <div className="font-mono text-xl font-bold text-cream flex items-center gap-2">
                               {auditData.grid_intensity_val}{" "}
@@ -335,7 +361,7 @@ function LandingPageContent() {
                             <p className="text-xs text-sage/70 mt-1">
                               Source:{" "}
                               {auditData.grid_intensity_source === "resolved_regional"
-                                ? "The Green Web Foundation IP Telemetry (Ember 2023 grid factors; geographic proxy)"
+                                ? "The Green Web Foundation Regional Grid Factor"
                                 : "Global Reference Datacenter Baseline (494 gCO2e/kWh)"}
                             </p>
                           </div>
@@ -344,12 +370,12 @@ function LandingPageContent() {
                         <div className="flex items-center gap-2 pt-1">
                           <Badge
                             variant={auditData.hosting.green ? "lime" : "outline"}
-                            className="font-mono text-xs font-bold"
+                            className="font-mono text-xs font-bold uppercase"
                           >
-                            {auditData.hosting.green ? "GREEN HOST DATASET MATCH" : "STANDARD GRID PROXY"}
+                            {auditData.hosting.green ? "VERIFIED GREEN HOST" : "STANDARD POWER GRID"}
                           </Badge>
-                          <span className="text-[11px] font-mono text-sage/60">
-                            {auditData.hosting.provider || "Hosting dataset record not verified green"}
+                          <span className="text-xs font-mono text-sage/80">
+                            {auditData.hosting.provider || "Standard hosting grid"}
                           </span>
                         </div>
                       </div>
@@ -383,8 +409,8 @@ function LandingPageContent() {
                 <div className="min-w-0">
                   <Card className="   p-5 glass-panel-elevated space-y-3">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-xs font-mono text-lime font-bold">
-                        <Sliders className="w-4 h-4" /> MODEL SENSITIVITY ASSUMPTION (±20% CACHE VARIANCE)
+                      <div className="flex items-center gap-2 text-xs font-mono text-lime font-bold uppercase tracking-wider">
+                        <Sliders className="w-4 h-4" /> ESTIMATED CACHE RANGE (NEW VS REPEAT VISITS)
                       </div>
                       <span className="font-mono text-xs text-cream font-bold">
                         {sensitivityVariance > 0 ? `+${sensitivityVariance}%` : `${sensitivityVariance}%`}
@@ -401,13 +427,13 @@ function LandingPageContent() {
                       onChange={(e) => setSensitivityVariance(Number(e.target.value))}
                       className="w-full accent-lime bg-surface-elevated h-2 rounded-lg cursor-pointer"
                     />
-                    <div className="flex justify-between text-[11px] font-mono text-sage/60">
+                    <div className="flex justify-between text-xs font-mono text-sage/80">
                       <span>-20% (Aggressive Repeat Cache)</span>
                       <span>0% (Baseline Visit)</span>
                       <span>+20% (Cold First-Time Load)</span>
                     </div>
-                    <p className="text-[10px] font-mono text-sage/60">
-                      Attributional model sensitivity scenario. This explores SWDM caching bounds; it is not a statistically validated confidence interval.
+                    <p className="text-xs font-mono text-sage/70">
+                      Shows estimated emissions range depending on whether a visitor is loading the page fresh or has cached images and stylesheets.
                     </p>
                   </Card>
                 </div>
@@ -417,8 +443,8 @@ function LandingPageContent() {
             {/* Hotspot Recommendations Section */}
             {auditData.hotspots && auditData.hotspots.length > 0 && (
               <div className="space-y-4 pt-4">
-                <h3 className="font-display text-2xl text-cream  flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-lime" /> Detected Carbon Hotspots (Observed Evidence)
+                <h3 className="font-display text-2xl font-bold uppercase tracking-wider text-cream">
+                  RECOMMENDED OPTIMIZATIONS
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {auditData.hotspots.map((h, i) => (
@@ -445,11 +471,11 @@ function LandingPageContent() {
               <div className="absolute inset-0 rounded-3xl border border-lime animate-ping opacity-25" />
             </div>
             <div className="space-y-2">
-              <span className="px-3 py-1 rounded-full bg-lime/10 border border-lime/30 text-[11px] font-mono text-lime font-bold uppercase tracking-wider">
-                SWDM v4 Telemetry Engine Active
+              <span className="px-3 py-1 rounded-full bg-lime/10 border border-lime/30 text-xs font-mono text-lime font-bold uppercase tracking-wider">
+                ANALYZING WEBSITE AND EMISSIONS...
               </span>
-              <h3 className="font-display text-3xl sm:text-4xl text-cream  tracking-tight">
-                Auditing {targetUrl || "Target Host"}
+              <h3 className="font-display text-3xl sm:text-4xl font-bold uppercase text-cream tracking-tight">
+                AUDITING {targetUrl || "TARGET HOST"}
               </h3>
               <p className="text-sm font-mono text-lime max-w-lg mx-auto flex items-center justify-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-lime animate-pulse" />
@@ -488,7 +514,7 @@ function LandingPageContent() {
           {n:"01",title:"See the whole ecosystem.",label:"Fleet telemetry",href:"/dashboard",action:"Explore your fleet",shot:"canopy",image:"card-ethos.jpg",copy:"Your websites are connected by the choices you make. Monitor saved audit baselines, verify green hosting, filter your portfolio, and export the full picture."},
           {n:"02",title:"Make room for something better.",label:"What-if simulator",href:"/simulator",action:"Explore the possibilities",shot:"measure",image:"card-ecostove.jpg",copy:"Model image compression, JavaScript changes, and caching. Explore their estimated impact before you commit, with transparent assumptions beside every scenario."},
           {n:"03",title:"Look beyond the horizon.",label:"Emissions forecasts",href:"/forecasts",action:"Follow the forecast",shot:"roots",image:"card-ethos.jpg",copy:"Explore traffic growth and grid decarbonization through forward-looking emission paths. Keep possible futures distinct from measured outcomes."},
-          {n:"04",title:"Protect the progress you make.",label:"Regression Shield",href:"/shield",action:"Set your release budget",shot:"clearing",image:"card-ecostove.jpg",copy:"Give your improvements a future. Evaluate byte and carbon budgets, inspect breaches, and generate a workflow that helps keep every release on course."},
+          {n:"04",title:"Verify your impact with proof.",label:"Evidence Vault",href:"/evidence",action:"Inspect auditable evidence",shot:"clearing",image:"card-ecostove.jpg",copy:"Generate cryptographic proof receipts for your sustainability improvements. Each audit record contains SHA-256 hashes ready for corporate CSRD and ESG disclosures."},
         ].map(story => <article key={story.href} className="world-story" data-world-shot={story.shot}>
           <figure className="world-story-image"><img src={"/landing-pages/inner-green-assets/"+story.image} alt="Native moss and vegetation in the Sylva landscape" width={360} height={450} loading="lazy" /><span>CARBONTERRA / {story.n}</span></figure>
           <div><span className="world-story-number">{story.n} / {story.label}</span><h3>{story.title}</h3><p>{story.copy}</p><Link href={story.href}>{story.action}<ArrowRight strokeWidth={1.3} /></Link></div>

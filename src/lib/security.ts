@@ -2,9 +2,17 @@ import dns from "dns/promises";
 
 export interface ResolvedTarget {
   normalizedUrl: string;
+  auditTargetUrl?: string;
   domain: string;
   resolvedIp: string;
 }
+
+// Canonical public product sites for naked domains that enforce authentication redirects
+export const CANONICAL_PUBLIC_TARGETS: Record<string, string> = {
+  "gmail.com": "https://www.google.com/gmail/about/",
+  "mail.google.com": "https://www.google.com/gmail/about/",
+  "www.gmail.com": "https://www.google.com/gmail/about/",
+};
 
 // In-memory sliding window rate limiter
 interface RateLimitBucket {
@@ -185,6 +193,7 @@ export async function validateAndResolveUrl(rawUrl: string): Promise<ResolvedTar
 
   return {
     normalizedUrl: parsed.toString(),
+    auditTargetUrl: CANONICAL_PUBLIC_TARGETS[hostname],
     domain: hostname,
     resolvedIp,
   };

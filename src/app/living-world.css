@@ -59,9 +59,9 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .world-workspace .ct-button { border-radius: 99px; font-family: var(--font-body); font-size: 13px; font-weight: 400; text-transform: none; letter-spacing: -.02em; padding-inline: 22px; }
 .ct-nav-bar { background: #283020a8; border-color: #edf3d924; backdrop-filter: blur(25px); box-shadow: 0 18px 40px -20px #1521119e; }
 .ct-navigation { top: 22px; width: calc(100% - 2 * var(--page-gutter)); max-width: 1300px; }
-.ct-nav-link, .ct-brand { font-weight: 300; }
-.ct-nav-menu { background: #eef1e7f2; backdrop-filter: blur(26px); padding: 20px; gap: 7px; }
-.ct-menu-link { padding: 19px 17px; border-bottom: 1px solid #35412724; border-radius: 12px; font-size: 17px; font-weight: 300; }
+.ct-nav-menu { background: rgba(28, 38, 24, 0.88); border: 1px solid rgba(220, 245, 180, 0.18); backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%); padding: 18px; gap: 8px; border-radius: 24px; box-shadow: 0 30px 70px -15px rgba(10, 18, 8, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12); }
+.ct-menu-link { padding: 16px 18px; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; font-size: 16px; font-weight: 300; color: #e4eadb; background: rgba(255, 255, 255, 0.04); transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.ct-menu-link:hover, .ct-menu-link.is-active { background: rgba(203, 255, 0, 0.12); border-color: rgba(203, 255, 0, 0.35); color: #cbff00; transform: translateY(-1px); box-shadow: 0 4px 15px -2px rgba(0, 0, 0, 0.3); }
 .world-hero.sylva-hero { background: transparent; min-height: 900px; height: 100svh; overflow: visible; }
 .world-hero.sylva-hero::after { display: none; }
 .world-hero .headline { font-family: 'Lexend',sans-serif; font-weight: 300; }
@@ -151,9 +151,9 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .world-footer-invitation h2 { color: #fff; font-weight: 300; font-size: clamp(46px,7.8vw,112px); line-height: 1; letter-spacing: -.055em; margin: 25px 0 35px; text-wrap: balance; }
 .world-footer-invitation a { display: inline-flex; gap: 22px; align-items: center; border-bottom: 1px solid #eaf1da70; min-height: 48px; }
 .world-footer-content { background: #2b3828b8; padding: clamp(28px,4vw,60px); border-radius: 36px; backdrop-filter: blur(20px); border: 1px solid #eaf2d52e; }
-.world-footer-wordmark { font-size: clamp(70px,15.5vw,230px); line-height: .85; letter-spacing: -.08em; color: #eff3e7; font-weight: 300; text-align: center; margin-top: 85px; overflow-wrap: anywhere; }
 .ct-chat-panel { background: #2e3b28ee !important; backdrop-filter: blur(25px); border-color: #eaf2db30 !important; box-shadow: var(--world-shadow) !important; }
-.ct-chat-launcher { background: #edf2e1 !important; color: #344826 !important; border-color: #fff8 !important; box-shadow: var(--world-shadow) !important; }
+.ct-chat-launcher-btn { background: rgba(36, 48, 30, 0.92) !important; color: #cbff00 !important; border: 1px solid rgba(203, 255, 0, 0.35) !important; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-radius: 9999px !important; box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(203, 255, 0, 0.2) !important; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important; }
+.ct-chat-launcher-btn:hover { background: rgba(46, 62, 38, 0.98) !important; border-color: rgba(203, 255, 0, 0.7) !important; box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.7), 0 0 28px rgba(203, 255, 0, 0.35) !important; transform: translateY(-2px) scale(1.05); }
 @media(min-width:1500px){.world-hero.sylva-hero{min-height:960px}}
 @media(max-width:1023px){
   .ct-navigation{max-width:none}.world-location{top:102px;font-size:9px}.world-journey{display:none}.world-motion-controls{top:auto;bottom:25px;left:24px;right:auto}

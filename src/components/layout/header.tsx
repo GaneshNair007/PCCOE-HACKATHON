@@ -5,11 +5,13 @@ import { usePathname } from "next/navigation";
 import { Leaf, Menu, X, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 const destinations = [
-  { label: "Scanner", href: "/" }, { label: "Savings Lab", href: "/savings-lab" },
-  { label: "Evidence", href: "/evidence" }, { label: "Fleet", href: "/dashboard" },
-  { label: "Simulator", href: "/simulator" }, { label: "Forecasts", href: "/forecasts" },
-  { label: "Fix Hub", href: "/fix-hub" }, { label: "Shield", href: "/shield" },
-  { label: "Campus demo", href: "/demo/event" },
+  { label: "Scanner", href: "/" },
+  { label: "Savings Lab", href: "/savings-lab" },
+  { label: "Evidence", href: "/evidence" },
+  { label: "Fleet", href: "/dashboard" },
+  { label: "Simulator", href: "/simulator" },
+  { label: "Forecasts", href: "/forecasts" },
+  { label: "Fix Hub", href: "/fix-hub" },
 ];
 export function Header() {
   const pathname = usePathname();

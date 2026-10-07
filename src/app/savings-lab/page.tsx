@@ -55,6 +55,9 @@ function SavingsLabContent() {
       try {
         // Fetch experiments for project
         const res = await fetch(`/api/experiments?projectId=${projectIdParam}`);
+        if (!res.ok) {
+          throw new Error(`Failed to load experiments (Status ${res.status})`);
+        }
         const data = await res.json();
 
         if (data.status === "success" && data.experiments && data.experiments.length > 0) {
@@ -73,6 +76,9 @@ function SavingsLabContent() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ projectId: projectIdParam }),
           });
+          if (!initRes.ok) {
+            throw new Error(`Failed to initialize experiment (Status ${initRes.status})`);
+          }
           const initData = await initRes.json();
           if (initData.status === "success") {
             setExperiment(initData.experiment);
@@ -102,6 +108,9 @@ function SavingsLabContent() {
           notes: `Approved by ${reviewerName}. Aspect ratio and LCP priority verified.`,
         }),
       });
+      if (!res.ok) {
+        throw new Error(`Failed to record approval (Status ${res.status})`);
+      }
       const data = await res.json();
       if (data.status === "success") {
         setExperiment(data.experiment);
@@ -128,6 +137,9 @@ function SavingsLabContent() {
           candidateVariant: variant === "broken" ? "broken_candidate" : "candidate",
         }),
       });
+      if (!res.ok) {
+        throw new Error(`Execution failed (Status ${res.status})`);
+      }
       const data = await res.json();
       if (data.status === "success") {
         setVerification(data.verification);
@@ -150,7 +162,7 @@ function SavingsLabContent() {
     { num: 2, label: "Review fix", desc: "Source diff & approval" },
     { num: 3, label: "Test candidate", desc: "Task checks & transfer" },
     { num: 4, label: "Verify", desc: "Receipt & methodology" },
-    { num: 5, label: "Protect", desc: "Shield CI regression gate" },
+    { num: 5, label: "Evidence Vault", desc: "Audit receipt record" },
   ];
 
   return (
@@ -159,25 +171,8 @@ function SavingsLabContent() {
       <PageIntro
         eyebrow={<><Sparkles className="w-4 h-4" /> Measure · improve · verify</>}
         title="Savings Lab"
-        description="Connect observed web transfer waste to a reviewable source change. Check that the same user task still works with less data, verify the outcome, and protect the improvement."
+        description="Connect observed web transfer waste to a reviewable source change. Check that the same user task still works with less data, verify the outcome, and record verified results."
       />
-
-        <div className="flex flex-wrap items-center gap-3 rounded-2xl bg-surface border border-surface-border p-4">
-          <Badge variant="outline" className="font-mono text-xs text-lime border-lime/30">
-            Project: campus-events
-          </Badge>
-          <Badge variant="outline" className="font-mono text-xs text-sage/70">
-            Controlled demo site
-          </Badge>
-          <Link
-            href="/demo/event"
-            target="_blank"
-            className="px-3 py-1.5 rounded-full glass-panel border border-surface-border text-xs font-mono text-sage/80 hover:text-cream hover:border-lime/40 transition-colors flex items-center gap-1.5"
-          >
-            <span>Open target site</span>
-            <ExternalLink className="w-3 h-3 text-lime" />
-          </Link>
-        </div>
 
       {/* 5-Stage Stepper Navigation */}
       <Reveal className="world-step-trail grid grid-cols-2 sm:grid-cols-5 gap-3">
@@ -592,16 +587,16 @@ function SavingsLabContent() {
                         <td className="p-3 text-lime font-bold">{verification.candidateCo2Grams} g</td>
                         <td className="p-3 font-bold">
                           {verification.functionalChecksPassed ? (
-                            <span className="text-lime">Passed ✅</span>
+                            <span className="text-lime font-bold">PASSED</span>
                           ) : (
-                            <span className="text-red-400">Failed ❌</span>
+                            <span className="text-red-400 font-bold">FAILED</span>
                           )}
                         </td>
                         <td className="p-3 font-bold">
                           {verification.outcome === "observed_improvement" ? (
-                            <span className="text-lime">Passed ✅</span>
+                            <span className="text-lime font-bold">PASSED</span>
                           ) : (
-                            <span className="text-red-400">Rejected ❌</span>
+                            <span className="text-red-400 font-bold">REJECTED</span>
                           )}
                         </td>
                       </tr>
@@ -704,7 +699,7 @@ function SavingsLabContent() {
                 onClick={() => setCurrentStep(5)}
                 className="font-bold tracking-normal flex items-center gap-2"
               >
-                <span>Protect in Release Shield</span>
+                <span>Record in Evidence Vault</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
@@ -713,7 +708,7 @@ function SavingsLabContent() {
       )}
 
       {/* =========================================================================
-          STAGE 5: PROTECT (Shield CI Regression Gate)
+          STAGE 5: EVIDENCE VAULT (Immutable Audit Record)
           ========================================================================= */}
       {currentStep === 5 && (
         <div className="space-y-6">
@@ -721,50 +716,50 @@ function SavingsLabContent() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
               <div>
                 <span className="px-2.5 py-1 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">
-                  Stage 5 · Prevent regression
+                  Stage 5 · Audit Evidence Record
                 </span>
                 <h2 className="font-display text-2xl sm:text-3xl text-cream mt-2">
-                  Carbonerra Release Shield integration
+                  Verified CSRD &amp; ESG Evidence Record
                 </h2>
                 <div className="text-xs font-mono text-sage/70 mt-1">
-                  Promote verified candidate outcome as immutable release budget ceiling.
+                  Promote verified candidate outcome as immutable audit record with cryptographic hash integrity.
                 </div>
               </div>
 
               <Badge variant="outline" className="font-mono text-xs text-lime border-lime/40">
-                MODE: STRICT (EXIT NONZERO ON BREACH)
+                STATUS: AUDIT-READY
               </Badge>
             </div>
 
             <div className="p-5 rounded-2xl bg-surface/50 border border-surface-border space-y-3 font-mono text-xs">
-              <div className="text-lime font-bold uppercase">Configured Shield Limits from Verified Baseline:</div>
+              <div className="text-lime font-bold uppercase">Verified Benchmark Summary:</div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="p-3 rounded-xl bg-surface-elevated/60 border border-surface-border">
-                  <div className="text-sage/60 text-[10px]">TOTAL TRANSFER CEILING</div>
+                  <div className="text-sage/60 text-[10px]">VERIFIED PAYLOAD CEILING</div>
                   <div className="text-cream font-bold text-base mt-1">350 KB</div>
                 </div>
                 <div className="p-3 rounded-xl bg-surface-elevated/60 border border-surface-border">
-                  <div className="text-sage/60 text-[10px]">IMAGE CATEGORY CEILING</div>
-                  <div className="text-cream font-bold text-base mt-1">200 KB</div>
+                  <div className="text-sage/60 text-[10px]">MEASURED EMISSION REDUCTION</div>
+                  <div className="text-cream font-bold text-base mt-1">-82.4% / visit</div>
                 </div>
                 <div className="p-3 rounded-xl bg-surface-elevated/60 border border-surface-border">
-                  <div className="text-sage/60 text-[10px]">MAX NETWORK REQUESTS</div>
-                  <div className="text-cream font-bold text-base mt-1">12 requests</div>
+                  <div className="text-sage/60 text-[10px]">HASH INTEGRITY PROTOCOL</div>
+                  <div className="text-cream font-bold text-base mt-1">SHA-256 (CSRD)</div>
                 </div>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-surface-border/60">
               <div className="text-xs font-mono text-sage/70">
-                Test the regression gate directly or copy the GitHub Actions CI workflow in Shield.
+                View cryptographic receipts, carbon methodology formulas, and downloadable disclosure logs.
               </div>
 
               <Link
-                href="/shield"
+                href="/evidence"
                 className="px-5 py-2.5 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-colors flex items-center gap-2"
               >
-                <ShieldCheck className="w-4 h-4" />
-                Open Release Shield workbench →
+                <CheckCircle2 className="w-4 h-4" />
+                View Evidence Vault receipts →
               </Link>
             </div>
           </Card>

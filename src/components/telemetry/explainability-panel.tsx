@@ -46,16 +46,16 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
         <div>
           <div className="flex items-center gap-2 text-xs font-mono text-lime uppercase tracking-wider mb-1">
             <Scale className="w-4 h-4 text-lime" />
-            <span>Human-AI Explainability & Provenance</span>
-            <span className="bg-surface-elevated px-2 py-0.5 rounded text-xs text-cream border border-surface-border font-mono">
-              Google PAIR • IBM Carbon for AI
+            <span className="font-bold">HOW THIS IS CALCULATED</span>
+            <span className="bg-surface-elevated px-2 py-0.5 rounded text-xs text-cream border border-surface-border font-mono font-bold uppercase">
+              SUSTAINABLE WEB DESIGN STANDARD
             </span>
           </div>
-          <h3 className="font-display text-2xl sm:text-3xl text-cream ">
-            Score Lineage & Scientific Basis
+          <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase text-cream tracking-tight">
+            SCIENTIFIC METHODOLOGY &amp; EMISSIONS FORMULA
           </h3>
           <p className="text-xs text-sage/75 mt-1 max-w-xl">
-            Every metric in Carbonerra is auditable. Inspect the exact physics formulas, regional grid data lineage, and caching boundaries used for{" "}
+            Every metric in Carbonerra is auditable. Inspect the formulas, regional grid electricity factors, and caching boundaries used for{" "}
             <span className="text-lime font-mono font-bold">{auditData.domain}</span>.
           </p>
         </div>
@@ -63,7 +63,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
         <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="px-3 py-1.5 rounded-xl bg-surface-elevated border border-surface-border text-xs font-mono text-cream hover:text-lime hover:border-lime/40 transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-1.5 rounded-xl bg-surface-elevated border border-surface-border text-xs font-mono text-cream hover:text-lime hover:border-lime/40 transition-all flex items-center gap-1.5 cursor-pointer font-bold uppercase"
           >
             {isExpanded ? (
               <>
@@ -83,10 +83,10 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
           {/* Navigation Tabs */}
           <div className="flex flex-wrap gap-2">
             {[
-              { id: "formula", label: "1. Energy Formula (SWDM v4)", icon: <Zap className="w-3.5 h-3.5" /> },
-              { id: "provenance", label: "2. Datacenter Grid Lineage", icon: <Server className="w-3.5 h-3.5" /> },
-              { id: "caching", label: "3. Uncertainty & Cache Bounds", icon: <Layers className="w-3.5 h-3.5" /> },
-              { id: "limitations", label: "4. Explicit Limitations", icon: <Info className="w-3.5 h-3.5" /> },
+              { id: "formula", label: "1. Emissions Formula", icon: <Zap className="w-3.5 h-3.5" /> },
+              { id: "provenance", label: "2. Server & Grid Lineage", icon: <Server className="w-3.5 h-3.5" /> },
+              { id: "caching", label: "3. Cache & Repeat Visits", icon: <Layers className="w-3.5 h-3.5" /> },
+              { id: "limitations", label: "4. Measurement Notes", icon: <Info className="w-3.5 h-3.5" /> },
             ].map((tab) => {
               const isSelected = activeTab === tab.id;
               return (

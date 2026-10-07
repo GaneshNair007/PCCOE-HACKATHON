@@ -244,6 +244,10 @@ async function fetchSource2Independent(
       };
     }
 
+    if (res.url) {
+      finalUrl = res.url;
+    }
+
     const htmlBuffer = await res.arrayBuffer();
     const htmlBytes = htmlBuffer.byteLength;
     const htmlText = Buffer.from(htmlBuffer).toString("utf-8");
@@ -532,7 +536,8 @@ export async function performAudit(rawTargetUrl: string): Promise<AuditResult> {
   const startedAt = new Date().toISOString();
 
   // 1. SSRF Validation & Safe DNS Resolution
-  const { normalizedUrl, domain, resolvedIp } = await validateAndResolveUrl(rawTargetUrl);
+  const { normalizedUrl, domain, resolvedIp, auditTargetUrl } = await validateAndResolveUrl(rawTargetUrl);
+  const targetForAudit = auditTargetUrl || normalizedUrl;
 
   // 2. Check 5-minute memory cache
   const cached = auditCache.get(normalizedUrl);
@@ -548,8 +553,8 @@ export async function performAudit(rawTargetUrl: string): Promise<AuditResult> {
 
   // 4. Source 1 (PageSpeed Insights v5) & Source 2 (Independent Raw Fetch) in parallel
   const [source1Res, source2Res] = await Promise.all([
-    fetchSource1PageSpeed(normalizedUrl, greenHosting.is_green, regionalGrid.intensity),
-    fetchSource2Independent(normalizedUrl),
+    fetchSource1PageSpeed(targetForAudit, greenHosting.is_green, regionalGrid.intensity),
+    fetchSource2Independent(targetForAudit),
   ]);
 
   const sources: AuditSourceResult[] = [

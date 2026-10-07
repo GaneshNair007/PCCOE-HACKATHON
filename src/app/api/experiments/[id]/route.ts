@@ -14,8 +14,8 @@ export async function GET(
     );
   }
 
-  const baselineRuns = (await Promise.all(experiment.baselineRunIds.map((id) => StorageRepository.getRun(id)))).filter(Boolean);
-  const candidateRuns = (await Promise.all(experiment.candidateRunIds.map((id) => StorageRepository.getRun(id)))).filter(Boolean);
+  const baselineRuns = (await Promise.all((experiment.baselineRunIds || []).map((id: string) => StorageRepository.getRun(id)))).filter(Boolean);
+  const candidateRuns = (await Promise.all((experiment.candidateRunIds || []).map((id: string) => StorageRepository.getRun(id)))).filter(Boolean);
   const verification = await StorageRepository.getVerificationByExperiment(experiment.id);
   const patch = generateEventHeroImagePatch(experiment.id);
 

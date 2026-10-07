@@ -82,8 +82,8 @@ export function SylvaHero({
                 />
               </span>
             </figure>
-            <p className="label">Dual-Source Engine</p>
-            <h2>Lighthouse &amp; DOM Concordance</h2>
+            <p className="label">Analysis Engine</p>
+            <h2>PAGE WEIGHT &amp; CARBON AUDIT</h2>
           </article>
 
           {/* Floating Knob for Card 1 */}
@@ -91,7 +91,7 @@ export function SylvaHero({
             <button
               className="knob knob--about mask-circle"
               style={{ ["--d" as any]: "1100ms" }}
-              aria-label="Run Dual-Source Audit"
+              aria-label="Run Website Audit"
               onClick={focusAudit}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="#1b1e18" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -108,7 +108,7 @@ export function SylvaHero({
 
           {/* Lede Copy */}
           <p className="lede mask" style={{ ["--d" as any]: "480ms", ["--pd" as any]: 14, ["--pr" as any]: 1 }}>
-            Production-grade digital carbon telemetry. Audited with official SWDM v4 reference models, dual-source synthetic execution, and real datacenter grid intensity.
+            Measure the environmental footprint of any website. See page weight, carbon emissions per visit, and hosting efficiency.
           </p>
 
           {/* Primary Liquid Metal Button (Pill) */}
@@ -129,7 +129,7 @@ export function SylvaHero({
                       <path d="M14 80.5 H68" />
                     </g>
                   </svg>
-                  <span className="lbl">{auditStatus === "running" ? "Auditing Site..." : "Audit Website"}</span>
+                  <span className="lbl">{auditStatus === "running" ? "AUDITING..." : "AUDIT WEBSITE"}</span>
                 </button>
               </div>
             </div>
@@ -172,7 +172,7 @@ export function SylvaHero({
                 <circle cx="15" cy="15" r="1.1" fill="currentColor" stroke="none" />
               </svg>
             </span>
-            <div><dt>Model Standard</dt><dd>SWDM v4 (@tgwf/co2)</dd></div>
+            <div><dt>Standard</dt><dd>Sustainable Web Design</dd></div>
           </dl>
 
           {/* Stat B Badge */}
@@ -186,37 +186,37 @@ export function SylvaHero({
                 <circle cx="15" cy="15" r="3.6" />
               </svg>
             </span>
-            <div><dt>Release Shield</dt><dd>350 KB Budget Gate</dd></div>
+            <div><dt>Savings Lab</dt><dd>Interactive Optimization</dd></div>
           </dl>
 
-          {/* Card 2: Release Shield */}
+          {/* Card 2: Savings Lab */}
           <article className="card card--stove mask" style={{ ["--d" as any]: "880ms", ["--pd" as any]: 22, ["--pr" as any]: 2.4 }}>
-            <p className="label">Release Shield</p>
-            <h2>350 KB CI/CD Budget Gate</h2>
+            <p className="label">Savings Lab</p>
+            <h2>INTERACTIVE EMISSION REDUCTIONS</h2>
             <figure className="portal" data-delay="1080">
               <span className="portal-media">
                 <img
                   src="/landing-pages/inner-green-assets/card-ecostove.jpg"
-                  alt="Automated CI/CD 350 KB Release Budget Guard"
+                  alt="Interactive Green Engineering Optimization Lab"
                   loading="eager"
                   decoding="async"
                 />
               </span>
             </figure>
             <Link
-              href="/shield"
+              href="/savings-lab"
               className="knob"
-              aria-label="Open Release Shield"
+              aria-label="Open Savings Lab"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="#1b1e18" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </Link>
           </article>
 
           {/* Discover Scroll Cue */}
-          <a className="scroll mask" style={{ ["--d" as any]: "1040ms", ["--pd" as any]: 9 }} href="#cockpit">
-            Telemetry Cockpit<span className="track"></span>
+          <a className="scroll mask font-bold uppercase tracking-wider" style={{ ["--d" as any]: "1040ms", ["--pd" as any]: 9 }} href="#cockpit">
+            VIEW AUDIT COCKPIT<span className="track"></span>
           </a>
 
           {/* Live Backend Audit Floating HUD (seamlessly styled in Sylva's glass aesthetic) */}
@@ -229,12 +229,12 @@ export function SylvaHero({
               <div className="hero-audit-heading flex items-center justify-between gap-2 px-1">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse" />
-                  <span className="text-[11px] font-mono font-bold tracking-widest text-[#cbff00] uppercase">
-                    SWDM v4 DUAL-SOURCE ENGINE
+                  <span className="text-xs font-mono font-bold tracking-wider text-[#cbff00] uppercase">
+                    WEBSITE CARBON AUDIT
                   </span>
                 </div>
-                <span className="hero-audit-detail text-[10px] font-mono text-white/60">
-                  Lighthouse + Static DOM Concordance
+                <span className="hero-audit-detail text-xs font-mono text-white/80">
+                  Page Weight &amp; Emissions Analysis
                 </span>
               </div>
               <div className="hero-audit-entry flex items-center gap-2">
@@ -249,33 +249,33 @@ export function SylvaHero({
                     disabled={auditStatus === "running"}
                     value={targetUrl}
                     onChange={(e) => setTargetUrl(e.target.value)}
-                    placeholder="Enter website URL to audit (e.g. stripe.com)"
+                    placeholder="Enter website URL to audit (e.g. gmail.com, stripe.com)"
                     className="w-full pl-9 pr-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white font-mono text-xs focus:outline-none focus:border-[#cbff00] transition"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={auditStatus === "running"}
-                  className="px-4 py-2 rounded-xl bg-[#cbff00] text-[#1b1e18] font-bold text-xs hover:bg-[#e4ff66] transition flex items-center gap-1.5 shadow-lg font-mono disabled:opacity-50"
+                  className="px-4 py-2 rounded-xl bg-[#cbff00] text-[#1b1e18] font-bold text-xs hover:bg-[#e4ff66] transition flex items-center gap-1.5 shadow-lg font-mono disabled:opacity-50 uppercase tracking-wider"
                 >
                   {auditStatus === "running" ? (
                     <>
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                      Auditing...
+                      AUDITING...
                     </>
                   ) : (
                     <>
-                      <Sparkles className="w-3.5 h-3.5" />
-                      Run Audit
+                      <Search className="w-3.5 h-3.5" />
+                      AUDIT WEBSITE
                     </>
                   )}
                 </button>
               </div>
 
               {/* Benchmark presets */}
-              <div className="hero-presets flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-white/60 pt-1">
-                <span>Presets:</span>
-                {["stripe.com", "vercel.com", "pccoepune.com", "github.com"].map((preset) => (
+              <div className="hero-presets flex flex-wrap items-center gap-1.5 text-xs font-mono text-white/80 pt-1">
+                <span className="font-bold uppercase">Presets:</span>
+                {["gmail.com", "stripe.com", "vercel.com", "github.com"].map((preset) => (
                   <button
                     key={preset}
                     type="button"

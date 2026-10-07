@@ -312,22 +312,22 @@ jobs:
               </div>
 
               <div className="space-y-1.5 text-sage/80 leading-relaxed">
-                <div className="text-cream font-bold">⚡ CARBONERRA REGRESSION SHIELD CHECK ({strictMode ? "STRICT MODE" : "WARN MODE"})</div>
-                <div>Status: <strong className={evalResult.passed ? "text-lime" : evalResult.isWarning ? "text-amber-300" : "text-red-400"}>{evalResult.passed ? "PASSED" : evalResult.isWarning ? "WARNING" : "BREACH DETECTED"}</strong></div>
+                <div className="text-cream font-bold uppercase tracking-wider">CARBONERRA REGRESSION SHIELD CHECK ({strictMode ? "STRICT MODE" : "WARN MODE"})</div>
+                <div>Status: <strong className={evalResult.passed ? "text-lime font-bold uppercase" : evalResult.isWarning ? "text-amber-300 font-bold uppercase" : "text-red-400 font-bold uppercase"}>{evalResult.passed ? "PASSED" : evalResult.isWarning ? "WARNING" : "BREACH DETECTED"}</strong></div>
                 <div>Measured Journey Transfer: <strong className="text-cream">{(evalResult.actualBytes / 1024).toFixed(1)} KB</strong> (Ceiling: {(evalResult.thresholdBytes / 1024).toFixed(0)} KB)</div>
                 <div>Network Requests: <strong className="text-cream">{evalResult.actualRequests}</strong> (Limit: {evalResult.thresholdRequests})</div>
-                <div>Estimated Carbon: <strong className="text-cream">{evalResult.actualCarbonGrams} gCO2e</strong> (SWDM v4)</div>
+                <div>Estimated Carbon: <strong className="text-cream">{evalResult.actualCarbonGrams} gCO2e</strong></div>
                 <div>Breaches: {evalResult.breaches.length === 0 ? <span className="text-lime">None (Within tolerance)</span> : <span className="text-red-400 font-bold">{evalResult.breaches.join("; ")}</span>}</div>
-                <div className="text-[11px] text-sage/60 pt-1">{evalResult.details}</div>
+                <div className="text-xs text-sage/70 pt-1">{evalResult.details}</div>
               </div>
 
-              <div className="pt-2 text-[11px] text-sage/60 border-t border-surface-border/40">
+              <div className="pt-2 text-xs text-sage/70 border-t border-surface-border/40 font-mono">
                 {evalResult.passed ? (
-                  <span className="text-lime">✅ PASSED: Target journey satisfies digital sustainability transfer and task assertion budgets.</span>
+                  <span className="text-lime font-bold">[PASSED] Target journey satisfies digital sustainability transfer and task assertion budgets.</span>
                 ) : evalResult.isWarning ? (
-                  <span className="text-amber-300">⚠️ WARNING: Target journey breached configured limits in non-blocking warning mode.</span>
+                  <span className="text-amber-300 font-bold">[WARNING] Target journey breached configured limits in non-blocking warning mode.</span>
                 ) : (
-                  <span className="text-red-400">❌ STRICT BREACH: Candidate journey violated configured transfer budget or failed essential task assertions. Pull requests are blocked.</span>
+                  <span className="text-red-400 font-bold">[BLOCKED] Candidate journey violated configured transfer budget or failed essential task assertions. Pull requests are blocked.</span>
                 )}
               </div>
             </motion.div>

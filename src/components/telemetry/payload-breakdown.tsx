@@ -88,11 +88,11 @@ export function PayloadBreakdown({
         <div className="flex items-center gap-2">
           <Layers className="w-4 h-4 text-lime" />
           <span className="text-xs font-mono font-bold text-cream uppercase tracking-wider">
-            Transfer Payload Composition
+            PAGE WEIGHT &amp; ASSET BREAKDOWN
           </span>
         </div>
         <div className="text-xs font-mono text-sage">
-          Total Weight: <strong className="text-lime">{totalMb} MB</strong> ({totalBytes.toLocaleString()} bytes)
+          TOTAL PAGE SIZE: <strong className="text-lime font-bold">{totalMb} MB</strong> ({totalBytes.toLocaleString()} bytes)
         </div>
       </div>
 

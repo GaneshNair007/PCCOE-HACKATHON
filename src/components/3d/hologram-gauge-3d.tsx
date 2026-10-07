@@ -41,8 +41,8 @@ export function HologramGauge3D({
   return (
     <Card className="min-w-0 p-5 sm:p-6" role="group" aria-label="Audit EcoScore and measurement confidence">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h3 className="font-display text-xl font-light text-cream">Your EcoScore</h3>
-        <span className="rounded-full border border-surface-border bg-surface-elevated px-3 py-1 text-xs font-mono text-sage">SWDM v4</span>
+        <h3 className="font-display text-xl font-bold uppercase tracking-wider text-cream">OVERALL SUSTAINABILITY SCORE</h3>
+        <span className="rounded-full border border-surface-border bg-surface-elevated px-3 py-1 text-xs font-mono font-bold uppercase text-lime">VERIFIED</span>
       </div>
       <div className="my-6 flex flex-col items-center gap-4 text-center">
         <div className={`flex h-36 w-36 items-center justify-center rounded-full border-2 border-current bg-surface-elevated ${config.color}`}>
@@ -57,8 +57,8 @@ export function HologramGauge3D({
       </div>
       <div className="space-y-4 border-t border-surface-border pt-4">
         <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-          <span className="text-sage">Sensitivity range (±20%)</span>
-          <span className="font-mono tabular-nums text-cream">{rangeLow}g – {rangeHigh}g</span>
+          <span className="text-sage">Estimated range (new vs repeat visits)</span>
+          <span className="font-mono tabular-nums text-cream font-bold">{rangeLow}g – {rangeHigh}g</span>
         </div>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className={`inline-flex flex-wrap items-center gap-1.5 rounded-full border px-3 py-1 text-xs ${
@@ -76,7 +76,7 @@ export function HologramGauge3D({
           </div>
           {onOpenMethodology && (
             <button type="button" onClick={onOpenMethodology} className="inline-flex items-center gap-1.5 text-xs text-sage underline underline-offset-4 hover:text-lime">
-              <HelpCircle className="h-3.5 w-3.5" aria-hidden="true" /> Audit rules
+              <HelpCircle className="h-3.5 w-3.5" aria-hidden="true" /> How it is scored
             </button>
           )}
         </div>

@@ -204,10 +204,10 @@ function EvidenceContent() {
                   className="font-mono text-xs font-bold uppercase px-3 py-1"
                 >
                   {receipt.outcome === "observed_improvement"
-                    ? "IMPROVEMENT OBSERVED ✅"
+                    ? "IMPROVEMENT OBSERVED"
                     : receipt.outcome === "functional_checks_failed"
-                    ? "FUNCTIONAL CHECKS FAILED ❌"
-                    : receipt.outcome.replace(/_/g, " ")}
+                    ? "CHECKS FAILED"
+                    : receipt.outcome.replace(/_/g, " ").toUpperCase()}
                 </Badge>
                 <div className="text-[11px] font-mono text-sage/60">
                   Verified in local production build
@@ -293,7 +293,7 @@ function EvidenceContent() {
                       <td className="p-3 text-sage/70">{receipt.baseline.runIds.length} runs</td>
                       <td className="p-3 font-bold text-cream">{(receipt.baseline.medianBytes / 1024).toFixed(1)} KB</td>
                       <td className="p-3 text-sage/80">{receipt.baseline.medianCo2Grams} g</td>
-                      <td className="p-3 text-lime font-bold">Passed ✅</td>
+                      <td className="p-3 text-lime font-bold">PASSED</td>
                     </tr>
                     <tr>
                       <td className="p-3 font-bold text-lime">Candidate (3 passes)</td>
@@ -302,9 +302,9 @@ function EvidenceContent() {
                       <td className="p-3 text-lime font-bold">{receipt.candidate.medianCo2Grams} g</td>
                       <td className="p-3 font-bold">
                         {receipt.functionalAssertions.allPassed ? (
-                          <span className="text-lime">Passed ✅</span>
+                          <span className="text-lime">PASSED</span>
                         ) : (
-                          <span className="text-red-400">Failed ❌</span>
+                          <span className="text-red-400">FAILED</span>
                         )}
                       </td>
                     </tr>
@@ -339,18 +339,17 @@ function EvidenceContent() {
               </div>
             </div>
 
-            {/* Shield Regression Gate Link */}
+            {/* Savings Lab CTA */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-surface-border/60 print:hidden">
               <div className="text-xs font-mono text-sage/70">
-                Protect this verified transfer level against regressions in your GitHub pull requests.
+                Continue iterating on performance enhancements or inspect additional website baselines in the Savings Lab.
               </div>
 
               <Link
-                href="/shield"
+                href="/savings-lab"
                 className="px-5 py-3 rounded-full bg-lime text-black font-medium text-sm hover:bg-lime/90 transition-colors flex items-center justify-center gap-2 shrink-0"
               >
-                <ShieldCheck className="w-4 h-4" />
-                <span>Configure Release Shield →</span>
+                <span>Explore Savings Lab →</span>
               </Link>
             </div>
           </Card>

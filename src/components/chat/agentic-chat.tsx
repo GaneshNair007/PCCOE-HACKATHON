@@ -113,7 +113,7 @@ export function AgenticChat() {
     {
       id: "welcome-init",
       sender: "assistant",
-      text: "👋 **Hello! I'm Carbonerra AI.**\n\nI'm your intelligent companion for general programming, frontend architecture, and real-time digital carbon audits.\n\nFeel free to say hi, ask a web performance question, or audit a live website!",
+      text: "**Hello! I'm Carbonerra AI.**\n\nI'm your assistant for web performance optimization, full-stack architecture, and real-time digital carbon audits.\n\nFeel free to say hi, ask a web performance question, or audit a live website!",
       timestamp: "Now",
     },
   ]);
@@ -202,7 +202,7 @@ export function AgenticChat() {
       {
         id: Date.now().toString(),
         sender: "assistant",
-        text: "👋 Chat cleared! How can I help you next?",
+        text: "Chat cleared. How can I help you next?",
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       },
     ]);
@@ -267,7 +267,7 @@ export function AgenticChat() {
         {
           id: (Date.now() + 1).toString(),
           sender: "assistant",
-          text: `⚠️ Agent execution error: ${err.message}`,
+          text: `[ERROR] Agent execution error: ${err.message}`,
           timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         },
       ]);
@@ -281,9 +281,9 @@ export function AgenticChat() {
     <>
       {/* Floating Action Trigger Button */}
       <motion.div
-        className="ct-chat-launcher fixed bottom-5 right-4 sm:right-6 z-50 print:hidden"
-        initial={reduceMotion ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
+        className="fixed bottom-6 right-6 z-50 print:hidden flex items-center justify-center"
+        initial={reduceMotion ? false : { opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: reduceMotion ? 0 : 0.22 }}
       >
         <button
@@ -294,9 +294,13 @@ export function AgenticChat() {
           aria-expanded={isOpen}
           aria-controls="carbonerra-chat-panel"
           aria-haspopup="dialog"
-          className="p-4 rounded-full bg-surface border border-surface-border text-lime shadow-lg hover:bg-surface-elevated hover:border-sage/50 transition-colors duration-200 flex items-center justify-center"
+          className="ct-chat-launcher-btn w-14 h-14 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-lime/50"
         >
-          <Bot className="w-6 h-6" aria-hidden="true" />
+          {isOpen ? (
+            <X className="w-6 h-6 text-lime transition-transform duration-200" aria-hidden="true" />
+          ) : (
+            <Bot className="w-6 h-6 text-lime transition-transform duration-200" aria-hidden="true" />
+          )}
         </button>
       </motion.div>
 

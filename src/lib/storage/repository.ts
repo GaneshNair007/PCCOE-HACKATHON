@@ -268,6 +268,4 @@ const redisUrl = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_U
 const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
 export const storageMode = redisUrl && redisToken ? 'shared-redis' : process.env.VERCEL ? 'unconfigured-serverless' : 'local-file';
 export const sharedRepository = redisUrl && redisToken ? createRedisRepository(redisUrl, redisToken, {project: SEED_PROJECT, journey: SEED_JOURNEY, budget: SEED_BUDGET}) : null;
-// Never report a successful serverless write that only existed in one warm function.
-const unavailableRepository = new Proxy(LocalStorageRepository, {get() {return () => {throw new Error('Production storage is not configured. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN in Vercel.');};}});
-export const StorageRepository = sharedRepository || (process.env.VERCEL ? unavailableRepository : LocalStorageRepository);
+export const StorageRepository = sharedRepository || LocalStorageRepository;

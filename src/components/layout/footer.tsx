@@ -72,7 +72,6 @@ export function Footer() {
             <li><Link href="/simulator" className="hover:text-lime transition-colors">Carbon lab simulator</Link></li>
             <li><Link href="/forecasts" className="hover:text-lime transition-colors">Emissions forecasts</Link></li>
             <li><Link href="/fix-hub" className="hover:text-lime transition-colors">Code Fix Hub</Link></li>
-            <li><Link href="/shield" className="hover:text-lime transition-colors">Regression Shield</Link></li>
           </ul>
         </div>
 

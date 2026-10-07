@@ -303,7 +303,7 @@ ${toolOutput.breaches.length > 0 ? `\n**Budget Breaches Detected**:\n${toolOutpu
       /^(hi|hello|hey|heyy|heya|howdy|sup|yo|greetings|good\s+(morning|afternoon|evening|day))[\s!.,?]*$/i.test(message) ||
       (/\b(hi|hello|hey)\b/i.test(lower) && message.split(/\s+/).length <= 4)
     ) {
-      reply = `Hello! 👋 Great to meet you. I'm your AI assistant!
+      reply = `Hello! Great to meet you. I'm your AI assistant!
 
 I can chat about anything you'd like—from general programming, web performance, and software architecture, to live digital carbon footprint audits and optimization.
 
@@ -313,7 +313,7 @@ How can I help you today?`;
 
     // 10. Small Talk & Well-Being ("how are you", "what's up", "how are things")
     if (/\b(how\s+are\s+you|how's\s+it\s+going|how\s+are\s+things|what's\s+up|wassup|how\s+do\s+you\s+do)\b/i.test(lower)) {
-      reply = `I'm doing great, thank you for asking! 🚀
+      reply = `I'm doing great, thank you for asking!
 
 I'm ready to help you with code, answer web development questions, run live audits on any website, or just chat.
 
@@ -326,14 +326,14 @@ How is your day going? What are you working on?`;
       /^(help|\?)$/i.test(message.trim()) ||
       /\b(who\s+are\s+you|what\s+is\s+your\s+name|what\s+can\s+you\s+do|tell\s+me\s+about\s+yourself|who\s+made\s+you|what\s+are\s+you|capabilities)\b/i.test(lower)
     ) {
-      reply = `I'm **Carbonerra AI**—your intelligent companion for general conversation, full-stack web development, and digital carbon intelligence! ⚡
+      reply = `I'm **Carbonerra AI**—your assistant for general conversation, full-stack web development, and digital carbon intelligence!
 
 Here are some things we can do:
-- 💬 **General Chat & Coding**: Ask me anything about JavaScript, TypeScript, React, Next.js, CSS, performance optimization, or software architecture.
-- ⚡ **Live Website Audits**: Type \`check stripe.com\` or \`audit vercel.com\` to inspect real page payloads, transfer sizes, and carbon emissions.
-- ⚖️ **Dual-Site Comparisons**: Compare two domains with \`compare vercel.com with stripe.com\`.
-- 🧪 **What-If Scenario Modeling**: Ask \`what if 80% image compression and green hosting?\` to simulate real-world efficiency gains.
-- 🛡️ **CI/CD Release Shield**: Enforce 350 KB payload ceilings with \`evaluate release shield budget\`.
+- **General Chat & Coding**: Ask me anything about JavaScript, TypeScript, React, Next.js, CSS, performance optimization, or software architecture.
+- **Live Website Audits**: Type \`check stripe.com\` or \`audit vercel.com\` to inspect real page payloads, transfer sizes, and carbon emissions.
+- **Dual-Site Comparisons**: Compare two domains with \`compare vercel.com with stripe.com\`.
+- **What-If Scenario Modeling**: Ask \`what if 80% image compression and green hosting?\` to simulate real-world efficiency gains.
+- **CI/CD Release Shield**: Enforce 350 KB payload ceilings with \`evaluate release shield budget\`.
 
 Feel free to ask any question or try one of the actions above!`;
       return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
@@ -341,7 +341,7 @@ Feel free to ask any question or try one of the actions above!`;
 
     // 12. Gratitude & Politeness ("thanks", "thank you", "awesome", "cool", "nice")
     if (/\b(thank\s+you|thanks|thx|awesome|cool|great|amazing|good\s+job|nice\s+one|perfect|appreciate)\b/i.test(lower) && message.split(/\s+/).length <= 7) {
-      reply = `You're very welcome! Always happy to help. 😊
+      reply = `You're very welcome! Always happy to help.
 
 Let me know if you want to explore anything else, ask another question, or run another test!`;
       return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
@@ -350,7 +350,7 @@ Let me know if you want to explore anything else, ask another question, or run a
     // 13. Humor
     if (/\b(tell\s+me\s+a\s+joke|make\s+me\s+laugh|joke)\b/i.test(lower)) {
       reply = `Why do programmers always prefer dark mode?
-Because light attracts bugs! 🐛✨
+Because light attracts bugs!
 
 Got any coding or web questions you want to dive into today?`;
       return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
@@ -397,10 +397,10 @@ Are you building a React component right now, or curious about hooks like \`useS
     if (/\b(what\s+is\s+next\.?js|why\s+next\.?js|explain\s+next\.?js|server\s+components|nextjs)\b/i.test(lower)) {
       reply = `**Next.js** is a production React framework by Vercel that brings full-stack capabilities to React:
 
-- 🚀 **Server-Side Rendering (SSR)** & **Static Site Generation (SSG)**: Renders pages on the server for ultra-fast initial page loads and superior SEO.
-- ⚡ **React Server Components (RSC)**: Runs components on the server with zero client-side JavaScript overhead.
-- 📁 **File-System Routing**: Routes are defined simply by folder structure in the \`app/\` directory.
-- 🛠️ **Built-in Optimizations**: Automatic image optimization (\`next/image\`), font optimization, script loading strategies, and API route handlers.
+- **Server-Side Rendering (SSR)** & **Static Site Generation (SSG)**: Renders pages on the server for ultra-fast initial page loads and superior SEO.
+- **React Server Components (RSC)**: Runs components on the server with zero client-side JavaScript overhead.
+- **File-System Routing**: Routes are defined simply by folder structure in the \`app/\` directory.
+- **Built-in Optimizations**: Automatic image optimization (\`next/image\`), font optimization, script loading strategies, and API route handlers.
 
 It powers modern applications (including Carbonerra!) for peak performance and minimal data transfer.`;
       return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
@@ -491,20 +491,20 @@ Would you like to see how an endpoint is built in Next.js or Node?`;
 
 1. Sunlight reaches Earth's atmosphere as white light containing all colors of the visible spectrum.
 2. Gas molecules in the atmosphere (nitrogen and oxygen) scatter shorter wavelengths of light (blue and violet) much more strongly than longer wavelengths (red and yellow).
-3. Even though violet light is scattered slightly more than blue, our human eyes have receptors that are far more sensitive to blue light, so we perceive the sky as vibrant blue! ☀️🌍`;
+3. Even though violet light is scattered slightly more than blue, our human eyes have receptors that are far more sensitive to blue light, so we perceive the sky as vibrant blue!`;
       return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
     }
 
     if (/\b(fun\s+fact|random\s+fact|tell\s+me\s+a\s+fact|trivia)\b/i.test(lower)) {
-      reply = `Here is a fascinating tech fact for you: 💡
+      reply = `Here is a fascinating tech fact for you:
       
-The first recorded computer "bug" was an **actual physical insect**! On September 9, 1947, computer scientist Grace Hopper's team found a moth trapped between the relays of the Harvard Mark II computer, causing errors. They taped it into their logbook with the entry: *"First actual case of bug being found."* 🦋💻`;
+The first recorded computer "bug" was an **actual physical insect**! On September 9, 1947, computer scientist Grace Hopper's team found a moth trapped between the relays of the Harvard Mark II computer, causing errors. They taped it into their logbook with the entry: *"First actual case of bug being found."*`;
       return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
     }
 
     // 22. Goodbyes & Parting words ("bye", "good night", "see you")
     if (/\b(bye|goodbye|see\s+you|cya|good\s+night|have\s+a\s+good\s+one)\b/i.test(lower) && message.split(/\s+/).length <= 5) {
-      reply = `Goodbye! 👋 Have a wonderful day ahead, and don't hesitate to drop back in whenever you have questions or want to test another website!`;
+      reply = `Goodbye! Have a wonderful day ahead, and don't hesitate to drop back in whenever you have questions or want to test another website!`;
       return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
     }
 
@@ -596,11 +596,11 @@ Want to test any live website? Simply type \`check stripe.com\` or \`audit githu
     reply = `I'm happy to help! You can ask me anything about software engineering, frontend frameworks, general programming, web performance, or live website audits.
 
 Here are a few popular things to ask:
-- 💻 **Coding**: *"How do I center a div?"*, *"Explain React vs Vue"*, *"What is TypeScript?"*
-- ⚡ **Performance**: *"How to optimize images?"*, *"How does CDN caching work?"*
-- 🔍 **Live Audit**: *"check stripe.com"* (measures live transfer payload & CO2e)
-- ⚖️ **Compare**: *"compare vercel.com with stripe.com"*
-- 🧪 **Simulation**: *"what if 80% image compression?"*
+- **Coding**: *"How do I center a div?"*, *"Explain React vs Vue"*, *"What is TypeScript?"*
+- **Performance**: *"How to optimize images?"*, *"How does CDN caching work?"*
+- **Live Audit**: *"check stripe.com"* (measures live transfer payload & CO2e)
+- **Compare**: *"compare vercel.com with stripe.com"*
+- **Simulation**: *"what if 80% image compression?"*
 
 What would you like to explore?`;
 
