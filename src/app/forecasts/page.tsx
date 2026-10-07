@@ -227,111 +227,312 @@ export default function ForecastsPage() {
           </div>
 
           {/* Interactive SVG Projection Chart */}
-          <Card className="world-chart p-5 sm:p-6 space-y-4">
-            <SectionHeading title="Compare your scenarios" description="Monthly estimated emissions in kg CO2e. The renewable + AVIF scenario is a reduction pathway, not a claim of zero emissions." />
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-surface-border pb-4">
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono">
-                <span className="flex items-center gap-1.5 text-red-400">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                  Status quo ({growthRate}% growth)
-                </span>
-                <span className="flex items-center gap-1.5 text-amber-400">
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                  Planned asset reductions
-                </span>
-                <span className="flex items-center gap-1.5 text-lime">
-                  <span className="w-2.5 h-2.5 rounded-full bg-lime" />
-                  Net-zero pathway (renewable + AVIF)
-                </span>
-              </div>
+          <Card className="world-chart p-5 sm:p-6 space-y-5">
+            <SectionHeading
+              title="Emissions Trajectory Comparison"
+              description="Monthly carbon output (in kg CO2e) as your visitor count grows. Shows how asset cleanup and renewable cloud hosting prevent emissions spikes."
+            />
 
-            </div>
-            <div className="min-h-10 text-xs font-mono text-sage" aria-hidden="true">
-              {hoveredPoint ? `${hoveredPoint.month}: Status quo ${hoveredPoint.statusQuoKg}kg · Planned ${hoveredPoint.plannedKg}kg · Net-zero pathway ${hoveredPoint.netZeroKg}kg` : "Hover a point for details, or open the monthly values below."}
-            </div>
-
-            {/* SVG Chart */}
-            <div className="h-52 sm:h-64 w-full relative px-2">
-              <svg viewBox="0 0 800 240" role="img" aria-labelledby="forecast-chart-title forecast-chart-description" className="w-full h-full overflow-visible">
-                <title id="forecast-chart-title">Monthly emissions by scenario</title>
-                <desc id="forecast-chart-description">Compare status quo, planned reductions, and renewable hosting with AVIF over {monthsCount} months. Exact values are available in the table below.</desc>
-                {/* Grid Lines */}
-                {[0, 60, 120, 180, 240].map((y) => (
-                  <line key={y} x1="0" y1={y} x2="800" y2={y} stroke="currentColor" className="text-sage/10" strokeDasharray="4 4" />
-                ))}
-
-                {/* Status Quo Line (Red) */}
-                <polyline
-                  fill="none"
-                  stroke="currentColor"
-                  className="text-red-400"
-                  strokeWidth="2.5"
-                  points={points
-                    .map((p, i) => `${(i / (points.length - 1)) * 800},${240 - (p.statusQuoKg / maxVal) * 220}`)
-                    .join(" ")}
-                />
-
-                {/* Planned Reductions Line (Amber) */}
-                <polyline
-                  fill="none"
-                  stroke="currentColor"
-                  className="text-amber-400"
-                  strokeWidth="2.5"
-                  points={points
-                    .map((p, i) => `${(i / (points.length - 1)) * 800},${240 - (p.plannedKg / maxVal) * 220}`)
-                    .join(" ")}
-                />
-
-                {/* Net-Zero Target Line (Lime) */}
-                <polyline
-                  fill="none"
-                  stroke="currentColor"
-                  className="text-lime"
-                  strokeWidth="2.5"
-                  points={points
-                    .map((p, i) => `${(i / (points.length - 1)) * 800},${240 - (p.netZeroKg / maxVal) * 220}`)
-                    .join(" ")}
-                />
-
-                {/* Hover Targets */}
-                {points.map((p, i) => {
-                  const x = (i / (points.length - 1)) * 800;
-                  const y = 240 - (p.statusQuoKg / maxVal) * 220;
-                  return (
-                    <circle
-                      key={i}
-                      cx={x}
-                      cy={y}
-                      r="6"
-                      fill="currentColor"
-                      className="cursor-pointer text-red-400"
-                      onMouseEnter={() =>
-                        setHoveredPoint({
-                          month: p.label,
-                          statusQuoKg: p.statusQuoKg,
-                          plannedKg: p.plannedKg,
-                          netZeroKg: p.netZeroKg,
-                        })
-                      }
-                      onMouseLeave={() => setHoveredPoint(null)}
-                    />
-                  );
-                })}
-              </svg>
+            {/* Clear Plain-English Legend */}
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-xs font-mono border-b border-surface-border pb-4">
+              <span className="flex items-center gap-2 text-red-400">
+                <span className="w-3.5 h-1.5 rounded-full bg-red-400 shadow-sm shadow-red-500/50" />
+                <span className="font-semibold text-cream">Do Nothing</span>
+                <span className="text-[11px] text-red-400/80">(Status quo: +{growthRate}%/mo traffic)</span>
+              </span>
+              <span className="flex items-center gap-2 text-amber-300">
+                <span className="w-3.5 h-1.5 rounded-full bg-amber-400 shadow-sm shadow-amber-500/50" />
+                <span className="font-semibold text-cream">Code Clean-up</span>
+                <span className="text-[11px] text-amber-300/80">(Image & script reduction)</span>
+              </span>
+              <span className="flex items-center gap-2 text-lime">
+                <span className="w-3.5 h-1.5 rounded-full bg-lime shadow-sm shadow-lime/50" />
+                <span className="font-semibold text-cream">Green Cloud + Lean Code</span>
+                <span className="text-[11px] text-lime/80">(Renewable host + 50% lighter)</span>
+              </span>
             </div>
 
-            <div className="flex justify-between text-[11px] font-mono text-sage/60 border-t border-surface-border/40 pt-2">
-              <span>{points[0]?.label || "Start"}</span>
-              <span>Horizon ({timeframe})</span>
-              <span>{points[points.length - 1]?.label || "End"}</span>
+            {/* Dynamic Inspector Bar */}
+            <div className="transition-all">
+              {hoveredPoint ? (
+                <div className="p-3 rounded-xl bg-surface-elevated border border-surface-border flex flex-wrap items-center justify-between gap-3 text-xs font-mono animate-in fade-in duration-150">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span className="px-2 py-0.5 rounded bg-white/10 text-cream font-bold">{hoveredPoint.month}</span>
+                    <span className="text-red-400">🔴 Do Nothing: <strong className="text-cream">{hoveredPoint.statusQuoKg} kg</strong></span>
+                    <span className="text-amber-300">🟡 Code Clean-up: <strong className="text-cream">{hoveredPoint.plannedKg} kg</strong></span>
+                    <span className="text-lime">🟢 Green Cloud: <strong className="text-cream">{hoveredPoint.netZeroKg} kg</strong></span>
+                  </div>
+                  <div className="text-lime font-bold bg-lime/10 border border-lime/25 px-2.5 py-1 rounded-lg">
+                    Avoids {(hoveredPoint.statusQuoKg - hoveredPoint.netZeroKg).toFixed(1)} kg CO2/mo ({Math.round(((hoveredPoint.statusQuoKg - hoveredPoint.netZeroKg) / hoveredPoint.statusQuoKg) * 100)}% saved)
+                  </div>
+                </div>
+              ) : (
+                <div className="p-3 rounded-xl bg-surface/60 border border-surface-border/60 text-xs font-mono text-sage/75 flex flex-wrap items-center justify-between gap-2">
+                  <span className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-lime animate-pulse" />
+                    Hover anywhere on the chart or lines to inspect the exact month-by-month carbon savings.
+                  </span>
+                  <span className="text-[11px] text-sage/50">Baseline: {selectedAudit.co2_grams}g CO2e / page view</span>
+                </div>
+              )}
             </div>
+
+            {/* SVG Chart with Y-axis numbers & X-axis month ticks */}
+            {(() => {
+              const ceilingMax = Math.max(Math.ceil(maxVal * 1.15), 5);
+              const chartLeft = 65;
+              const chartRight = 835;
+              const chartTop = 28;
+              const chartBottom = 220;
+              const chartWidth = chartRight - chartLeft;
+              const chartHeight = chartBottom - chartTop;
+
+              const yRatios = [1, 0.75, 0.5, 0.25, 0];
+
+              const getX = (index: number) => chartLeft + (index / (points.length - 1)) * chartWidth;
+              const getY = (val: number) => chartBottom - (val / ceilingMax) * chartHeight;
+
+              return (
+                <div className="w-full relative overflow-x-auto pt-2">
+                  <div className="min-w-[620px] h-64 sm:h-72 w-full">
+                    <svg viewBox="0 0 860 260" role="img" aria-labelledby="forecast-chart-title forecast-chart-description" className="w-full h-full select-none">
+                      <title id="forecast-chart-title">Emissions trajectory comparison</title>
+                      <desc id="forecast-chart-description">Shows monthly emissions in kg CO2e over {monthsCount} months for Status Quo, Code Clean-up, and Green Cloud pathways.</desc>
+
+                      <defs>
+                        {/* Gradients for visual clarity */}
+                        <linearGradient id="redArea" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#f87171" stopOpacity="0.22" />
+                          <stop offset="100%" stopColor="#f87171" stopOpacity="0.0" />
+                        </linearGradient>
+                        <linearGradient id="limeArea" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#a3e635" stopOpacity="0.18" />
+                          <stop offset="100%" stopColor="#a3e635" stopOpacity="0.0" />
+                        </linearGradient>
+                      </defs>
+
+                      {/* Y-Axis Label */}
+                      <text x={chartLeft} y="15" textAnchor="start" className="text-[10px] font-mono fill-sage/60 font-semibold uppercase tracking-wider">
+                        Monthly Carbon Output (kg CO2e)
+                      </text>
+
+                      {/* Horizontal Gridlines & Y-Axis Labels */}
+                      {yRatios.map((ratio) => {
+                        const y = chartBottom - ratio * chartHeight;
+                        const labelVal = Math.round(ratio * ceilingMax);
+                        return (
+                          <g key={ratio}>
+                            <line
+                              x1={chartLeft}
+                              y1={y}
+                              x2={chartRight}
+                              y2={y}
+                              stroke="currentColor"
+                              className="text-surface-border"
+                              strokeDasharray={ratio === 0 ? "none" : "4 4"}
+                              strokeWidth={ratio === 0 ? "1.5" : "1"}
+                            />
+                            <text
+                              x={chartLeft - 10}
+                              y={y + 3.5}
+                              textAnchor="end"
+                              className="text-[10px] font-mono fill-sage/70 font-medium"
+                            >
+                              {labelVal} kg
+                            </text>
+                          </g>
+                        );
+                      })}
+
+                      {/* Area Fill under Status Quo */}
+                      <polygon
+                        fill="url(#redArea)"
+                        points={`
+                          ${getX(0)},${chartBottom}
+                          ${points.map((p, i) => `${getX(i)},${getY(p.statusQuoKg)}`).join(" ")}
+                          ${getX(points.length - 1)},${chartBottom}
+                        `}
+                      />
+
+                      {/* Area Fill under Green Cloud */}
+                      <polygon
+                        fill="url(#limeArea)"
+                        points={`
+                          ${getX(0)},${chartBottom}
+                          ${points.map((p, i) => `${getX(i)},${getY(p.netZeroKg)}`).join(" ")}
+                          ${getX(points.length - 1)},${chartBottom}
+                        `}
+                      />
+
+                      {/* Status Quo Curve (Red) */}
+                      <polyline
+                        fill="none"
+                        stroke="#f87171"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        points={points.map((p, i) => `${getX(i)},${getY(p.statusQuoKg)}`).join(" ")}
+                      />
+
+                      {/* Planned Reductions Curve (Amber) */}
+                      <polyline
+                        fill="none"
+                        stroke="#fbbf24"
+                        strokeWidth="2.5"
+                        strokeDasharray="6 4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        points={points.map((p, i) => `${getX(i)},${getY(p.plannedKg)}`).join(" ")}
+                      />
+
+                      {/* Net-Zero Target Curve (Lime) */}
+                      <polyline
+                        fill="none"
+                        stroke="#a3e635"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        points={points.map((p, i) => `${getX(i)},${getY(p.netZeroKg)}`).join(" ")}
+                      />
+
+                      {/* X-Axis Month Markers */}
+                      {points.map((p, i) => {
+                        const x = getX(i);
+                        const isVisibleTick =
+                          monthsCount <= 6
+                            ? true
+                            : monthsCount <= 12
+                            ? i === 0 || (i + 1) % 2 === 0 || i === monthsCount - 1
+                            : i === 0 || (i + 1) % 4 === 0 || i === monthsCount - 1;
+
+                        return (
+                          <g key={`tick-${i}`}>
+                            <line
+                              x1={x}
+                              y1={chartBottom}
+                              x2={x}
+                              y2={chartBottom + 5}
+                              stroke="currentColor"
+                              className="text-surface-border"
+                              strokeWidth="1.5"
+                            />
+                            {isVisibleTick && (
+                              <text
+                                x={x}
+                                y={chartBottom + 20}
+                                textAnchor="middle"
+                                className={`text-[10px] font-mono ${
+                                  hoveredPoint?.month === p.label ? "fill-cream font-bold" : "fill-sage/60 font-normal"
+                                }`}
+                              >
+                                {p.label}
+                              </text>
+                            )}
+                          </g>
+                        );
+                      })}
+
+                      {/* Active Hover Crosshair Line & Highlight Dots */}
+                      {points.map((p, i) => {
+                        const x = getX(i);
+                        const isHovered = hoveredPoint?.month === p.label;
+                        if (!isHovered) return null;
+
+                        const yRed = getY(p.statusQuoKg);
+                        const yAmber = getY(p.plannedKg);
+                        const yLime = getY(p.netZeroKg);
+
+                        return (
+                          <g key={`hover-guide-${i}`} pointerEvents="none">
+                            <line
+                              x1={x}
+                              y1={chartTop}
+                              x2={x}
+                              y2={chartBottom}
+                              stroke="#ffffff"
+                              strokeOpacity="0.3"
+                              strokeDasharray="3 3"
+                              strokeWidth="1.5"
+                            />
+                            {/* Glowing Red Dot */}
+                            <circle cx={x} cy={yRed} r="6" fill="#f87171" stroke="#ffffff" strokeWidth="2" />
+                            {/* Glowing Amber Dot */}
+                            <circle cx={x} cy={yAmber} r="5" fill="#fbbf24" stroke="#ffffff" strokeWidth="2" />
+                            {/* Glowing Lime Dot */}
+                            <circle cx={x} cy={yLime} r="6" fill="#a3e635" stroke="#ffffff" strokeWidth="2" />
+                          </g>
+                        );
+                      })}
+
+                      {/* Transparent Hover Hitbox Columns for easy mouse interaction */}
+                      {points.map((p, i) => {
+                        const x = getX(i);
+                        const colWidth = chartWidth / (points.length - 1);
+                        return (
+                          <rect
+                            key={`hitbox-${i}`}
+                            x={x - colWidth / 2}
+                            y={chartTop - 10}
+                            width={colWidth}
+                            height={chartHeight + 35}
+                            fill="transparent"
+                            className="cursor-pointer"
+                            onMouseEnter={() =>
+                              setHoveredPoint({
+                                month: p.label,
+                                statusQuoKg: p.statusQuoKg,
+                                plannedKg: p.plannedKg,
+                                netZeroKg: p.netZeroKg,
+                              })
+                            }
+                            onMouseLeave={() => setHoveredPoint(null)}
+                          />
+                        );
+                      })}
+                    </svg>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Bottom Timeline Summary */}
+            <div className="flex justify-between items-center text-xs font-mono text-sage/60 border-t border-surface-border pt-3">
+              <span>Start (Month 1)</span>
+              <span className="text-cream font-medium">Trajectory Horizon: {timeframe}</span>
+              <span>End ({points[points.length - 1]?.label || "End"})</span>
+            </div>
+
+            {/* Table Details */}
             <details className="border-t border-surface-border pt-3">
-              <summary className="cursor-pointer text-sm text-sage">View monthly forecast values</summary>
+              <summary className="cursor-pointer text-xs font-mono text-sage hover:text-cream">
+                View numerical table breakdown ({points.length} months)
+              </summary>
               <div className="mt-3 max-w-full overflow-x-auto" role="region" aria-label="Monthly forecast values" tabIndex={0}>
-                <table className="w-full min-w-[520px] text-left text-xs font-mono">
+                <table className="w-full min-w-[560px] text-left text-xs font-mono">
                   <caption className="sr-only">Estimated emissions in kg CO2e per month</caption>
-                  <thead className="text-sage"><tr><th scope="col" className="p-3">Month</th><th scope="col" className="p-3">Status quo</th><th scope="col" className="p-3">Planned</th><th scope="col" className="p-3">Net-zero pathway</th></tr></thead>
-                  <tbody>{points.map((point) => <tr key={point.label} className="border-t border-surface-border"><th scope="row" className="p-3 text-cream">{point.label}</th><td className="p-3 text-red-400">{point.statusQuoKg} kg</td><td className="p-3 text-amber-300">{point.plannedKg} kg</td><td className="p-3 text-lime">{point.netZeroKg} kg</td></tr>)}</tbody>
+                  <thead className="text-sage border-b border-surface-border">
+                    <tr>
+                      <th scope="col" className="p-3">Timeline</th>
+                      <th scope="col" className="p-3">🔴 Do Nothing</th>
+                      <th scope="col" className="p-3">🟡 Code Clean-up</th>
+                      <th scope="col" className="p-3">🟢 Green Cloud</th>
+                      <th scope="col" className="p-3 text-lime">🌿 Monthly Saved</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {points.map((point) => {
+                      const monthlySaved = (point.statusQuoKg - point.netZeroKg).toFixed(1);
+                      return (
+                        <tr key={point.label} className="border-t border-surface-border/50 hover:bg-surface-elevated/40">
+                          <th scope="row" className="p-3 text-cream font-bold">{point.label}</th>
+                          <td className="p-3 text-red-400">{point.statusQuoKg} kg</td>
+                          <td className="p-3 text-amber-300">{point.plannedKg} kg</td>
+                          <td className="p-3 text-lime">{point.netZeroKg} kg</td>
+                          <td className="p-3 text-lime font-bold">+{monthlySaved} kg</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
                 </table>
               </div>
             </details>
@@ -339,28 +540,28 @@ export default function ForecastsPage() {
 
           {/* Cumulative Scenario Comparison */}
           <div className="world-open-metrics grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
-            <Card className="p-5 glass-panel border border-red-500/30 space-y-1">
-              <div className="text-sage/70">Cumulative status quo</div>
+            <Card className="p-5 glass-panel border border-red-500/30 space-y-1.5">
+              <div className="text-sage/70 font-semibold uppercase tracking-wider text-[10px]">Total Footprint (Do Nothing)</div>
               <div className="text-2xl font-bold text-red-400 font-display">
                 {Math.round(cumulativeStatusQuo)} kg CO2e
               </div>
-              <div className="text-[11px] text-sage/60">Assuming no code changes</div>
+              <div className="text-[11px] text-sage/60">If website assets and hosting remain unchanged as traffic scales</div>
             </Card>
 
-            <Card className="p-5 glass-panel border border-amber-400/30 space-y-1">
-              <div className="text-sage/70">Cumulative planned</div>
+            <Card className="p-5 glass-panel border border-amber-400/30 space-y-1.5">
+              <div className="text-sage/70 font-semibold uppercase tracking-wider text-[10px]">Total Footprint (Code Clean-up)</div>
               <div className="text-2xl font-bold text-amber-300 font-display">
                 {Math.round(cumulativePlanned)} kg CO2e
               </div>
-              <div className="text-[11px] text-sage/60">With gradual image/script compression</div>
+              <div className="text-[11px] text-sage/60">Achieved via image compression, script deferral, and tree-shaking</div>
             </Card>
 
-            <Card className="p-5 glass-panel border border-lime/30 space-y-1">
-              <div className="text-sage/70">Cumulative net-zero pathway</div>
+            <Card className="p-5 glass-panel border border-lime/30 space-y-1.5">
+              <div className="text-sage/70 font-semibold uppercase tracking-wider text-[10px]">Total Footprint (Green Cloud)</div>
               <div className="text-2xl font-bold text-lime font-display">
                 {Math.round(cumulativeNetZero)} kg CO2e
               </div>
-              <div className="text-[11px] text-sage/60">With green hosting & AVIF pipeline</div>
+              <div className="text-[11px] text-sage/60">Maximum reduction via 100% renewable hosting and lean payloads</div>
             </Card>
           </div>
         </>
