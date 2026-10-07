@@ -41,9 +41,16 @@ export function Header() {
           aria-current={pathname === item.href ? "page" : undefined}
           className={cn("ct-nav-link", pathname === item.href && "is-active")}>{item.label}</Link>)}
       </nav>
-      <button ref={toggle} className="ct-nav-toggle" aria-label={open ? "Close navigation menu" : "Open navigation menu"}
-        aria-expanded={open} aria-controls="all-navigation" onClick={() => setOpen(!open)}>
-        <span className="hidden sm:inline">{open ? "Close" : "Explore"}</span>{open ? <X size={19} /> : <Menu size={19} />}
+      <button
+        ref={toggle}
+        className="ct-nav-toggle shrink-0"
+        aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={open}
+        aria-controls="all-navigation"
+        onClick={() => setOpen(!open)}
+      >
+        <span className="font-bold tracking-wider">{open ? "Close" : "Explore"}</span>
+        {open ? <X size={16} className="shrink-0" /> : <Menu size={16} className="shrink-0" />}
       </button>
     </div>
     {open && <nav id="all-navigation" aria-label="All CarbonTerra tools" className="ct-nav-menu">

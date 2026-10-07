@@ -97,28 +97,20 @@
 }
 .font-display { font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; }
 
-/* Ubuntu font for headings that are in CAPITAL AND BOLD */
-h1[class*="uppercase"], h1.uppercase,
-h2[class*="uppercase"], h2.uppercase,
-h3[class*="uppercase"], h3.uppercase,
-h4[class*="uppercase"], h4.uppercase,
-h5[class*="uppercase"], h5.uppercase,
-h6[class*="uppercase"], h6.uppercase,
-h1[class*="font-bold"][class*="uppercase"],
-h2[class*="font-bold"][class*="uppercase"],
-h3[class*="font-bold"][class*="uppercase"],
-h4[class*="font-bold"][class*="uppercase"],
-h1[class*="uppercase"][class*="font-bold"],
-h2[class*="uppercase"][class*="font-bold"],
-h3[class*="uppercase"][class*="font-bold"],
-h4[class*="uppercase"][class*="font-bold"],
-[role="heading"][class*="uppercase"][class*="font-bold"],
-[role="heading"][class*="font-bold"][class*="uppercase"],
-.font-display[class*="uppercase"],
-.font-display.uppercase {
+/* Universal Heading Enforcement: All headings across the entire platform in CAPITAL AND BOLD */
+h1, h2, h3, h4, h5, h6,
+.ct-page-title,
+.ct-section-heading h2,
+.font-display,
+.world-story h3,
+.world-ready h3,
+.world-api-intro h2,
+.headline,
+[role="heading"] {
   font-family: var(--font-ubuntu), 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif !important;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
 }
 .glass-panel, .gradient-border { background: var(--color-surface); border: 1px solid rgb(var(--border-rgb)); box-shadow: var(--shadow-card); }
 .glass-panel-elevated, .gradient-border-emerald { background: var(--color-surface-elevated); border: 1px solid #626c59; box-shadow: var(--shadow-floating); }
@@ -131,8 +123,8 @@ h4[class*="uppercase"][class*="font-bold"],
 .ct-page-shell { width: 100%; max-width: var(--page-width); padding: 7.5rem var(--page-gutter) 2rem; margin-inline: auto; }
 .ct-page-intro { background: var(--color-paper); color: var(--color-paper-ink); border: 1px solid #ffffff60; border-radius: var(--card-radius); padding: clamp(1.5rem, 3vw, 2.5rem); position: relative; box-shadow: var(--shadow-card); }
 .ct-intro-heading { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; }
-.ct-page-title { font: 300 clamp(2rem, 4vw, 3.5rem)/1.1 var(--font-body); letter-spacing: -.05em; overflow-wrap: anywhere; margin: .5rem 0; }
-.ct-eyebrow { font: 500 .75rem/1.6 var(--font-code); letter-spacing: .08em; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.ct-page-title { font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important; font-weight: 700 !important; text-transform: uppercase !important; font-size: clamp(2.2rem, 4.2vw, 3.8rem); line-height: 1.08; letter-spacing: -0.01em; overflow-wrap: anywhere; margin: .5rem 0; }
+.ct-eyebrow { font: 700 .75rem/1.6 var(--font-ubuntu), 'Ubuntu', sans-serif; text-transform: uppercase; letter-spacing: .12em; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
 .ct-page-intro .ct-eyebrow { color: var(--color-paper-muted); }
 .ct-intro-copy { font-size: 1rem; line-height: 1.7; color: var(--color-paper-muted); max-width: 48rem; }
 .ct-intro-actions { display: flex; flex-wrap: wrap; gap: .75rem; flex-shrink: 0; }
@@ -140,16 +132,88 @@ h4[class*="uppercase"][class*="font-bold"],
 .ct-section-heading { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; }
 .ct-section-heading .ct-eyebrow { color: var(--ink-soft); margin-bottom: .75rem; }
 .ct-navigation { position: fixed; z-index: var(--layer-nav); top: 1.25rem; left: 50%; transform: translateX(-50%); width: min(1100px, calc(100% - 2 * var(--page-gutter))); }
-.ct-nav-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .5rem; border: 1px solid #ffffff30; border-radius: var(--nav-radius); background: rgb(34 41 29 / .92); backdrop-filter: blur(16px); box-shadow: var(--shadow-floating); }
-.ct-brand { display: flex; align-items: center; gap: .65rem; padding-right: .5rem; font-size: 1rem; color: #f2f3ef; letter-spacing: -.035em; white-space: nowrap; }
-.ct-brand-mark { display: grid; place-items: center; width: 42px; height: 42px; background: var(--color-paper); color: #354429; border-radius: 50%; }
-.ct-desktop-nav { display: flex; gap: .2rem; }
-.ct-nav-link { padding: .7rem .8rem; border-radius: var(--nav-radius); font-size: .8125rem; color: #dce2d2; }
-.ct-nav-link.is-active { background: var(--color-paper); color: var(--color-paper-ink); }
-.ct-nav-link:hover:not(.is-active), .ct-nav-toggle:hover { background: #ffffff13; }
-.ct-nav-menu { background: rgba(28, 38, 24, 0.88); color: #f2f5ea; border: 1px solid rgba(220, 245, 180, 0.18); backdrop-filter: blur(32px) saturate(180%); -webkit-backdrop-filter: blur(32px) saturate(180%); margin-top: .75rem; padding: 1rem; border-radius: 1.5rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; box-shadow: 0 30px 70px -15px rgba(10, 18, 8, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12); max-height: calc(100dvh - 110px); overflow-y: auto; }
-.ct-menu-link { display: flex; justify-content: space-between; gap: .5rem; align-items: center; border-radius: .8rem; padding: .85rem 1rem; font-size: .875rem; min-height: 44px; color: #e4eadb; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.06); transition: all 0.2s ease; }
-.ct-menu-link:hover, .ct-menu-link.is-active { background: rgba(203, 255, 0, 0.12); border-color: rgba(203, 255, 0, 0.35); color: #cbff00; }
+.ct-nav-bar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: .5rem .75rem; border: 1px solid #ffffff30; border-radius: var(--nav-radius); background: rgb(34 41 29 / .92); backdrop-filter: blur(16px); box-shadow: var(--shadow-floating); }
+.ct-brand { display: flex; align-items: center; gap: .65rem; padding-right: .5rem; font-size: 1rem; color: #f2f3ef; letter-spacing: -.035em; white-space: nowrap; flex-shrink: 0; font-family: var(--font-ubuntu), 'Ubuntu', sans-serif; font-weight: 700; text-transform: uppercase; }
+.ct-brand-mark { display: grid; place-items: center; width: 42px; height: 42px; background: var(--color-paper); color: #354429; border-radius: 50%; flex-shrink: 0; }
+.ct-desktop-nav { display: flex; gap: .2rem; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.ct-desktop-nav::-webkit-scrollbar { display: none; }
+.ct-nav-link { padding: .7rem .85rem; border-radius: var(--nav-radius); font-size: .8125rem; color: #dce2d2; white-space: nowrap; font-weight: 500; }
+.ct-nav-link.is-active { background: var(--color-paper); color: var(--color-paper-ink); font-weight: 700; }
+.ct-nav-link:hover:not(.is-active) { background: #ffffff13; }
+
+/* The Explore toggle button: perfectly fitted, bold, catchy, impossible to misalign */
+.ct-nav-toggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  padding: 0.5rem 1.15rem !important;
+  min-height: 40px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #f2f3ef !important;
+  font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.ct-nav-toggle:hover {
+  background: rgba(203, 255, 0, 0.22) !important;
+  border-color: rgba(203, 255, 0, 0.6) !important;
+  color: #cbff00 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(203, 255, 0, 0.35) !important;
+}
+
+/* Explore Menu drawer: bold, vibrant, eye-catching */
+.ct-nav-menu {
+  background: rgba(24, 32, 20, 0.94) !important;
+  color: #f2f5ea !important;
+  border: 1px solid rgba(203, 255, 0, 0.25) !important;
+  backdrop-filter: blur(36px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(36px) saturate(190%) !important;
+  margin-top: .75rem !important;
+  padding: 1.25rem !important;
+  border-radius: 1.5rem !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: .65rem !important;
+  box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.85), 0 0 30px rgba(203, 255, 0, 0.1) !important;
+  max-height: calc(100dvh - 110px) !important;
+  overflow-y: auto !important;
+}
+.ct-menu-link {
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: .5rem !important;
+  align-items: center !important;
+  border-radius: .9rem !important;
+  padding: .95rem 1.15rem !important;
+  font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  min-height: 48px !important;
+  color: #e4eadb !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: all 0.2s ease !important;
+}
+.ct-menu-link:hover, .ct-menu-link.is-active {
+  background: rgba(203, 255, 0, 0.16) !important;
+  border-color: rgba(203, 255, 0, 0.5) !important;
+  color: #cbff00 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+}
 .ct-menu-link:focus-visible { outline-color: #cbff00; }
 .ct-footer { background: #343d2f; border-top: 1px solid #79846b55; }
 .ct-dialog-close { display: grid; place-items: center; min-width: 44px; min-height: 44px; border-radius: 50%; background: var(--color-surface); }
