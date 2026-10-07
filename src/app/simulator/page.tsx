@@ -275,15 +275,18 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
               <Card className="p-6 glass-panel-elevated border border-surface-border space-y-6">
                 <SectionHeading title="Adjust your scenario" description="Move each control to explore the estimated impact." />
 
-                {/* Lever 1: Image Compression */}
-                <div className="space-y-2 font-mono">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-cream font-bold">1. Modern Image Compression (AVIF/WebP)</span>
-                    <span className="text-lime">{imgComp}%</span>
+                {/* Lever 1: Image Optimization */}
+                <div className="space-y-2">
+                  <div className="flex justify-between text-xs font-mono">
+                    <span className="text-cream font-bold uppercase">1. IMAGE COMPRESSION &amp; FORMATS</span>
+                    <span className="text-lime font-bold">{imgComp}%</span>
+                  </div>
+                  <div className="text-[11px] text-sage/70 font-sans">
+                    Compress and convert heavy images to modern lightweight formats
                   </div>
                   <input
                     type="range"
-                    aria-label="Modern image compression"
+                    aria-label="Image optimization level"
                     aria-valuetext={`${imgComp} percent`}
                     min="0"
                     max="95"
@@ -292,21 +295,24 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                     onChange={(e) => setImgComp(Number(e.target.value))}
                     className="w-full accent-lime bg-surface-elevated h-2 rounded-lg cursor-pointer"
                   />
-                  <div className="flex justify-between text-[10px] text-sage/60">
-                    <span>Legacy Formats (0%)</span>
-                    <span>Aggressive AVIF (95%)</span>
+                  <div className="flex justify-between text-[10px] text-sage/60 font-mono">
+                    <span>Original Quality (0%)</span>
+                    <span>Maximum Savings (95%)</span>
                   </div>
                 </div>
 
-                {/* Lever 2: JS Deferral */}
-                <div className="space-y-2 font-mono">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-cream font-bold">2. JavaScript Deferral & Tree-Shaking</span>
-                    <span className="text-lime">{jsDefer}%</span>
+                {/* Lever 2: Script Optimization */}
+                <div className="space-y-2">
+                  <div className="flex justify-between text-xs font-mono">
+                    <span className="text-cream font-bold uppercase">2. CODE &amp; SCRIPT CLEANUP</span>
+                    <span className="text-lime font-bold">{jsDefer}%</span>
+                  </div>
+                  <div className="text-[11px] text-sage/70 font-sans">
+                    Remove unused JavaScript and delay non-essential background scripts
                   </div>
                   <input
                     type="range"
-                    aria-label="JavaScript deferral and tree-shaking"
+                    aria-label="Code and script optimization"
                     aria-valuetext={`${jsDefer} percent`}
                     min="0"
                     max="90"
@@ -315,21 +321,24 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                     onChange={(e) => setJsDefer(Number(e.target.value))}
                     className="w-full accent-lime bg-surface-elevated h-2 rounded-lg cursor-pointer"
                   />
-                  <div className="flex justify-between text-[10px] text-sage/60">
-                    <span>All Sync (0%)</span>
-                    <span>Aggressive Defer (90%)</span>
+                  <div className="flex justify-between text-[10px] text-sage/60 font-mono">
+                    <span>Unoptimized (0%)</span>
+                    <span>Fully Optimized (90%)</span>
                   </div>
                 </div>
 
-                {/* Lever 3: Caching Header */}
-                <div className="space-y-2 font-mono">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-cream font-bold">3. Static Cache TTL</span>
-                    <span className="text-lime">{cacheTtl} Days</span>
+                {/* Lever 3: Browser Cache Retention */}
+                <div className="space-y-2">
+                  <div className="flex justify-between text-xs font-mono">
+                    <span className="text-cream font-bold uppercase">3. BROWSER CACHE DURATION</span>
+                    <span className="text-lime font-bold">{cacheTtl} Days</span>
+                  </div>
+                  <div className="text-[11px] text-sage/70 font-sans">
+                    How long repeat visitors store static files locally without re-downloading
                   </div>
                   <input
                     type="range"
-                    aria-label="Static cache time to live"
+                    aria-label="Browser cache retention days"
                     aria-valuetext={`${cacheTtl} days`}
                     min="1"
                     max="365"
@@ -338,33 +347,44 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                     onChange={(e) => setCacheTtl(Number(e.target.value))}
                     className="w-full accent-lime bg-surface-elevated h-2 rounded-lg cursor-pointer"
                   />
+                  <div className="flex justify-between text-[10px] text-sage/60 font-mono">
+                    <span>1 Day</span>
+                    <span>365 Days (1 Year)</span>
+                  </div>
                 </div>
 
-                {/* Lever 4: Renewable Hosting Scenario */}
-                <div className="pt-2 border-t border-surface-border flex items-center justify-between font-mono text-xs">
+                {/* Lever 4: Renewable Green Hosting */}
+                <div className="pt-3 border-t border-surface-border flex items-center justify-between gap-4">
                   <div>
-                    <div className="text-cream font-bold">4. Transition to Verified Green Host</div>
-                    <div className="text-[10px] text-sage/60">Models a 100% renewable datacenter grid</div>
+                    <div className="text-cream font-bold text-xs uppercase font-mono">
+                      4. SWITCH TO GREEN HOSTING
+                    </div>
+                    <div className="text-[11px] text-sage/70 font-sans mt-0.5">
+                      Simulate moving your site to a datacenter powered by 100% renewable energy
+                    </div>
                   </div>
                   <input
                     type="checkbox"
-                    aria-label="Transition to verified green hosting"
+                    aria-label="Switch to green hosting"
                     checked={greenHosting}
                     onChange={(e) => setGreenHosting(e.target.checked)}
-                    className="w-4 h-4 accent-lime cursor-pointer"
+                    className="w-5 h-5 accent-lime cursor-pointer shrink-0"
                   />
                 </div>
 
                 {/* Traffic Volume Slider */}
-                <div className="pt-4 border-t border-surface-border space-y-2 font-mono">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-cream font-bold">Monthly Pageviews</span>
-                    <span className="text-lime">{viewsMultiplier.toLocaleString()} views/mo</span>
+                <div className="pt-4 border-t border-surface-border space-y-2">
+                  <div className="flex justify-between text-xs font-mono">
+                    <span className="text-cream font-bold uppercase">ESTIMATED MONTHLY VISITS</span>
+                    <span className="text-lime font-bold">{viewsMultiplier.toLocaleString()} visits/mo</span>
+                  </div>
+                  <div className="text-[11px] text-sage/70 font-sans">
+                    Scale overall environmental savings across your expected traffic
                   </div>
                   <input
                     type="range"
-                    aria-label="Monthly pageviews"
-                    aria-valuetext={`${viewsMultiplier.toLocaleString()} views per month`}
+                    aria-label="Monthly website visits"
+                    aria-valuetext={`${viewsMultiplier.toLocaleString()} visits per month`}
                     min="10000"
                     max="1000000"
                     step="10000"
@@ -372,6 +392,10 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                     onChange={(e) => setViewsMultiplier(Number(e.target.value))}
                     className="w-full accent-lime bg-surface-elevated h-2 rounded-lg cursor-pointer"
                   />
+                  <div className="flex justify-between text-[10px] text-sage/60 font-mono">
+                    <span>10k visits</span>
+                    <span>1M visits</span>
+                  </div>
                 </div>
               </Card>
             </div>
