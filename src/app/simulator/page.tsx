@@ -469,6 +469,28 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                 </div>
               </Card>
             </div>
+
+            {/* Forward Flow to Emissions Forecasts */}
+            <div className="lg:col-span-12 flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-surface-border/60">
+              <div className="text-xs font-mono text-sage/70">
+                Next in pipeline: Project traffic growth, cumulative avoided emissions, and grid transition trends.
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/evidence"
+                  className="px-4 py-2.5 rounded-full border border-surface-border text-sage hover:text-cream font-mono text-xs transition-colors"
+                >
+                  ← Evidence &amp; Verify
+                </Link>
+                <Link
+                  href="/forecasts"
+                  className="px-5 py-3 rounded-full bg-lime text-black font-bold text-xs tracking-wider font-mono hover:bg-lime/90 transition-transform hover:scale-105 flex items-center justify-center gap-2 shrink-0 shadow-lg shadow-lime/20"
+                >
+                  <span>Project Emissions Forecasts →</span>
+                </Link>
+              </div>
+            </div>
           </div>
         </>
       ) : (

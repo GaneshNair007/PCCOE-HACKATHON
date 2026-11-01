@@ -16,7 +16,6 @@ import {
   Activity,
   CheckCircle2,
   AlertCircle,
-  Sparkles,
   Globe,
   Leaf,
   Layers,
@@ -25,6 +24,7 @@ import {
   Info,
   Check,
   Scale,
+  Search,
   Compass,
   Server,
   Code2,
@@ -39,23 +39,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CarbonGlobe3D } from "@/components/3d/carbon-globe-3d";
 import { SylvaHero } from "@/components/landing/sylva-hero";
-import { HologramGauge3D } from "@/components/3d/hologram-gauge-3d";
+import { ButterflyOrbit } from "@/components/ambient/butterfly-orbit";
 import { PayloadBreakdown } from "@/components/telemetry/payload-breakdown";
 import { HotspotCard } from "@/components/telemetry/hotspot-card";
-import { ApiExplorer } from "@/components/telemetry/api-explorer";
-import { ExplainabilityPanel } from "@/components/telemetry/explainability-panel";
 import { AuditResult } from "@/types/telemetry";
 import { CARBONERRA_CONFIG } from "@/lib/config";
 import Link from "next/link";
-
-const BENCHMARK_PRESETS = [
-  { label: "Stripe", url: "https://stripe.com" },
-  { label: "Vercel", url: "https://vercel.com" },
-  { label: "PCCOE", url: "https://www.pccoepune.com" },
-  { label: "GitHub", url: "https://github.com" },
-];
 
 function LandingPageContent() {
   const searchParams = useSearchParams();
@@ -218,7 +208,7 @@ function LandingPageContent() {
                   <div className="text-xs font-mono font-bold text-lime uppercase tracking-wider mb-1">
                     AUDIT RESULTS
                   </div>
-                <h2 className="font-display text-4xl sm:text-5xl font-bold uppercase text-cream tracking-tight">
+                <h2 className="font-display text-4xl sm:text-5xl font-bold text-cream tracking-tight">
                   {auditData.domain}
                 </h2>
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-sage/70 mt-1">
@@ -238,15 +228,15 @@ function LandingPageContent() {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setShowMethodologyModal(true)}
-                  className="px-3.5 py-1.5 rounded-full glass-panel border border-surface-border text-xs font-mono text-sage/80 hover:text-lime hover:border-lime/40 transition-colors flex items-center gap-1.5 cursor-pointer font-bold uppercase"
+                  className="px-3.5 py-1.5 rounded-full glass-panel border border-surface-border text-xs font-mono text-sage/80 hover:text-lime hover:border-lime/40 transition-colors flex items-center gap-1.5 cursor-pointer font-bold"
                 >
-                  <Scale className="w-3.5 h-3.5 text-lime" /> HOW THIS IS CALCULATED
+                  <Scale className="w-3.5 h-3.5 text-lime" /> Methodology &amp; Formula
                 </button>
                 <Link
                   href="/simulator"
-                  className="px-3.5 py-1.5 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-transform hover:scale-105 flex items-center gap-1.5 uppercase"
+                  className="px-4 py-2 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-transform hover:scale-105 flex items-center gap-1.5"
                 >
-                  <Sliders className="w-3.5 h-3.5" /> SIMULATE SAVINGS →
+                  <Sliders className="w-3.5 h-3.5" /> Simulate Savings →
                 </Link>
               </div>
             </div>
@@ -318,134 +308,123 @@ function LandingPageContent() {
               </div>
             </div>
 
-            {/* 3D Grid: Hologram Chamber (Left) + Exploded Payload & Host Telemetry (Right) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-              {/* Left Column: 3D Holographic EcoScore Chamber */}
-              <div className="lg:col-span-4">
-                <div className="min-w-0">
-                  <HologramGauge3D
-                    score={auditData.eco_score}
-                    co2Grams={displayedCo2 !== null ? displayedCo2 : auditData.co2_grams}
-                    rangeLow={auditData.range_low_g}
-                    rangeHigh={auditData.range_high_g}
-                    confidence={auditData.confidence}
-                    confidenceNote={auditData.confidence_note}
-                    discrepancyPct={auditData.cross_validation?.discrepancy_pct}
-                    onOpenMethodology={() => setShowMethodologyModal(true)}
-                  />
+            {/* =========================================================================
+                HIGH-SIGNAL AUDIT RESULTS: 4 Human-Understandable Cupertino Cards
+                ========================================================================= */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Card 1: Page Weight */}
+              <Card className="p-5 glass-panel-elevated border border-surface-border space-y-2">
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-sage/70">
+                  PAGE TRANSFER WEIGHT
                 </div>
+                <div className="font-display text-3xl sm:text-4xl font-bold text-cream">
+                  {auditData.metrics.payload_mb} <span className="text-sm font-sans font-normal text-sage/70">MB</span>
+                </div>
+                <div className="text-xs font-mono text-sage/80 pt-1">
+                  {auditData.metrics.payload_mb > 2.0 ? (
+                    <span className="text-amber-400 font-semibold">Heavier than 68% of audited pages</span>
+                  ) : (
+                    <span className="text-lime font-semibold">Within recommended lightweight bounds</span>
+                  )}
+                </div>
+              </Card>
+
+              {/* Card 2: EcoScore Grade */}
+              <Card className="p-5 glass-panel-elevated border border-surface-border space-y-2">
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-sage/70">
+                  ECOSCORE GRADE
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className={`text-2xl sm:text-3xl font-display font-black px-3.5 py-1 rounded-xl border ${
+                    ['A', 'A+', 'B'].includes(auditData.eco_score)
+                      ? 'bg-lime/10 border-lime/40 text-lime'
+                      : 'bg-red-500/10 border-red-500/40 text-red-400'
+                  }`}>
+                    Grade {auditData.eco_score}
+                  </div>
+                </div>
+                <div className="text-xs font-mono text-sage/80 pt-1">
+                  {['A', 'A+', 'B'].includes(auditData.eco_score)
+                    ? 'Top tier environmental efficiency'
+                    : 'High emissions reduction potential'}
+                </div>
+              </Card>
+
+              {/* Card 3: Carbon per Visit */}
+              <Card className="p-5 glass-panel-elevated border border-surface-border space-y-2">
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-sage/70">
+                  CARBON PER VISIT
+                </div>
+                <div className="font-display text-3xl sm:text-4xl font-bold text-cream">
+                  {displayedCo2 !== null ? displayedCo2 : auditData.co2_grams} <span className="text-sm font-sans font-normal text-sage/70">gCO2e</span>
+                </div>
+                <div className="text-xs font-mono text-sage/80 pt-1">
+                  Grid: {auditData.grid_intensity_val} gCO2e/kWh ({auditData.hosting_country || "Resolved Region"})
+                </div>
+              </Card>
+
+              {/* Card 4: Primary Culprit */}
+              <Card className="p-5 glass-panel-elevated border border-surface-border space-y-2">
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-400">
+                  PRIMARY CULPRIT
+                </div>
+                <div className="font-sans text-lg font-bold text-cream truncate">
+                  {auditData.hotspots && auditData.hotspots.length > 0
+                    ? auditData.hotspots[0].title
+                    : "Uncompressed Assets"}
+                </div>
+                <div className="text-xs font-mono text-sage/80 pt-1 line-clamp-2">
+                  {auditData.hotspots && auditData.hotspots.length > 0
+                    ? auditData.hotspots[0].desc
+                    : "No heavy assets detected."}
+                </div>
+              </Card>
+            </div>
+
+            {/* Transparent Sustainable Web Design Model v4 Formula Box */}
+            <Card className="p-6 glass-panel-elevated border border-lime/30 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="text-xs font-mono font-bold text-lime uppercase tracking-wider flex items-center gap-2">
+                  <Scale className="w-4 h-4 text-lime" />
+                  TRANSPARENT CALCULATION: SUSTAINABLE WEB DESIGN MODEL V4
+                </div>
+                <span className="text-xs font-mono text-sage/70">
+                  Zero Black-Box Guesswork
+                </span>
               </div>
-
-              {/* Right Column: 3D Exploded Payload & Datacenter Grid Cards */}
-              <div className="lg:col-span-8 space-y-6">
-                {/* 3D Datacenter Grid Telemetry Banner + Interactive Globe */}
-                <div className="min-w-0">
-                  <Card className="   p-5 glass-panel-elevated border border-lime/30">
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
-                      <div className="md:col-span-7 space-y-3">
-                        <div className="flex items-start gap-3.5">
-                          <div className="p-2.5 rounded-xl bg-lime/10 border border-lime/30 text-lime mt-0.5">
-                            <Server className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <div className="text-xs font-mono font-bold text-cream uppercase tracking-wider">
-                              HOSTING &amp; POWER GRID CLEANLINESS
-                            </div>
-                            <div className="font-mono text-xl font-bold text-cream flex items-center gap-2">
-                              {auditData.grid_intensity_val}{" "}
-                              <span className="text-xs text-sage/60 font-normal">gCO2e/kWh</span>
-                              <span className="text-xs px-2 py-0.5 rounded-full bg-surface-elevated border border-surface-border text-cream">
-                                {auditData.hosting_country || "Resolved Region"}
-                              </span>
-                            </div>
-                            <p className="text-xs text-sage/70 mt-1">
-                              Source:{" "}
-                              {auditData.grid_intensity_source === "resolved_regional"
-                                ? "The Green Web Foundation Regional Grid Factor"
-                                : "Global Reference Datacenter Baseline (494 gCO2e/kWh)"}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-2 pt-1">
-                          <Badge
-                            variant={auditData.hosting.green ? "lime" : "outline"}
-                            className="font-mono text-xs font-bold uppercase"
-                          >
-                            {auditData.hosting.green ? "VERIFIED GREEN HOST" : "STANDARD POWER GRID"}
-                          </Badge>
-                          <span className="text-xs font-mono text-sage/80">
-                            {auditData.hosting.provider || "Standard hosting grid"}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* 3D Earth Globe: focuses active datacenter region upon audit */}
-                      <div className="md:col-span-5 h-[190px] relative flex items-center justify-center">
-                        <CarbonGlobe3D
-                          activeRegion={auditData?.hosting_country_code || auditData?.hosting_country}
-                          gridIntensity={auditData?.grid_intensity_val || 494}
-                          isGreen={auditData?.hosting.green || false}
-                          hasAuditedTarget={true}
-                          className="w-full h-full"
-                        />
-                      </div>
-                    </div>
-                  </Card>
-                </div>
-
-                {/* Transfer Payload Breakdown Visualizer */}
-                <div className="min-w-0">
-                  <Card className="   p-6 glass-panel-elevated">
-                    <PayloadBreakdown
-                      totalBytes={auditData.total_bytes}
-                      totalMb={auditData.metrics.payload_mb}
-                      breakdown={auditData.breakdown}
-                    />
-                  </Card>
-                </div>
-
-                {/* Interactive 3D Sensitivity Chamber Slider */}
-                <div className="min-w-0">
-                  <Card className="   p-5 glass-panel-elevated space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-xs font-mono text-lime font-bold uppercase tracking-wider">
-                        <Sliders className="w-4 h-4" /> ESTIMATED CACHE RANGE (NEW VS REPEAT VISITS)
-                      </div>
-                      <span className="font-mono text-xs text-cream font-bold">
-                        {sensitivityVariance > 0 ? `+${sensitivityVariance}%` : `${sensitivityVariance}%`}
-                      </span>
-                    </div>
-                    <input
-                      type="range"
-                      aria-label="Model sensitivity cache variance"
-                      aria-valuetext={`${sensitivityVariance}% cache variance`}
-                      min="-20"
-                      max="20"
-                      step="5"
-                      value={sensitivityVariance}
-                      onChange={(e) => setSensitivityVariance(Number(e.target.value))}
-                      className="w-full accent-lime bg-surface-elevated h-2 rounded-lg cursor-pointer"
-                    />
-                    <div className="flex justify-between text-xs font-mono text-sage/80">
-                      <span>-20% (Aggressive Repeat Cache)</span>
-                      <span>0% (Baseline Visit)</span>
-                      <span>+20% (Cold First-Time Load)</span>
-                    </div>
-                    <p className="text-xs font-mono text-sage/70">
-                      Shows estimated emissions range depending on whether a visitor is loading the page fresh or has cached images and stylesheets.
-                    </p>
-                  </Card>
-                </div>
+              <div className="p-3.5 rounded-xl bg-black/60 border border-surface-border font-mono text-xs sm:text-sm text-cream font-bold overflow-x-auto">
+                Emissions (gCO2e) = [Data Transfer (GB) × 0.81 kWh/GB] × Regional Grid Factor ({auditData.grid_intensity_val} gCO2e/kWh)
               </div>
+              <p className="text-xs text-sage/80 leading-relaxed">
+                Standardized energy consumption: 0.81 kWh per transferred gigabyte across user devices, edge telecommunications networks, and hosting servers. Datacenter carbon intensity resolved via The Green Web Foundation regional grid dataset.
+              </p>
+            </Card>
+
+            {/* Transfer Payload Breakdown Visualizer */}
+            <div className="min-w-0">
+              <Card className="p-6 glass-panel-elevated border border-surface-border">
+                <PayloadBreakdown
+                  totalBytes={auditData.total_bytes}
+                  totalMb={auditData.metrics.payload_mb}
+                  breakdown={auditData.breakdown}
+                />
+              </Card>
             </div>
 
             {/* Hotspot Recommendations Section */}
             {auditData.hotspots && auditData.hotspots.length > 0 && (
-              <div className="space-y-4 pt-4">
-                <h3 className="font-display text-2xl font-bold uppercase tracking-wider text-cream">
-                  RECOMMENDED OPTIMIZATIONS
-                </h3>
+              <div className="space-y-4 pt-2">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-display text-2xl font-bold tracking-tight text-cream">
+                    Recommended Optimizations
+                  </h3>
+                  <Link
+                    href={`/savings-lab?auditId=${auditData.id}&targetUrl=${encodeURIComponent(auditData.target_url)}&hotspot=${encodeURIComponent(auditData.hotspots[0].title)}`}
+                    className="px-4 py-2 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-all flex items-center gap-1.5"
+                  >
+                    Apply Drop-In Fixes in Savings Lab →
+                  </Link>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {auditData.hotspots.map((h, i) => (
                     <HotspotCard key={i} index={i} hotspot={h} />
@@ -453,159 +432,283 @@ function LandingPageContent() {
                 </div>
               </div>
             )}
-
-            {/* Explainability & Data Provenance Panel (PAIR / IBM Carbon Framework) */}
-            <div className="pt-6">
-              <ExplainabilityPanel
-                auditData={auditData}
-                onRerun={() => runAudit(targetUrl)}
-              />
-            </div>
           </>
         ) : auditStatus === "running" ? (
-          /* Live Dual-Source Auditing State */
-          <div className="p-12 text-center rounded-3xl glass-panel-elevated border border-lime/40 space-y-6 relative overflow-hidden shadow-[0_0_50px_rgba(203,255,0,0.15)]">
-            <div className="absolute inset-0 bg-radial-gradient from-lime/10 via-transparent to-transparent animate-pulse pointer-events-none" />
-            <div className="w-16 h-16 rounded-3xl bg-lime/10 border border-lime/40 text-lime flex items-center justify-center mx-auto relative">
-              <RefreshCw className="w-8 h-8 animate-spin text-lime" />
-              <div className="absolute inset-0 rounded-3xl border border-lime animate-ping opacity-25" />
-            </div>
-            <div className="space-y-2">
-              <span className="px-3 py-1 rounded-full bg-lime/10 border border-lime/30 text-xs font-mono text-lime font-bold uppercase tracking-wider">
-                ANALYZING WEBSITE AND EMISSIONS...
-              </span>
-              <h3 className="font-display text-3xl sm:text-4xl font-bold uppercase text-cream tracking-tight">
-                AUDITING {targetUrl || "TARGET HOST"}
+          /* Live Dual-Source Auditing State with Butterfly Orbit */
+          <div className="p-12 text-center rounded-3xl glass-panel-elevated border border-lime/40 space-y-6 relative overflow-hidden shadow-[0_0_50px_rgba(203,255,0,0.15)] flex flex-col items-center justify-center">
+            <ButterflyOrbit size={130} label={currentPhase || "Measuring Network Transfer & Computing SWDM v4 Carbon..."} />
+            <div className="space-y-1">
+              <h3 className="font-display text-2xl sm:text-3xl font-bold text-cream tracking-tight">
+                Auditing {targetUrl || "Target Host"}
               </h3>
-              <p className="text-sm font-mono text-lime max-w-lg mx-auto flex items-center justify-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-lime animate-pulse" />
-                {currentPhase || "Running cross-validation crawl..."}
+              <p className="text-xs font-mono text-sage/70">
+                Fetching DOM elements, resolving regional grid emissions, and pinpointing asset hotspots.
               </p>
-            </div>
-            <div className="w-full max-w-md mx-auto bg-surface-elevated rounded-full h-2 overflow-hidden border border-surface-border">
-              <div className="bg-lime h-full rounded-full animate-[pulse_1.5s_ease-in-out_infinite] w-3/4 shadow-[0_0_10px_#cbff00]" />
             </div>
           </div>
         ) : (
-          <>
-            <div className="world-chapter-label">01 / A closer look</div>
-            <div className="world-ready">
-              <h3>Every byte leaves<br />a footprint.</h3>
-              <p>Your audit workspace is ready. Enter a public website above, or explore a benchmark below. Real measurements reveal where a lighter experience can begin.</p>
-              <div className="world-presets">
-                {BENCHMARK_PRESETS.map(p => <button key={p.url} onClick={() => {setTargetUrl(p.url); runAudit(p.url);}}><Sparkles size={14} /><span>Audit {p.label}</span></button>)}
+          <div className="w-full rounded-3xl bg-white/[0.04] border border-white/15 backdrop-blur-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden space-y-6">
+            <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#cbff00]/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+              <div>
+                <span className="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase bg-[#cbff00]/15 text-[#cbff00] border border-[#cbff00]/30">
+                  Live Verified Benchmark
+                </span>
+                <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mt-3">
+                  PCCOE Campus Portal Telemetry
+                </h3>
+                <div className="text-sm font-mono text-white/70 mt-1">
+                  Target: <span className="text-white font-medium">https://www.pccoepune.com</span> • Regional Grid: 708 gCO2e/kWh
+                </div>
+              </div>
+
+              <Button
+                variant="lime"
+                onClick={() => {
+                  const sampleUrl = "https://www.pccoepune.com";
+                  setTargetUrl(sampleUrl);
+                  runAudit(sampleUrl);
+                }}
+                className="font-bold font-mono text-xs sm:text-sm px-6 py-3 tracking-wider shrink-0 cursor-pointer shadow-lg shadow-[#cbff00]/20"
+              >
+                <Search className="w-4 h-4 mr-2" />
+                RUN FULL AUDIT TELEMETRY
+              </Button>
+            </div>
+
+            {/* 3 Prominent Benchmark Preview Metric Cards */}
+            <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono">
+              <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl">
+                <div className="text-xs text-white/60 uppercase font-bold tracking-wider">Observed Transfer Weight</div>
+                <div className="text-2xl sm:text-3xl font-black text-white mt-1.5">2,420 <span className="text-sm text-white/60 font-normal">KB</span></div>
+                <div className="text-xs text-amber-400 mt-1">Oversized Hero Banner Hotspot</div>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl">
+                <div className="text-xs text-white/60 uppercase font-bold tracking-wider">Carbon Attribution</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#cbff00] mt-1.5">0.296 <span className="text-sm text-white/60 font-normal">gCO2e</span></div>
+                <div className="text-xs text-white/70 mt-1">SWDM v4 Standard Model</div>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl">
+                <div className="text-xs text-white/60 uppercase font-bold tracking-wider">Optimization Potential</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#cbff00] mt-1.5">-92.7%</div>
+                <div className="text-xs text-[#cbff00] mt-1">Convert to Modern WebP</div>
               </div>
             </div>
-            <aside className="world-audit-aside" aria-label="Measurement approach">
-              <img src="/landing-pages/inner-green-assets/card-ethos.jpg" alt="Moss resting on weathered stones" width={174} height={174} loading="lazy" />
-              <p>Look closer.<br />Measure what matters.</p>
-            </aside>
-          </>
-
+          </div>
         )}
       </section>
 
       {/* ==========================================================================
-           3D FEATURE MATRIX: Staggered GSAP ScrollTrigger Section
+           FEATURE CAPABILITIES: Staggered GSAP ScrollTrigger Section
            ========================================================================== */}
       <section className="world-stories" data-world-shot="roots">
-        <SectionHeading eyebrow="02 / Connected by nature" title="A living system. A lighter web." description="Follow the impact of your work, from the first measurement to the improvements that last." />
-        {[
-          {n:"01",title:"See the whole ecosystem.",label:"Fleet telemetry",href:"/dashboard",action:"Explore your fleet",shot:"canopy",image:"card-ethos.jpg",copy:"Your websites are connected by the choices you make. Monitor saved audit baselines, verify green hosting, filter your portfolio, and export the full picture."},
-          {n:"02",title:"Make room for something better.",label:"What-if simulator",href:"/simulator",action:"Explore the possibilities",shot:"measure",image:"card-ecostove.jpg",copy:"Model image compression, JavaScript changes, and caching. Explore their estimated impact before you commit, with transparent assumptions beside every scenario."},
-          {n:"03",title:"Look beyond the horizon.",label:"Emissions forecasts",href:"/forecasts",action:"Follow the forecast",shot:"roots",image:"card-ethos.jpg",copy:"Explore traffic growth and grid decarbonization through forward-looking emission paths. Keep possible futures distinct from measured outcomes."},
-          {n:"04",title:"Verify your impact with proof.",label:"Evidence Vault",href:"/evidence",action:"Inspect auditable evidence",shot:"clearing",image:"card-ecostove.jpg",copy:"Generate cryptographic proof receipts for your sustainability improvements. Each audit record contains SHA-256 hashes ready for corporate CSRD and ESG disclosures."},
-        ].map(story => <article key={story.href} className="world-story" data-world-shot={story.shot}>
-          <figure className="world-story-image"><img src={"/landing-pages/inner-green-assets/"+story.image} alt="Native moss and vegetation in the Sylva landscape" width={360} height={450} loading="lazy" /><span>CARBONTERRA / {story.n}</span></figure>
-          <div><span className="world-story-number">{story.n} / {story.label}</span><h3>{story.title}</h3><p>{story.copy}</p><Link href={story.href}>{story.action}<ArrowRight strokeWidth={1.3} /></Link></div>
-        </article>)}
-      </section>
-
-      {/* ==========================================================================
-           INTERACTIVE DEVELOPER API EXPLORER (Live Sandbox + Multi-Language Snippets)
-           ========================================================================== */}
-      <section id="api-explorer" className="world-api-chapter space-y-8 scroll-mt-24" data-world-shot="clearing">
-        <div className="world-api-intro">
-          <div className="world-chapter-label">
-            <Terminal className="w-3.5 h-3.5" /> 03 / Under the surface
+        <SectionHeading eyebrow="Core Capabilities" title="A living system. A lighter web." description="Follow the impact of your work, from the first measurement to the improvements that last." />
+        
+        {/* Story 1: Fleet Telemetry */}
+        <article className="world-story" data-world-shot="canopy">
+          <div className="world-story-image">
+            <div className="p-6 rounded-2xl bg-black/50 border border-white/10 space-y-4 font-mono text-xs">
+              <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                <span className="text-white font-bold uppercase tracking-wider">Portfolio Health</span>
+                <span className="text-[#cbff00] font-bold">4 Active Hosts</span>
+              </div>
+              <div className="space-y-2.5">
+                <div className="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/5">
+                  <span className="text-white">pccoepune.com</span>
+                  <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">Grade B</span>
+                </div>
+                <div className="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/5">
+                  <span className="text-white">stripe.com</span>
+                  <span className="px-2 py-0.5 rounded bg-[#cbff00]/20 text-[#cbff00] font-bold">Grade A</span>
+                </div>
+                <div className="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/5">
+                  <span className="text-white">vercel.com</span>
+                  <span className="px-2 py-0.5 rounded bg-[#cbff00]/20 text-[#cbff00] font-bold">Grade A</span>
+                </div>
+              </div>
+              <div className="pt-2 text-white/60 text-[11px] text-center border-t border-white/10">
+                -42.8% Average Transfer Delta
+              </div>
+            </div>
+            <span>CARBONTERRA</span>
           </div>
-          <h2 className="font-display text-4xl sm:text-5xl text-cream  tracking-tight">
-            Developer telemetry API
-          </h2>
-          <p className="text-sm sm:text-base text-sage/80">
-            Test real endpoints directly against the production server. Inspect response latency, status codes, and copy production-ready code snippets.
-          </p>
-        </div>
-        <ApiExplorer />
+          <div>
+            <span className="world-story-number">Fleet telemetry</span>
+            <h3>See the whole ecosystem.</h3>
+            <p>Your websites are connected by the choices you make. Monitor saved audit baselines, verify green hosting, filter your portfolio, and export the full picture.</p>
+            <Link href="/dashboard">Explore your fleet<ArrowRight strokeWidth={1.3} /></Link>
+          </div>
+        </article>
+
+        {/* Story 2: What-if Simulator */}
+        <article className="world-story" data-world-shot="measure">
+          <div className="world-story-image">
+            <div className="p-6 rounded-2xl bg-black/50 border border-white/10 space-y-4 font-mono text-xs">
+              <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                <span className="text-white font-bold uppercase tracking-wider">Scenario Engine</span>
+                <span className="text-[#cbff00] font-bold">Live Model</span>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <div className="flex justify-between text-white/70 mb-1">
+                    <span>WebP Compression</span>
+                    <span className="text-[#cbff00] font-bold">-85%</span>
+                  </div>
+                  <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-[#cbff00] h-full w-[85%]" />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between text-white/70 mb-1">
+                    <span>Script Tree-Shaking</span>
+                    <span className="text-[#cbff00] font-bold">-34%</span>
+                  </div>
+                  <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+                    <div className="bg-[#cbff00] h-full w-[34%]" />
+                  </div>
+                </div>
+              </div>
+              <div className="p-3 rounded-xl bg-[#cbff00]/10 border border-[#cbff00]/30 text-center">
+                <div className="text-[11px] text-white/70">Projected Savings</div>
+                <div className="text-lg font-bold text-[#cbff00]">-1.84 MB / visit</div>
+              </div>
+            </div>
+            <span>CARBONTERRA</span>
+          </div>
+          <div>
+            <span className="world-story-number">What-if simulator</span>
+            <h3>Make room for something better.</h3>
+            <p>Model image compression, JavaScript changes, and caching. Explore their estimated impact before you commit, with transparent assumptions beside every scenario.</p>
+            <Link href="/simulator">Explore the possibilities<ArrowRight strokeWidth={1.3} /></Link>
+          </div>
+        </article>
+
+        {/* Story 3: Emissions Forecasts */}
+        <article className="world-story" data-world-shot="roots">
+          <div className="world-story-image">
+            <div className="p-6 rounded-2xl bg-black/50 border border-white/10 space-y-4 font-mono text-xs">
+              <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                <span className="text-white font-bold uppercase tracking-wider">Emissions Spline</span>
+                <span className="text-[#cbff00] font-bold">36 Months</span>
+              </div>
+              <div className="h-28 flex items-center justify-center">
+                <svg viewBox="0 0 200 80" className="w-full h-full overflow-visible">
+                  <path d="M 10 30 Q 60 20 100 25 T 190 15" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="2" strokeDasharray="3 3" />
+                  <path d="M 10 30 Q 60 45 100 55 T 190 70" fill="none" stroke="#cbff00" strokeWidth="2.5" />
+                  <circle cx="190" cy="70" r="4" fill="#cbff00" />
+                </svg>
+              </div>
+              <div className="flex justify-between items-center text-[11px] pt-1 border-t border-white/10">
+                <span className="text-white/60">BAU: 4.8 kg CO2e</span>
+                <span className="text-[#cbff00] font-bold">Optimized: 0.9 kg (-81%)</span>
+              </div>
+            </div>
+            <span>CARBONTERRA</span>
+          </div>
+          <div>
+            <span className="world-story-number">Emissions forecasts</span>
+            <h3>Look beyond the horizon.</h3>
+            <p>Explore traffic growth and grid decarbonization through forward-looking emission paths. Keep possible futures distinct from measured outcomes.</p>
+            <Link href="/forecasts">Follow the forecast<ArrowRight strokeWidth={1.3} /></Link>
+          </div>
+        </article>
+
+        {/* Story 4: Evidence Vault */}
+        <article className="world-story" data-world-shot="clearing">
+          <div className="world-story-image">
+            <div className="p-6 rounded-2xl bg-black/50 border border-[#cbff00]/30 space-y-4 font-mono text-xs shadow-xl">
+              <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                <span className="text-[#cbff00] font-bold uppercase tracking-wider">Evidence Vault Record</span>
+                <span className="px-2 py-0.5 rounded bg-[#cbff00] text-black font-extrabold text-[10px]">VERIFIED</span>
+              </div>
+              <div className="space-y-2 text-white/80">
+                <div className="flex justify-between">
+                  <span className="text-white/60">Record ID</span>
+                  <span className="text-white">exp_17886009...</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-white/60">Transfer Delta</span>
+                  <span className="text-[#cbff00] font-bold">-2,191 KB</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-white/60">Task Checks</span>
+                  <span className="text-[#cbff00] font-bold">3/3 Passed</span>
+                </div>
+              </div>
+              <div className="p-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-center text-[11px] text-[#cbff00] font-bold">
+                Immutable SHA-256 Audit Seal
+              </div>
+            </div>
+            <span>CARBONTERRA</span>
+          </div>
+          <div>
+            <span className="world-story-number">Evidence Vault</span>
+            <h3>Verify your impact with proof.</h3>
+            <p>Generate verified evidence receipts for your web improvements. Each record documents measured byte reductions, before-and-after transfer weights, and carbon savings for your engineering team.</p>
+            <Link href="/evidence">Inspect auditable evidence<ArrowRight strokeWidth={1.3} /></Link>
+          </div>
+        </article>
       </section>
 
       {/* ==========================================================================
-           METHODOLOGY MODAL (Full Provenance & Caveats)
+           METHODOLOGY MODAL (Formula, References & Transparent Calculations)
            ========================================================================== */}
-      <Modal isOpen={showMethodologyModal} onClose={() => setShowMethodologyModal(false)} title="Methodology & accuracy">
-<div className="space-y-4 text-xs sm:text-sm text-sage/85 leading-relaxed font-sans">
-                <p className="italic text-sage/70">
-                  {CARBONERRA_CONFIG.terminology.disclaimer}
-                </p>
+      <Modal isOpen={showMethodologyModal} onClose={() => setShowMethodologyModal(false)} title="Carbon Calculation Formula & Reference">
+        <div className="space-y-4 text-xs sm:text-sm text-sage/85 leading-relaxed font-sans">
+          {/* Transparent Formula Box */}
+          <div className="p-4 rounded-xl bg-forest-900/60 border border-lime/40 space-y-2">
+            <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
+              The Exact Carbon Formula (SWDM v4)
+            </h4>
+            <div className="p-3 rounded-lg bg-black/50 font-mono text-xs sm:text-sm text-cream font-bold overflow-x-auto">
+              Emissions (gCO2e) = [Data (GB) × 0.81 kWh/GB] × Grid Intensity (gCO2/kWh)
+            </div>
+            <p className="text-xs text-sage/80 pt-1">
+              Every gigabyte transferred consumes approximately 0.81 kWh of electricity across user devices, telecommunication networks, and data centers. That energy is multiplied by the actual carbon intensity of the server&apos;s regional electricity grid.
+            </p>
+          </div>
 
-                <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-                  <h4 className="font-mono font-bold text-lime text-xs ">
-                    1. Reference Implementation ({CARBONERRA_CONFIG.referenceStandard})
-                  </h4>
-                  <p className="text-xs">
-                    Calculations utilize the official Sustainable Web Design Model (SWDM v4) reference library (`@tgwf/co2`), eliminating formula transcription errors. Segment operational emissions ({CARBONERRA_CONFIG.operationalKwhPerByte} kWh/byte) and embodied hardware manufacturing footprint ({CARBONERRA_CONFIG.embodiedKwhPerByte} kWh/byte) are individually accounted for.
-                  </p>
-                </div>
+          <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
+            <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
+              1. Official Reference Standard
+            </h4>
+            <p className="text-xs">
+              Based on the <strong>Sustainable Web Design Model v4 (SWDM v4)</strong>, developed by The Green Web Foundation and Wholegrain Digital. It accounts for both operational energy and network routing.
+            </p>
+          </div>
 
-                <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-                  <h4 className="font-mono font-bold text-lime text-xs ">
-                    2. Dual-Source Cross-Validation
-                  </h4>
-                  <p className="text-xs">
-                    Transfer byte volume is validated from two independent sources: Google PageSpeed Insights v5 (Lighthouse synthetic browser execution) and an independent Cheerio DOM crawler with concurrent HTTP HEAD probes. Discrepancies within {CARBONERRA_CONFIG.sourceAgreementThresholdPct}% receive high confidence tags.
-                  </p>
-                </div>
+          <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
+            <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
+              2. Real Regional Power Grid Lookups
+            </h4>
+            <p className="text-xs">
+              Instead of assuming one flat global average, CarbonTerra resolves the website&apos;s IP address and queries The Green Web Foundation regional grid database to find the true carbon intensity (grams of CO2 per kWh) of that datacenter&apos;s geographic grid.
+            </p>
+          </div>
 
-                <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-                  <h4 className="font-mono font-bold text-lime text-xs ">
-                    3. Real Datacenter Grid Intensity
-                  </h4>
-                  <p className="text-xs">
-                    Target host domain is resolved to its hosting IP via safe DNS resolution and looked up against The Green Web Foundation regional grid API, replacing flat global averages with real location-specific carbon intensity.
-                  </p>
-                </div>
+          <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
+            <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
+              3. Honest Attribution Boundary
+            </h4>
+            <p className="text-xs">
+              Digital carbon metrics are engineering model attributions. A website reducing 2 MB of transfer achieves measurable digital efficiency, which correlates to reduced network and device electricity use.
+            </p>
+          </div>
+        </div>
 
-                <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-                  <h4 className="font-mono font-bold text-lime text-xs ">
-                    4. Sensitivity Banding (±20%)
-                  </h4>
-                  <p className="text-xs">
-                    Instead of a false-precision point estimate, Carbonerra reports a verified sensitivity range (range_low_g to range_high_g) modeling caching and repeat-visit variance.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-                  <h4 className="font-mono font-bold text-lime text-xs ">
-                    5. Known Methodological Limitations
-                  </h4>
-                  <ul className="text-xs list-disc list-inside space-y-1 text-sage/75">
-                    {CARBONERRA_CONFIG.standardLimitations.map((lim, idx) => (
-                      <li key={idx}>{lim}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="pt-2 flex justify-end">
-                <Button
-                  variant="lime"
-                  size="sm"
-                  onClick={() => setShowMethodologyModal(false)}
-                  className="font-bold font-mono"
-                >
-                  CLOSE METHODOLOGY
-                </Button>
-              </div>
+        <div className="pt-4 flex justify-end">
+          <Button
+            variant="lime"
+            size="sm"
+            onClick={() => setShowMethodologyModal(false)}
+            className="font-bold font-mono"
+          >
+            CLOSE
+          </Button>
+        </div>
       </Modal>
       </div>
     </div>

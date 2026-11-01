@@ -8,6 +8,46 @@ import { LineChart, Info } from "lucide-react";
 import Link from "next/link";
 import { AuditResult } from "@/types/telemetry";
 
+interface Point2D {
+  x: number;
+  y: number;
+}
+
+/**
+ * Computes a smooth, continuous Catmull-Rom / Monotone Cubic Bezier path
+ * across discrete data points, eliminating amateurish jagged polylines.
+ */
+function getCubicBezierPath(pts: Point2D[]): string {
+  if (pts.length === 0) return "";
+  if (pts.length === 1) return `M ${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+  let path = `M ${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i === 0 ? 0 : i - 1];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[i + 2 < pts.length ? i + 2 : i + 1];
+
+    const cp1x = p1.x + (p2.x - p0.x) / 6;
+    const cp1y = p1.y + (p2.y - p0.y) / 6;
+    const cp2x = p2.x - (p3.x - p1.x) / 6;
+    const cp2y = p2.y - (p3.y - p1.y) / 6;
+
+    path += ` C ${cp1x.toFixed(1)},${cp1y.toFixed(1)} ${cp2x.toFixed(1)},${cp2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+  }
+  return path;
+}
+
+/**
+ * Computes a closed smooth area path under a cubic curve down to a baseline Y coordinate.
+ */
+function getCubicAreaPath(pts: Point2D[], bottomY: number): string {
+  if (pts.length === 0) return "";
+  const curve = getCubicBezierPath(pts);
+  const first = pts[0];
+  const last = pts[pts.length - 1];
+  return `${curve} L ${last.x.toFixed(1)},${bottomY.toFixed(1)} L ${first.x.toFixed(1)},${bottomY.toFixed(1)} Z`;
+}
+
 export default function ForecastsPage() {
   const [selectedAudit, setSelectedAudit] = useState<AuditResult | null>(null);
   const [recentAudits, setRecentAudits] = useState<any[]>([]);
@@ -258,9 +298,9 @@ export default function ForecastsPage() {
                 <div className="p-3 rounded-xl bg-surface-elevated border border-surface-border flex flex-wrap items-center justify-between gap-3 text-xs font-mono animate-in fade-in duration-150">
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
                     <span className="px-2 py-0.5 rounded bg-white/10 text-cream font-bold">{hoveredPoint.month}</span>
-                    <span className="text-red-400">🔴 Do Nothing: <strong className="text-cream">{hoveredPoint.statusQuoKg} kg</strong></span>
-                    <span className="text-amber-300">🟡 Code Clean-up: <strong className="text-cream">{hoveredPoint.plannedKg} kg</strong></span>
-                    <span className="text-lime">🟢 Green Cloud: <strong className="text-cream">{hoveredPoint.netZeroKg} kg</strong></span>
+                    <span className="text-red-400">Do Nothing: <strong className="text-cream">{hoveredPoint.statusQuoKg} kg</strong></span>
+                    <span className="text-amber-300">Code Clean-up: <strong className="text-cream">{hoveredPoint.plannedKg} kg</strong></span>
+                    <span className="text-lime">Green Cloud: <strong className="text-cream">{hoveredPoint.netZeroKg} kg</strong></span>
                   </div>
                   <div className="text-lime font-bold bg-lime/10 border border-lime/25 px-2.5 py-1 rounded-lg">
                     Avoids {(hoveredPoint.statusQuoKg - hoveredPoint.netZeroKg).toFixed(1)} kg CO2/mo ({Math.round(((hoveredPoint.statusQuoKg - hoveredPoint.netZeroKg) / hoveredPoint.statusQuoKg) * 100)}% saved)
@@ -269,7 +309,7 @@ export default function ForecastsPage() {
               ) : (
                 <div className="p-3 rounded-xl bg-surface/60 border border-surface-border/60 text-xs font-mono text-sage/75 flex flex-wrap items-center justify-between gap-2">
                   <span className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-lime animate-pulse" />
+                    <Info className="w-3.5 h-3.5 text-lime" />
                     Hover anywhere on the chart or lines to inspect the exact month-by-month carbon savings.
                   </span>
                   <span className="text-[11px] text-sage/50">Baseline: {selectedAudit.co2_grams}g CO2e / page view</span>
@@ -300,19 +340,30 @@ export default function ForecastsPage() {
                       <desc id="forecast-chart-description">Shows monthly emissions in kg CO2e over {monthsCount} months for Status Quo, Code Clean-up, and Green Cloud pathways.</desc>
 
                       <defs>
-                        {/* Gradients for visual clarity */}
-                        <linearGradient id="redArea" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#f87171" stopOpacity="0.22" />
+                        {/* Apple-grade atmospheric depth gradients */}
+                        <linearGradient id="redAreaSpline" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#f87171" stopOpacity="0.28" />
+                          <stop offset="60%" stopColor="#f87171" stopOpacity="0.08" />
                           <stop offset="100%" stopColor="#f87171" stopOpacity="0.0" />
                         </linearGradient>
-                        <linearGradient id="limeArea" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#a3e635" stopOpacity="0.18" />
-                          <stop offset="100%" stopColor="#a3e635" stopOpacity="0.0" />
+                        <linearGradient id="limeAreaSpline" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#cbff00" stopOpacity="0.32" />
+                          <stop offset="60%" stopColor="#cbff00" stopOpacity="0.10" />
+                          <stop offset="100%" stopColor="#cbff00" stopOpacity="0.0" />
                         </linearGradient>
+
+                        {/* Soft luminous line glow filter */}
+                        <filter id="splineGlow" x="-20%" y="-20%" width="140%" height="140%">
+                          <feGaussianBlur stdDeviation="3.5" result="blur" />
+                          <feMerge>
+                            <feMergeNode in="blur" />
+                            <feMergeNode in="SourceGraphic" />
+                          </feMerge>
+                        </filter>
                       </defs>
 
-                      {/* Y-Axis Label */}
-                      <text x={chartLeft} y="15" textAnchor="start" className="text-[10px] font-mono fill-sage/60 font-semibold uppercase tracking-wider">
+                      {/* Y-Axis Header Label */}
+                      <text x={chartLeft} y="15" textAnchor="start" className="text-[11px] font-mono fill-sage/60 font-semibold uppercase tracking-wider">
                         Monthly Carbon Output (kg CO2e)
                       </text>
 
@@ -328,15 +379,15 @@ export default function ForecastsPage() {
                               x2={chartRight}
                               y2={y}
                               stroke="currentColor"
-                              className="text-surface-border"
-                              strokeDasharray={ratio === 0 ? "none" : "4 4"}
+                              className="text-surface-border/60"
+                              strokeDasharray={ratio === 0 ? "none" : "3 5"}
                               strokeWidth={ratio === 0 ? "1.5" : "1"}
                             />
                             <text
                               x={chartLeft - 10}
                               y={y + 3.5}
                               textAnchor="end"
-                              className="text-[10px] font-mono fill-sage/70 font-medium"
+                              className="text-[11px] font-mono fill-sage/70 font-medium"
                             >
                               {labelVal} kg
                             </text>
@@ -344,55 +395,55 @@ export default function ForecastsPage() {
                         );
                       })}
 
-                      {/* Area Fill under Status Quo */}
-                      <polygon
-                        fill="url(#redArea)"
-                        points={`
-                          ${getX(0)},${chartBottom}
-                          ${points.map((p, i) => `${getX(i)},${getY(p.statusQuoKg)}`).join(" ")}
-                          ${getX(points.length - 1)},${chartBottom}
-                        `}
+                      {/* Continuous Smooth Area Fill under Status Quo */}
+                      <path
+                        fill="url(#redAreaSpline)"
+                        d={getCubicAreaPath(
+                          points.map((p, i) => ({ x: getX(i), y: getY(p.statusQuoKg) })),
+                          chartBottom
+                        )}
                       />
 
-                      {/* Area Fill under Green Cloud */}
-                      <polygon
-                        fill="url(#limeArea)"
-                        points={`
-                          ${getX(0)},${chartBottom}
-                          ${points.map((p, i) => `${getX(i)},${getY(p.netZeroKg)}`).join(" ")}
-                          ${getX(points.length - 1)},${chartBottom}
-                        `}
+                      {/* Continuous Smooth Area Fill under Green Cloud */}
+                      <path
+                        fill="url(#limeAreaSpline)"
+                        d={getCubicAreaPath(
+                          points.map((p, i) => ({ x: getX(i), y: getY(p.netZeroKg) })),
+                          chartBottom
+                        )}
                       />
 
-                      {/* Status Quo Curve (Red) */}
-                      <polyline
+                      {/* Status Quo Cubic Spline Curve (Luminous Coral Red) */}
+                      <path
                         fill="none"
                         stroke="#f87171"
                         strokeWidth="3"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        points={points.map((p, i) => `${getX(i)},${getY(p.statusQuoKg)}`).join(" ")}
+                        filter="url(#splineGlow)"
+                        d={getCubicBezierPath(points.map((p, i) => ({ x: getX(i), y: getY(p.statusQuoKg) })))}
                       />
 
-                      {/* Planned Reductions Curve (Amber) */}
-                      <polyline
+                      {/* Planned Reductions Spline Curve (Warm Amber Dash) */}
+                      <path
                         fill="none"
                         stroke="#fbbf24"
                         strokeWidth="2.5"
                         strokeDasharray="6 4"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        points={points.map((p, i) => `${getX(i)},${getY(p.plannedKg)}`).join(" ")}
+                        d={getCubicBezierPath(points.map((p, i) => ({ x: getX(i), y: getY(p.plannedKg) })))}
                       />
 
-                      {/* Net-Zero Target Curve (Lime) */}
-                      <polyline
+                      {/* Net-Zero Target Spline Curve (Radiant CarbonTerra Lime) */}
+                      <path
                         fill="none"
-                        stroke="#a3e635"
-                        strokeWidth="3"
+                        stroke="#cbff00"
+                        strokeWidth="3.2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        points={points.map((p, i) => `${getX(i)},${getY(p.netZeroKg)}`).join(" ")}
+                        filter="url(#splineGlow)"
+                        d={getCubicBezierPath(points.map((p, i) => ({ x: getX(i), y: getY(p.netZeroKg) })))}
                       />
 
                       {/* X-Axis Month Markers */}
@@ -421,7 +472,7 @@ export default function ForecastsPage() {
                                 x={x}
                                 y={chartBottom + 20}
                                 textAnchor="middle"
-                                className={`text-[10px] font-mono ${
+                                className={`text-[11px] font-mono ${
                                   hoveredPoint?.month === p.label ? "fill-cream font-bold" : "fill-sage/60 font-normal"
                                 }`}
                               >
@@ -432,7 +483,7 @@ export default function ForecastsPage() {
                         );
                       })}
 
-                      {/* Active Hover Crosshair Line & Highlight Dots */}
+                      {/* Active Hover Crosshair Line & High-Precision Pulsing Nodes */}
                       {points.map((p, i) => {
                         const x = getX(i);
                         const isHovered = hoveredPoint?.month === p.label;
@@ -444,27 +495,34 @@ export default function ForecastsPage() {
 
                         return (
                           <g key={`hover-guide-${i}`} pointerEvents="none">
+                            {/* Vertical Crosshair Guide */}
                             <line
                               x1={x}
                               y1={chartTop}
                               x2={x}
                               y2={chartBottom}
                               stroke="#ffffff"
-                              strokeOpacity="0.3"
+                              strokeOpacity="0.4"
                               strokeDasharray="3 3"
                               strokeWidth="1.5"
                             />
-                            {/* Glowing Red Dot */}
-                            <circle cx={x} cy={yRed} r="6" fill="#f87171" stroke="#ffffff" strokeWidth="2" />
-                            {/* Glowing Amber Dot */}
-                            <circle cx={x} cy={yAmber} r="5" fill="#fbbf24" stroke="#ffffff" strokeWidth="2" />
-                            {/* Glowing Lime Dot */}
-                            <circle cx={x} cy={yLime} r="6" fill="#a3e635" stroke="#ffffff" strokeWidth="2" />
+
+                            {/* Dual Concentric Pulsing Red Node */}
+                            <circle cx={x} cy={yRed} r="9" fill="#f87171" fillOpacity="0.25" />
+                            <circle cx={x} cy={yRed} r="5" fill="#f87171" stroke="#ffffff" strokeWidth="2" />
+
+                            {/* Dual Concentric Pulsing Amber Node */}
+                            <circle cx={x} cy={yAmber} r="8" fill="#fbbf24" fillOpacity="0.25" />
+                            <circle cx={x} cy={yAmber} r="4.5" fill="#fbbf24" stroke="#ffffff" strokeWidth="2" />
+
+                            {/* Dual Concentric Pulsing Lime Node */}
+                            <circle cx={x} cy={yLime} r="10" fill="#cbff00" fillOpacity="0.3" />
+                            <circle cx={x} cy={yLime} r="5.5" fill="#cbff00" stroke="#121610" strokeWidth="2" />
                           </g>
                         );
                       })}
 
-                      {/* Transparent Hover Hitbox Columns for easy mouse interaction */}
+                      {/* Interactive Scrubber Hitbox Columns */}
                       {points.map((p, i) => {
                         const x = getX(i);
                         const colWidth = chartWidth / (points.length - 1);
@@ -513,10 +571,10 @@ export default function ForecastsPage() {
                   <thead className="text-sage border-b border-surface-border">
                     <tr>
                       <th scope="col" className="p-3">Timeline</th>
-                      <th scope="col" className="p-3">🔴 Do Nothing</th>
-                      <th scope="col" className="p-3">🟡 Code Clean-up</th>
-                      <th scope="col" className="p-3">🟢 Green Cloud</th>
-                      <th scope="col" className="p-3 text-lime">🌿 Monthly Saved</th>
+                      <th scope="col" className="p-3">Do Nothing</th>
+                      <th scope="col" className="p-3">Code Clean-up</th>
+                      <th scope="col" className="p-3">Green Cloud</th>
+                      <th scope="col" className="p-3 text-lime">Monthly Saved</th>
                     </tr>
                   </thead>
                   <tbody>

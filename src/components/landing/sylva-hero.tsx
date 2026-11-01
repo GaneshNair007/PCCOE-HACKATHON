@@ -2,9 +2,10 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
-import { Search, Loader2, Sparkles } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 
 import { useLivingWorld } from "@/components/world/living-world";
+import { ButterflyOrbit } from "@/components/ambient/butterfly-orbit";
 
 interface SylvaHeroProps {
   onRunAudit: (url: string) => void;
@@ -67,7 +68,7 @@ export function SylvaHero({
 
           {/* Ghost Wordmark */}
           <div className="ghost fade" style={{ ["--d" as any]: "1150ms" }} aria-hidden="true">
-            CARBONERRA
+            CARBONTERRA
           </div>
 
           {/* Card 1: Dual-Source Engine (sitting behind moss canvas) */}
@@ -83,7 +84,7 @@ export function SylvaHero({
               </span>
             </figure>
             <p className="label">Analysis Engine</p>
-            <h2>PAGE WEIGHT &amp; CARBON AUDIT</h2>
+            <h2>Page Weight &amp; Carbon Audit</h2>
           </article>
 
           {/* Floating Knob for Card 1 */}
@@ -101,7 +102,7 @@ export function SylvaHero({
           </span>
 
           {/* Headline */}
-          <h1 id="hero-headline" className="headline font-bold uppercase" style={{ ["--pd" as any]: 18, ["--pr" as any]: 1.2 }}>
+          <h1 id="hero-headline" className="headline font-bold" style={{ ["--pd" as any]: 18, ["--pr" as any]: 1.2 }}>
             <span><i style={{ ["--d" as any]: "260ms" }}>Audit the carbon </i></span>
             <span><i style={{ ["--d" as any]: "360ms" }}>behind every byte</i></span>
           </h1>
@@ -192,7 +193,7 @@ export function SylvaHero({
           {/* Card 2: Savings Lab */}
           <article className="card card--stove mask" style={{ ["--d" as any]: "880ms", ["--pd" as any]: 22, ["--pr" as any]: 2.4 }}>
             <p className="label">Savings Lab</p>
-            <h2>INTERACTIVE EMISSION REDUCTIONS</h2>
+            <h2>Drop-In WebP &amp; Script Fixes</h2>
             <figure className="portal" data-delay="1080">
               <span className="portal-media">
                 <img
@@ -220,26 +221,26 @@ export function SylvaHero({
           </a>
 
           {/* Live Backend Audit Floating HUD (seamlessly styled in Sylva's glass aesthetic) */}
-          <div className="hero-audit-form">
+          <div className="hero-audit-form w-full max-w-3xl mx-auto z-30">
             <form
               onSubmit={handleSubmitAudit}
               data-spec
-              className="hero-audit-dock p-3.5 rounded-2xl glass-panel-elevated shadow-2xl space-y-2.5 transition-all"
+              className="hero-audit-dock p-5 sm:p-6 rounded-3xl glass-panel-elevated shadow-2xl space-y-3.5 transition-all w-full"
             >
-              <div className="hero-audit-heading flex items-center justify-between gap-2 px-1">
+              <div className="hero-audit-heading flex items-center justify-between gap-3 px-1">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse" />
-                  <span className="text-xs font-mono font-bold tracking-wider text-[#cbff00] uppercase">
+                  <Search className="w-4 h-4 text-[#cbff00]" />
+                  <span className="text-xs sm:text-sm font-mono font-bold tracking-wider text-[#cbff00] uppercase">
                     WEBSITE CARBON AUDIT
                   </span>
                 </div>
-                <span className="hero-audit-detail text-xs font-mono text-white/80">
+                <span className="hero-audit-detail text-xs sm:text-sm font-mono text-white/80">
                   Page Weight &amp; Emissions Analysis
                 </span>
               </div>
-              <div className="hero-audit-entry flex items-center gap-2">
+              <div className="hero-audit-entry flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                 <div className="min-w-0 flex-1 relative flex items-center">
-                  <Search className="w-4 h-4 text-[#cbff00] absolute left-3 pointer-events-none" />
+                  <Search className="w-5 h-5 text-[#cbff00] absolute left-4 pointer-events-none" />
                   <input
                     ref={inputRef}
                     type="text"
@@ -250,22 +251,22 @@ export function SylvaHero({
                     value={targetUrl}
                     onChange={(e) => setTargetUrl(e.target.value)}
                     placeholder="Enter website URL to audit (e.g. gmail.com, stripe.com)"
-                    className="w-full pl-9 pr-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white font-mono text-xs focus:outline-none focus:border-[#cbff00] transition"
+                    className="w-full pl-12 pr-4 py-3.5 sm:py-4 rounded-2xl bg-black/50 border border-white/20 text-white font-mono text-sm sm:text-base focus:outline-none focus:border-[#cbff00] focus:ring-1 focus:ring-[#cbff00] transition shadow-inner"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={auditStatus === "running"}
-                  className="px-4 py-2 rounded-xl bg-[#cbff00] text-[#1b1e18] font-bold text-xs hover:bg-[#e4ff66] transition flex items-center gap-1.5 shadow-lg font-mono disabled:opacity-50 uppercase tracking-wider"
+                  className="px-6 py-3.5 sm:py-4 rounded-2xl bg-[#cbff00] text-[#1b1e18] font-black text-sm hover:bg-[#e4ff66] transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(203,255,0,0.35)] font-mono disabled:opacity-50 uppercase tracking-wider shrink-0 cursor-pointer"
                 >
                   {auditStatus === "running" ? (
                     <>
-                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      <Loader2 className="w-4 h-4 animate-spin" />
                       AUDITING...
                     </>
                   ) : (
                     <>
-                      <Search className="w-3.5 h-3.5" />
+                      <Search className="w-4 h-4" />
                       AUDIT WEBSITE
                     </>
                   )}
@@ -273,8 +274,8 @@ export function SylvaHero({
               </div>
 
               {/* Benchmark presets */}
-              <div className="hero-presets flex flex-wrap items-center gap-1.5 text-xs font-mono text-white/80 pt-1">
-                <span className="font-bold uppercase">Presets:</span>
+              <div className="hero-presets flex flex-wrap items-center gap-2 text-xs sm:text-sm font-mono text-white/80 pt-1">
+                <span className="font-bold uppercase text-white/60">Presets:</span>
                 {["gmail.com", "stripe.com", "vercel.com", "github.com"].map((preset) => (
                   <button
                     key={preset}
@@ -282,10 +283,11 @@ export function SylvaHero({
                     disabled={auditStatus === 'running'}
                     onClick={() => {
                       if (auditStatus === 'running') return;
-                      setTargetUrl(`https://${preset}`);
-                      runAudit(`https://${preset}`);
+                      const fullUrl = `https://${preset}`;
+                      setTargetUrl(fullUrl);
+                      runAudit(fullUrl);
                     }}
-                    className="px-2 py-0.5 rounded-full bg-white/5 hover:bg-white/10 text-white/80 border border-white/10 hover:border-[#cbff00]/40 transition"
+                    className="px-3 py-1 rounded-xl bg-white/10 hover:bg-[#cbff00]/20 hover:text-[#cbff00] border border-white/10 transition cursor-pointer font-medium"
                   >
                     {preset}
                   </button>
@@ -294,9 +296,8 @@ export function SylvaHero({
 
               {/* Status / Phase update */}
               {auditStatus === "running" && (
-                <div role="status" className="text-[11px] font-mono text-[#cbff00] flex items-center gap-1.5 pt-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#cbff00] animate-ping" />
-                  <span>{currentPhase || "Running dual-source audit..."}</span>
+                <div role="status" className="pt-3 flex flex-col items-center">
+                  <ButterflyOrbit size={90} label={currentPhase || "Auditing Web Page..."} />
                 </div>
               )}
 

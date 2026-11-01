@@ -7,11 +7,10 @@ import { cn } from "@/lib/utils";
 const destinations = [
   { label: "Scanner", href: "/" },
   { label: "Savings Lab", href: "/savings-lab" },
-  { label: "Evidence", href: "/evidence" },
-  { label: "Fleet", href: "/dashboard" },
+  { label: "Evidence Vault", href: "/evidence" },
   { label: "Simulator", href: "/simulator" },
   { label: "Forecasts", href: "/forecasts" },
-  { label: "Fix Hub", href: "/fix-hub" },
+  { label: "Fleet", href: "/dashboard" },
 ];
 export function Header() {
   const pathname = usePathname();
@@ -37,7 +36,7 @@ export function Header() {
         <span className="ct-brand-mark"><Leaf size={20} aria-hidden="true" /></span><span>CarbonTerra</span>
       </Link>
       <nav className="ct-desktop-nav" aria-label="Primary navigation">
-        {destinations.slice(0, 5).map(item => <Link key={item.href} href={item.href}
+        {destinations.map(item => <Link key={item.href} href={item.href}
           aria-current={pathname === item.href ? "page" : undefined}
           className={cn("ct-nav-link", pathname === item.href && "is-active")}>{item.label}</Link>)}
       </nav>

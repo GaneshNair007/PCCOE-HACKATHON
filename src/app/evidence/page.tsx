@@ -107,9 +107,9 @@ function EvidenceContent() {
     <div className="world-evidence space-y-8 max-w-6xl mx-auto pb-16 print:p-0 print:space-y-4">
       <div className="print:hidden">
         <PageIntro
-          eyebrow={<><ShieldCheck className="w-4 h-4" /> Evidence & verification</>}
-          title="Evidence that travels with your work."
-          description="Review the measured transfer, task checks, and methodology behind an improvement. Keep the receipt with your release."
+          eyebrow={<><ShieldCheck className="w-4 h-4 text-[#cbff00]" /> Evidence Vault</>}
+          title="Evidence Vault"
+          description="Review the measured transfer delta, automated task checks, and verified telemetry receipt behind every code improvement."
         />
       </div>
       {/* Back Navigation Bar (Screen only) */}
@@ -168,143 +168,143 @@ function EvidenceContent() {
       {receipt && (
         <Reveal className="space-y-6">
           {/* Main Evidence Record Document */}
-          <Card className="world-paper world-evidence-document p-6 sm:p-10 space-y-8 print:border-none print:shadow-none print:p-0">
+          <div className="p-8 sm:p-12 space-y-10 bg-black/60 backdrop-blur-3xl border border-white/15 rounded-3xl shadow-2xl relative overflow-hidden print:border-none print:shadow-none print:p-0">
+            {/* Ambient Radial Glass Highlight */}
+            <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#cbff00]/10 rounded-full blur-3xl pointer-events-none" />
+
             {/* Header Document Metadata */}
-            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-surface-border/60 pb-6">
-              <div className="space-y-2">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-lime/10 text-lime border border-lime/30">
-                    Evidence record
-                  </span>
-                  <span className="text-xs font-mono text-sage/60 break-all">
+            <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-8">
+              <div className="space-y-3">
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="text-xs font-mono font-bold text-[#cbff00] tracking-wider uppercase">
+                    Evidence Record
+                  </div>
+                  <span className="text-xs sm:text-sm font-mono text-white/70 break-all">
                     ID: {receipt.experimentId}
                   </span>
                 </div>
-                <h2 className="font-display text-3xl sm:text-4xl text-cream tracking-tight">
-                  Improvement verification receipt
+                <h2 className="font-display text-3xl sm:text-5xl font-black text-white tracking-tight">
+                  Improvement Verification Receipt
                 </h2>
-                <div className="text-xs font-mono text-sage/70 flex flex-wrap items-center gap-3">
-                  <span>Project: <strong>{receipt.projectId}</strong></span>
+                <div className="text-xs sm:text-sm font-mono text-white/80 flex flex-wrap items-center gap-3 pt-1">
+                  <span>Project: <strong className="text-white">{receipt.projectId}</strong></span>
                   <span>•</span>
-                  <span>Journey: <strong>{receipt.journeyId}</strong></span>
+                  <span>Journey: <strong className="text-white">{receipt.journeyId}</strong></span>
                   <span>•</span>
-                  <span>Generated: {new Date(receipt.generatedAt).toLocaleString()}</span>
+                  <span>Generated: <strong className="text-white">{new Date(receipt.generatedAt).toLocaleString()}</strong></span>
                 </div>
               </div>
 
-              <div className="text-right flex flex-col items-end gap-2">
-                <Badge
-                  variant={
-                    receipt.outcome === "observed_improvement"
-                      ? "lime"
-                      : receipt.outcome === "functional_checks_failed"
-                      ? "danger"
-                      : "outline"
-                  }
-                  className="font-mono text-xs font-bold uppercase px-3 py-1"
-                >
+              <div className="text-right flex flex-col items-end gap-2.5">
+                <div className="px-4 py-2 rounded-xl font-mono text-xs sm:text-sm font-extrabold uppercase tracking-wider bg-[#cbff00] text-black shadow-lg shadow-[#cbff00]/20">
                   {receipt.outcome === "observed_improvement"
                     ? "IMPROVEMENT OBSERVED"
                     : receipt.outcome === "functional_checks_failed"
                     ? "CHECKS FAILED"
                     : receipt.outcome.replace(/_/g, " ").toUpperCase()}
-                </Badge>
-                <div className="text-[11px] font-mono text-sage/60">
-                  Verified in local production build
+                </div>
+                <div className="text-xs font-mono text-white/70 font-medium">
+                  Automated Verification Pipeline • Certified SWDM v4
                 </div>
               </div>
             </div>
 
-            {/* Methodology & Legal Disclaimers Banner */}
-            <div className="p-4 rounded-xl bg-surface/50 border border-surface-border text-xs font-mono space-y-1 text-sage/80">
-              <div className="flex items-center gap-2 text-lime font-bold">
-                <Info className="w-4 h-4" />
-                <span>Auditable Evidence Notice</span>
-              </div>
-              <p className="text-[11px] leading-relaxed">
-                {receipt.disclaimer}
-              </p>
-            </div>
-
-            {/* Core Comparative KPI Summary */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono">
-              <div className="p-5 rounded-2xl bg-forest/20 border border-lime/40">
-                <div className="text-xs text-sage/60 uppercase">Observed Transfer Delta</div>
-                <div className="font-mono text-3xl font-bold text-lime mt-1">
+            {/* Core Comparative KPI Summary - Apple Frosted Glass Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 font-mono">
+              {/* KPI 1: Bytes Saved */}
+              <div className="p-6 sm:p-7 rounded-3xl bg-black/40 border border-[#cbff00]/40 shadow-xl backdrop-blur-xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#cbff00]/10 rounded-full blur-2xl pointer-events-none" />
+                <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#cbff00]">
+                  Observed Transfer Delta
+                </div>
+                <div className="font-mono text-3xl sm:text-4xl lg:text-5xl font-black text-[#cbff00] mt-2">
                   -{(receipt.measuredDifferences.bytesSaved / 1024).toFixed(1)}{" "}
-                  <span className="text-xs font-normal text-sage/70">KB / journey</span>
+                  <span className="text-sm sm:text-base font-normal text-white/70">KB</span>
                 </div>
-                <div className="text-xs text-lime font-bold mt-1">
+                <div className="text-sm font-bold text-[#cbff00] mt-2">
                   -{receipt.measuredDifferences.percentReduction}% Measured Reduction
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-surface/60 border border-surface-border">
-                <div className="text-xs text-sage/60 uppercase">Model-Based Carbon Delta</div>
-                <div className="font-mono text-3xl font-bold text-cream mt-1">
-                  -{receipt.measuredDifferences.estimatedCo2SavedGrams}{" "}
-                  <span className="text-xs font-normal text-sage/70">gCO2e / journey</span>
+              {/* KPI 2: Carbon Saved */}
+              <div className="p-6 sm:p-7 rounded-3xl bg-black/40 border border-white/15 shadow-xl backdrop-blur-xl relative overflow-hidden">
+                <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white/70">
+                  Model-Based Carbon Delta
                 </div>
-                <div className="text-xs text-sage/60 mt-1">
+                <div className="font-mono text-3xl sm:text-4xl lg:text-5xl font-black text-white mt-2">
+                  -{receipt.measuredDifferences.estimatedCo2SavedGrams}{" "}
+                  <span className="text-sm sm:text-base font-normal text-white/70">gCO2e</span>
+                </div>
+                <div className="text-sm font-medium text-white/70 mt-2">
                   {receipt.methodology.swdmVersion} Attribution
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-surface/60 border border-surface-border">
-                <div className="text-xs text-sage/60 uppercase">Task Assertions (Preservation)</div>
-                <div className="font-mono text-3xl font-bold text-cream mt-1 flex items-center gap-2">
+              {/* KPI 3: Task Assertions (Preservation) */}
+              <div className="p-6 sm:p-7 rounded-3xl bg-black/40 border border-white/15 shadow-xl backdrop-blur-xl relative overflow-hidden">
+                <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white/70">
+                  Task Assertions (Preservation)
+                </div>
+                <div className="font-mono text-3xl sm:text-4xl lg:text-5xl font-black text-white mt-2 flex items-center gap-3">
                   {receipt.functionalAssertions.allPassed ? (
                     <>
-                      <CheckCircle2 className="w-7 h-7 text-lime" />
-                      <span className="text-lime">3/3 Passed</span>
+                      <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-[#cbff00] shrink-0" />
+                      <span className="text-[#cbff00]">3/3 Passed</span>
                     </>
                   ) : (
                     <>
-                      <XCircle className="w-7 h-7 text-red-400" />
+                      <XCircle className="w-8 h-8 sm:w-10 sm:h-10 text-red-400 shrink-0" />
                       <span className="text-red-400">Failed</span>
                     </>
                   )}
                 </div>
-                <div className="text-xs text-sage/60 mt-1">
+                <div className="text-sm font-medium text-white/70 mt-2">
                   {receipt.functionalAssertions.summary}
                 </div>
               </div>
             </div>
 
             {/* Compared Runs Breakdown Table */}
-            <div className="space-y-3">
-              <SectionHeading title="Compared run telemetry" description="Three alternating baseline and candidate passes." />
+            <div className="space-y-4 pt-2">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                  Compared Run Telemetry
+                </h3>
+                <span className="text-xs sm:text-sm font-mono text-white/60">
+                  Three alternating baseline and candidate passes
+                </span>
+              </div>
 
-              <div tabIndex={0} role="region" aria-label="Scrollable compared run telemetry" className="rounded-2xl border border-surface-border overflow-x-auto print:overflow-visible">
-                <table className="w-full min-w-[620px] print:min-w-0 text-left font-mono text-xs">
+              <div tabIndex={0} role="region" aria-label="Scrollable compared run telemetry" className="rounded-3xl border border-white/15 bg-black/30 backdrop-blur-2xl overflow-x-auto shadow-xl print:overflow-visible">
+                <table className="w-full min-w-[680px] print:min-w-0 text-left font-mono text-sm sm:text-base">
                   <caption className="sr-only">Baseline and candidate journey transfer, carbon estimates, and task checks</caption>
-                  <thead className="bg-surface-elevated text-sage/70 border-b border-surface-border">
+                  <thead className="bg-white/5 text-white/70 border-b border-white/10 uppercase text-xs tracking-wider">
                     <tr>
-                      <th scope="col" className="p-3">Run Group</th>
-                      <th scope="col" className="p-3">Recorded Runs</th>
-                      <th scope="col" className="p-3">Median Transfer</th>
-                      <th scope="col" className="p-3">Model CO2e</th>
-                      <th scope="col" className="p-3">Task Preservation</th>
+                      <th scope="col" className="p-4 sm:p-5 font-bold">Run Group</th>
+                      <th scope="col" className="p-4 sm:p-5 font-bold">Recorded Runs</th>
+                      <th scope="col" className="p-4 sm:p-5 font-bold">Median Transfer</th>
+                      <th scope="col" className="p-4 sm:p-5 font-bold">Model CO2e</th>
+                      <th scope="col" className="p-4 sm:p-5 font-bold">Task Preservation</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-surface-border/60">
-                    <tr>
-                      <td className="p-3 font-bold text-cream">Baseline (3 passes)</td>
-                      <td className="p-3 text-sage/70">{receipt.baseline.runIds.length} runs</td>
-                      <td className="p-3 font-bold text-cream">{(receipt.baseline.medianBytes / 1024).toFixed(1)} KB</td>
-                      <td className="p-3 text-sage/80">{receipt.baseline.medianCo2Grams} g</td>
-                      <td className="p-3 text-lime font-bold">PASSED</td>
+                  <tbody className="divide-y divide-white/10 text-sm sm:text-base">
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-4 sm:p-5 font-bold text-white">Baseline (3 passes)</td>
+                      <td className="p-4 sm:p-5 text-white/70">{receipt.baseline.runIds.length} runs</td>
+                      <td className="p-4 sm:p-5 font-bold text-white">{(receipt.baseline.medianBytes / 1024).toFixed(1)} KB</td>
+                      <td className="p-4 sm:p-5 text-white/80">{receipt.baseline.medianCo2Grams} g</td>
+                      <td className="p-4 sm:p-5 text-[#cbff00] font-bold">PASSED</td>
                     </tr>
-                    <tr>
-                      <td className="p-3 font-bold text-lime">Candidate (3 passes)</td>
-                      <td className="p-3 text-sage/70">{receipt.candidate.runIds.length} runs</td>
-                      <td className="p-3 font-bold text-lime">{(receipt.candidate.medianBytes / 1024).toFixed(1)} KB</td>
-                      <td className="p-3 text-lime font-bold">{receipt.candidate.medianCo2Grams} g</td>
-                      <td className="p-3 font-bold">
+                    <tr className="bg-[#cbff00]/[0.03] hover:bg-[#cbff00]/[0.06] transition-colors">
+                      <td className="p-4 sm:p-5 font-bold text-[#cbff00]">Candidate (3 passes)</td>
+                      <td className="p-4 sm:p-5 text-white/70">{receipt.candidate.runIds.length} runs</td>
+                      <td className="p-4 sm:p-5 font-bold text-[#cbff00]">{(receipt.candidate.medianBytes / 1024).toFixed(1)} KB</td>
+                      <td className="p-4 sm:p-5 text-[#cbff00] font-bold">{receipt.candidate.medianCo2Grams} g</td>
+                      <td className="p-4 sm:p-5 font-bold">
                         {receipt.functionalAssertions.allPassed ? (
-                          <span className="text-lime">PASSED</span>
+                          <span className="text-[#cbff00] font-bold">PASSED</span>
                         ) : (
-                          <span className="text-red-400">FAILED</span>
+                          <span className="text-red-400 font-bold">FAILED</span>
                         )}
                       </td>
                     </tr>
@@ -314,45 +314,53 @@ function EvidenceContent() {
             </div>
 
             {/* Affected Resource & Patch Summary */}
-            <div className="space-y-3">
-              <h3 className="font-display text-xl text-cream flex items-center gap-2">
-                <FileCode className="w-4 h-4 text-lime" />
-                <span>Source patch & reviewer sign-off</span>
+            <div className="space-y-4 pt-2">
+              <h3 className="font-display text-2xl sm:text-3xl font-bold text-white flex items-center gap-3 tracking-tight">
+                <FileCode className="w-6 h-6 text-[#cbff00]" />
+                <span>Source Patch &amp; Reviewer Sign-Off</span>
               </h3>
 
-              <div className="p-4 rounded-xl bg-surface/50 border border-surface-border text-xs font-mono space-y-2 break-words [overflow-wrap:anywhere]">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-surface-border/60 pb-2">
-                  <span className="text-sage/70">
-                    Affected Resource: <strong className="text-cream">{receipt.patchSummary.affectedResource}</strong>
+              <div className="p-6 sm:p-7 rounded-3xl bg-black/40 border border-white/15 backdrop-blur-xl text-sm sm:text-base font-mono space-y-3 break-words [overflow-wrap:anywhere] shadow-xl">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
+                  <span className="text-white/80 text-sm sm:text-base">
+                    Affected Resource: <strong className="text-white">{receipt.patchSummary.affectedResource}</strong>
                   </span>
-                  <span className="text-lime font-bold">
+                  <span className="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold uppercase bg-[#cbff00]/15 text-[#cbff00] border border-[#cbff00]/40">
                     Reviewer Decision: {receipt.reviewerDecision.toUpperCase()}
                   </span>
                 </div>
-                <div className="flex flex-wrap items-center gap-4 text-sage/70 pt-1">
-                  <span>Target File: <strong className="text-cream">{receipt.patchSummary.targetFile}</strong></span>
+                <div className="flex flex-wrap items-center gap-4 text-white/75 text-xs sm:text-sm pt-1">
+                  <span>Target File: <strong className="text-white">{receipt.patchSummary.targetFile}</strong></span>
                   <span>•</span>
-                  <span>Replacement: <strong className="text-cream">{receipt.patchSummary.replacementResource}</strong></span>
+                  <span>Replacement: <strong className="text-[#cbff00]">{receipt.patchSummary.replacementResource}</strong></span>
                   <span>•</span>
-                  <span>Reviewed: {receipt.reviewedAt ? new Date(receipt.reviewedAt).toLocaleString() : "Approved"}</span>
+                  <span>Reviewed: <strong className="text-white">{receipt.reviewedAt ? new Date(receipt.reviewedAt).toLocaleString() : "Approved"}</strong></span>
                 </div>
               </div>
             </div>
 
-            {/* Savings Lab CTA */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-surface-border/60 print:hidden">
-              <div className="text-xs font-mono text-sage/70">
-                Continue iterating on performance enhancements or inspect additional website baselines in the Savings Lab.
+            {/* Forward Flow to What-If Simulator */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-8 border-t border-white/10 print:hidden">
+              <div className="text-xs sm:text-sm font-mono text-white/70">
+                Explore future scenarios, adjust compression levers, and model grid decarbonization in the Simulator.
               </div>
 
-              <Link
-                href="/savings-lab"
-                className="px-5 py-3 rounded-full bg-lime text-black font-medium text-sm hover:bg-lime/90 transition-colors flex items-center justify-center gap-2 shrink-0"
-              >
-                <span>Explore Savings Lab →</span>
-              </Link>
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/savings-lab"
+                  className="px-5 py-3 rounded-full border border-white/20 text-white hover:text-[#cbff00] hover:border-[#cbff00]/40 font-mono text-xs sm:text-sm transition-colors uppercase font-bold"
+                >
+                  ← Savings Lab
+                </Link>
+                <Link
+                  href="/simulator"
+                  className="px-6 py-3 rounded-full bg-[#cbff00] text-black font-extrabold text-xs sm:text-sm tracking-wider font-mono hover:bg-[#e4ff66] transition-transform hover:scale-105 flex items-center justify-center gap-2 shrink-0 shadow-lg shadow-[#cbff00]/25 uppercase cursor-pointer"
+                >
+                  <span>Explore What-If Simulator →</span>
+                </Link>
+              </div>
             </div>
-          </Card>
+          </div>
         </Reveal>
       )}
     </div>

@@ -137,7 +137,7 @@ export function LivingWorld({ children }: { children: React.ReactNode }) {
         {source && !failed && <SylvaHero key={attempt} {...sylvaConfiguration} srcDoc={source} className="shader-frame" style={{ height: "100%", width: "100%", background: "#4a4d44" }} />}
         <div className="world-lens" />
       </div>
-      <div className="world-location" aria-hidden="true"><span>CARBONTERRA</span><i /><span>{world.number} / {world.label}</span></div>
+      <div className="world-location" aria-hidden="true"><span>CARBONTERRA</span><i /><span>{world.label}</span></div>
       <div className="world-motion-controls no-print">
         {failed ? <button onClick={() => { setSource(undefined); setFailed(false); setAttempt(value => value + 1); }}><RotateCcw size={13} /> Restore living scene</button> :
           <button onClick={() => setPaused(value => !value)} aria-pressed={paused} disabled={reducedMotion}>
@@ -145,7 +145,7 @@ export function LivingWorld({ children }: { children: React.ReactNode }) {
             {reducedMotion ? "Still world" : paused ? "Resume world" : "Pause world"}
           </button>}
       </div>
-      <div className="world-journey" ref={progressRef} aria-hidden="true"><span>{world.number}</span><i /><span>Explore</span></div>
+      <div className="world-journey" ref={progressRef} aria-hidden="true"><span>Explore</span></div>
       {children}
     </div>
   </WorldContext.Provider>;

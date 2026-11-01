@@ -83,8 +83,18 @@
 }
 
 @layer base {
-  body { min-width: 320px; -webkit-font-smoothing: antialiased; }
-  h1, h2, h3, h4 { font-family: var(--font-ubuntu), 'Ubuntu', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+  html {
+    background-color: #0d120c !important;
+    color: #f4f5f0 !important;
+    color-scheme: dark;
+  }
+  body {
+    min-width: 320px;
+    background-color: #0d120c !important;
+    color: #f4f5f0 !important;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-ubuntu), 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 700; letter-spacing: -0.02em; }
   button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
   input, textarea, select { font-size: max(1rem, 16px); }
   button { cursor: pointer; }
@@ -95,9 +105,9 @@
   pre { max-width: 100%; overflow-x: auto; tab-size: 2; }
   table { font-variant-numeric: tabular-nums; }
 }
-.font-display { font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; }
+.font-display { font-family: var(--font-ubuntu), 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif !important; font-weight: 700; letter-spacing: -0.02em; }
 
-/* Universal Heading Enforcement: All headings across the entire platform in CAPITAL AND BOLD */
+/* Refined Apple Heading Typography: Crisp weights and tight tracking, reserving uppercase strictly for tags and eyebrows */
 h1, h2, h3, h4, h5, h6,
 .ct-page-title,
 .ct-section-heading h2,
@@ -109,8 +119,7 @@ h1, h2, h3, h4, h5, h6,
 [role="heading"] {
   font-family: var(--font-ubuntu), 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif !important;
   font-weight: 700 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.02em !important;
+  letter-spacing: -0.02em !important;
 }
 .glass-panel, .gradient-border { background: var(--color-surface); border: 1px solid rgb(var(--border-rgb)); box-shadow: var(--shadow-card); }
 .glass-panel-elevated, .gradient-border-emerald { background: var(--color-surface-elevated); border: 1px solid #626c59; box-shadow: var(--shadow-floating); }
@@ -123,7 +132,7 @@ h1, h2, h3, h4, h5, h6,
 .ct-page-shell { width: 100%; max-width: var(--page-width); padding: 7.5rem var(--page-gutter) 2rem; margin-inline: auto; }
 .ct-page-intro { background: var(--color-paper); color: var(--color-paper-ink); border: 1px solid #ffffff60; border-radius: var(--card-radius); padding: clamp(1.5rem, 3vw, 2.5rem); position: relative; box-shadow: var(--shadow-card); }
 .ct-intro-heading { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; }
-.ct-page-title { font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important; font-weight: 700 !important; text-transform: uppercase !important; font-size: clamp(2.2rem, 4.2vw, 3.8rem); line-height: 1.08; letter-spacing: -0.01em; overflow-wrap: anywhere; margin: .5rem 0; }
+.ct-page-title { font-family: var(--font-ubuntu), 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif !important; font-weight: 700 !important; font-size: clamp(2.2rem, 4.2vw, 3.8rem); line-height: 1.08; letter-spacing: -0.025em; overflow-wrap: anywhere; margin: .5rem 0; }
 .ct-eyebrow { font: 700 .75rem/1.6 var(--font-ubuntu), 'Ubuntu', sans-serif; text-transform: uppercase; letter-spacing: .12em; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
 .ct-page-intro .ct-eyebrow { color: var(--color-paper-muted); }
 .ct-intro-copy { font-size: 1rem; line-height: 1.7; color: var(--color-paper-muted); max-width: 48rem; }

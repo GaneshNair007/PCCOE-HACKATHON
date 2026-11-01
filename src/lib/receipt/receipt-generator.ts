@@ -96,6 +96,6 @@ export async function generateImprovementReceipt(
       limitations: [...CARBONERRA_CONFIG.standardLimitations],
     },
     disclaimer:
-      "Carbonerra Improvement Receipt is an auditable engineering evidence record documenting observed network transfer change and model-based estimated carbon delta across reproducible test runs. It is not a carbon credit or physical emissions offset certificate.",
+      "CarbonTerra Improvement Receipt is an auditable engineering evidence record documenting observed network transfer change and model-based estimated carbon delta across reproducible test runs. It is not a carbon credit or physical emissions offset certificate.",
   };
 }

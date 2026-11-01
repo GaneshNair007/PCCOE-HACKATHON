@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
         const google = createGoogleGenerativeAI({ apiKey });
         const aiResponse = await generateText({
           model: google("gemini-2.0-flash"),
-          system: `You are Carbonerra AI, an intelligent, versatile, and friendly assistant. You can converse naturally about anything—including greetings, general conversation, programming, web architecture, and performance optimization—as well as specialized digital carbon telemetry using the Sustainable Web Design Model (SWDM v4).
+          system: `You are CarbonTerra AI, an intelligent, versatile, and friendly assistant. You can converse naturally about anything—including greetings, general conversation, programming, web architecture, and performance optimization—as well as specialized digital carbon telemetry using the Sustainable Web Design Model (SWDM v4).
 
 GUIDELINES:
 1. For greetings ("hi", "hello"), general questions, coding advice, or casual conversation, answer warmly, clearly, and helpfully without forcing tools.
@@ -143,7 +143,7 @@ GUIDELINES:
         reply = `Verification BLOCKED for experiment **${toolOutput.experimentId}**:
 - **Outcome**: \`${toolOutput.outcome}\`
 - **Functional Check Failed**: ${toolOutput.reasons.join(", ")}
-- **Guardrail Action**: Carbonerra rejected this candidate because user task integrity was broken, even though transfer may have changed. No regression will be promoted.`;
+- **Guardrail Action**: CarbonTerra rejected this candidate because user task integrity was broken, even though transfer may have changed. No regression will be promoted.`;
       }
 
       actionLinks = [
@@ -326,7 +326,7 @@ How is your day going? What are you working on?`;
       /^(help|\?)$/i.test(message.trim()) ||
       /\b(who\s+are\s+you|what\s+is\s+your\s+name|what\s+can\s+you\s+do|tell\s+me\s+about\s+yourself|who\s+made\s+you|what\s+are\s+you|capabilities)\b/i.test(lower)
     ) {
-      reply = `I'm **Carbonerra AI**—your assistant for general conversation, full-stack web development, and digital carbon intelligence!
+      reply = `I'm **CarbonTerra AI**—your assistant for general conversation, full-stack web development, and digital carbon intelligence!
 
 Here are some things we can do:
 - **General Chat & Coding**: Ask me anything about JavaScript, TypeScript, React, Next.js, CSS, performance optimization, or software architecture.
@@ -402,7 +402,7 @@ Are you building a React component right now, or curious about hooks like \`useS
 - **File-System Routing**: Routes are defined simply by folder structure in the \`app/\` directory.
 - **Built-in Optimizations**: Automatic image optimization (\`next/image\`), font optimization, script loading strategies, and API route handlers.
 
-It powers modern applications (including Carbonerra!) for peak performance and minimal data transfer.`;
+It powers modern applications (including CarbonTerra!) for peak performance and minimal data transfer.`;
       return NextResponse.json({ reply, tool_used: null, tool_output: null, engine: "carbonerra-conversational" });
     }
 

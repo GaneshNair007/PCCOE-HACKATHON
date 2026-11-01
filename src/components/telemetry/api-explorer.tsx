@@ -33,7 +33,7 @@ const ENDPOINTS: ApiEndpointConfig[] = [
     method: "POST",
     path: "/api/audit",
     description: "Executes multi-source crawl, DNS lookup, regional grid intensity, and SWDM v4 footprint calculation.",
-    defaultPayload: { url: "stripe.com" },
+    defaultPayload: { url: "https://stripe.com" },
   },
   {
     id: "methodology",
@@ -47,22 +47,37 @@ const ENDPOINTS: ApiEndpointConfig[] = [
     name: "Run What-If Simulation",
     method: "POST",
     path: "/api/simulate",
-    description: "Models transfer reductions (image AVIF compression, JS deferral) against an audited baseline.",
+    description: "Models transfer reductions (image compression, JS deferral) against an audited baseline.",
     defaultPayload: {
-      baseline_bytes: 2150000,
-      img_comp: 85,
-      js_defer: 60,
-      cache_ttl: 30,
-      green_hosting: true,
+      baseline_bytes: 2450000,
+      img_reduction_pct: 85.0,
+      js_defer_pct: 40.0,
     },
   },
   {
-    id: "chat",
-    name: "Agentic Assistant Tool",
+    id: "email-report",
+    name: "Dispatch SMTP Action Report",
     method: "POST",
-    path: "/api/chat",
-    description: "Grounded assistant executing deterministic tools (run_audit, compare, simulate, explain_for_exec).",
-    defaultPayload: { message: "explain for executives" },
+    path: "/api/email-report",
+    description: "Compiles and sends executive action report with drop-in code fixes directly to an engineering lead.",
+    defaultPayload: {
+      recipient_email: "dev-team@company.com",
+      target_url: "https://stripe.com",
+      company_name: "Stripe Engineering",
+      audit_summary: {
+        total_bytes_formatted: "2.45 MB",
+        co2_grams: 0.98,
+        eco_score: "D",
+      },
+      recommended_fixes: [
+        {
+          title: "Responsive WebP Picture Tag",
+          impact: "High",
+          effort: "Low",
+          description: "Convert 2.45MB hero banner to responsive WebP with lazy loading.",
+        },
+      ],
+    },
   },
 ];
 
@@ -193,10 +208,10 @@ print(res.json())`;
             </span>
           </div>
           <h3 className="font-display text-2xl sm:text-3xl text-cream ">
-            Test Carbonerra Endpoints
+            Test CarbonTerra Endpoints
           </h3>
           <p className="text-xs text-sage/75 mt-1 max-w-xl">
-            Directly probe Carbonerra&apos;s REST endpoints from your browser. Inspect request headers, test custom payloads, and export production code snippets.
+            Directly probe CarbonTerra&apos;s REST endpoints from your browser. Inspect request headers, test custom payloads, and export production code snippets.
           </p>
         </div>
 

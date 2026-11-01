@@ -8,6 +8,7 @@ import {
   X,
   Send,
   Sparkles,
+  Leaf,
   Wrench,
   Terminal,
   Bot,
@@ -113,7 +114,7 @@ export function AgenticChat() {
     {
       id: "welcome-init",
       sender: "assistant",
-      text: "**Hello! I'm Carbonerra AI.**\n\nI'm your assistant for web performance optimization, full-stack architecture, and real-time digital carbon audits.\n\nFeel free to say hi, ask a web performance question, or audit a live website!",
+      text: "**Hello! I'm CarbonTerra AI.**\n\nI'm your assistant for web performance optimization, full-stack architecture, and real-time digital carbon audits.\n\nFeel free to say hi, ask a web performance question, or audit a live website!",
       timestamp: "Now",
     },
   ]);
@@ -290,16 +291,16 @@ export function AgenticChat() {
           ref={launcherRef}
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          aria-label={isOpen ? "Close Carbonerra AI chat" : "Open Carbonerra AI chat"}
+          aria-label={isOpen ? "Close CarbonTerra AI chat" : "Open CarbonTerra AI chat"}
           aria-expanded={isOpen}
           aria-controls="carbonerra-chat-panel"
           aria-haspopup="dialog"
-          className="ct-chat-launcher-btn w-14 h-14 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-lime/50"
+          className="ct-chat-launcher-btn w-14 h-14 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-lime/50 shadow-2xl backdrop-blur-2xl"
         >
           {isOpen ? (
-            <X className="w-6 h-6 text-lime transition-transform duration-200" aria-hidden="true" />
+            <X className="w-5 h-5 text-lime transition-transform duration-200" aria-hidden="true" />
           ) : (
-            <Bot className="w-6 h-6 text-lime transition-transform duration-200" aria-hidden="true" />
+            <Leaf className="w-5 h-5 text-lime transition-transform duration-200" aria-hidden="true" />
           )}
         </button>
       </motion.div>
@@ -341,7 +342,7 @@ export function AgenticChat() {
                 <div>
                   <div className="flex items-center gap-2">
                     <h2 id="carbonerra-chat-title" className="font-display font-light tracking-tight text-cream text-lg">
-                      Carbonerra AI
+                      CarbonTerra AI
                     </h2>
                     <Badge variant="lime" className="text-[9px] px-1.5 py-0 font-mono">
                       v2.0
@@ -384,7 +385,7 @@ export function AgenticChat() {
                   </div>
                   <div className="space-y-1.5">
                     <h3 className="font-display font-light text-xl text-cream tracking-tight">
-                      Your Carbonerra companion
+                      Your CarbonTerra companion
                     </h3>
                     <p className="text-xs text-sage/80 leading-relaxed font-sans max-w-xs">
                       Chat about general programming, ask for web optimization tips, or run live digital carbon telemetry against any website.
@@ -429,7 +430,7 @@ export function AgenticChat() {
                         : "bg-surface-elevated border border-surface-border text-sage rounded-bl-md font-sans"
                     }`}
                   >
-                    <span className="sr-only">{msg.sender === "user" ? "You" : "Carbonerra AI"}: </span>
+                    <span className="sr-only">{msg.sender === "user" ? "You" : "CarbonTerra AI"}: </span>
                     {/* Tool Badge Indicator */}
                     {msg.toolUsed && (
                       <div className="mb-2 pb-2 border-b border-surface-border/60 flex flex-wrap items-center gap-1.5 text-xs font-mono text-lime">
@@ -590,7 +591,7 @@ export function AgenticChat() {
                 }}
                 className="flex items-center gap-2 min-w-0"
               >
-                <label htmlFor="carbonerra-chat-message" className="sr-only">Message Carbonerra AI</label>
+                <label htmlFor="carbonerra-chat-message" className="sr-only">Message CarbonTerra AI</label>
                 <input
                   ref={inputRef}
                   id="carbonerra-chat-message"

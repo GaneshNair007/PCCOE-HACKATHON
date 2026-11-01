@@ -25,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="min-h-screen flex flex-col relative selection:bg-lime selection:text-black">
+    <html lang="en" className="dark bg-[#0d120c] text-[#f4f5f0]">
+      <body className="min-h-screen flex flex-col relative bg-[#0d120c] text-[#f4f5f0] selection:bg-lime selection:text-black">
         {/* Accessible Skip Link for Keyboard & Screen Reader Users */}
         <a
           href="#main-content"

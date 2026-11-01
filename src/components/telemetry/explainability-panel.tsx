@@ -55,7 +55,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
             SCIENTIFIC METHODOLOGY &amp; EMISSIONS FORMULA
           </h3>
           <p className="text-xs text-sage/75 mt-1 max-w-xl">
-            Every metric in Carbonerra is auditable. Inspect the formulas, regional grid electricity factors, and caching boundaries used for{" "}
+            Every metric in CarbonTerra is auditable. Inspect the formulas, regional grid electricity factors, and caching boundaries used for{" "}
             <span className="text-lime font-mono font-bold">{auditData.domain}</span>.
           </p>
         </div>
@@ -198,7 +198,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
                   Sensitivity Banding & Return-Visitor Physics
                 </div>
                 <p className="text-sage/80 text-xs leading-relaxed">
-                  Web pages exhibit divergent footprints between first-time visitors (cold browser cache, full asset download) and returning visitors (warm cache, 60–85% asset reuse). Carbonerra avoids deceptive single-point numbers by modeling a scientific sensitivity range:
+                  Web pages exhibit divergent footprints between first-time visitors (cold browser cache, full asset download) and returning visitors (warm cache, 60–85% asset reuse). CarbonTerra avoids deceptive single-point numbers by modeling a scientific sensitivity range:
                 </p>
                 <div className="flex items-center justify-between p-3.5 rounded-xl bg-surface-elevated/80 border border-surface-border text-cream">
                   <div>

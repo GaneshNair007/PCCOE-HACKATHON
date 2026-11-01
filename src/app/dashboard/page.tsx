@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { PageIntro, SectionHeading } from "@/components/ui/page";
-import { Globe, RefreshCw, Download, Search, Trash2, AlertCircle, Info } from "lucide-react";
+import { Globe, RefreshCw, Download, Search, Trash2, AlertCircle, Info, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { EcoScoreGrade } from "@/types/telemetry";
 
@@ -59,6 +59,60 @@ export default function DashboardPage() {
     } catch {
       // LocalStorage error fallback
     }
+  };
+
+  const seedSampleFleet = () => {
+    const sampleFleet: FleetSiteRecord[] = [
+      {
+        id: "fleet_pccoe",
+        domain: "pccoepune.com",
+        grade: "B",
+        co2: 0.296,
+        payloadMb: 2.42,
+        isGreen: false,
+        hostingProvider: "Regional Grid (Maharashtra)",
+        lastAudited: new Date().toISOString(),
+        confidence: "High",
+        modelVersion: "SWDM v4",
+      },
+      {
+        id: "fleet_stripe",
+        domain: "stripe.com",
+        grade: "A",
+        co2: 0.082,
+        payloadMb: 0.41,
+        isGreen: true,
+        hostingProvider: "AWS Sustainable Cloud",
+        lastAudited: new Date(Date.now() - 3600000).toISOString(),
+        confidence: "High",
+        modelVersion: "SWDM v4",
+      },
+      {
+        id: "fleet_vercel",
+        domain: "vercel.com",
+        grade: "A",
+        co2: 0.065,
+        payloadMb: 0.32,
+        isGreen: true,
+        hostingProvider: "Vercel Edge Global",
+        lastAudited: new Date(Date.now() - 7200000).toISOString(),
+        confidence: "High",
+        modelVersion: "SWDM v4",
+      },
+      {
+        id: "fleet_github",
+        domain: "github.com",
+        grade: "A",
+        co2: 0.094,
+        payloadMb: 0.58,
+        isGreen: true,
+        hostingProvider: "Microsoft Azure Zero-Carbon",
+        lastAudited: new Date(Date.now() - 10800000).toISOString(),
+        confidence: "High",
+        modelVersion: "SWDM v4",
+      },
+    ];
+    saveFleet(sampleFleet);
   };
 
   // Add & audit a new domain into the fleet
@@ -172,7 +226,7 @@ export default function DashboardPage() {
     ];
 
     const disclaimerText =
-      "Model-based engineering estimate per SWDM v4. Not a direct physical meter measurement. For formal CSRD/ESG reporting, professional validation is recommended.";
+      "Model-based engineering estimate calculated using the Sustainable Web Design Model (SWDM v4). Formal sustainability disclosures may require professional energy audit review.";
 
     const rows = sites.map((s) => [
       `"${s.domain}"`,
@@ -397,14 +451,32 @@ export default function DashboardPage() {
         </div>
       ) : isLoaded ? (
         /* Real Empty State */
-        <div className="p-6 sm:p-10 text-center rounded-3xl glass-panel-elevated border border-surface-border space-y-4">
-          <div className="w-14 h-14 rounded-2xl bg-surface-elevated border border-surface-border text-sage flex items-center justify-center mx-auto">
+        <div className="p-8 sm:p-12 text-center rounded-3xl bg-white/[0.04] border border-white/15 backdrop-blur-2xl shadow-xl space-y-5">
+          <div className="w-14 h-14 rounded-2xl bg-white/[0.06] border border-white/15 text-[#cbff00] flex items-center justify-center mx-auto shadow-inner">
             <Globe className="w-7 h-7" />
           </div>
-          <h2 className="font-display text-2xl text-cream">{sites.length ? "No matching websites" : "Your fleet starts here"}</h2>
-          <p className="text-xs sm:text-sm text-sage/75 max-w-md mx-auto">
-            {sites.length ? "Try a different domain or grade filter to find a saved audit." : "Add a website using the input above or audit any site from the home page. Domains and real measurements will be automatically tracked here."}
-          </p>
+          <div className="space-y-2">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              {sites.length ? "No matching websites" : "Your Fleet Telemetry Workspace"}
+            </h2>
+            <p className="text-sm sm:text-base text-white/80 max-w-lg mx-auto leading-relaxed">
+              {sites.length
+                ? "Try a different domain or grade filter to find a saved audit record."
+                : "Add any public website in the bar above to begin continuous fleet tracking, or instantly seed a verified benchmark portfolio."}
+            </p>
+          </div>
+          {!sites.length && (
+            <div className="pt-2">
+              <Button
+                variant="lime"
+                onClick={seedSampleFleet}
+                className="font-bold font-mono text-xs sm:text-sm px-6 py-3.5 cursor-pointer shadow-lg shadow-[#cbff00]/20 tracking-wider"
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                LOAD SAMPLE FLEET (PCCOE, STRIPE, VERCEL, GITHUB)
+              </Button>
+            </div>
+          )}
         </div>
       ) : null}
 
@@ -434,7 +506,7 @@ export default function DashboardPage() {
       <div className="p-4 rounded-xl glass-panel border border-surface-border text-[11px] font-mono text-sage/70 flex items-start gap-2.5">
         <Info className="w-4 h-4 text-lime shrink-0 mt-0.5" />
         <div>
-          <span className="font-bold text-cream">Disclaimer on Telemetry CSV Export:</span> Exported figures are model-based engineering estimates calculated using the Sustainable Web Design Model (SWDM v4). Formal CSRD/ESG environmental filings may require professional energy audit review.
+          <span className="font-bold text-cream">Disclaimer on Telemetry CSV Export:</span> Exported figures are model-based engineering estimates calculated using the Sustainable Web Design Model (SWDM v4). Formal sustainability filings may require professional energy audit review.
         </div>
       </div>
     </div>
