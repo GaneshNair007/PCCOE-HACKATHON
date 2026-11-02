@@ -35,6 +35,262 @@ import {
 import { ButterflyOrbit } from "@/components/ambient/butterfly-orbit";
 import { Experiment, VerificationResult } from "@/lib/storage/types";
 
+type PatchCategory = "image" | "javascript" | "css" | "server";
+
+interface PatchItem {
+  id: PatchCategory;
+  categoryLabel: string;
+  badgeLabel: string;
+  icon: React.ElementType;
+  accentColor: string;
+  borderColor: string;
+  bgActive: string;
+  title: string;
+  rule: string;
+  className: string;
+  targetFile: string;
+  estimatedSaving: string;
+  savingBytes: string;
+  risk: string;
+  effort: string;
+  description: string;
+  highlights: { label: string; desc: string }[];
+  safeguards: { label: string; desc: string }[];
+  snippetLanguage: string;
+  snippetFilename: string;
+  snippet: string;
+  unifiedDiff: string;
+}
+
+const PATCH_CATALOG: PatchItem[] = [
+  {
+    id: "image",
+    categoryLabel: "Hero Graphic",
+    badgeLabel: "Critical Hotspot",
+    icon: ImageIcon,
+    accentColor: "text-amber-400",
+    borderColor: "border-amber-500/40",
+    bgActive: "bg-amber-500/15",
+    title: "First-Party Image Optimization Patch",
+    rule: "responsive_webp_conversion",
+    className: "Image Component Refactor",
+    targetFile: "src/components/HeroBanner.tsx",
+    estimatedSaving: "-92.7%",
+    savingBytes: "2,244 KB",
+    risk: "Low Risk",
+    effort: "5 min",
+    description: "Converts uncompressed 2.42 MB hero JPEG into modern WebP format (176 KB). Serves via HTML5 <picture> element with modern WebP source and JPEG fallback. Preserves explicit dimensions and alt text to eliminate Cumulative Layout Shift (CLS).",
+    highlights: [
+      { label: "Format Upgrade", desc: "Converts 2.42 MB JPEG to 176 KB WebP (-92.7% network weight)." },
+      { label: "HTML5 Fallback", desc: "Responsive <picture> with standard JPEG fallback for legacy browsers." },
+      { label: "Zero Layout Shift", desc: "Explicit width (1200) and height (400) prevent Cumulative Layout Shift (CLS)." },
+    ],
+    safeguards: [
+      { label: "LCP Priority", desc: "Hero banner loads eagerly with high fetch priority to safeguard LCP." },
+      { label: "Zero Render-Blocking", desc: "Drop-in component contains no external stylesheets or scripts." },
+      { label: "Ready Replacement", desc: "Pre-compressed WebP asset is provisioned in the static asset directory." },
+    ],
+    snippetLanguage: "html",
+    snippetFilename: "HeroBanner.tsx",
+    snippet: `<picture>
+  <source srcSet="/demo/assets/hero-banner-large.webp" type="image/webp" />
+  <img 
+    src="/demo/assets/hero-banner-large.jpg" 
+    alt="Production Hero Banner" 
+    width="1200" 
+    height="400" 
+    loading="eager" 
+    fetchPriority="high" 
+    decoding="async" 
+  />
+</picture>`,
+    unifiedDiff: `--- a/src/components/HeroBanner.tsx
++++ b/src/components/HeroBanner.tsx
+@@ -14,7 +14,15 @@
+-  <img src="/demo/assets/hero-banner-large.jpg" alt="Production Hero Banner" className="w-full h-auto" />
++  <picture>
++    <source srcSet="/demo/assets/hero-banner-large.webp" type="image/webp" />
++    <img
++      src="/demo/assets/hero-banner-large.jpg"
++      alt="Production Hero Banner"
++      width="1200"
++      height="400"
++      loading="eager"
++      fetchPriority="high"
++      decoding="async"
++    />
++  </picture>`,
+  },
+  {
+    id: "javascript",
+    categoryLabel: "JavaScript",
+    badgeLabel: "Runtime",
+    icon: FileCode,
+    accentColor: "text-cyan-400",
+    borderColor: "border-cyan-500/40",
+    bgActive: "bg-cyan-500/15",
+    title: "Client Bundle Code-Splitting & Script Deferral",
+    rule: "dynamic_import_code_splitting",
+    className: "Client Bundle Optimization",
+    targetFile: "src/app/page.tsx",
+    estimatedSaving: "-66.7%",
+    savingBytes: "12.0 KB",
+    risk: "Zero Risk",
+    effort: "10 min",
+    description: "Splits interactive heavy components into async on-demand chunks via dynamic imports. Non-critical telemetry scripts are deferred via lazyOnload, eliminating main-thread contention during initial page load.",
+    highlights: [
+      { label: "Dynamic Code-Splitting", desc: "Splits interactive heavy components into async on-demand chunks." },
+      { label: "Script Deferral", desc: "Non-critical analytics and telemetry scripts deferred via lazyOnload." },
+      { label: "Tree-Shaking", desc: "Eliminates unreferenced exports from vendor utility libraries." },
+    ],
+    safeguards: [
+      { label: "INP Safeguard", desc: "Main thread remains idle during initial hydration, optimizing Interaction to Next Paint." },
+      { label: "No SSR Mismatch", desc: "Components load with clean skeleton fallback without hydration flickers." },
+      { label: "Preserved Interactivity", desc: "All click handlers and event listeners bind seamlessly upon viewport entry." },
+    ],
+    snippetLanguage: "typescript",
+    snippetFilename: "page.tsx",
+    snippet: `import dynamic from 'next/dynamic';
+import Script from 'next/script';
+
+// Code-split heavy interactive components with lazy loading
+const InteractiveTelemetry = dynamic(() => import('@/components/telemetry/chart'), {
+  loading: () => <div className="h-64 rounded-2xl bg-white/5 animate-pulse" />,
+  ssr: false,
+});
+
+// Defer non-critical scripts
+export function AnalyticsProvider() {
+  return <Script src="https://cdn.telemetry.io/v2.js" strategy="lazyOnload" />;
+}`,
+    unifiedDiff: `--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -3,2 +3,7 @@
+-import { HeavyInteractiveChart } from '@/components/telemetry/chart';
++import dynamic from 'next/dynamic';
++const HeavyInteractiveChart = dynamic(() => import('@/components/telemetry/chart'), {
++  loading: () => <div className="h-64 rounded-2xl bg-white/5 animate-pulse" />,
++  ssr: false,
++});`,
+  },
+  {
+    id: "css",
+    categoryLabel: "CSS Styles",
+    badgeLabel: "Styles",
+    icon: Palette,
+    accentColor: "text-violet-400",
+    borderColor: "border-violet-500/40",
+    bgActive: "bg-violet-500/15",
+    title: "Dead-Code Elimination & CSS Layers",
+    rule: "critical_css_purge_and_inline",
+    className: "Style Sheet Architecture",
+    targetFile: "src/app/globals.css",
+    estimatedSaving: "-68.8%",
+    savingBytes: "5.5 KB",
+    risk: "Low Risk",
+    effort: "5 min",
+    description: "Strips unreferenced animation keyframes, resets, and unused utility rules. Wraps custom classes in @layer components, allowing critical above-the-fold styles to render immediately without render-blocking stylesheet latency.",
+    highlights: [
+      { label: "CSS Layering", desc: "Wraps custom utility classes in @layer utilities for priority cascade resolution." },
+      { label: "Unused Selector Purge", desc: "Strips unreferenced animation keyframes and legacy reset rules." },
+      { label: "Critical CSS Inlining", desc: "Inlines above-the-fold styling directly into HTML head to eliminate render-blocking." },
+    ],
+    safeguards: [
+      { label: "FOUC Prevention", desc: "Above-the-fold critical tokens are rendered inline, preventing Flash of Unstyled Content." },
+      { label: "Cascade Predictability", desc: "CSS @layer guarantees deterministic specificity order across all devices." },
+      { label: "Zero Visual Delta", desc: "Visual presentation remains 100% pixel-identical while cutting style payload by 68.8%." },
+    ],
+    snippetLanguage: "css",
+    snippetFilename: "globals.css",
+    snippet: `@layer base {
+  :root {
+    --color-canvas: #0d120c;
+  }
+}
+
+@layer components {
+  /* Purged 42 unused utility selectors, keeping only atomic runtime rules */
+  .mac-glass-panel {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+}`,
+    unifiedDiff: `--- a/src/app/globals.css
++++ b/src/app/globals.css
+@@ -1,6 +1,8 @@
+-@import url('https://fonts.googleapis.com/css2?family=Legacy...');
+-/* 42 unused animation keyframes removed */
++@layer components {
++  .mac-glass-panel {
++    background: rgba(255, 255, 255, 0.04);
++    backdrop-filter: blur(24px);
++  }
++}`,
+  },
+  {
+    id: "server",
+    categoryLabel: "Server & CDN",
+    badgeLabel: "Infrastructure",
+    icon: Code2,
+    accentColor: "text-emerald-400",
+    borderColor: "border-emerald-500/40",
+    bgActive: "bg-emerald-500/15",
+    title: "Edge Brotli Compression & Immutable Caching",
+    rule: "brotli_zstd_compression_edge_cache",
+    className: "Server Infrastructure & Edge Delivery",
+    targetFile: "next.config.mjs",
+    estimatedSaving: "-55.0%",
+    savingBytes: "2.2 KB",
+    risk: "Zero Risk",
+    effort: "5 min",
+    description: "Configures level 11 Brotli compression on edge servers and applies immutable cache headers for all content-hashed static chunks. Eliminates redundant origin round-trips for repeat visitors and lowers cloud server CPU load.",
+    highlights: [
+      { label: "Brotli Compression", desc: "Compresses all text assets with Brotli Level 11 (-22% better than standard Gzip)." },
+      { label: "Immutable Caching", desc: "Sets 1-year immutable cache headers for hashed static chunks to prevent repeated network trips." },
+      { label: "HTTP/3 Ready", desc: "Multiplexed streams over QUIC eliminate head-of-line blocking on mobile networks." },
+    ],
+    safeguards: [
+      { label: "Content-Encoding Fallback", desc: "Automatically serves Gzip if client User-Agent lacks Brotli support." },
+      { label: "ETag Validation", desc: "Conditional GET with 304 Not Modified preserves server CPU." },
+      { label: "Cache Invalidation", desc: "Content-hashed filenames guarantee instant cache invalidation upon redeploy." },
+    ],
+    snippetLanguage: "javascript",
+    snippetFilename: "next.config.mjs",
+    snippet: `/** @type {import('next').NextConfig} */
+const nextConfig = {
+  compress: true, // Enables automatic Brotli & Gzip compression
+  async headers() {
+    return [
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
+};
+
+export default nextConfig;`,
+    unifiedDiff: `--- a/next.config.mjs
++++ b/next.config.mjs
+@@ -2,4 +2,15 @@
+ const nextConfig = {
++  compress: true,
++  async headers() {
++    return [{
++      source: '/_next/static/:path*',
++      headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
++    }];
++  },
+ };`,
+  },
+];
+
 function SavingsLabContent() {
   const searchParams = useSearchParams();
   const reduceMotion = useReducedMotion();
@@ -58,6 +314,7 @@ function SavingsLabContent() {
 
   // Progression steps: 1: Evidence, 2: Review fix, 3: Test candidate, 4: Verify, 5: Protect
   const [currentStep, setCurrentStep] = useState<number>(1);
+  const [selectedPatchCategory, setSelectedPatchCategory] = useState<PatchCategory>("image");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [experiment, setExperiment] = useState<Experiment | null>(null);
   const [verification, setVerification] = useState<VerificationResult | null>(null);
@@ -71,6 +328,8 @@ function SavingsLabContent() {
   const [isDispatching, setIsDispatching] = useState<boolean>(false);
   const [dispatchStatus, setDispatchStatus] = useState<string | null>(null);
   const [imageComparatorTab, setImageComparatorTab] = useState<"side-by-side" | "webp" | "original">("side-by-side");
+
+  const activePatch = PATCH_CATALOG.find((p) => p.id === selectedPatchCategory) || PATCH_CATALOG[0];
 
   const handleDispatchEmail = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -379,85 +638,137 @@ function SavingsLabContent() {
                 {/* Cupertino Asset Category Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
                   {/* Card 1: Hero Banner */}
-                  <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-amber-500/10 via-black/40 to-black/60 border border-amber-500/40 shadow-xl space-y-3 relative overflow-hidden">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                        <ImageIcon className="w-4 h-4 text-amber-400 shrink-0" />
-                        Hero Graphic
-                      </span>
-                      <span className="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 font-sans text-xs font-semibold">
-                        Hotspot
-                      </span>
+                  <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-amber-500/10 via-black/40 to-black/60 border border-amber-500/40 shadow-xl space-y-3 relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs sm:text-sm font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                          <ImageIcon className="w-4 h-4 text-amber-400 shrink-0" />
+                          Hero Graphic
+                        </span>
+                        <span className="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 font-sans text-xs font-semibold">
+                          Hotspot
+                        </span>
+                      </div>
+                      <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white mt-3">
+                        2,420 <span className="text-sm font-normal text-white/60">KB</span>
+                      </div>
+                      <div className="text-xs sm:text-sm text-amber-300 font-bold mt-1">
+                        98.8% of wire transfer
+                      </div>
+                      <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed mt-2">
+                        Raw uncompressed JPEG loaded eagerly on mobile &amp; desktop.
+                      </p>
                     </div>
-                    <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white">
-                      2,420 <span className="text-sm font-normal text-white/60">KB</span>
-                    </div>
-                    <div className="text-xs sm:text-sm text-amber-300 font-bold">
-                      98.8% of wire transfer
-                    </div>
-                    <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed">
-                      Raw uncompressed JPEG loaded eagerly on mobile &amp; desktop.
-                    </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedPatchCategory("image");
+                        setCurrentStep(2);
+                      }}
+                      className="mt-3 w-full py-2.5 px-3 rounded-xl bg-amber-400 text-black font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-amber-300 transition-colors cursor-pointer shadow-md"
+                    >
+                      <span>Inspect Hero Fix (-92.7%)</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
 
                   {/* Card 2: JavaScript */}
-                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-cyan-400/30 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-semibold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-                        <FileCode className="w-4 h-4 text-cyan-400 shrink-0" />
-                        JavaScript
-                      </span>
-                      <span className="text-xs text-white/50">Runtime</span>
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-cyan-400/30 transition-colors flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs sm:text-sm font-semibold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+                          <FileCode className="w-4 h-4 text-cyan-400 shrink-0" />
+                          JavaScript
+                        </span>
+                        <span className="text-xs text-white/50">Runtime</span>
+                      </div>
+                      <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white mt-3">
+                        18.0 <span className="text-sm font-normal text-white/60">KB</span>
+                      </div>
+                      <div className="text-xs sm:text-sm text-cyan-400 font-medium mt-1">
+                        0.7% of wire transfer
+                      </div>
+                      <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed mt-2">
+                        Minified bundle with heavy on-demand charts.
+                      </p>
                     </div>
-                    <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white">
-                      18.0 <span className="text-sm font-normal text-white/60">KB</span>
-                    </div>
-                    <div className="text-xs sm:text-sm text-cyan-400 font-medium">
-                      0.7% of wire transfer
-                    </div>
-                    <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed">
-                      Minified production bundle with tree-shaken components.
-                    </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedPatchCategory("javascript");
+                        setCurrentStep(2);
+                      }}
+                      className="mt-3 w-full py-2.5 px-3 rounded-xl bg-white/[0.06] text-cyan-300 border border-cyan-400/30 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-cyan-950/40 transition-colors cursor-pointer"
+                    >
+                      <span>Inspect JS Fix (-66.7%)</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
 
                   {/* Card 3: CSS Stylesheets */}
-                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-violet-400/30 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-semibold text-violet-400 uppercase tracking-wider flex items-center gap-2">
-                        <Palette className="w-4 h-4 text-violet-400 shrink-0" />
-                        CSS Styles
-                      </span>
-                      <span className="text-xs text-white/50">Styles</span>
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-violet-400/30 transition-colors flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs sm:text-sm font-semibold text-violet-400 uppercase tracking-wider flex items-center gap-2">
+                          <Palette className="w-4 h-4 text-violet-400 shrink-0" />
+                          CSS Styles
+                        </span>
+                        <span className="text-xs text-white/50">Styles</span>
+                      </div>
+                      <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white mt-3">
+                        8.0 <span className="text-sm font-normal text-white/60">KB</span>
+                      </div>
+                      <div className="text-xs sm:text-sm text-violet-400 font-medium mt-1">
+                        0.3% of wire transfer
+                      </div>
+                      <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed mt-2">
+                        Dead-code eliminated atomic CSS utility rules.
+                      </p>
                     </div>
-                    <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white">
-                      8.0 <span className="text-sm font-normal text-white/60">KB</span>
-                    </div>
-                    <div className="text-xs sm:text-sm text-violet-400 font-medium">
-                      0.3% of wire transfer
-                    </div>
-                    <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed">
-                      Dead-code eliminated atomic CSS utility rules.
-                    </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedPatchCategory("css");
+                        setCurrentStep(2);
+                      }}
+                      className="mt-3 w-full py-2.5 px-3 rounded-xl bg-white/[0.06] text-violet-300 border border-violet-400/30 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-violet-950/40 transition-colors cursor-pointer"
+                    >
+                      <span>Inspect CSS Fix (-68.8%)</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
 
                   {/* Card 4: HTML Document */}
-                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-emerald-400/30 transition-colors">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-                        <Code2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                        HTML Markup
-                      </span>
-                      <span className="text-xs text-white/50">Markup</span>
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-emerald-400/30 transition-colors flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs sm:text-sm font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+                          <Code2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                          HTML / CDN
+                        </span>
+                        <span className="text-xs text-white/50">Markup</span>
+                      </div>
+                      <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white mt-3">
+                        4.0 <span className="text-sm font-normal text-white/60">KB</span>
+                      </div>
+                      <div className="text-xs sm:text-sm text-emerald-400 font-medium mt-1">
+                        0.2% of wire transfer
+                      </div>
+                      <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed mt-2">
+                        Compressed server DOM &amp; immutable edge caching.
+                      </p>
                     </div>
-                    <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white">
-                      4.0 <span className="text-sm font-normal text-white/60">KB</span>
-                    </div>
-                    <div className="text-xs sm:text-sm text-emerald-400 font-medium">
-                      0.2% of wire transfer
-                    </div>
-                    <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed">
-                      Compressed server-rendered DOM tree skeleton.
-                    </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedPatchCategory("server");
+                        setCurrentStep(2);
+                      }}
+                      className="mt-3 w-full py-2.5 px-3 rounded-xl bg-white/[0.06] text-emerald-300 border border-emerald-400/30 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-emerald-950/40 transition-colors cursor-pointer"
+                    >
+                      <span>Inspect Server Fix (-55.0%)</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -634,207 +945,268 @@ function SavingsLabContent() {
               {/* Soft ambient glass accent */}
               <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#cbff00]/5 rounded-full blur-3xl pointer-events-none" />
 
+              {/* Cupertino Multi-Patch Segmented Switcher */}
+              <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl shadow-lg">
+                <div className="space-y-0.5">
+                  <div className="text-xs font-semibold text-[#cbff00] uppercase tracking-wider flex items-center gap-2">
+                    <Layers className="w-4 h-4 text-[#cbff00]" />
+                    Optimization Patch Catalog
+                  </div>
+                  <div className="text-xs sm:text-sm text-white/70">
+                    Switch between payload layers to review targeted code patches and engineering diffs
+                  </div>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  {PATCH_CATALOG.map((patch) => {
+                    const isSelected = selectedPatchCategory === patch.id;
+                    const Icon = patch.icon;
+                    return (
+                      <button
+                        key={patch.id}
+                        type="button"
+                        onClick={() => setSelectedPatchCategory(patch.id)}
+                        className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 cursor-pointer ${
+                          isSelected
+                            ? `${patch.bgActive} ${patch.accentColor} border ${patch.borderColor} shadow-md`
+                            : "bg-white/[0.03] text-white/70 hover:text-white border border-white/10"
+                        }`}
+                      >
+                        <Icon className="w-4 h-4 shrink-0" />
+                        <span>{patch.categoryLabel}</span>
+                        <span className="text-[11px] font-mono opacity-80">({patch.estimatedSaving})</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-6">
                 <div className="space-y-1.5">
                   <div className="text-xs font-semibold text-[#cbff00] tracking-widest uppercase">
-                    Stage 02 · Review Fix &amp; Proposed Patch
+                    Stage 02 · Review Fix &amp; Proposed Patch ({activePatch.categoryLabel})
                   </div>
                   <h2 className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
-                    First-Party Image Optimization Patch
+                    {activePatch.title}
                   </h2>
                   <div className="text-sm text-white/70">
-                    Rule: <span className="text-white font-medium">responsive_webp_conversion</span> <span className="mx-2 text-white/30">/</span> Class: <span className="text-white font-medium">Image Component Refactor</span>
+                    Rule: <span className="text-white font-medium">{activePatch.rule}</span> <span className="mx-2 text-white/30">/</span> Class: <span className="text-white font-medium">{activePatch.className}</span> <span className="mx-2 text-white/30">/</span> File: <span className="text-[#cbff00] font-mono text-xs">{activePatch.targetFile}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-5 font-mono text-xs">
                   <div className="text-left sm:text-right">
                     <span className="text-white/60 block uppercase font-bold tracking-wider">Estimated Saving</span>
-                    <span className="text-[#cbff00] font-black text-2xl sm:text-3xl mt-0.5 block">-92.7%</span>
+                    <span className={`font-black text-2xl sm:text-3xl mt-0.5 block ${activePatch.accentColor}`}>{activePatch.estimatedSaving}</span>
+                    <span className="text-[11px] text-white/50 block">(-{activePatch.savingBytes})</span>
                   </div>
                   <div className="text-left sm:text-right border-l border-white/15 pl-5">
                     <span className="text-white/60 block uppercase font-bold tracking-wider">Regression Risk</span>
-                    <span className="text-white font-bold text-sm sm:text-base mt-1 block">Low Risk</span>
+                    <span className="text-white font-bold text-sm sm:text-base mt-1 block">{activePatch.risk}</span>
+                    <span className="text-[11px] text-white/50 block">Effort: {activePatch.effort}</span>
                   </div>
                 </div>
               </div>
 
               {/* =========================================================================
-                  VISUAL FIDELITY COMPARATOR (Side-by-side Before & After Verification)
+                  VISUAL FIDELITY COMPARATOR (Image Patch) OR ARCHITECTURE CARD (Code Patches)
                   ========================================================================= */}
-              <div className="relative z-10 p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl shadow-xl space-y-5">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
-                  <div className="space-y-1">
-                    <span className="text-xs font-semibold text-[#cbff00] uppercase tracking-widest flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-[#cbff00]" />
-                      Visual Fidelity Comparator
-                    </span>
-                    <h3 className="text-base sm:text-lg font-bold text-white">
-                      Inspect Side-by-Side Compression Quality
-                    </h3>
+              {activePatch.id === "image" ? (
+                <div className="relative z-10 p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl shadow-xl space-y-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+                    <div className="space-y-1">
+                      <span className="text-xs font-semibold text-[#cbff00] uppercase tracking-widest flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#cbff00]" />
+                        Visual Fidelity Comparator
+                      </span>
+                      <h3 className="text-base sm:text-lg font-bold text-white">
+                        Inspect Side-by-Side Compression Quality
+                      </h3>
+                    </div>
+
+                    {/* Segmented Capsule Toggle */}
+                    <div className="inline-flex items-center p-1 rounded-full bg-black/60 border border-white/15 text-xs font-mono">
+                      <button
+                        type="button"
+                        onClick={() => setImageComparatorTab("side-by-side")}
+                        className={`px-3.5 py-1.5 rounded-full transition-all font-bold ${
+                          imageComparatorTab === "side-by-side"
+                            ? "bg-[#cbff00] text-black shadow-md"
+                            : "text-white/70 hover:text-white"
+                        }`}
+                      >
+                        Side-by-Side
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setImageComparatorTab("webp")}
+                        className={`px-3.5 py-1.5 rounded-full transition-all font-bold ${
+                          imageComparatorTab === "webp"
+                            ? "bg-[#cbff00] text-black shadow-md"
+                            : "text-white/70 hover:text-white"
+                        }`}
+                      >
+                        Optimized WebP (176 KB)
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setImageComparatorTab("original")}
+                        className={`px-3.5 py-1.5 rounded-full transition-all font-bold ${
+                          imageComparatorTab === "original"
+                            ? "bg-[#cbff00] text-black shadow-md"
+                            : "text-white/70 hover:text-white"
+                        }`}
+                      >
+                        Original JPEG (2.42 MB)
+                      </button>
+                    </div>
                   </div>
 
-                  {/* Segmented Capsule Toggle */}
-                  <div className="inline-flex items-center p-1 rounded-full bg-black/60 border border-white/15 text-xs font-mono">
-                    <button
-                      type="button"
-                      onClick={() => setImageComparatorTab("side-by-side")}
-                      className={`px-3.5 py-1.5 rounded-full transition-all font-bold ${
-                        imageComparatorTab === "side-by-side"
-                          ? "bg-[#cbff00] text-black shadow-md"
-                          : "text-white/70 hover:text-white"
-                      }`}
-                    >
-                      Side-by-Side
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setImageComparatorTab("webp")}
-                      className={`px-3.5 py-1.5 rounded-full transition-all font-bold ${
-                        imageComparatorTab === "webp"
-                          ? "bg-[#cbff00] text-black shadow-md"
-                          : "text-white/70 hover:text-white"
-                      }`}
-                    >
-                      Optimized WebP (176 KB)
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setImageComparatorTab("original")}
-                      className={`px-3.5 py-1.5 rounded-full transition-all font-bold ${
-                        imageComparatorTab === "original"
-                          ? "bg-[#cbff00] text-black shadow-md"
-                          : "text-white/70 hover:text-white"
-                      }`}
-                    >
-                      Original JPEG (2.42 MB)
-                    </button>
-                  </div>
-                </div>
+                  {/* Comparator Views */}
+                  {imageComparatorTab === "side-by-side" ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
+                      {/* Original JPEG */}
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center text-xs text-white/70">
+                          <span className="font-bold text-amber-400">BASELINE UNCOMPRESSED JPEG</span>
+                          <span>2.42 MB on wire</span>
+                        </div>
+                        <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
+                          <ImageIcon className="w-10 h-10 text-amber-400/30 absolute" />
+                          <img
+                            src="/demo/assets/hero-banner-large.jpg"
+                            alt="Production Baseline Hero (2.42 MB)"
+                            className="w-full h-full object-cover relative z-10"
+                            loading="eager"
+                          />
+                        </div>
+                      </div>
 
-                {/* Comparator Views */}
-                {imageComparatorTab === "side-by-side" ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
-                    {/* Original JPEG */}
-                    <div className="space-y-2">
+                      {/* Optimized WebP */}
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center text-xs text-white/70">
+                          <span className="font-bold text-[#cbff00]">OPTIMIZED FIRST-PARTY WEBP</span>
+                          <span className="text-[#cbff00] font-bold">176 KB (-92.7%)</span>
+                        </div>
+                        <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative shadow-[0_0_20px_rgba(203,255,0,0.1)] flex items-center justify-center">
+                          <ImageIcon className="w-10 h-10 text-[#cbff00]/30 absolute" />
+                          <img
+                            src="/demo/assets/hero-banner-large.webp"
+                            alt="Production Optimized Hero (176 KB)"
+                            className="w-full h-full object-cover relative z-10"
+                            loading="eager"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ) : imageComparatorTab === "webp" ? (
+                    <div className="space-y-2 pt-1">
                       <div className="flex justify-between items-center text-xs text-white/70">
-                        <span className="font-bold text-amber-400">BASELINE UNCOMPRESSED JPEG</span>
-                        <span>2.42 MB on wire</span>
+                        <span className="font-bold text-[#cbff00]">OPTIMIZED WEBP CANDIDATE</span>
+                        <span className="text-[#cbff00] font-bold">176 KB / Zero Visual Loss</span>
+                      </div>
+                      <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
+                        <ImageIcon className="w-10 h-10 text-[#cbff00]/30 absolute" />
+                        <img
+                          src="/demo/assets/hero-banner-large.webp"
+                          alt="Production Optimized Hero"
+                          className="w-full h-full object-cover relative z-10"
+                          loading="eager"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-2 pt-1">
+                      <div className="flex justify-between items-center text-xs text-white/70">
+                        <span className="font-bold text-amber-400">ORIGINAL UNCOMPRESSED JPEG</span>
+                        <span>2.42 MB / Heavy Payload Hotspot</span>
                       </div>
                       <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
                         <ImageIcon className="w-10 h-10 text-amber-400/30 absolute" />
                         <img
                           src="/demo/assets/hero-banner-large.jpg"
-                          alt="Production Baseline Hero (2.42 MB)"
+                          alt="Production Baseline Hero"
                           className="w-full h-full object-cover relative z-10"
                           loading="eager"
                         />
                       </div>
                     </div>
+                  )}
 
-                    {/* Optimized WebP */}
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center text-xs text-white/70">
-                        <span className="font-bold text-[#cbff00]">OPTIMIZED FIRST-PARTY WEBP</span>
-                        <span className="text-[#cbff00] font-bold">176 KB (-92.7%)</span>
-                      </div>
-                      <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative shadow-[0_0_20px_rgba(203,255,0,0.1)] flex items-center justify-center">
-                        <ImageIcon className="w-10 h-10 text-[#cbff00]/30 absolute" />
-                        <img
-                          src="/demo/assets/hero-banner-large.webp"
-                          alt="Production Optimized Hero (176 KB)"
-                          className="w-full h-full object-cover relative z-10"
-                          loading="eager"
-                        />
-                      </div>
+                  <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+                    <div className="flex items-center gap-2 text-[#cbff00] font-bold">
+                      <CheckCircle2 className="w-4 h-4 shrink-0" />
+                      <span>Visual Fidelity: 100% Identical</span>
                     </div>
-                  </div>
-                ) : imageComparatorTab === "webp" ? (
-                  <div className="space-y-2 pt-1">
-                    <div className="flex justify-between items-center text-xs text-white/70">
-                      <span className="font-bold text-[#cbff00]">OPTIMIZED WEBP CANDIDATE</span>
-                      <span className="text-[#cbff00] font-bold">176 KB / Zero Visual Loss</span>
+                    <div className="text-white/70">
+                      Dimensions: 1200×400 / Zero Cumulative Layout Shift (CLS)
                     </div>
-                    <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
-                      <ImageIcon className="w-10 h-10 text-[#cbff00]/30 absolute" />
-                      <img
-                        src="/demo/assets/hero-banner-large.webp"
-                        alt="Production Optimized Hero"
-                        className="w-full h-full object-cover relative z-10"
-                        loading="eager"
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-2 pt-1">
-                    <div className="flex justify-between items-center text-xs text-white/70">
-                      <span className="font-bold text-amber-400">ORIGINAL UNCOMPRESSED JPEG</span>
-                      <span>2.42 MB / Heavy Payload Hotspot</span>
-                    </div>
-                    <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
-                      <ImageIcon className="w-10 h-10 text-amber-400/30 absolute" />
-                      <img
-                        src="/demo/assets/hero-banner-large.jpg"
-                        alt="Production Baseline Hero"
-                        className="w-full h-full object-cover relative z-10"
-                        loading="eager"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
-                  <div className="flex items-center gap-2 text-[#cbff00] font-bold">
-                    <CheckCircle2 className="w-4 h-4 shrink-0" />
-                    <span>Visual Fidelity: 100% Identical</span>
-                  </div>
-                  <div className="text-white/70">
-                    Dimensions: 1200×400 / Zero Cumulative Layout Shift (CLS)
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className="relative z-10 p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl shadow-xl space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+                    <div className="space-y-1">
+                      <span className={`text-xs font-semibold ${activePatch.accentColor} uppercase tracking-widest flex items-center gap-2`}>
+                        <activePatch.icon className="w-4 h-4" />
+                        {activePatch.categoryLabel} Architecture &amp; Delivery
+                      </span>
+                      <h3 className="text-base sm:text-lg font-bold text-white">
+                        {activePatch.className}
+                      </h3>
+                    </div>
+                    <div className="px-3.5 py-1.5 rounded-xl bg-white/[0.06] border border-white/15 text-xs font-mono text-white/80">
+                      Target File: <span className="text-white font-bold">{activePatch.targetFile}</span>
+                    </div>
+                  </div>
+                  <p className="text-sm sm:text-base text-white/85 leading-relaxed font-sans">
+                    {activePatch.description}
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                    <div className="p-3.5 rounded-xl bg-black/40 border border-white/10">
+                      <div className="text-xs text-white/60">Estimated Transfer Delta</div>
+                      <div className={`text-xl font-bold font-mono mt-1 ${activePatch.accentColor}`}>-{activePatch.savingBytes}</div>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-black/40 border border-white/10">
+                      <div className="text-xs text-white/60">Relative Network Reduction</div>
+                      <div className="text-xl font-bold font-mono text-white mt-1">{activePatch.estimatedSaving}</div>
+                    </div>
+                    <div className="p-3.5 rounded-xl bg-black/40 border border-white/10">
+                      <div className="text-xs text-white/60">Implementation Effort</div>
+                      <div className="text-xl font-bold font-mono text-white mt-1">{activePatch.effort}</div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Engineering Highlights & Safeguards - Layered Glass Depth */}
               <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-5 text-sm font-mono">
                 {/* Engineering Highlights */}
                 <div className="p-6 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl shadow-lg space-y-3">
-                  <div className="text-[#cbff00] font-bold text-sm uppercase tracking-wider">
+                  <div className={`${activePatch.accentColor} font-bold text-sm uppercase tracking-wider`}>
                     Engineering Rationale
                   </div>
                   <ul className="text-white/85 text-sm sm:text-base space-y-2.5 font-sans leading-relaxed">
-                    <li className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
-                      <span><strong>Format Upgrade:</strong> Converts 2.42 MB JPEG to 176 KB WebP (<strong>-92.7% network weight</strong>).</span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
-                      <span><strong>HTML5 Fallback:</strong> Responsive <code className="text-xs bg-black/40 px-1.5 py-0.5 rounded text-[#cbff00] font-mono">&lt;picture&gt;</code> with standard JPEG fallback.</span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
-                      <span><strong>Zero Layout Shift:</strong> Explicit width (1200) and height (400) prevent Cumulative Layout Shift.</span>
-                    </li>
+                    {activePatch.highlights.map((h, hIdx) => (
+                      <li key={hIdx} className="flex items-start gap-2.5">
+                        <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
+                        <span><strong>{h.label}:</strong> {h.desc}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
 
                 {/* Safeguards */}
                 <div className="p-6 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl shadow-lg space-y-3">
                   <div className="text-white font-bold text-sm uppercase tracking-wider">
-                    LCP &amp; Core Web Vitals
+                    Quality &amp; Performance Safeguards
                   </div>
                   <ul className="text-white/85 text-sm sm:text-base space-y-2.5 font-sans leading-relaxed">
-                    <li className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
-                      <span><strong>LCP Priority:</strong> Hero banner loads eagerly with high fetch priority to safeguard LCP.</span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
-                      <span><strong>Zero Render-Blocking:</strong> Drop-in component contains no external stylesheets or scripts.</span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
-                      <span><strong>Ready Replacement:</strong> Pre-compressed WebP asset is provisioned in the static asset directory.</span>
-                    </li>
+                    {activePatch.safeguards.map((s, sIdx) => (
+                      <li key={sIdx} className="flex items-start gap-2.5">
+                        <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
+                        <span><strong>{s.label}:</strong> {s.desc}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -845,30 +1217,43 @@ function SavingsLabContent() {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <span className="text-sm font-mono text-[#cbff00] font-bold uppercase tracking-wider flex items-center gap-2">
                       <FileCode className="w-5 h-5 text-[#cbff00]" />
-                      Drop-In Production Snippet (Zero Layout Shift)
+                      Drop-In Production Snippet ({activePatch.snippetFilename})
                     </span>
-                    <a
-                      href="/demo/assets/hero-banner-large.webp"
-                      download="hero-banner-large.webp"
-                      className="px-4 py-2.5 rounded-2xl bg-white/[0.06] border border-white/20 text-white hover:text-[#cbff00] hover:border-[#cbff00]/40 font-mono text-xs sm:text-sm flex items-center gap-2 font-bold transition-colors w-fit"
-                    >
-                      <Download className="w-4 h-4 text-[#cbff00]" />
-                      DOWNLOAD OPTIMIZED WEBP (176 KB)
-                    </a>
+                    {activePatch.id === "image" && (
+                      <a
+                        href="/demo/assets/hero-banner-large.webp"
+                        download="hero-banner-large.webp"
+                        className="px-4 py-2.5 rounded-2xl bg-white/[0.06] border border-white/20 text-white hover:text-[#cbff00] hover:border-[#cbff00]/40 font-mono text-xs sm:text-sm flex items-center gap-2 font-bold transition-colors w-fit"
+                      >
+                        <Download className="w-4 h-4 text-[#cbff00]" />
+                        DOWNLOAD OPTIMIZED WEBP (176 KB)
+                      </a>
+                    )}
                   </div>
 
                   <p className="text-sm sm:text-base text-white/80">
-                    Replace the uncompressed <code className="text-xs bg-black/40 px-1.5 py-0.5 rounded text-white font-mono">&lt;img&gt;</code> tag with this standard responsive picture container. Preserves explicit dimensions and alt text:
+                    Apply this verified drop-in snippet to <code className="text-xs bg-black/40 px-1.5 py-0.5 rounded text-[#cbff00] font-mono">{activePatch.targetFile}</code> to reduce network transfer and eliminate unnecessary emissions:
                   </p>
 
-                  <div className="rounded-2xl bg-black/70 border border-white/10 p-4 sm:p-5 font-mono text-sm sm:text-base text-white/95 overflow-x-auto leading-relaxed shadow-inner">
-                    <code>
-                      &lt;picture&gt;<br />
-                      &nbsp;&nbsp;&lt;source srcSet=&quot;/demo/assets/hero-banner-large.webp&quot; type=&quot;image/webp&quot; /&gt;<br />
-                      &nbsp;&nbsp;&lt;img src=&quot;/demo/assets/hero-banner-large.jpg&quot; alt=&quot;Production Hero Banner&quot; width=&quot;1200&quot; height=&quot;400&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;<br />
-                      &lt;/picture&gt;
-                    </code>
+                  <div className="rounded-2xl bg-black/70 border border-white/10 p-4 sm:p-5 font-mono text-xs sm:text-sm text-white/95 overflow-x-auto leading-relaxed shadow-inner">
+                    <pre>
+                      <code>{activePatch.snippet}</code>
+                    </pre>
                   </div>
+                </div>
+
+                {/* Unified Source Diff */}
+                <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl space-y-4 shadow-xl">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-mono text-white/90 font-bold uppercase tracking-wider flex items-center gap-2">
+                      <GitCommit className="w-5 h-5 text-[#cbff00]" />
+                      Unified Source Diff ({activePatch.targetFile})
+                    </span>
+                    <span className="text-xs font-mono text-[#cbff00] font-bold">{activePatch.estimatedSaving} Reduction</span>
+                  </div>
+                  <pre className="p-4 sm:p-5 rounded-2xl bg-black/80 border border-white/10 text-xs sm:text-sm font-mono text-white/90 overflow-x-auto leading-relaxed shadow-inner">
+                    <code>{activePatch.unifiedDiff}</code>
+                  </pre>
                 </div>
 
                 {/* SMTP Email Dispatch for Engineering Teams */}
