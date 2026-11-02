@@ -46,9 +46,6 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .ct-intro-copy { color: #e3e8d9; font-size: 16.5px; font-weight: 300; max-width: 640px; line-height: 1.7; text-shadow: 0 1px 15px #15221155; }
 .ct-intro-actions { margin-bottom: 6px; }
 .ct-intro-actions .ct-button { background: var(--world-ivory); color: var(--world-ink); border: 0; box-shadow: var(--world-shadow); }
-.world-intro-mark { display: flex; gap: 5px; align-items: center; margin-bottom: 22px; width: 42px; }
-.world-intro-mark span { width: 6px; height: 6px; background: #e6ecd6; border-radius: 50%; }
-.world-intro-mark i { display: block; height: 1px; width: 22px; background: #e6ecd680; }
 .ct-section-heading { margin-bottom: 32px; align-items: start; }
 .ct-section-heading h2 {
   font-family: var(--font-display) !important;

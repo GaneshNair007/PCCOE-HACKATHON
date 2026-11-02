@@ -276,17 +276,17 @@ export default function ForecastsPage() {
             {/* Clear Plain-English Legend */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-xs font-mono border-b border-surface-border pb-4">
               <span className="flex items-center gap-2 text-red-400">
-                <span className="w-3.5 h-1.5 rounded-full bg-red-400 shadow-sm shadow-red-500/50" />
+                <span className="w-4 h-0.5 rounded bg-red-400" />
                 <span className="font-semibold text-cream">Do Nothing</span>
                 <span className="text-[11px] text-red-400/80">(Status quo: +{growthRate}%/mo traffic)</span>
               </span>
               <span className="flex items-center gap-2 text-amber-300">
-                <span className="w-3.5 h-1.5 rounded-full bg-amber-400 shadow-sm shadow-amber-500/50" />
+                <span className="w-4 h-0.5 rounded bg-amber-400" />
                 <span className="font-semibold text-cream">Code Clean-up</span>
                 <span className="text-[11px] text-amber-300/80">(Image & script reduction)</span>
               </span>
               <span className="flex items-center gap-2 text-lime">
-                <span className="w-3.5 h-1.5 rounded-full bg-lime shadow-sm shadow-lime/50" />
+                <span className="w-4 h-0.5 rounded bg-lime" />
                 <span className="font-semibold text-cream">Green Cloud + Lean Code</span>
                 <span className="text-[11px] text-lime/80">(Renewable host + 50% lighter)</span>
               </span>

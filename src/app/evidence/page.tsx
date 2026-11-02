@@ -188,9 +188,9 @@ function EvidenceContent() {
                 </h2>
                 <div className="text-xs sm:text-sm text-white/80 flex flex-wrap items-center gap-3 pt-1">
                   <span>Project: <strong className="text-white">{receipt.projectId === "campus-events" ? "production-pipeline" : receipt.projectId}</strong></span>
-                  <span>•</span>
+                  <span className="text-white/30">/</span>
                   <span>Journey: <strong className="text-white">{receipt.journeyId === "event-registration" ? "payload-optimization" : receipt.journeyId}</strong></span>
-                  <span>•</span>
+                  <span className="text-white/30">/</span>
                   <span>Generated: <strong className="text-white">{new Date(receipt.generatedAt).toLocaleString()}</strong></span>
                 </div>
               </div>
@@ -204,7 +204,7 @@ function EvidenceContent() {
                     : receipt.outcome.replace(/_/g, " ").toUpperCase()}
                 </div>
                 <div className="text-xs font-mono text-white/70 font-medium">
-                  Automated Verification Pipeline • Certified SWDM v4
+                  Automated Verification Pipeline <span className="mx-1 text-white/30">/</span> Certified SWDM v4
                 </div>
               </div>
             </div>
@@ -331,9 +331,9 @@ function EvidenceContent() {
                 </div>
                 <div className="flex flex-wrap items-center gap-4 text-white/75 text-xs sm:text-sm pt-1">
                   <span>Target File: <strong className="text-white">{receipt.patchSummary.targetFile}</strong></span>
-                  <span>•</span>
+                  <span className="text-white/30">/</span>
                   <span>Replacement: <strong className="text-[#cbff00]">{receipt.patchSummary.replacementResource.replace(/campus-hackathon-hero/g, "hero-banner-large")}</strong></span>
-                  <span>•</span>
+                  <span className="text-white/30">/</span>
                   <span>Reviewed: <strong className="text-white">{receipt.reviewedAt ? new Date(receipt.reviewedAt).toLocaleString() : "Approved"}</strong></span>
                 </div>
               </div>

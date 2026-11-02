@@ -80,7 +80,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
 
       {/* Header Info */}
       <PageIntro
-        eyebrow={<><Calendar className="w-3.5 h-3.5" /> March 20–22, 2026 • Verified Production Benchmark</>}
+        eyebrow={<><Calendar className="w-3.5 h-3.5" /> March 20–22, 2026 <span className="mx-1 text-white/30">/</span> Verified Production Benchmark</>}
         title={<span id="event-title">Production Web Architecture 2026</span>}
       >
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono">
@@ -176,9 +176,9 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
         <Card className="p-5 glass-panel-elevated border border-surface-border space-y-3 h-fit">
           <h2 className="font-display text-xl text-cream">Event schedule</h2>
           <ul className="text-xs text-sage/80 space-y-2 font-mono">
-            <li>• Fri 18:00 — Opening Ceremony</li>
-            <li>• Sat 12:00 — Architecture Review</li>
-            <li>• Sun 14:00 — Final Pitches & Demos</li>
+            <li>Fri 18:00 — Opening Ceremony</li>
+            <li>Sat 12:00 — Architecture Review</li>
+            <li>Sun 14:00 — Final Pitches & Demos</li>
           </ul>
         </Card>
       </Reveal>

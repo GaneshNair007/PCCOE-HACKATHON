@@ -28,6 +28,9 @@ import {
   Mail,
   Sparkles,
   TrendingDown,
+  ImageIcon,
+  Palette,
+  Code2,
 } from "lucide-react";
 import { ButterflyOrbit } from "@/components/ambient/butterfly-orbit";
 import { Experiment, VerificationResult } from "@/lib/storage/types";
@@ -302,7 +305,7 @@ function SavingsLabContent() {
                     {journeyTitle}
                   </h2>
                   <div className="text-sm text-white/70">
-                    Target: <span className="text-white font-medium">{targetDomain || initialTargetUrl || "Production Web Application"}</span> • Baseline Transfer: <span className="text-white font-medium">2.45 MB</span>
+                    Target: <span className="text-white font-medium">{targetDomain || initialTargetUrl || "Production Web Application"}</span> <span className="mx-2 text-white/30">/</span> Baseline Transfer: <span className="text-white font-medium">2.45 MB</span>
                   </div>
                 </div>
 
@@ -378,11 +381,11 @@ function SavingsLabContent() {
                   {/* Card 1: Hero Banner */}
                   <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-amber-500/10 via-black/40 to-black/60 border border-amber-500/40 shadow-xl space-y-3 relative overflow-hidden">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-mono font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                      <span className="text-xs sm:text-sm font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                        <ImageIcon className="w-4 h-4 text-amber-400 shrink-0" />
                         Hero Graphic
                       </span>
-                      <span className="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 font-mono text-[11px] font-bold">
+                      <span className="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 font-sans text-xs font-semibold">
                         Hotspot
                       </span>
                     </div>
@@ -400,8 +403,8 @@ function SavingsLabContent() {
                   {/* Card 2: JavaScript */}
                   <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-cyan-400/30 transition-colors">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
+                      <span className="text-xs sm:text-sm font-semibold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+                        <FileCode className="w-4 h-4 text-cyan-400 shrink-0" />
                         JavaScript
                       </span>
                       <span className="text-xs text-white/50">Runtime</span>
@@ -420,8 +423,8 @@ function SavingsLabContent() {
                   {/* Card 3: CSS Stylesheets */}
                   <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-violet-400/30 transition-colors">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-mono font-bold text-violet-400 uppercase tracking-wider flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-violet-400" />
+                      <span className="text-xs sm:text-sm font-semibold text-violet-400 uppercase tracking-wider flex items-center gap-2">
+                        <Palette className="w-4 h-4 text-violet-400 shrink-0" />
                         CSS Styles
                       </span>
                       <span className="text-xs text-white/50">Styles</span>
@@ -440,8 +443,8 @@ function SavingsLabContent() {
                   {/* Card 4: HTML Document */}
                   <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-emerald-400/30 transition-colors">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-mono font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                      <span className="text-xs sm:text-sm font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+                        <Code2 className="w-4 h-4 text-emerald-400 shrink-0" />
                         HTML Markup
                       </span>
                       <span className="text-xs text-white/50">Markup</span>
@@ -628,7 +631,7 @@ function SavingsLabContent() {
                     First-Party Image Optimization Patch
                   </h2>
                   <div className="text-sm text-white/70">
-                    Rule: <span className="text-white font-medium">responsive_webp_conversion</span> • Class: <span className="text-white font-medium">Image Component Refactor</span>
+                    Rule: <span className="text-white font-medium">responsive_webp_conversion</span> <span className="mx-2 text-white/30">/</span> Class: <span className="text-white font-medium">Image Component Refactor</span>
                   </div>
                 </div>
 
@@ -734,7 +737,7 @@ function SavingsLabContent() {
                   <div className="space-y-2 pt-1">
                     <div className="flex justify-between items-center text-xs text-white/70">
                       <span className="font-bold text-[#cbff00]">OPTIMIZED WEBP CANDIDATE</span>
-                      <span className="text-[#cbff00] font-bold">176 KB • Zero Visual Loss</span>
+                      <span className="text-[#cbff00] font-bold">176 KB / Zero Visual Loss</span>
                     </div>
                     <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative">
                       <img
@@ -748,7 +751,7 @@ function SavingsLabContent() {
                   <div className="space-y-2 pt-1">
                     <div className="flex justify-between items-center text-xs text-white/70">
                       <span className="font-bold text-amber-400">ORIGINAL UNCOMPRESSED JPEG</span>
-                      <span>2.42 MB • Heavy Payload Hotspot</span>
+                      <span>2.42 MB / Heavy Payload Hotspot</span>
                     </div>
                     <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative">
                       <img
@@ -766,7 +769,7 @@ function SavingsLabContent() {
                     <span>Visual Fidelity: 100% Identical</span>
                   </div>
                   <div className="text-white/70">
-                    Dimensions: 1200×400 • Zero Cumulative Layout Shift (CLS)
+                    Dimensions: 1200×400 / Zero Cumulative Layout Shift (CLS)
                   </div>
                 </div>
               </div>
@@ -780,15 +783,15 @@ function SavingsLabContent() {
                   </div>
                   <ul className="text-white/85 text-sm sm:text-base space-y-2.5 font-sans leading-relaxed">
                     <li className="flex items-start gap-2.5">
-                      <span className="text-[#cbff00] font-bold mt-0.5">•</span>
+                      <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
                       <span><strong>Format Upgrade:</strong> Converts 2.42 MB JPEG to 176 KB WebP (<strong>-92.7% network weight</strong>).</span>
                     </li>
                     <li className="flex items-start gap-2.5">
-                      <span className="text-[#cbff00] font-bold mt-0.5">•</span>
+                      <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
                       <span><strong>HTML5 Fallback:</strong> Responsive <code className="text-xs bg-black/40 px-1.5 py-0.5 rounded text-[#cbff00] font-mono">&lt;picture&gt;</code> with standard JPEG fallback.</span>
                     </li>
                     <li className="flex items-start gap-2.5">
-                      <span className="text-[#cbff00] font-bold mt-0.5">•</span>
+                      <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
                       <span><strong>Zero Layout Shift:</strong> Explicit width (1200) and height (400) prevent Cumulative Layout Shift.</span>
                     </li>
                   </ul>
@@ -801,15 +804,15 @@ function SavingsLabContent() {
                   </div>
                   <ul className="text-white/85 text-sm sm:text-base space-y-2.5 font-sans leading-relaxed">
                     <li className="flex items-start gap-2.5">
-                      <span className="text-[#cbff00] font-bold mt-0.5">•</span>
+                      <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
                       <span><strong>LCP Priority:</strong> Hero banner loads eagerly with high fetch priority to safeguard LCP.</span>
                     </li>
                     <li className="flex items-start gap-2.5">
-                      <span className="text-[#cbff00] font-bold mt-0.5">•</span>
+                      <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
                       <span><strong>Zero Render-Blocking:</strong> Drop-in component contains no external stylesheets or scripts.</span>
                     </li>
                     <li className="flex items-start gap-2.5">
-                      <span className="text-[#cbff00] font-bold mt-0.5">•</span>
+                      <Check className="w-4 h-4 text-[#cbff00] shrink-0 mt-1" />
                       <span><strong>Ready Replacement:</strong> Pre-compressed WebP asset is provisioned in the static asset directory.</span>
                     </li>
                   </ul>
@@ -1105,7 +1108,7 @@ function SavingsLabContent() {
                 Verified Improvement Evidence
               </h2>
               <div className="text-sm text-white/70">
-                Audit Status: <strong className="text-[#cbff00]">Automated Verification Passed (3/3 Passes)</strong> • Certified SWDM v4 Attribution
+                Audit Status: <strong className="text-[#cbff00]">Automated Verification Passed (3/3 Passes)</strong> <span className="mx-2 text-white/30">/</span> Certified SWDM v4 Attribution
               </div>
             </div>
 
@@ -1146,7 +1149,7 @@ function SavingsLabContent() {
               <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-white mt-2">
                 -0.536 <span className="text-sm sm:text-base font-normal text-white/70">gCO2e</span>
               </div>
-              <div className="text-sm text-white/70 mt-2">SWDM v4 • 494 gCO2e/kWh factor</div>
+              <div className="text-sm text-white/70 mt-2">SWDM v4 <span className="mx-1 text-white/30">/</span> 494 gCO2e/kWh factor</div>
             </div>
 
             <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl shadow-xl space-y-2">
@@ -1189,7 +1192,7 @@ function SavingsLabContent() {
                 Verified Engineering Evidence Record
               </h2>
               <div className="text-sm text-white/70">
-                Automated Verification Pipeline Verified • Certified SWDM v4 Attribution
+                Automated Verification Pipeline Verified <span className="mx-2 text-white/30">/</span> Certified SWDM v4 Attribution
               </div>
             </div>
 

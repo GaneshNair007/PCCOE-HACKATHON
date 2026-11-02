@@ -110,7 +110,7 @@ export function Footer() {
         
         {/* Bottom Legal Row */}
         <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-surface-border/40 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-sage/80 gap-4">
-          <span>© 2026 CarbonTerra PLATFORM INC. • PCCOE HACKATHON EDITION</span>
+          <span>© 2026 CarbonTerra PLATFORM INC. <span className="mx-1 text-white/30">/</span> PCCOE HACKATHON EDITION</span>
           <div className="flex items-center gap-6">
             <button onClick={() => setActiveModal("terms")} className="hover:text-lime transition-colors">TERMS OF SERVICE</button>
             <button onClick={() => setActiveModal("privacy")} className="hover:text-lime transition-colors">PRIVACY POLICY</button>

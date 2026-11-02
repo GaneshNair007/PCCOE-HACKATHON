@@ -77,7 +77,7 @@ function FormattedMessageText({ text }: { text: string }) {
 
     elements.push(
       <div key={`line-${idx}`} className={isBullet ? "min-w-0 pl-2 flex items-start gap-1.5" : "min-w-0"}>
-        {isBullet && <span className="text-lime text-xs mt-0.5" aria-hidden="true">•</span>}
+        {isBullet && <span className="text-lime text-xs mt-0.5" aria-hidden="true">–</span>}
         <span className="flex-1 min-w-0">
           {parts.map((part, pIdx) => {
             if (part.startsWith("**") && part.endsWith("**")) {

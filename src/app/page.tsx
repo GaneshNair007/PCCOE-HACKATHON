@@ -213,9 +213,9 @@ function LandingPageContent() {
                 </h2>
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-sage/70 mt-1">
                   <span>Audited: {new Date(auditData.calculated_at).toLocaleTimeString()}</span>
-                  <span>•</span>
+                  <span className="text-white/30">/</span>
                   <span>Model: Sustainable Web Design</span>
-                  <span>•</span>
+                  <span className="text-white/30">/</span>
                   <span className="text-lime font-bold">
                     {auditData.cross_validation
                       ? `Verified by Dual Measurement (${auditData.cross_validation.discrepancy_pct}% Difference)`
@@ -459,7 +459,7 @@ function LandingPageContent() {
                   Enterprise Production Portal Telemetry
                 </h3>
                 <div className="text-sm font-mono text-white/70 mt-1">
-                  Target: <span className="text-white font-medium">https://www.pccoepune.com</span> • Regional Grid: 708 gCO2e/kWh
+                  Target: <span className="text-white font-medium">https://www.pccoepune.com</span> <span className="mx-2 text-white/30">/</span> Regional Grid: 708 gCO2e/kWh
                 </div>
               </div>
 
