@@ -230,11 +230,11 @@ export function SylvaHero({
               <div className="hero-audit-heading flex items-center justify-between gap-3 px-1">
                 <div className="flex items-center gap-2">
                   <Search className="w-4 h-4 text-[#cbff00]" />
-                  <span className="text-xs sm:text-sm font-mono font-bold tracking-wider text-[#cbff00] uppercase">
+                  <span className="text-xs sm:text-sm font-semibold tracking-wider text-[#cbff00] uppercase">
                     WEBSITE CARBON AUDIT
                   </span>
                 </div>
-                <span className="hero-audit-detail text-xs sm:text-sm font-mono text-white/80">
+                <span className="hero-audit-detail text-xs sm:text-sm text-white/80 font-sans">
                   Page Weight &amp; Emissions Analysis
                 </span>
               </div>
@@ -257,7 +257,7 @@ export function SylvaHero({
                 <button
                   type="submit"
                   disabled={auditStatus === "running"}
-                  className="px-6 py-3.5 sm:py-4 rounded-2xl bg-[#cbff00] text-[#1b1e18] font-black text-sm hover:bg-[#e4ff66] transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(203,255,0,0.35)] font-mono disabled:opacity-50 uppercase tracking-wider shrink-0 cursor-pointer"
+                  className="px-6 py-3.5 sm:py-4 rounded-2xl bg-[#cbff00] text-[#1b1e18] font-bold text-sm sm:text-base hover:bg-[#e4ff66] transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(203,255,0,0.35)] disabled:opacity-50 uppercase tracking-wider shrink-0 cursor-pointer"
                 >
                   {auditStatus === "running" ? (
                     <>
@@ -274,7 +274,7 @@ export function SylvaHero({
               </div>
 
               {/* Benchmark presets */}
-              <div className="hero-presets flex flex-wrap items-center gap-2 text-xs sm:text-sm font-mono text-white/80 pt-1">
+              <div className="hero-presets flex flex-wrap items-center gap-2 text-xs sm:text-sm text-white/80 pt-1">
                 <span className="font-bold uppercase text-white/60">Presets:</span>
                 {["gmail.com", "stripe.com", "vercel.com", "github.com"].map((preset) => (
                   <button

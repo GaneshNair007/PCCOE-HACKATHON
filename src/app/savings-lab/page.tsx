@@ -295,18 +295,18 @@ function SavingsLabContent() {
 
               <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-6">
                 <div className="space-y-1.5">
-                  <div className="text-xs font-mono font-bold text-[#cbff00] tracking-wider uppercase">
+                  <div className="text-xs font-semibold text-[#cbff00] tracking-widest uppercase">
                     Stage 01 · Observed Evidence
                   </div>
                   <h2 className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
                     {journeyTitle}
                   </h2>
-                  <div className="text-sm font-mono text-white/70">
+                  <div className="text-sm text-white/70">
                     Target: <span className="text-white font-medium">{targetDomain || initialTargetUrl || "Production Web Application"}</span> • Baseline Transfer: <span className="text-white font-medium">2.45 MB</span>
                   </div>
                 </div>
 
-                <div className="text-left sm:text-right font-mono">
+                <div className="text-left sm:text-right">
                   <div className="text-xs text-white/60 uppercase font-bold tracking-wider">Observed Transfer Weight</div>
                   <div className="text-3xl sm:text-4xl font-black text-white mt-1">
                     2,450.0 <span className="text-sm sm:text-base font-normal text-white/70">KB</span>
@@ -319,7 +319,7 @@ function SavingsLabContent() {
               <div className="relative z-10 p-6 sm:p-8 rounded-3xl bg-white/[0.04] border border-white/15 backdrop-blur-2xl shadow-2xl space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
                   <div className="space-y-1">
-                    <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#cbff00]">
+                    <div className="text-xs font-semibold uppercase tracking-widest text-[#cbff00]">
                       Telemetry Decomposition
                     </div>
                     <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
@@ -386,7 +386,7 @@ function SavingsLabContent() {
                         Hotspot
                       </span>
                     </div>
-                    <div className="font-mono text-3xl sm:text-4xl font-black text-white">
+                    <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white">
                       2,420 <span className="text-sm font-normal text-white/60">KB</span>
                     </div>
                     <div className="text-xs sm:text-sm text-amber-300 font-bold">
@@ -404,9 +404,9 @@ function SavingsLabContent() {
                         <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
                         JavaScript
                       </span>
-                      <span className="text-xs font-mono text-white/50">Runtime</span>
+                      <span className="text-xs text-white/50">Runtime</span>
                     </div>
-                    <div className="font-mono text-3xl sm:text-4xl font-black text-white">
+                    <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white">
                       18.0 <span className="text-sm font-normal text-white/60">KB</span>
                     </div>
                     <div className="text-xs sm:text-sm text-cyan-400 font-medium">
@@ -424,9 +424,9 @@ function SavingsLabContent() {
                         <span className="w-2.5 h-2.5 rounded-full bg-violet-400" />
                         CSS Styles
                       </span>
-                      <span className="text-xs font-mono text-white/50">Styles</span>
+                      <span className="text-xs text-white/50">Styles</span>
                     </div>
-                    <div className="font-mono text-3xl sm:text-4xl font-black text-white">
+                    <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white">
                       8.0 <span className="text-sm font-normal text-white/60">KB</span>
                     </div>
                     <div className="text-xs sm:text-sm text-violet-400 font-medium">
@@ -444,9 +444,9 @@ function SavingsLabContent() {
                         <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
                         HTML Markup
                       </span>
-                      <span className="text-xs font-mono text-white/50">Markup</span>
+                      <span className="text-xs text-white/50">Markup</span>
                     </div>
-                    <div className="font-mono text-3xl sm:text-4xl font-black text-white">
+                    <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white">
                       4.0 <span className="text-sm font-normal text-white/60">KB</span>
                     </div>
                     <div className="text-xs sm:text-sm text-emerald-400 font-medium">
@@ -462,7 +462,7 @@ function SavingsLabContent() {
               {/* Dynamic Delta Transform Graphic (Before vs. After Bridge) */}
               <div className="relative z-10 p-6 sm:p-8 rounded-3xl bg-white/[0.04] border border-white/15 backdrop-blur-2xl shadow-2xl space-y-6">
                 <div className="space-y-1 border-b border-white/10 pb-4">
-                  <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#cbff00]">
+                  <div className="text-xs font-semibold uppercase tracking-widest text-[#cbff00]">
                     Targeted Optimization Opportunity
                   </div>
                   <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
@@ -558,7 +558,7 @@ function SavingsLabContent() {
               {/* Task Preservation & Quality Guardrails (Layered Window Depth) */}
               <div className="relative z-10 p-6 sm:p-8 rounded-3xl bg-white/[0.04] border border-white/15 backdrop-blur-2xl shadow-2xl space-y-6">
                 <div className="space-y-1 border-b border-white/10 pb-4">
-                  <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#cbff00]">
+                  <div className="text-xs font-semibold uppercase tracking-widest text-[#cbff00]">
                     Automated Quality Gates
                   </div>
                   <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
@@ -602,7 +602,7 @@ function SavingsLabContent() {
                 <Button
                   variant="lime"
                   onClick={() => setCurrentStep(2)}
-                  className="rounded-2xl font-bold font-mono text-sm sm:text-base px-8 py-4 tracking-normal flex items-center gap-2 cursor-pointer shadow-lg shadow-[#cbff00]/25 hover:bg-[#e4ff66]"
+                  className="rounded-2xl font-semibold text-sm sm:text-base px-8 py-4 tracking-wide flex items-center gap-2 cursor-pointer shadow-lg shadow-[#cbff00]/25 hover:bg-[#e4ff66]"
                 >
                   <span>Review Proposed Fix (Stage 2) →</span>
                   <ArrowRight className="w-4 h-4" />
@@ -621,13 +621,13 @@ function SavingsLabContent() {
 
               <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-6">
                 <div className="space-y-1.5">
-                  <div className="text-xs font-mono font-bold text-[#cbff00] tracking-wider uppercase">
+                  <div className="text-xs font-semibold text-[#cbff00] tracking-widest uppercase">
                     Stage 02 · Review Fix &amp; Proposed Patch
                   </div>
                   <h2 className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
                     First-Party Image Optimization Patch
                   </h2>
-                  <div className="text-sm font-mono text-white/70">
+                  <div className="text-sm text-white/70">
                     Rule: <span className="text-white font-medium">responsive_webp_conversion</span> • Class: <span className="text-white font-medium">Image Component Refactor</span>
                   </div>
                 </div>
@@ -650,7 +650,7 @@ function SavingsLabContent() {
               <div className="relative z-10 p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl shadow-xl space-y-5">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
                   <div className="space-y-1">
-                    <span className="text-xs font-mono text-[#cbff00] font-bold uppercase tracking-wider flex items-center gap-2">
+                    <span className="text-xs font-semibold text-[#cbff00] uppercase tracking-widest flex items-center gap-2">
                       <Sparkles className="w-4 h-4 text-[#cbff00]" />
                       Visual Fidelity Comparator
                     </span>
@@ -702,7 +702,7 @@ function SavingsLabContent() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-1">
                     {/* Original JPEG */}
                     <div className="space-y-2">
-                      <div className="flex justify-between items-center text-xs font-mono text-white/70">
+                      <div className="flex justify-between items-center text-xs text-white/70">
                         <span className="font-bold text-amber-400">BASELINE UNCOMPRESSED JPEG</span>
                         <span>2.42 MB on wire</span>
                       </div>
@@ -717,7 +717,7 @@ function SavingsLabContent() {
 
                     {/* Optimized WebP */}
                     <div className="space-y-2">
-                      <div className="flex justify-between items-center text-xs font-mono text-white/70">
+                      <div className="flex justify-between items-center text-xs text-white/70">
                         <span className="font-bold text-[#cbff00]">OPTIMIZED FIRST-PARTY WEBP</span>
                         <span className="text-[#cbff00] font-bold">176 KB (-92.7%)</span>
                       </div>
@@ -732,7 +732,7 @@ function SavingsLabContent() {
                   </div>
                 ) : imageComparatorTab === "webp" ? (
                   <div className="space-y-2 pt-1">
-                    <div className="flex justify-between items-center text-xs font-mono text-white/70">
+                    <div className="flex justify-between items-center text-xs text-white/70">
                       <span className="font-bold text-[#cbff00]">OPTIMIZED WEBP CANDIDATE</span>
                       <span className="text-[#cbff00] font-bold">176 KB • Zero Visual Loss</span>
                     </div>
@@ -746,7 +746,7 @@ function SavingsLabContent() {
                   </div>
                 ) : (
                   <div className="space-y-2 pt-1">
-                    <div className="flex justify-between items-center text-xs font-mono text-white/70">
+                    <div className="flex justify-between items-center text-xs text-white/70">
                       <span className="font-bold text-amber-400">ORIGINAL UNCOMPRESSED JPEG</span>
                       <span>2.42 MB • Heavy Payload Hotspot</span>
                     </div>
@@ -877,7 +877,7 @@ function SavingsLabContent() {
                         type="submit"
                         variant="lime"
                         isLoading={isDispatching}
-                        className="font-bold font-mono text-sm tracking-wider px-6 py-3.5 shrink-0 cursor-pointer shadow-lg shadow-[#cbff00]/20"
+                        className="font-semibold text-sm tracking-wide px-6 py-3.5 shrink-0 cursor-pointer shadow-lg shadow-[#cbff00]/20"
                       >
                         <Mail className="w-4 h-4 mr-2" />
                         SEND ENGINEERING DISPATCH
@@ -892,7 +892,7 @@ function SavingsLabContent() {
                 <Button
                   variant="lime"
                   onClick={() => setCurrentStep(3)}
-                  className="font-bold font-mono text-sm sm:text-base px-6 py-3.5 tracking-normal flex items-center gap-2 cursor-pointer shadow-lg shadow-[#cbff00]/20"
+                  className="font-semibold text-sm sm:text-base px-6 py-3.5 tracking-wide flex items-center gap-2 cursor-pointer shadow-lg shadow-[#cbff00]/20"
                 >
                   <span>Proceed to Candidate Testing (Stage 3) →</span>
                   <ArrowRight className="w-4 h-4" />
@@ -910,18 +910,18 @@ function SavingsLabContent() {
 
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-6">
             <div className="space-y-1.5">
-              <div className="text-xs font-mono font-bold text-[#cbff00] tracking-wider uppercase">
+              <div className="text-xs font-semibold text-[#cbff00] tracking-widest uppercase">
                 Stage 03 · Candidate Verification Workbench
               </div>
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
                 Deterministic Journey Testing
               </h2>
-              <div className="text-sm font-mono text-white/70">
+              <div className="text-sm text-white/70">
                 Executes 3 alternating baseline vs candidate passes under matching cold-cache network conditions.
               </div>
             </div>
 
-            <div className="font-mono text-xs text-left sm:text-right">
+            <div className="text-xs text-left sm:text-right">
               <span className="text-white/60 block uppercase font-bold tracking-wider">Workbench Status</span>
               <span className="text-[#cbff00] font-bold text-sm sm:text-base mt-0.5 block">
                 {experiment?.reviewerDecision === "approved" ? "Patch Approved & Benchmarked" : "Ready for Verification"}
@@ -941,10 +941,10 @@ function SavingsLabContent() {
             {/* Option 1: The Optimized Candidate (Demonstrates Success) */}
             <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-[#cbff00]/40 backdrop-blur-xl space-y-4 hover:border-[#cbff00] transition-all shadow-xl group">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#cbff00]">
+                <span className="text-xs font-semibold uppercase tracking-widest text-[#cbff00]">
                   Recommended Candidate
                 </span>
-                <span className="text-xs sm:text-sm font-mono text-white/70">Modern WebP</span>
+                <span className="text-xs sm:text-sm text-white/70">Modern WebP</span>
               </div>
               <h3 className="font-display text-2xl font-bold text-white">
                 Test Optimized Candidate (3 Passes)
@@ -958,7 +958,7 @@ function SavingsLabContent() {
                 onClick={() => handleTestCandidate("optimized")}
                 isLoading={isTesting && testVariant === "optimized"}
                 disabled={isTesting}
-                className="w-full h-auto min-h-12 py-3.5 whitespace-normal font-bold font-mono text-sm tracking-wider cursor-pointer shadow-lg shadow-[#cbff00]/20"
+                className="w-full h-auto min-h-12 py-3.5 whitespace-normal font-semibold text-sm tracking-wide cursor-pointer shadow-lg shadow-[#cbff00]/20"
               >
                 <Activity className="w-4 h-4 mr-2" />
                 VERIFY OPTIMIZED CANDIDATE
@@ -968,7 +968,7 @@ function SavingsLabContent() {
             {/* Option 2: The Broken Candidate (The Memorable Guardrail Proof) */}
             <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-amber-500/40 backdrop-blur-xl space-y-4 hover:border-amber-400 transition-all shadow-xl">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-300">
+                <span className="text-xs font-semibold uppercase tracking-widest text-amber-300">
                   Signature Task Guardrail
                 </span>
                 <span className="text-xs sm:text-sm font-mono text-amber-300 font-bold">Flawed Refactor</span>
@@ -985,7 +985,7 @@ function SavingsLabContent() {
                 onClick={() => handleTestCandidate("broken")}
                 isLoading={isTesting && testVariant === "broken"}
                 disabled={isTesting}
-                className="w-full h-auto min-h-12 py-3.5 whitespace-normal font-bold font-mono text-sm tracking-wider border-amber-500/40 text-amber-300 hover:bg-amber-950/40 cursor-pointer"
+                className="w-full h-auto min-h-12 py-3.5 whitespace-normal font-semibold text-sm tracking-wide border-amber-500/40 text-amber-300 hover:bg-amber-950/40 cursor-pointer"
               >
                 <AlertTriangle className="w-4 h-4 mr-2 text-amber-400" />
                 VERIFY BROKEN CANDIDATE
@@ -1029,7 +1029,7 @@ function SavingsLabContent() {
 
               {/* Triple Run Comparison Table */}
               <div tabIndex={0} role="region" aria-label="Scrollable verification comparison" className="rounded-2xl border border-white/15 bg-black/40 backdrop-blur-xl overflow-x-auto shadow-xl">
-                <table className="w-full min-w-[660px] text-left font-mono text-sm sm:text-base">
+                <table className="w-full min-w-[660px] text-left text-sm sm:text-base tabular-nums">
                   <caption className="sr-only">Baseline and candidate verification comparison</caption>
                   <thead className="bg-white/5 text-white/70 border-b border-white/10 uppercase text-xs tracking-wider">
                     <tr>
@@ -1077,7 +1077,7 @@ function SavingsLabContent() {
                   <Button
                     variant="lime"
                     onClick={() => setCurrentStep(4)}
-                    className="font-bold font-mono text-sm sm:text-base px-6 py-3.5 tracking-normal flex items-center gap-2 cursor-pointer shadow-lg shadow-[#cbff00]/20"
+                    className="font-semibold text-sm sm:text-base px-6 py-3.5 tracking-wide flex items-center gap-2 cursor-pointer shadow-lg shadow-[#cbff00]/20"
                   >
                     <span>Inspect Receipt &amp; Evidence (Stage 4) →</span>
                     <ArrowRight className="w-4 h-4" />
@@ -1098,13 +1098,13 @@ function SavingsLabContent() {
 
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-6">
             <div className="space-y-1.5">
-              <div className="text-xs font-mono font-bold text-[#cbff00] tracking-wider uppercase">
+              <div className="text-xs font-semibold text-[#cbff00] tracking-widest uppercase">
                 Stage 04 · Deployment Verification
               </div>
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
                 Verified Improvement Evidence
               </h2>
-              <div className="text-sm font-mono text-white/70">
+              <div className="text-sm text-white/70">
                 Audit Status: <strong className="text-[#cbff00]">Automated Verification Passed (3/3 Passes)</strong> • Certified SWDM v4 Attribution
               </div>
             </div>
@@ -1135,7 +1135,7 @@ function SavingsLabContent() {
           <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-5 font-mono">
             <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-[#cbff00]/30 backdrop-blur-xl shadow-xl space-y-2">
               <div className="text-xs sm:text-sm text-[#cbff00] uppercase font-bold tracking-wider">Measured Transfer Delta</div>
-              <div className="font-mono text-3xl sm:text-4xl lg:text-5xl font-black text-[#cbff00] mt-2">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-[#cbff00] mt-2">
                 -2,246.0 <span className="text-sm sm:text-base font-normal text-white/70">KB</span>
               </div>
               <div className="text-sm font-bold text-[#cbff00] mt-2">-91.6% observed data reduction</div>
@@ -1143,7 +1143,7 @@ function SavingsLabContent() {
 
             <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl shadow-xl space-y-2">
               <div className="text-xs sm:text-sm text-white/70 uppercase font-bold tracking-wider">Attributional Carbon Model</div>
-              <div className="font-mono text-3xl sm:text-4xl lg:text-5xl font-black text-white mt-2">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-white mt-2">
                 -0.536 <span className="text-sm sm:text-base font-normal text-white/70">gCO2e</span>
               </div>
               <div className="text-sm text-white/70 mt-2">SWDM v4 • 494 gCO2e/kWh factor</div>
@@ -1151,7 +1151,7 @@ function SavingsLabContent() {
 
             <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl shadow-xl space-y-2">
               <div className="text-xs sm:text-sm text-white/70 uppercase font-bold tracking-wider">Task Assertions Status</div>
-              <div className="font-mono text-3xl sm:text-4xl lg:text-5xl font-black text-[#cbff00] mt-2 flex items-center gap-3">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-[#cbff00] mt-2 flex items-center gap-3">
                 <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-[#cbff00]" />
                 <span>3/3 Passed</span>
               </div>
@@ -1164,7 +1164,7 @@ function SavingsLabContent() {
             <Button
               variant="lime"
               onClick={() => setCurrentStep(5)}
-              className="font-bold font-mono text-sm sm:text-base px-6 py-3.5 tracking-normal flex items-center gap-2 cursor-pointer shadow-lg shadow-[#cbff00]/20"
+              className="font-semibold text-sm sm:text-base px-6 py-3.5 tracking-wide flex items-center gap-2 cursor-pointer shadow-lg shadow-[#cbff00]/20"
             >
               <span>Record in Evidence Vault (Stage 5) →</span>
               <ArrowRight className="w-4 h-4" />
@@ -1182,18 +1182,18 @@ function SavingsLabContent() {
 
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-6">
             <div className="space-y-1.5">
-              <div className="text-xs font-mono font-bold text-[#cbff00] tracking-wider uppercase">
+              <div className="text-xs font-semibold text-[#cbff00] tracking-widest uppercase">
                 Stage 05 · Immutable Audit Record
               </div>
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
                 Verified Engineering Evidence Record
               </h2>
-              <div className="text-sm font-mono text-white/70">
+              <div className="text-sm text-white/70">
                 Automated Verification Pipeline Verified • Certified SWDM v4 Attribution
               </div>
             </div>
 
-            <div className="font-mono text-xs text-left sm:text-right">
+            <div className="text-xs text-left sm:text-right">
               <span className="text-white/60 block uppercase font-bold tracking-wider">Record Status</span>
               <span className="text-[#cbff00] font-bold text-sm sm:text-base mt-0.5 block">Audit-Ready Certified</span>
             </div>
@@ -1229,7 +1229,7 @@ function SavingsLabContent() {
 
             <Link
               href={experiment ? `/evidence?experimentId=${experiment.id}` : "/evidence"}
-              className="px-6 py-3.5 rounded-2xl bg-[#cbff00] text-black font-mono font-bold text-sm hover:bg-[#e4ff66] transition-transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-[#cbff00]/20 uppercase cursor-pointer shrink-0"
+              className="px-6 py-3.5 rounded-2xl bg-[#cbff00] text-black font-semibold text-sm hover:bg-[#e4ff66] transition-transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-[#cbff00]/20 uppercase cursor-pointer shrink-0"
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>Inspect Evidence Vault Receipt →</span>

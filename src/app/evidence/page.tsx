@@ -176,7 +176,7 @@ function EvidenceContent() {
             <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-8">
               <div className="space-y-3">
                 <div className="flex flex-wrap items-center gap-3">
-                  <div className="text-xs font-mono font-bold text-[#cbff00] tracking-wider uppercase">
+                  <div className="text-xs font-semibold text-[#cbff00] tracking-widest uppercase">
                     Evidence Record
                   </div>
                   <span className="text-xs sm:text-sm font-mono text-white/70 break-all">
@@ -186,7 +186,7 @@ function EvidenceContent() {
                 <h2 className="font-display text-3xl sm:text-5xl font-black text-white tracking-tight">
                   Improvement Verification Receipt
                 </h2>
-                <div className="text-xs sm:text-sm font-mono text-white/80 flex flex-wrap items-center gap-3 pt-1">
+                <div className="text-xs sm:text-sm text-white/80 flex flex-wrap items-center gap-3 pt-1">
                   <span>Project: <strong className="text-white">{receipt.projectId === "campus-events" ? "production-pipeline" : receipt.projectId}</strong></span>
                   <span>•</span>
                   <span>Journey: <strong className="text-white">{receipt.journeyId === "event-registration" ? "payload-optimization" : receipt.journeyId}</strong></span>
@@ -196,7 +196,7 @@ function EvidenceContent() {
               </div>
 
               <div className="text-right flex flex-col items-end gap-2.5">
-                <div className="px-4 py-2 rounded-xl font-mono text-xs sm:text-sm font-extrabold uppercase tracking-wider bg-[#cbff00] text-black shadow-lg shadow-[#cbff00]/20">
+                <div className="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider bg-[#cbff00] text-black shadow-lg shadow-[#cbff00]/20">
                   {receipt.outcome === "observed_improvement"
                     ? "IMPROVEMENT OBSERVED"
                     : receipt.outcome === "functional_checks_failed"
@@ -210,14 +210,14 @@ function EvidenceContent() {
             </div>
 
             {/* Core Comparative KPI Summary - Apple Frosted Glass Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 font-mono">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {/* KPI 1: Bytes Saved */}
               <div className="p-6 sm:p-7 rounded-3xl bg-black/40 border border-[#cbff00]/40 shadow-xl backdrop-blur-xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#cbff00]/10 rounded-full blur-2xl pointer-events-none" />
                 <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#cbff00]">
                   Observed Transfer Delta
                 </div>
-                <div className="font-mono text-3xl sm:text-4xl lg:text-5xl font-black text-[#cbff00] mt-2">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-[#cbff00] mt-2">
                   -{(receipt.measuredDifferences.bytesSaved / 1024).toFixed(1)}{" "}
                   <span className="text-sm sm:text-base font-normal text-white/70">KB</span>
                 </div>
@@ -231,7 +231,7 @@ function EvidenceContent() {
                 <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white/70">
                   Model-Based Carbon Delta
                 </div>
-                <div className="font-mono text-3xl sm:text-4xl lg:text-5xl font-black text-white mt-2">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-white mt-2">
                   -{receipt.measuredDifferences.estimatedCo2SavedGrams}{" "}
                   <span className="text-sm sm:text-base font-normal text-white/70">gCO2e</span>
                 </div>
@@ -245,7 +245,7 @@ function EvidenceContent() {
                 <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white/70">
                   Task Assertions (Preservation)
                 </div>
-                <div className="font-mono text-3xl sm:text-4xl lg:text-5xl font-black text-white mt-2 flex items-center gap-3">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-white mt-2 flex items-center gap-3">
                   {receipt.functionalAssertions.allPassed ? (
                     <>
                       <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-[#cbff00] shrink-0" />
@@ -276,7 +276,7 @@ function EvidenceContent() {
               </div>
 
               <div tabIndex={0} role="region" aria-label="Scrollable compared run telemetry" className="rounded-3xl border border-white/15 bg-black/30 backdrop-blur-2xl overflow-x-auto shadow-xl print:overflow-visible">
-                <table className="w-full min-w-[680px] print:min-w-0 text-left font-mono text-sm sm:text-base">
+                <table className="w-full min-w-[680px] print:min-w-0 text-left text-sm sm:text-base tabular-nums">
                   <caption className="sr-only">Baseline and candidate journey transfer, carbon estimates, and task checks</caption>
                   <thead className="bg-white/5 text-white/70 border-b border-white/10 uppercase text-xs tracking-wider">
                     <tr>
@@ -348,13 +348,13 @@ function EvidenceContent() {
               <div className="flex items-center gap-3">
                 <Link
                   href="/savings-lab"
-                  className="px-5 py-3 rounded-full border border-white/20 text-white hover:text-[#cbff00] hover:border-[#cbff00]/40 font-mono text-xs sm:text-sm transition-colors uppercase font-bold"
+                  className="px-5 py-3 rounded-full border border-white/20 text-white hover:text-[#cbff00] hover:border-[#cbff00]/40 text-xs sm:text-sm font-semibold transition-colors"
                 >
                   ← Savings Lab
                 </Link>
                 <Link
                   href="/simulator"
-                  className="px-6 py-3 rounded-full bg-[#cbff00] text-black font-extrabold text-xs sm:text-sm tracking-wider font-mono hover:bg-[#e4ff66] transition-transform hover:scale-105 flex items-center justify-center gap-2 shrink-0 shadow-lg shadow-[#cbff00]/25 uppercase cursor-pointer"
+                  className="px-6 py-3 rounded-full bg-[#cbff00] text-black font-bold text-xs sm:text-sm tracking-wide hover:bg-[#e4ff66] transition-transform hover:scale-105 flex items-center justify-center gap-2 shrink-0 shadow-lg shadow-[#cbff00]/25 uppercase cursor-pointer"
                 >
                   <span>Explore What-If Simulator →</span>
                 </Link>

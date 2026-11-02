@@ -32,7 +32,7 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .ct-page-intro { border: 0; border-radius: 0; box-shadow: none; background: transparent; color: white; min-height: 330px; padding: 25px 0 58px; display: flex; flex-direction: column; justify-content: center; }
 .ct-intro-heading { gap: 48px; align-items: end; }
 .ct-page-title {
-  font-family: var(--font-ubuntu), 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-display) !important;
   font-size: clamp(38px, 4.8vw, 68px);
   font-weight: 700 !important;
   line-height: 1.08;
@@ -51,7 +51,7 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .world-intro-mark i { display: block; height: 1px; width: 22px; background: #e6ecd680; }
 .ct-section-heading { margin-bottom: 32px; align-items: start; }
 .ct-section-heading h2 {
-  font-family: var(--font-ubuntu), 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-display) !important;
   font-size: clamp(28px, 3.4vw, 48px);
   line-height: 1.12;
   letter-spacing: -0.02em;
@@ -79,7 +79,7 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .world-workspace h1[class*="uppercase"],
 .world-workspace h2[class*="uppercase"],
 .world-workspace h3[class*="uppercase"],
-.world-workspace h4[class*="uppercase"] { font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important; font-weight: 700 !important; }
+.world-workspace h4[class*="uppercase"] { font-family: var(--font-display) !important; font-weight: 700 !important; }
 .world-workspace .ct-button { border-radius: 99px; font-family: var(--font-body); font-size: 13px; font-weight: 400; text-transform: none; letter-spacing: -.02em; padding-inline: 22px; }
 .ct-nav-bar { background: #283020a8; border-color: #edf3d924; backdrop-filter: blur(25px); box-shadow: 0 18px 40px -20px #1521119e; }
 .ct-navigation { top: 22px; width: calc(100% - 2 * var(--page-gutter)); max-width: 1300px; }
@@ -89,13 +89,13 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .world-hero.sylva-hero { background: transparent; min-height: 900px; height: 100svh; overflow: visible; }
 .world-hero.sylva-hero::after { display: none; }
 .world-hero .headline {
-  font-family: var(--font-ubuntu), 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-display) !important;
   font-weight: 700 !important;
   letter-spacing: -0.025em !important;
 }
 .world-hero .headline span,
 .world-hero .headline span i {
-  font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important;
+  font-family: var(--font-display) !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
 }
@@ -111,7 +111,7 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .world-chapter-label::before { content: ''; width: 42px; height: 1px; background: #d6e1c18c; }
 .world-ready { max-width: 720px; padding: 25px 0 70px; text-align: left; border: none; background: transparent; box-shadow: none; }
 .world-ready h3 {
-  font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important;
+  font-family: var(--font-display) !important;
   font-size: clamp(36px, 4.8vw, 64px);
   line-height: 1.08;
   font-weight: 700 !important;
@@ -122,10 +122,10 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 }
 .world-ready p { font-size: 16.5px; line-height: 1.75; max-width: 500px; color: #e0e8d6; }
 .world-presets { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
-.world-presets button { display: flex; align-items: center; gap: 10px; background: rgba(30, 40, 26, 0.75); color: #f4f5f0; border-radius: 99px; padding: 15px 21px; min-height: 48px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; font-family: var(--font-ubuntu), 'Ubuntu', sans-serif; box-shadow: var(--world-shadow); border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(20px); }
+.world-presets button { display: flex; align-items: center; gap: 10px; background: rgba(30, 40, 26, 0.75); color: #f4f5f0; border-radius: 99px; padding: 15px 21px; min-height: 48px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; font-family: var(--font-display); box-shadow: var(--world-shadow); border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(20px); }
 .world-audit-aside { position: absolute; right: 4%; top: 180px; width: 230px; padding: 28px; background: rgba(24, 32, 20, 0.85); color: #f4f5f0; border-radius: 100px 100px 26px 26px; box-shadow: var(--world-shadow); transform: rotate(4deg); border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(20px); }
 .world-audit-aside img { aspect-ratio: 1; width: 100%; object-fit: cover; border-radius: 50%; margin-bottom: 22px; }
-.world-audit-aside p { font-size: 17px; font-weight: 700; text-transform: uppercase; font-family: var(--font-ubuntu), 'Ubuntu', sans-serif; line-height: 1.5; color: #ffffff; }
+.world-audit-aside p { font-size: 17px; font-weight: 700; text-transform: uppercase; font-family: var(--font-display); line-height: 1.5; color: #ffffff; }
 .world-stories { position: relative; }
 .world-stories > .ct-section-heading { max-width: 820px; margin-bottom: 70px; }
 .world-story { position: relative; min-height: 65svh; display: grid; grid-template-columns: 1fr 1.2fr; gap: 10%; align-items: center; padding: 65px 0; }
@@ -134,9 +134,9 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .world-story-image { position: relative; width: min(380px,100%); justify-self: center; padding: 16px; border-radius: 36px; background: rgba(25, 34, 21, 0.85); box-shadow: 0 35px 70px -20px rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(24px); }
 .world-story-image img { aspect-ratio: 4/5; width: 100%; object-fit: cover; border-radius: 24px; }
 .world-story-image span { position: absolute; inset: auto 26px 28px; color: white; font: 11px var(--font-code); font-weight: 700; letter-spacing: .15em; text-transform: uppercase; text-shadow: 0 1px 10px black; }
-.world-story-number { font-family: var(--font-ubuntu), 'Ubuntu', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; color: #cbff00; margin-bottom: 25px; display: block; }
+.world-story-number { font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; color: #cbff00; margin-bottom: 25px; display: block; }
 .world-story h3 {
-  font-family: var(--font-ubuntu), 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-display) !important;
   font-size: clamp(32px, 4.2vw, 56px);
   line-height: 1.1;
   font-weight: 700 !important;
@@ -145,12 +145,12 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
   margin-bottom: 24px;
 }
 .world-story p { font-size: 16px; line-height: 1.8; color: #e1e8d8; max-width: 455px; }
-.world-story a { display: inline-flex; align-items: center; gap: 20px; color: #f2f5ea; font-family: var(--font-ubuntu), 'Ubuntu', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; min-height: 48px; margin-top: 30px; border-bottom: 2px solid #cbff00; font-size: 14px; }
+.world-story a { display: inline-flex; align-items: center; gap: 20px; color: #f2f5ea; font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; min-height: 48px; margin-top: 30px; border-bottom: 2px solid #cbff00; font-size: 14px; }
 .world-story a svg { width: 24px; height: 24px; }
 .world-api-chapter { padding: 50px 0 0; }
 .world-api-intro { text-align: left; margin: 0 0 50px; max-width: 750px; }
 .world-api-intro h2 {
-  font-family: var(--font-ubuntu), 'Ubuntu', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-display) !important;
   font-size: clamp(36px, 4.6vw, 60px);
   font-weight: 700 !important;
   line-height: 1.1;
