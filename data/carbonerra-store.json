@@ -19,7 +19,7 @@
     "event-registration": {
       "id": "event-registration",
       "projectId": "campus-events",
-      "name": "Event Details to Registration Success",
+      "name": "Verified Production User Journey",
       "version": "1.0.0",
       "targetPath": "/demo/event",
       "assertions": [
@@ -36245,6 +36245,40 @@
       "updatedAt": "2026-09-05T19:45:05.666Z",
       "reviewedAt": "2026-09-05T19:45:01.609Z",
       "reviewerNotes": "Approved WebP responsive picture tag patch for verification testing."
+    },
+    "exp_1793605324620_6dbs": {
+      "id": "exp_1793605324620_6dbs",
+      "projectId": "production-pipeline",
+      "journeyId": "event-registration",
+      "baselineRunIds": [
+        "run_1793605324627_uq2b6",
+        "run_1793605324629_rbm0k",
+        "run_1793605324630_i7cyo"
+      ],
+      "affectedResourceUrl": "/demo/assets/hero-banner-large.jpg",
+      "patchDiff": "--- a/src/app/demo/event/page.tsx\n+++ b/src/app/demo/event/page.tsx\n@@ -74,7 +74,13 @@\n       {/* First-Party Hero Image Component */}\n       <div className=\"relative rounded-3xl overflow-hidden border border-surface-border\">\n-        <img\n-          id=\"hero-img\"\n-          src=\"/demo/assets/hero-banner-large.jpg\"\n-          alt=\"Production Hero Banner\"\n-          className=\"w-full h-72 sm:h-96 object-cover\"\n-        />\n+        <picture>\n+          <source srcSet=\"/demo/assets/hero-banner-large.webp\" type=\"image/webp\" />\n+          <img\n+            id=\"hero-img\"\n+            src=\"/demo/assets/hero-banner-large.webp\"\n+            alt=\"Production Hero Banner\"\n+            width=\"1200\"\n+            height=\"400\"\n+            className=\"w-full h-72 sm:h-96 object-cover\"\n+            fetchPriority=\"high\"\n+          />\n+        </picture>\n       </div>",
+      "reviewerDecision": "pending",
+      "candidateRunIds": [],
+      "status": "fix_proposed",
+      "createdAt": "2026-11-02T07:42:04.630Z",
+      "updatedAt": "2026-11-02T07:42:04.630Z"
+    },
+    "exp_1793605324629_ma52": {
+      "id": "exp_1793605324629_ma52",
+      "projectId": "production-pipeline",
+      "journeyId": "event-registration",
+      "baselineRunIds": [
+        "run_1793605324630_lvzzj",
+        "run_1793605324635_j0si9",
+        "run_1793605324635_jqhj1"
+      ],
+      "affectedResourceUrl": "/demo/assets/hero-banner-large.jpg",
+      "patchDiff": "--- a/src/app/demo/event/page.tsx\n+++ b/src/app/demo/event/page.tsx\n@@ -74,7 +74,13 @@\n       {/* First-Party Hero Image Component */}\n       <div className=\"relative rounded-3xl overflow-hidden border border-surface-border\">\n-        <img\n-          id=\"hero-img\"\n-          src=\"/demo/assets/hero-banner-large.jpg\"\n-          alt=\"Production Hero Banner\"\n-          className=\"w-full h-72 sm:h-96 object-cover\"\n-        />\n+        <picture>\n+          <source srcSet=\"/demo/assets/hero-banner-large.webp\" type=\"image/webp\" />\n+          <img\n+            id=\"hero-img\"\n+            src=\"/demo/assets/hero-banner-large.webp\"\n+            alt=\"Production Hero Banner\"\n+            width=\"1200\"\n+            height=\"400\"\n+            className=\"w-full h-72 sm:h-96 object-cover\"\n+            fetchPriority=\"high\"\n+          />\n+        </picture>\n       </div>",
+      "reviewerDecision": "pending",
+      "candidateRunIds": [],
+      "status": "fix_proposed",
+      "createdAt": "2026-11-02T07:42:04.635Z",
+      "updatedAt": "2026-11-02T07:42:04.635Z"
     }
   },
   "verifications": {

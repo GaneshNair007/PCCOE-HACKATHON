@@ -315,162 +315,283 @@ function SavingsLabContent() {
                 </div>
               </div>
 
-              {/* Visual Payload Composition Bar (Zero Bland Metrics) */}
-              <div className="relative z-10 p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl shadow-lg space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div className="text-xs font-mono font-bold uppercase tracking-wider text-white/70 flex items-center gap-2">
-                    <Activity className="w-4 h-4 text-[#cbff00]" />
-                    Wire Transfer Distribution Breakdown (2,450 KB Total)
+              {/* Apple Cupertino Wire Payload Inspector */}
+              <div className="relative z-10 p-6 sm:p-8 rounded-3xl bg-white/[0.04] border border-white/15 backdrop-blur-2xl shadow-2xl space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
+                  <div className="space-y-1">
+                    <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#cbff00]">
+                      Telemetry Decomposition
+                    </div>
+                    <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                      Wire Payload Distribution
+                    </h3>
+                    <p className="text-sm sm:text-base text-white/70 font-sans">
+                      Observed breakdown of 2,450.0 KB initial wire transfer across asset categories.
+                    </p>
                   </div>
-                  <div className="text-xs font-mono text-amber-400 font-bold">
-                    Oversized Hero Banner: 98.8% of Total Payload
+                  <div className="px-4 py-2.5 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono text-xs sm:text-sm font-bold flex items-center gap-2 self-start sm:self-auto shrink-0 shadow-lg">
+                    <Layers className="w-4 h-4 text-amber-400" />
+                    <span>Outlier: Hero Graphic (98.8%)</span>
                   </div>
                 </div>
 
-                {/* Segmented Color Bar */}
-                <div className="w-full h-4 bg-white/10 rounded-full overflow-hidden flex p-0.5 shadow-inner">
-                  <div className="bg-gradient-to-r from-amber-500 to-red-500 h-full rounded-full transition-all duration-500 w-[98.8%]" title="Hero Image (2,420 KB • 98.8%)" />
-                  <div className="bg-cyan-400 h-full rounded-full w-[0.7%]" title="JavaScript (18 KB • 0.7%)" />
-                  <div className="bg-purple-400 h-full rounded-full w-[0.3%]" title="CSS (8 KB • 0.3%)" />
-                  <div className="bg-emerald-400 h-full rounded-full w-[0.2%]" title="HTML (4 KB • 0.2%)" />
+                {/* Apple Tactile Segmented Meter Bar */}
+                <div className="space-y-2">
+                  <div className="w-full h-10 sm:h-11 rounded-2xl bg-black/60 border border-white/15 p-1.5 flex items-center gap-2 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+                    {/* Hero Graphic Segment - Dominant Hotspot */}
+                    <div
+                      className="flex-[98.8] h-full rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 shadow-[0_0_20px_rgba(249,115,22,0.35)] flex items-center justify-between px-4 text-xs sm:text-sm font-bold text-white transition-all overflow-hidden"
+                      title="Hero Graphic: 2,420 KB (98.8% of Total Payload)"
+                    >
+                      <span className="font-sans font-bold truncate pr-2">Hero Graphic</span>
+                      <span className="font-mono font-black text-xs sm:text-sm shrink-0">2,420 KB · 98.8%</span>
+                    </div>
+
+                    {/* JavaScript Bundle Segment */}
+                    <div
+                      className="min-w-[62px] sm:min-w-[76px] h-full rounded-xl bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.3)] flex items-center justify-center text-xs font-mono font-black text-black transition-all hover:scale-105 cursor-default shrink-0"
+                      title="JavaScript: 18 KB (0.7% of Total Payload)"
+                    >
+                      JS · 18K
+                    </div>
+
+                    {/* Stylesheets Segment */}
+                    <div
+                      className="min-w-[58px] sm:min-w-[70px] h-full rounded-xl bg-violet-400 shadow-[0_0_12px_rgba(167,139,250,0.3)] flex items-center justify-center text-xs font-mono font-black text-black transition-all hover:scale-105 cursor-default shrink-0"
+                      title="CSS Stylesheets: 8 KB (0.3% of Total Payload)"
+                    >
+                      CSS · 8K
+                    </div>
+
+                    {/* HTML Markup Segment */}
+                    <div
+                      className="min-w-[58px] sm:min-w-[70px] h-full rounded-xl bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.3)] flex items-center justify-center text-xs font-mono font-black text-black transition-all hover:scale-105 cursor-default shrink-0"
+                      title="HTML Markup: 4 KB (0.2% of Total Payload)"
+                    >
+                      DOM · 4K
+                    </div>
+                  </div>
                 </div>
 
-                {/* Legend Chips */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1 text-xs font-mono">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-sm bg-gradient-to-r from-amber-500 to-red-500 shrink-0" />
-                    <span className="text-white/80">Hero Image: <strong className="text-white">2,420 KB (98.8%)</strong></span>
+                {/* Cupertino Asset Category Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
+                  {/* Card 1: Hero Banner */}
+                  <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-amber-500/10 via-black/40 to-black/60 border border-amber-500/40 shadow-xl space-y-3 relative overflow-hidden">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs sm:text-sm font-mono font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                        Hero Graphic
+                      </span>
+                      <span className="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 font-mono text-[11px] font-bold">
+                        Hotspot
+                      </span>
+                    </div>
+                    <div className="font-mono text-3xl sm:text-4xl font-black text-white">
+                      2,420 <span className="text-sm font-normal text-white/60">KB</span>
+                    </div>
+                    <div className="text-xs sm:text-sm text-amber-300 font-bold">
+                      98.8% of wire transfer
+                    </div>
+                    <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed">
+                      Raw uncompressed JPEG loaded eagerly on mobile &amp; desktop.
+                    </p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-sm bg-cyan-400 shrink-0" />
-                    <span className="text-white/80">Scripts: <strong className="text-white">18 KB (0.7%)</strong></span>
+
+                  {/* Card 2: JavaScript */}
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-cyan-400/30 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs sm:text-sm font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
+                        JavaScript
+                      </span>
+                      <span className="text-xs font-mono text-white/50">Runtime</span>
+                    </div>
+                    <div className="font-mono text-3xl sm:text-4xl font-black text-white">
+                      18.0 <span className="text-sm font-normal text-white/60">KB</span>
+                    </div>
+                    <div className="text-xs sm:text-sm text-cyan-400 font-medium">
+                      0.7% of wire transfer
+                    </div>
+                    <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed">
+                      Minified production bundle with tree-shaken components.
+                    </p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-sm bg-purple-400 shrink-0" />
-                    <span className="text-white/80">Styles: <strong className="text-white">8 KB (0.3%)</strong></span>
+
+                  {/* Card 3: CSS Stylesheets */}
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-violet-400/30 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs sm:text-sm font-mono font-bold text-violet-400 uppercase tracking-wider flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-violet-400" />
+                        CSS Styles
+                      </span>
+                      <span className="text-xs font-mono text-white/50">Styles</span>
+                    </div>
+                    <div className="font-mono text-3xl sm:text-4xl font-black text-white">
+                      8.0 <span className="text-sm font-normal text-white/60">KB</span>
+                    </div>
+                    <div className="text-xs sm:text-sm text-violet-400 font-medium">
+                      0.3% of wire transfer
+                    </div>
+                    <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed">
+                      Dead-code eliminated atomic CSS utility rules.
+                    </p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-sm bg-emerald-400 shrink-0" />
-                    <span className="text-white/80">HTML: <strong className="text-white">4 KB (0.2%)</strong></span>
+
+                  {/* Card 4: HTML Document */}
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-emerald-400/30 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs sm:text-sm font-mono font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                        HTML Markup
+                      </span>
+                      <span className="text-xs font-mono text-white/50">Markup</span>
+                    </div>
+                    <div className="font-mono text-3xl sm:text-4xl font-black text-white">
+                      4.0 <span className="text-sm font-normal text-white/60">KB</span>
+                    </div>
+                    <div className="text-xs sm:text-sm text-emerald-400 font-medium">
+                      0.2% of wire transfer
+                    </div>
+                    <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed">
+                      Compressed server-rendered DOM tree skeleton.
+                    </p>
                   </div>
                 </div>
               </div>
 
               {/* Dynamic Delta Transform Graphic (Before vs. After Bridge) */}
-              <div className="relative z-10 p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl shadow-lg space-y-4">
-                <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#cbff00]">
-                  Targeted Optimization Opportunity
+              <div className="relative z-10 p-6 sm:p-8 rounded-3xl bg-white/[0.04] border border-white/15 backdrop-blur-2xl shadow-2xl space-y-6">
+                <div className="space-y-1 border-b border-white/10 pb-4">
+                  <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#cbff00]">
+                    Targeted Optimization Opportunity
+                  </div>
+                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                    Primary Hotspot Remediation
+                  </h3>
+                  <p className="text-sm sm:text-base text-white/70 font-sans">
+                    Transforming raw hero image payload into modern WebP with zero layout shift.
+                  </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
                   {/* Left: Baseline Asset */}
-                  <div className="md:col-span-5 p-5 rounded-2xl bg-black/40 border border-amber-500/30 space-y-2 font-mono">
-                    <div className="flex justify-between items-center text-xs">
-                      <span className="text-amber-400 font-bold uppercase">Unoptimized Baseline</span>
+                  <div className="md:col-span-5 p-5 sm:p-6 rounded-2xl bg-black/40 border border-amber-500/30 space-y-3 font-mono">
+                    <div className="flex justify-between items-center text-xs sm:text-sm">
+                      <span className="text-amber-400 font-bold uppercase tracking-wider">Unoptimized Baseline</span>
                       <span className="text-white/60">Raw JPEG</span>
                     </div>
-                    <div className="text-white font-bold text-base sm:text-lg break-all">
-                      hero-banner-large.jpg
+                    <div className="flex items-center gap-3">
+                      <div className="w-16 h-12 rounded-xl overflow-hidden border border-white/20 bg-black shrink-0 relative">
+                        <img src="/demo/assets/hero-banner-large.jpg" alt="Baseline Preview" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="text-white font-bold text-base sm:text-lg break-all">
+                        hero-banner-large.jpg
+                      </div>
                     </div>
-                    <div className="flex justify-between items-baseline pt-2 border-t border-white/10">
+                    <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
                       <div>
                         <div className="text-xs text-white/60">Transfer Weight</div>
-                        <div className="text-2xl font-black text-white mt-0.5">2.42 <span className="text-xs font-normal text-white/60">MB</span></div>
+                        <div className="text-2xl sm:text-3xl font-black text-white mt-0.5">2.42 <span className="text-xs font-normal text-white/60">MB</span></div>
                       </div>
                       <div className="text-right">
                         <div className="text-xs text-white/60">Carbon Footprint</div>
-                        <div className="text-sm font-bold text-amber-400 mt-0.5">0.296 gCO2e / visit</div>
+                        <div className="text-sm sm:text-base font-bold text-amber-400 mt-0.5">0.296 gCO2e / visit</div>
                       </div>
                     </div>
                   </div>
 
                   {/* Center: Transform Bridge */}
                   <div className="md:col-span-1 flex flex-col items-center justify-center py-2 md:py-0">
-                    <div className="w-10 h-10 rounded-2xl bg-[#cbff00]/15 border border-[#cbff00]/40 flex items-center justify-center text-[#cbff00] shadow-[0_0_15px_rgba(203,255,0,0.2)]">
-                      <ArrowRight className="w-5 h-5 hidden md:block" />
-                      <TrendingDown className="w-5 h-5 md:hidden" />
+                    <div className="w-12 h-12 rounded-2xl bg-[#cbff00]/15 border border-[#cbff00]/40 flex items-center justify-center text-[#cbff00] shadow-[0_0_20px_rgba(203,255,0,0.25)]">
+                      <ArrowRight className="w-6 h-6 hidden md:block" />
+                      <TrendingDown className="w-6 h-6 md:hidden" />
                     </div>
-                    <span className="text-[11px] font-mono font-black text-[#cbff00] mt-1.5 whitespace-nowrap">
+                    <span className="text-xs font-mono font-black text-[#cbff00] mt-1.5 whitespace-nowrap">
                       -92.7%
                     </span>
                   </div>
 
                   {/* Right: Optimized Target */}
-                  <div className="md:col-span-5 p-5 rounded-2xl bg-black/40 border border-[#cbff00]/30 space-y-2 font-mono">
-                    <div className="flex justify-between items-center text-xs">
-                      <span className="text-[#cbff00] font-bold uppercase">Optimized Target</span>
+                  <div className="md:col-span-5 p-5 sm:p-6 rounded-2xl bg-black/40 border border-[#cbff00]/30 space-y-3 font-mono">
+                    <div className="flex justify-between items-center text-xs sm:text-sm">
+                      <span className="text-[#cbff00] font-bold uppercase tracking-wider">Optimized Target</span>
                       <span className="text-white/60">Modern WebP</span>
                     </div>
-                    <div className="text-white font-bold text-base sm:text-lg break-all">
-                      hero-banner-large.webp
+                    <div className="flex items-center gap-3">
+                      <div className="w-16 h-12 rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black shrink-0 relative shadow-[0_0_15px_rgba(203,255,0,0.15)]">
+                        <img src="/demo/assets/hero-banner-large.webp" alt="Optimized Preview" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="text-white font-bold text-base sm:text-lg break-all">
+                        hero-banner-large.webp
+                      </div>
                     </div>
-                    <div className="flex justify-between items-baseline pt-2 border-t border-white/10">
+                    <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
                       <div>
                         <div className="text-xs text-white/60">Transfer Weight</div>
-                        <div className="text-2xl font-black text-[#cbff00] mt-0.5">176 <span className="text-xs font-normal text-white/60">KB</span></div>
+                        <div className="text-2xl sm:text-3xl font-black text-[#cbff00] mt-0.5">176 <span className="text-xs font-normal text-white/60">KB</span></div>
                       </div>
                       <div className="text-right">
                         <div className="text-xs text-white/60">Carbon Footprint</div>
-                        <div className="text-sm font-bold text-[#cbff00] mt-0.5">0.021 gCO2e / visit</div>
+                        <div className="text-sm sm:text-base font-bold text-[#cbff00] mt-0.5">0.021 gCO2e / visit</div>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Annual Cumulative Projections */}
-                <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm font-mono">
                   <div>
-                    <span className="text-white/60 block">Monthly Traffic Bandwidth:</span>
-                    <strong className="text-white text-sm">112.2 GB saved / mo</strong>
+                    <span className="text-white/60 block text-xs">Monthly Traffic Bandwidth:</span>
+                    <strong className="text-white text-base sm:text-lg font-bold">112.2 GB saved / mo</strong>
                   </div>
                   <div>
-                    <span className="text-white/60 block">Annual Carbon Aversion:</span>
-                    <strong className="text-[#cbff00] text-sm">~124.8 kg CO2e / year</strong>
+                    <span className="text-white/60 block text-xs">Annual Carbon Aversion:</span>
+                    <strong className="text-[#cbff00] text-base sm:text-lg font-bold">~124.8 kg CO2e / year</strong>
                   </div>
                   <div>
-                    <span className="text-white/60 block">Network Latency Delta:</span>
-                    <strong className="text-white text-sm">~1.8s faster mobile LCP</strong>
+                    <span className="text-white/60 block text-xs">Network Latency Delta:</span>
+                    <strong className="text-white text-base sm:text-lg font-bold">~1.8s faster mobile LCP</strong>
                   </div>
                 </div>
               </div>
 
               {/* Task Preservation & Quality Guardrails (Layered Window Depth) */}
-              <div className="relative z-10 p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl shadow-lg space-y-4">
-                <div className="space-y-1">
+              <div className="relative z-10 p-6 sm:p-8 rounded-3xl bg-white/[0.04] border border-white/15 backdrop-blur-2xl shadow-2xl space-y-6">
+                <div className="space-y-1 border-b border-white/10 pb-4">
                   <div className="text-xs font-mono font-bold uppercase tracking-wider text-[#cbff00]">
                     Automated Quality Gates
                   </div>
-                  <h3 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
                     Task Preservation &amp; Quality Guardrails
                   </h3>
-                  <p className="text-sm text-white/75 font-sans leading-relaxed">
+                  <p className="text-sm sm:text-base text-white/75 font-sans leading-relaxed">
                     CarbonTerra strictly enforces that data reduction cannot compromise user journeys or accessibility. Three automated assertions are executed before and after every patch:
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-sm">
-                  <div className="p-5 rounded-xl bg-black/40 border border-white/10 space-y-2 hover:border-white/20 transition-colors">
-                    <div className="text-[#cbff00] font-bold text-sm">
+                  <div className="p-5 sm:p-6 rounded-2xl bg-black/40 border border-white/10 space-y-2.5 hover:border-white/20 transition-colors">
+                    <div className="text-[#cbff00] font-bold text-base sm:text-lg">
                       01 / Layout Stability
                     </div>
-                    <p className="text-white/80 text-xs sm:text-sm font-sans leading-relaxed">
-                      Explicit 1200×400 dimensions and high fetch priority are enforced. CLS stays at 0.00.
+                    <p className="text-white/80 text-sm font-sans leading-relaxed">
+                      Explicit 1200×400 dimensions and high fetch priority are enforced. Cumulative Layout Shift stays at 0.00.
                     </p>
                   </div>
-                  <div className="p-5 rounded-xl bg-black/40 border border-white/10 space-y-2 hover:border-white/20 transition-colors">
-                    <div className="text-[#cbff00] font-bold text-sm">
+                  <div className="p-5 sm:p-6 rounded-2xl bg-black/40 border border-white/10 space-y-2.5 hover:border-white/20 transition-colors">
+                    <div className="text-[#cbff00] font-bold text-base sm:text-lg">
                       02 / Interactive Usability
                     </div>
-                    <p className="text-white/80 text-xs sm:text-sm font-sans leading-relaxed">
-                      Buttons, modal dialogs, and keyboard accessibility remain fully operational.
+                    <p className="text-white/80 text-sm font-sans leading-relaxed">
+                      Buttons, modal dialogs, and keyboard accessibility remain fully operational across all viewports.
                     </p>
                   </div>
-                  <div className="p-5 rounded-xl bg-black/40 border border-white/10 space-y-2 hover:border-white/20 transition-colors">
-                    <div className="text-[#cbff00] font-bold text-sm">
+                  <div className="p-5 sm:p-6 rounded-2xl bg-black/40 border border-white/10 space-y-2.5 hover:border-white/20 transition-colors">
+                    <div className="text-[#cbff00] font-bold text-base sm:text-lg">
                       03 / Task Completion
                     </div>
-                    <p className="text-white/80 text-xs sm:text-sm font-sans leading-relaxed">
-                      Registration form submission deterministically verifies the confirmation view.
+                    <p className="text-white/80 text-sm font-sans leading-relaxed">
+                      Critical user conversion flow and form submission deterministically verify the confirmation state.
                     </p>
                   </div>
                 </div>
