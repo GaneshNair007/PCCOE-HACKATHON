@@ -196,7 +196,7 @@ jobs:
           <SectionHeading
             eyebrow="Interactive gate workbench"
             title="Test your release budget."
-            description={<>Target: Campus event registration journey · Active ceiling: {byteCeilingKb} KB transfer · Mode: {strictMode ? "Strict (exit nonzero)" : "Warn"}</>}
+            description={<>Target: Production Web Optimization Journey · Active ceiling: {byteCeilingKb} KB transfer · Mode: {strictMode ? "Strict (exit nonzero)" : "Warn"}</>}
           />
 
           <div className="flex items-center gap-2">

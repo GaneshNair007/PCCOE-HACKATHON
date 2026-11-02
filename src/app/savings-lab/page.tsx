@@ -35,9 +35,23 @@ import { Experiment, VerificationResult } from "@/lib/storage/types";
 function SavingsLabContent() {
   const searchParams = useSearchParams();
   const reduceMotion = useReducedMotion();
-  const projectIdParam = searchParams.get("projectId") || "campus-events";
+  const projectIdParam = searchParams.get("projectId") || "production-pipeline";
   const initialAuditId = searchParams.get("auditId") || "";
   const initialTargetUrl = searchParams.get("targetUrl") || "";
+
+  const targetDomain = (() => {
+    if (!initialTargetUrl) return "";
+    try {
+      const u = new URL(initialTargetUrl.startsWith("http") ? initialTargetUrl : `https://${initialTargetUrl}`);
+      return u.hostname.replace(/^www\./, "");
+    } catch {
+      return initialTargetUrl.replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0];
+    }
+  })();
+
+  const journeyTitle = targetDomain 
+    ? `${targetDomain} Optimization Pipeline` 
+    : "Production Payload Optimization Pipeline";
 
   // Progression steps: 1: Evidence, 2: Review fix, 3: Test candidate, 4: Verify, 5: Protect
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -80,7 +94,7 @@ function SavingsLabContent() {
               impact: "High (-92.7% Transfer)",
               effort: "Low (5-min HTML drop-in)",
               description: "Converts 2.42 MB hero JPEG into modern WebP with JPEG fallback, preserving aspect ratio and alt text.",
-              drop_in_snippet: '<picture>\\n  <source srcset="/demo/assets/campus-hackathon-hero.webp" type="image/webp" />\\n  <img src="/demo/assets/campus-hackathon-hero.jpg" width="1200" height="400" loading="lazy" decoding="async" />\\n</picture>'
+              drop_in_snippet: '<picture>\\n  <source srcset="/demo/assets/hero-banner-large.webp" type="image/webp" />\\n  <img src="/demo/assets/hero-banner-large.jpg" width="1200" height="400" loading="lazy" decoding="async" />\\n</picture>'
             }
           ]
         })
@@ -285,10 +299,10 @@ function SavingsLabContent() {
                     Stage 01 · Observed Evidence
                   </div>
                   <h2 className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
-                    Campus Event Registration Journey
+                    {journeyTitle}
                   </h2>
                   <div className="text-sm font-mono text-white/70">
-                    Target: <span className="text-white font-medium">{initialTargetUrl || "Audited Web Page"}</span> • Baseline Transfer: <span className="text-white font-medium">2.45 MB</span>
+                    Target: <span className="text-white font-medium">{targetDomain || initialTargetUrl || "Production Web Application"}</span> • Baseline Transfer: <span className="text-white font-medium">2.45 MB</span>
                   </div>
                 </div>
 
@@ -356,7 +370,7 @@ function SavingsLabContent() {
                       <span className="text-white/60">Raw JPEG</span>
                     </div>
                     <div className="text-white font-bold text-base sm:text-lg break-all">
-                      campus-hackathon-hero.jpg
+                      hero-banner-large.jpg
                     </div>
                     <div className="flex justify-between items-baseline pt-2 border-t border-white/10">
                       <div>
@@ -388,7 +402,7 @@ function SavingsLabContent() {
                       <span className="text-white/60">Modern WebP</span>
                     </div>
                     <div className="text-white font-bold text-base sm:text-lg break-all">
-                      campus-hackathon-hero.webp
+                      hero-banner-large.webp
                     </div>
                     <div className="flex justify-between items-baseline pt-2 border-t border-white/10">
                       <div>
@@ -573,8 +587,8 @@ function SavingsLabContent() {
                       </div>
                       <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative">
                         <img
-                          src="/demo/assets/campus-hackathon-hero.jpg"
-                          alt="Campus Hackathon Baseline Hero (2.42 MB)"
+                          src="/demo/assets/hero-banner-large.jpg"
+                          alt="Production Baseline Hero (2.42 MB)"
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -588,8 +602,8 @@ function SavingsLabContent() {
                       </div>
                       <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative shadow-[0_0_20px_rgba(203,255,0,0.1)]">
                         <img
-                          src="/demo/assets/campus-hackathon-hero.webp"
-                          alt="Campus Hackathon Optimized Hero (176 KB)"
+                          src="/demo/assets/hero-banner-large.webp"
+                          alt="Production Optimized Hero (176 KB)"
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -603,8 +617,8 @@ function SavingsLabContent() {
                     </div>
                     <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative">
                       <img
-                        src="/demo/assets/campus-hackathon-hero.webp"
-                        alt="Campus Hackathon Optimized Hero"
+                        src="/demo/assets/hero-banner-large.webp"
+                        alt="Production Optimized Hero"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -617,8 +631,8 @@ function SavingsLabContent() {
                     </div>
                     <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative">
                       <img
-                        src="/demo/assets/campus-hackathon-hero.jpg"
-                        alt="Campus Hackathon Baseline Hero"
+                        src="/demo/assets/hero-banner-large.jpg"
+                        alt="Production Baseline Hero"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -690,11 +704,11 @@ function SavingsLabContent() {
                       Drop-In Production Snippet (Zero Layout Shift)
                     </span>
                     <a
-                      href="/demo/assets/campus-hackathon-hero.webp"
-                      download="campus-hackathon-hero.webp"
-                      className="px-4 py-2 rounded-full bg-[#cbff00]/15 border border-[#cbff00]/40 text-[#cbff00] font-mono text-xs sm:text-sm hover:bg-[#cbff00]/25 flex items-center gap-2 font-bold transition-colors w-fit"
+                      href="/demo/assets/hero-banner-large.webp"
+                      download="hero-banner-large.webp"
+                      className="px-4 py-2.5 rounded-2xl bg-white/[0.06] border border-white/20 text-white hover:text-[#cbff00] hover:border-[#cbff00]/40 font-mono text-xs sm:text-sm flex items-center gap-2 font-bold transition-colors w-fit"
                     >
-                      <Download className="w-4 h-4" />
+                      <Download className="w-4 h-4 text-[#cbff00]" />
                       DOWNLOAD OPTIMIZED WEBP (176 KB)
                     </a>
                   </div>
@@ -706,8 +720,8 @@ function SavingsLabContent() {
                   <div className="rounded-2xl bg-black/70 border border-white/10 p-4 sm:p-5 font-mono text-sm sm:text-base text-white/95 overflow-x-auto leading-relaxed shadow-inner">
                     <code>
                       &lt;picture&gt;<br />
-                      &nbsp;&nbsp;&lt;source srcSet=&quot;/demo/assets/campus-hackathon-hero.webp&quot; type=&quot;image/webp&quot; /&gt;<br />
-                      &nbsp;&nbsp;&lt;img src=&quot;/demo/assets/campus-hackathon-hero.jpg&quot; alt=&quot;Campus Event Banner&quot; width=&quot;1200&quot; height=&quot;400&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;<br />
+                      &nbsp;&nbsp;&lt;source srcSet=&quot;/demo/assets/hero-banner-large.webp&quot; type=&quot;image/webp&quot; /&gt;<br />
+                      &nbsp;&nbsp;&lt;img src=&quot;/demo/assets/hero-banner-large.jpg&quot; alt=&quot;Production Hero Banner&quot; width=&quot;1200&quot; height=&quot;400&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot; /&gt;<br />
                       &lt;/picture&gt;
                     </code>
                   </div>

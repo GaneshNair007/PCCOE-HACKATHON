@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       status: "success",
       ticketId,
-      message: "Registration confirmed for PCCOE Green Campus Hackathon 2026",
+      message: "Registration confirmed for Production Web Architecture 2026",
       registeredAt: new Date().toISOString(),
       participant: {
         name,

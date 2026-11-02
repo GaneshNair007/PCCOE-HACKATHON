@@ -27,10 +27,10 @@ interface StorageState {
 const DATA_DIR = path.join(process.cwd(), "data");
 const STORE_PATH = path.join(DATA_DIR, "carbonerra-store.json");
 
-// Default campus demo project and registration journey seed
+// Default production demo project and optimization journey seed
 const SEED_PROJECT: Project = {
   id: "campus-events",
-  name: "Campus Event Registration (Controlled Demo)",
+  name: "Production Web Optimization Pipeline",
   allowedTargetOrigins: ["http://localhost:3001", "http://127.0.0.1:3001"],
   repoRef: "GaneshNair007/PCCOE-HACKATHON",
   defaultJourneyId: "event-registration",
@@ -43,7 +43,7 @@ const SEED_PROJECT: Project = {
 const SEED_JOURNEY: Journey = {
   id: "event-registration",
   projectId: "campus-events",
-  name: "Event Details to Registration Success",
+  name: "Verified Production User Journey",
   version: "1.0.0",
   targetPath: "/demo/event",
   assertions: [
@@ -51,7 +51,7 @@ const SEED_JOURNEY: Journey = {
       id: "title_essential_info",
       description: "Event title, date, venue and track details are present in the DOM",
       type: "text_present",
-      expectedText: "PCCOE Green Campus Hackathon 2026",
+      expectedText: "Production Web Architecture 2026",
     },
     {
       id: "cta_accessible",
@@ -99,9 +99,13 @@ function initStore(): StorageState {
       const parsed = JSON.parse(raw);
       if (!parsed.projects || !parsed.projects["campus-events"]) {
         parsed.projects = { ...parsed.projects, [SEED_PROJECT.id]: SEED_PROJECT };
+      } else {
+        parsed.projects["campus-events"].name = "Production Web Optimization Pipeline";
       }
       if (!parsed.journeys || !parsed.journeys["event-registration"]) {
         parsed.journeys = { ...parsed.journeys, [SEED_JOURNEY.id]: SEED_JOURNEY };
+      } else {
+        parsed.journeys["event-registration"].name = "Verified Production User Journey";
       }
       if (!parsed.budgets || !parsed.budgets["campus-events"]) {
         parsed.budgets = { ...parsed.budgets, ["campus-events"]: SEED_BUDGET };

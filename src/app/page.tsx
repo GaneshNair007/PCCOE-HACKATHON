@@ -452,11 +452,11 @@ function LandingPageContent() {
 
             <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
               <div>
-                <span className="px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase bg-[#cbff00]/15 text-[#cbff00] border border-[#cbff00]/30">
+                <div className="text-xs font-mono font-bold uppercase text-[#cbff00] tracking-wider">
                   Live Verified Benchmark
-                </span>
-                <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mt-3">
-                  PCCOE Campus Portal Telemetry
+                </div>
+                <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mt-2">
+                  Enterprise Production Portal Telemetry
                 </h3>
                 <div className="text-sm font-mono text-white/70 mt-1">
                   Target: <span className="text-white font-medium">https://www.pccoepune.com</span> • Regional Grid: 708 gCO2e/kWh

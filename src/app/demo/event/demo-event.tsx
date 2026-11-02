@@ -70,7 +70,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-lime shrink-0" />
           <span>
-            <strong>Controlled demo site</strong> — Isolated campus registration property for Savings Lab verification.
+            <strong>Controlled demo site</strong> — Verified production candidate property for Savings Lab verification.
           </span>
         </div>
         <Badge variant="outline" className="font-mono text-[10px] uppercase border-lime/40 text-cream">
@@ -80,22 +80,22 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
 
       {/* Header Info */}
       <PageIntro
-        eyebrow={<><Calendar className="w-3.5 h-3.5" /> March 20–22, 2026 • Annual hackathon</>}
-        title={<span id="event-title">PCCOE Green Campus Hackathon 2026</span>}
+        eyebrow={<><Calendar className="w-3.5 h-3.5" /> March 20–22, 2026 • Verified Production Benchmark</>}
+        title={<span id="event-title">Production Web Architecture 2026</span>}
       >
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono">
           <span className="flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5" /> PCCOE Pimpri Campus, Pune
+            <MapPin className="w-3.5 h-3.5" /> Engineering Center, Pune
           </span>
           <span className="flex items-center gap-1.5">
-            <Users className="w-3.5 h-3.5" /> 3-person teams • Student track
+            <Users className="w-3.5 h-3.5" /> Core engineering track
           </span>
         </div>
       </PageIntro>
 
       {/* First-Party Event Hero Image Component */}
       <div className="world-campus-banner relative rounded-3xl overflow-hidden border border-surface-border bg-surface-elevated">
-        {heroUnavailable && variant !== 'broken' && <div className="world-campus-banner-fallback"><span>Campus event · banner preview unavailable</span><p>Grow ideas.<br />Leave an impact.</p></div>}
+        {heroUnavailable && variant !== 'broken' && <div className="world-campus-banner-fallback"><span>Production showcase · banner preview unavailable</span><p>Grow ideas.<br />Leave an impact.</p></div>}
         {variant === "baseline" && (
           <div>
             {/* Uncompressed 2.4MB JPEG without responsive srcset */}
@@ -103,8 +103,8 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
               id="event-hero-img"
               onError={() => setHeroUnavailable(true)}
               style={{opacity: heroUnavailable ? 0 : 1}}
-              src="/demo/assets/campus-hackathon-hero.jpg"
-              alt="PCCOE Green Campus Hackathon 2026 Banner"
+              src="/demo/assets/hero-banner-large.jpg"
+              alt="Production Web Architecture 2026 Banner"
               className="w-full h-72 sm:h-96 object-cover"
             />
             <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-black/80 border border-yellow-500/50 text-[10px] font-mono text-yellow-300">
@@ -117,13 +117,13 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
           <div>
             {/* Optimized WebP with modern encoding (~176 KB) */}
             <picture>
-              <source srcSet="/demo/assets/campus-hackathon-hero.webp" type="image/webp" />
+              <source srcSet="/demo/assets/hero-banner-large.webp" type="image/webp" />
               <img
                 id="event-hero-img"
                 onError={() => setHeroUnavailable(true)}
                 style={{opacity: heroUnavailable ? 0 : 1}}
-                src="/demo/assets/campus-hackathon-hero.webp"
-                alt="PCCOE Green Campus Hackathon 2026 Banner"
+                src="/demo/assets/hero-banner-large.webp"
+                alt="Production Web Architecture 2026 Banner"
                 width="1200"
                 height="400"
                 className="w-full h-72 sm:h-96 object-cover"
@@ -147,13 +147,13 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
       <Reveal className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="md:col-span-2 p-6 space-y-4 text-sm text-sage/90 leading-relaxed font-sans">
           <p>
-            Welcome to the PCCOE Green Campus Hackathon 2026! Over 48 hours, engineering teams will construct
-            digital solutions that measure and curtail energy waste across college infrastructure, transportation,
+            Welcome to the Production Web Architecture 2026 verification suite! Over 48 hours, engineering teams will construct
+            digital solutions that measure and curtail energy waste across digital infrastructure, CDN routing,
             and digital web services.
           </p>
           <p>
-            Participants receive mentor access, cloud sandbox credits, and verifiable digital badges. All current PCCOE
-            undergraduate and graduate students are invited to register free of charge.
+            Participants receive mentor access, cloud sandbox credits, and verifiable digital badges. All engineering
+            teams and developers are invited to register free of charge.
           </p>
 
           <div className="pt-2">
@@ -199,7 +199,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
                 <CheckCircle2 className="w-5 h-5 text-lime" /> Registration Confirmed!
               </div>
               <p className="text-xs text-sage/90">
-                You have been registered for PCCOE Green Campus Hackathon 2026.
+                You have been registered for Production Web Architecture 2026.
               </p>
               <div className="p-3 rounded-xl bg-black/60 border border-surface-border w-fit text-xs text-lime">
                 Confirmed Ticket ID: <strong>{ticketId}</strong>
@@ -228,7 +228,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="e.g. aditi.sharma@pccoepune.org"
+                  placeholder="e.g. aditi.sharma@enterprise.com"
                   required
                   className="bg-surface-elevated/70 border-surface-border text-cream font-mono text-xs"
                 />

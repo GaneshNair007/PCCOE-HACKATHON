@@ -35,20 +35,20 @@ export function generateEventHeroImagePatch(experimentId: string): PatchProposal
   const unifiedDiff = `--- a/src/app/demo/event/page.tsx
 +++ b/src/app/demo/event/page.tsx
 @@ -74,7 +74,13 @@
-       {/* First-Party Event Hero Image Component */}
+       {/* First-Party Hero Image Component */}
        <div className="relative rounded-3xl overflow-hidden border border-surface-border">
 -        <img
--          id="event-hero-img"
--          src="/demo/assets/campus-hackathon-hero.jpg"
--          alt="PCCOE Green Campus Hackathon 2026 Banner"
+-          id="hero-img"
+-          src="/demo/assets/hero-banner-large.jpg"
+-          alt="Production Hero Banner"
 -          className="w-full h-72 sm:h-96 object-cover"
 -        />
 +        <picture>
-+          <source srcSet="/demo/assets/campus-hackathon-hero.webp" type="image/webp" />
++          <source srcSet="/demo/assets/hero-banner-large.webp" type="image/webp" />
 +          <img
-+            id="event-hero-img"
-+            src="/demo/assets/campus-hackathon-hero.webp"
-+            alt="PCCOE Green Campus Hackathon 2026 Banner"
++            id="hero-img"
++            src="/demo/assets/hero-banner-large.webp"
++            alt="Production Hero Banner"
 +            width="1200"
 +            height="400"
 +            className="w-full h-72 sm:h-96 object-cover"
@@ -61,8 +61,8 @@ export function generateEventHeroImagePatch(experimentId: string): PatchProposal
     id: `patch_${Date.now()}`,
     experimentId,
     targetFile: "src/app/demo/event/page.tsx",
-    resourceOriginalUrl: "/demo/assets/campus-hackathon-hero.jpg",
-    resourceOptimizedUrl: "/demo/assets/campus-hackathon-hero.webp",
+    resourceOriginalUrl: "/demo/assets/hero-banner-large.jpg",
+    resourceOptimizedUrl: "/demo/assets/hero-banner-large.webp",
     originalFormat: "JPEG (Uncompressed 24-bit)",
     optimizedFormat: "WebP (VP8 Lossy, Quality 82)",
     originalBytes,

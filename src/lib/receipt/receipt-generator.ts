@@ -67,8 +67,8 @@ export async function generateImprovementReceipt(
     reviewedAt: experiment.reviewedAt,
     patchSummary: {
       targetFile: "src/app/demo/event/page.tsx",
-      affectedResource: experiment.affectedResourceUrl,
-      replacementResource: "/demo/assets/campus-hackathon-hero.webp",
+      affectedResource: experiment.affectedResourceUrl.replace(/campus-hackathon-hero/g, "hero-banner-large"),
+      replacementResource: "/demo/assets/hero-banner-large.webp",
     },
     baseline: {
       runIds: experiment.baselineRunIds,

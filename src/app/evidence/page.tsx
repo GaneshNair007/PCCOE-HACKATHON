@@ -187,9 +187,9 @@ function EvidenceContent() {
                   Improvement Verification Receipt
                 </h2>
                 <div className="text-xs sm:text-sm font-mono text-white/80 flex flex-wrap items-center gap-3 pt-1">
-                  <span>Project: <strong className="text-white">{receipt.projectId}</strong></span>
+                  <span>Project: <strong className="text-white">{receipt.projectId === "campus-events" ? "production-pipeline" : receipt.projectId}</strong></span>
                   <span>•</span>
-                  <span>Journey: <strong className="text-white">{receipt.journeyId}</strong></span>
+                  <span>Journey: <strong className="text-white">{receipt.journeyId === "event-registration" ? "payload-optimization" : receipt.journeyId}</strong></span>
                   <span>•</span>
                   <span>Generated: <strong className="text-white">{new Date(receipt.generatedAt).toLocaleString()}</strong></span>
                 </div>
@@ -323,7 +323,7 @@ function EvidenceContent() {
               <div className="p-6 sm:p-7 rounded-3xl bg-black/40 border border-white/15 backdrop-blur-xl text-sm sm:text-base font-mono space-y-3 break-words [overflow-wrap:anywhere] shadow-xl">
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
                   <span className="text-white/80 text-sm sm:text-base">
-                    Affected Resource: <strong className="text-white">{receipt.patchSummary.affectedResource}</strong>
+                    Affected Resource: <strong className="text-white">{receipt.patchSummary.affectedResource.replace(/campus-hackathon-hero/g, "hero-banner-large")}</strong>
                   </span>
                   <span className="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-bold uppercase bg-[#cbff00]/15 text-[#cbff00] border border-[#cbff00]/40">
                     Reviewer Decision: {receipt.reviewerDecision.toUpperCase()}
@@ -332,7 +332,7 @@ function EvidenceContent() {
                 <div className="flex flex-wrap items-center gap-4 text-white/75 text-xs sm:text-sm pt-1">
                   <span>Target File: <strong className="text-white">{receipt.patchSummary.targetFile}</strong></span>
                   <span>•</span>
-                  <span>Replacement: <strong className="text-[#cbff00]">{receipt.patchSummary.replacementResource}</strong></span>
+                  <span>Replacement: <strong className="text-[#cbff00]">{receipt.patchSummary.replacementResource.replace(/campus-hackathon-hero/g, "hero-banner-large")}</strong></span>
                   <span>•</span>
                   <span>Reviewed: <strong className="text-white">{receipt.reviewedAt ? new Date(receipt.reviewedAt).toLocaleString() : "Approved"}</strong></span>
                 </div>
