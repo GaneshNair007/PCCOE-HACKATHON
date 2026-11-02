@@ -484,8 +484,14 @@ function SavingsLabContent() {
                       <span className="text-white/60">Raw JPEG</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-16 h-12 rounded-xl overflow-hidden border border-white/20 bg-black shrink-0 relative">
-                        <img src="/demo/assets/hero-banner-large.jpg" alt="Baseline Preview" className="w-full h-full object-cover" />
+                      <div className="w-16 h-12 rounded-xl overflow-hidden border border-white/20 bg-black/60 shrink-0 relative flex items-center justify-center">
+                        <ImageIcon className="w-6 h-6 text-amber-400/40 absolute" />
+                        <img 
+                          src="/demo/assets/hero-banner-large.jpg" 
+                          alt="Baseline Preview" 
+                          className="w-full h-full object-cover relative z-10" 
+                          onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
+                        />
                       </div>
                       <div className="text-white font-bold text-base sm:text-lg break-all">
                         hero-banner-large.jpg
@@ -521,8 +527,14 @@ function SavingsLabContent() {
                       <span className="text-white/60">Modern WebP</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-16 h-12 rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black shrink-0 relative shadow-[0_0_15px_rgba(203,255,0,0.15)]">
-                        <img src="/demo/assets/hero-banner-large.webp" alt="Optimized Preview" className="w-full h-full object-cover" />
+                      <div className="w-16 h-12 rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/60 shrink-0 relative shadow-[0_0_15px_rgba(203,255,0,0.15)] flex items-center justify-center">
+                        <ImageIcon className="w-6 h-6 text-[#cbff00]/40 absolute" />
+                        <img 
+                          src="/demo/assets/hero-banner-large.webp" 
+                          alt="Optimized Preview" 
+                          className="w-full h-full object-cover relative z-10" 
+                          onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
+                        />
                       </div>
                       <div className="text-white font-bold text-base sm:text-lg break-all">
                         hero-banner-large.webp
@@ -709,11 +721,13 @@ function SavingsLabContent() {
                         <span className="font-bold text-amber-400">BASELINE UNCOMPRESSED JPEG</span>
                         <span>2.42 MB on wire</span>
                       </div>
-                      <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative">
+                      <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
+                        <ImageIcon className="w-10 h-10 text-amber-400/30 absolute" />
                         <img
                           src="/demo/assets/hero-banner-large.jpg"
                           alt="Production Baseline Hero (2.42 MB)"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover relative z-10"
+                          loading="eager"
                         />
                       </div>
                     </div>
@@ -724,11 +738,13 @@ function SavingsLabContent() {
                         <span className="font-bold text-[#cbff00]">OPTIMIZED FIRST-PARTY WEBP</span>
                         <span className="text-[#cbff00] font-bold">176 KB (-92.7%)</span>
                       </div>
-                      <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative shadow-[0_0_20px_rgba(203,255,0,0.1)]">
+                      <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative shadow-[0_0_20px_rgba(203,255,0,0.1)] flex items-center justify-center">
+                        <ImageIcon className="w-10 h-10 text-[#cbff00]/30 absolute" />
                         <img
                           src="/demo/assets/hero-banner-large.webp"
                           alt="Production Optimized Hero (176 KB)"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover relative z-10"
+                          loading="eager"
                         />
                       </div>
                     </div>
@@ -739,11 +755,13 @@ function SavingsLabContent() {
                       <span className="font-bold text-[#cbff00]">OPTIMIZED WEBP CANDIDATE</span>
                       <span className="text-[#cbff00] font-bold">176 KB / Zero Visual Loss</span>
                     </div>
-                    <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative">
+                    <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
+                      <ImageIcon className="w-10 h-10 text-[#cbff00]/30 absolute" />
                       <img
                         src="/demo/assets/hero-banner-large.webp"
                         alt="Production Optimized Hero"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover relative z-10"
+                        loading="eager"
                       />
                     </div>
                   </div>
@@ -753,11 +771,13 @@ function SavingsLabContent() {
                       <span className="font-bold text-amber-400">ORIGINAL UNCOMPRESSED JPEG</span>
                       <span>2.42 MB / Heavy Payload Hotspot</span>
                     </div>
-                    <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative">
+                    <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
+                      <ImageIcon className="w-10 h-10 text-amber-400/30 absolute" />
                       <img
                         src="/demo/assets/hero-banner-large.jpg"
                         alt="Production Baseline Hero"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover relative z-10"
+                        loading="eager"
                       />
                     </div>
                   </div>
