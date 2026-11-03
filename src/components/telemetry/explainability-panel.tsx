@@ -18,6 +18,7 @@ import {
   FileSpreadsheet,
   RefreshCw,
   Sliders,
+  BookOpen,
 } from "lucide-react";
 import { AuditResult } from "@/types/telemetry";
 import { CARBONERRA_CONFIG } from "@/lib/config";
@@ -29,7 +30,7 @@ interface ExplainabilityPanelProps {
 }
 
 export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelProps) {
-  const [activeTab, setActiveTab] = useState<"formula" | "provenance" | "caching" | "limitations">(
+  const [activeTab, setActiveTab] = useState<"formula" | "provenance" | "caching" | "limitations" | "research">(
     "formula"
   );
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
@@ -87,6 +88,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
               { id: "provenance", label: "2. Server & Grid Lineage", icon: <Server className="w-3.5 h-3.5" /> },
               { id: "caching", label: "3. Cache & Repeat Visits", icon: <Layers className="w-3.5 h-3.5" /> },
               { id: "limitations", label: "4. Measurement Notes", icon: <Info className="w-3.5 h-3.5" /> },
+              { id: "research", label: "5. Research & Benchmarks", icon: <BookOpen className="w-3.5 h-3.5" /> },
             ].map((tab) => {
               const isSelected = activeTab === tab.id;
               return (
@@ -231,6 +233,57 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
                     <li key={idx}>{lim}</li>
                   ))}
                 </ul>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 5: Academic Research & HTTP Archive Benchmarks */}
+          {activeTab === "research" && (
+            <div className="space-y-4 font-mono text-xs">
+              {/* Empirical Benchmark Comparison */}
+              <div className="p-4 rounded-2xl bg-black/60 border border-surface-border space-y-3">
+                <div className="text-lime font-bold text-xs uppercase flex items-center justify-between">
+                  <span className="flex items-center gap-2">
+                    <Scale className="w-4 h-4" /> HTTP Archive &amp; Web Almanac Empirical Benchmarks
+                  </span>
+                  <span className="text-[10px] text-white/50">Global Web Crawler Crawl Data</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="p-3 rounded-xl bg-surface-elevated/70 border border-white/10 space-y-1">
+                    <div className="text-white/60 text-[11px] uppercase">Eco-Optimized (Top 10%)</div>
+                    <div className="text-lime font-bold text-base">&lt; 400 KB</div>
+                    <div className="text-[10px] text-white/50">Modern WebP/AVIF, strict code splitting</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-surface-elevated/70 border border-white/10 space-y-1">
+                    <div className="text-white/60 text-[11px] uppercase">Global Median Page</div>
+                    <div className="text-white font-bold text-base">2.45 MB (2,450 KB)</div>
+                    <div className="text-[10px] text-white/50">HTTP Archive 50th percentile across millions of URLs</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-surface-elevated/70 border border-white/10 space-y-1">
+                    <div className="text-white/60 text-[11px] uppercase">This Monitored Page</div>
+                    <div className="text-lime font-bold text-base">{(totalBytes / (1024 * 1024)).toFixed(2)} MB</div>
+                    <div className="text-[10px] text-white/50">{auditData.metrics.cleaner_than_percentile}% cleaner than tested URLs</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Peer-Reviewed Scientific Research Papers */}
+              <div className="p-4 rounded-2xl bg-black/60 border border-surface-border space-y-3">
+                <div className="text-lime font-bold text-xs uppercase flex items-center gap-2">
+                  <BookOpen className="w-4 h-4" /> Peer-Reviewed Academic Research Foundations
+                </div>
+                <div className="space-y-2.5">
+                  {CARBONERRA_CONFIG.researchPapers.map((paper, idx) => (
+                    <div key={idx} className="p-3 rounded-xl bg-surface-elevated/50 border border-white/10 space-y-1 font-sans">
+                      <div className="text-white font-bold text-xs flex flex-wrap items-center justify-between gap-2">
+                        <span>{paper.title}</span>
+                        <span className="text-[10px] font-mono text-lime border border-lime/30 px-1.5 py-0.5 rounded">{paper.journal}</span>
+                      </div>
+                      <div className="text-[11px] text-white/60 font-mono">{paper.citation}</div>
+                      <div className="text-xs text-white/80 leading-relaxed font-sans">{paper.keyFinding}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}

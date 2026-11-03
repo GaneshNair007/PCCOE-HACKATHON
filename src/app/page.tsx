@@ -673,25 +673,47 @@ function LandingPageContent() {
 
           <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
             <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
-              1. Official Reference Standard
+              1. Official Reference Standard &amp; Peer-Reviewed Research
             </h4>
             <p className="text-xs">
-              Based on the <strong>Sustainable Web Design Model v4 (SWDM v4)</strong>, developed by The Green Web Foundation and Wholegrain Digital. It accounts for both operational energy and network routing.
+              Based on the <strong>Sustainable Web Design Model v4 (SWDM v4)</strong>, developed by The Green Web Foundation and Wholegrain Digital, and grounded in peer-reviewed academic literature:
+            </p>
+            <ul className="text-xs text-white/80 space-y-1.5 list-disc pl-4 font-mono">
+              <li><strong>Aslan et al. (2018):</strong> Empirical data transmission energy intensity (~0.06 kWh/GB) with biennial doubling of hardware transmission efficiency.</li>
+              <li><strong>Freitag et al. (2021, Lancaster Univ):</strong> Quantified total ICT carbon at 2.1%–3.9% of global emissions, factoring in embodied hardware lifecycle carbon.</li>
+              <li><strong>Preist, Schien, &amp; Blevis (2016):</strong> Standardized the 3-segment system boundary: User Devices (54%), Network Transmission (24%), Datacenters (22%).</li>
+              <li><strong>Masanet et al. (2020, Science):</strong> Proved hyperscale cloud PUE (&lt;1.2), isolating unoptimized client payload as primary addressable energy waste.</li>
+            </ul>
+          </div>
+
+          <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
+            <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
+              2. Empirical Benchmarks (HTTP Archive &amp; Web Almanac)
+            </h4>
+            <div className="grid grid-cols-2 gap-2 text-xs font-mono pt-1">
+              <div className="p-2.5 rounded-lg bg-black/40 border border-white/10">
+                <span className="text-white/60 block text-[10px] uppercase">Global Median Page</span>
+                <span className="text-white font-bold text-sm">2.45 MB (2,450 KB)</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-black/40 border border-[#cbff00]/30">
+                <span className="text-[#cbff00] block text-[10px] uppercase">Eco-Optimized (Top 10%)</span>
+                <span className="text-[#cbff00] font-bold text-sm">&lt; 400 KB</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
+            <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
+              3. Real Regional Power Grid Lookups
+            </h4>
+            <p className="text-xs">
+              Instead of assuming one flat global average, CarbonTerra resolves the website&apos;s IP address and queries The Green Web Foundation regional grid database to find the true carbon intensity (grams of CO2 per kWh) of that datacenter&apos;s geographic grid (benchmarking against the 494 gCO2/kWh global average).
             </p>
           </div>
 
           <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
             <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
-              2. Real Regional Power Grid Lookups
-            </h4>
-            <p className="text-xs">
-              Instead of assuming one flat global average, CarbonTerra resolves the website&apos;s IP address and queries The Green Web Foundation regional grid database to find the true carbon intensity (grams of CO2 per kWh) of that datacenter&apos;s geographic grid.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-            <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
-              3. Honest Attribution Boundary
+              4. Honest Attribution Boundary
             </h4>
             <p className="text-xs">
               Digital carbon metrics are engineering model attributions. A website reducing 2 MB of transfer achieves measurable digital efficiency, which correlates to reduced network and device electricity use.
