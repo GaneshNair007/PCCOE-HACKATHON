@@ -17,12 +17,12 @@ interface HologramGauge3DProps {
 }
 
 const GRADE_CONFIG: Record<EcoScoreGrade, { color: string; label: string }> = {
-  "A+": { color: "text-lime", label: "Exceptional" },
-  A: { color: "text-emerald-400", label: "Excellent" },
-  B: { color: "text-sky-300", label: "Above average" },
-  C: { color: "text-amber-300", label: "Moderate footprint" },
-  D: { color: "text-orange-400", label: "High emissions" },
-  F: { color: "text-red-400", label: "Critical refactor required" },
+  "A+": { color: "text-[#cbff00]", label: "Exceptional" },
+  A: { color: "text-[#cbff00]", label: "Excellent" },
+  B: { color: "text-white", label: "Above average" },
+  C: { color: "text-white/80", label: "Moderate footprint" },
+  D: { color: "text-white/60", label: "High emissions" },
+  F: { color: "text-white/40", label: "Critical refactor required" },
 };
 
 /** Retains the public component name; the score is deliberately static and readable. */
@@ -63,12 +63,8 @@ export function HologramGauge3D({
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className={`inline-flex flex-wrap items-center gap-1.5 rounded-full border px-3 py-1 text-xs ${
             confidence === "high"
-              ? "border-lime/30 bg-lime/10 text-lime"
-              : confidence === "medium"
-                ? "border-amber-400/30 bg-amber-400/10 text-amber-300"
-                : confidence === "low"
-                  ? "border-orange-500/30 bg-orange-500/10 text-orange-300"
-                  : "border-surface-border bg-surface-elevated text-sage"
+              ? "border-[#cbff00]/40 bg-[#cbff00]/10 text-[#cbff00]"
+              : "border-white/20 bg-white/5 text-white/80"
           }`}>
             <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
             {confidence === "unavailable" ? "Confidence unavailable" : `${confidence} confidence`}

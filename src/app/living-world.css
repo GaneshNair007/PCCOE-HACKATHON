@@ -171,7 +171,7 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .world-budget-tests > div:nth-child(2) { margin-top: 55px; }
 .world-budget-tests > div:nth-child(3) { margin-top: 110px; }
 .world-budget-tests .text-cream, .world-budget-tests [class*="text-sage"], .world-budget-tests .text-lime { color: #f4f5f0; }
-.world-budget-tests .text-red-400 { color: #f87171; }.world-budget-tests [class*="text-amber"]{color:#fbbf24}
+.world-budget-tests .text-red-400 { color: #ffffff; }.world-budget-tests [class*="text-amber"]{color:#cbff00}
 .world-budget-tests button { margin-top: 20px; }
 .world-step-trail {
   display: inline-flex !important;
@@ -245,7 +245,7 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .world-paper th {
   color: #a3b299 !important;
 }
-.world-paper .text-red-400 {color:#a1372e}.world-paper [class*="text-amber"]{color:#875212}
+.world-paper .text-red-400 {color:#ffffff}.world-paper [class*="text-amber"]{color:#cbff00}
 .world-paper pre { color: #e7f1d8; }.world-paper .ct-button{border-color:#46573660;color:#2c3d23;background:#dae3c7}
 .world-paper .ct-button:hover {background:#d0dfa8}.world-outcome{margin-top:70px}
 .world-paper input:not([type="range"]){background:#e3e8d9;color:#25341e}

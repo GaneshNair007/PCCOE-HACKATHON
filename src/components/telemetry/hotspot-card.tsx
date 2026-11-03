@@ -42,7 +42,7 @@ export function HotspotCard({ hotspot, index }: HotspotCardProps) {
           <div className="flex items-center gap-2 mt-1 text-xs font-mono">
             <span className="text-sage">Size: <strong className="text-cream">{hotspot.size}</strong></span>
             <span className="text-white/30">/</span>
-            <span className={isDanger ? "text-red-400 font-bold" : isWarning ? "text-amber-300 font-bold" : "text-lime"}>
+            <span className={isDanger ? "text-white/80 font-bold" : isWarning ? "text-white/60 font-bold" : "text-[#cbff00]"}>
               {hotspot.co2_est}
             </span>
           </div>

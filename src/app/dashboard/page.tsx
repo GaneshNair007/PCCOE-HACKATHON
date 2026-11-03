@@ -404,11 +404,11 @@ export default function DashboardPage() {
         {/* Card 3: Green Hosting Adoption */}
         <div className="p-6 sm:p-7 rounded-3xl bg-white/[0.04] border border-white/15 backdrop-blur-3xl shadow-2xl space-y-4 hover:border-white/25 transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-emerald-400 uppercase tracking-wider font-sans">
+            <span className="text-xs font-semibold text-[#cbff00] uppercase tracking-wider font-sans">
               Clean Energy Adoption
             </span>
-            <div className="w-10 h-10 rounded-2xl bg-emerald-400/15 border border-emerald-400/30 text-emerald-400 flex items-center justify-center shadow-[0_0_15px_rgba(52,211,153,0.15)]">
-              <Zap className="w-5 h-5 text-emerald-400" />
+            <div className="w-10 h-10 rounded-2xl bg-[#cbff00]/15 border border-[#cbff00]/30 text-[#cbff00] flex items-center justify-center shadow-[0_0_15px_rgba(203,255,0,0.15)]">
+              <Zap className="w-5 h-5 text-[#cbff00]" />
             </div>
           </div>
           <div>
@@ -461,8 +461,8 @@ export default function DashboardPage() {
             </Button>
           </div>
           {auditError && (
-            <p role="alert" className="text-xs text-red-400 font-sans flex items-center gap-1.5 pt-1">
-              <AlertCircle className="w-3.5 h-3.5 shrink-0" /> {auditError}
+            <p role="alert" className="text-xs text-white/90 font-sans flex items-center gap-1.5 pt-1">
+              <AlertCircle className="w-3.5 h-3.5 text-[#cbff00] shrink-0" /> {auditError}
             </p>
           )}
         </form>
@@ -537,8 +537,8 @@ export default function DashboardPage() {
                       site.grade === "A+" || site.grade === "A"
                         ? "bg-[#cbff00]/20 text-[#cbff00] border border-[#cbff00]/40"
                         : site.grade === "B"
-                        ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40"
-                        : "bg-amber-500/20 text-amber-300 border border-amber-500/40"
+                        ? "bg-white/10 text-white border border-white/20"
+                        : "bg-white/5 text-white/70 border border-white/10"
                     }`}>
                       Grade {site.grade}
                     </span>
@@ -576,7 +576,7 @@ export default function DashboardPage() {
                       variant="ghost"
                       size="sm"
                       onClick={() => setDeleteConfirmDomain(site.domain)}
-                      className="p-2 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 cursor-pointer"
+                      className="p-2 rounded-xl text-white/50 hover:text-white hover:bg-white/10 cursor-pointer"
                       title="Remove from fleet"
                       aria-label={`Remove ${site.domain} from fleet`}
                     >
@@ -632,7 +632,7 @@ export default function DashboardPage() {
             <Button
               variant="outline"
               size="sm"
-              className="border-red-500/50 text-red-400 hover:bg-red-950/60"
+              className="border-white/20 text-white hover:bg-white/10"
               onClick={() => deleteConfirmDomain && handleDelete(deleteConfirmDomain)}
             >
               Remove website

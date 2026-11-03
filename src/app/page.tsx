@@ -322,7 +322,7 @@ function LandingPageContent() {
                 </div>
                 <div className="text-xs font-mono text-sage/80 pt-1">
                   {auditData.metrics.payload_mb > 2.0 ? (
-                    <span className="text-amber-400 font-semibold">Heavier than 68% of audited pages</span>
+                    <span className="text-white/80 font-semibold">Heavier than 68% of audited pages</span>
                   ) : (
                     <span className="text-lime font-semibold">Within recommended lightweight bounds</span>
                   )}
@@ -338,7 +338,7 @@ function LandingPageContent() {
                   <div className={`text-2xl sm:text-3xl font-display font-black px-3.5 py-1 rounded-xl border ${
                     ['A', 'A+', 'B'].includes(auditData.eco_score)
                       ? 'bg-lime/10 border-lime/40 text-lime'
-                      : 'bg-red-500/10 border-red-500/40 text-red-400'
+                      : 'bg-white/10 border-white/20 text-white'
                   }`}>
                     Grade {auditData.eco_score}
                   </div>
@@ -365,7 +365,7 @@ function LandingPageContent() {
 
               {/* Card 4: Primary Culprit */}
               <Card className="p-5 glass-panel-elevated border border-surface-border space-y-2">
-                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-400">
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#cbff00]">
                   PRIMARY CULPRIT
                 </div>
                 <div className="font-sans text-lg font-bold text-cream truncate">
@@ -482,7 +482,7 @@ function LandingPageContent() {
               <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl">
                 <div className="text-xs text-white/60 uppercase font-bold tracking-wider">Observed Transfer Weight</div>
                 <div className="text-2xl sm:text-3xl font-black text-white mt-1.5">2,420 <span className="text-sm text-white/60 font-normal">KB</span></div>
-                <div className="text-xs text-amber-400 mt-1">Oversized Hero Banner Hotspot</div>
+                <div className="text-xs text-white/80 mt-1">Oversized Hero Banner Hotspot</div>
               </div>
 
               <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl">
@@ -518,7 +518,7 @@ function LandingPageContent() {
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/5">
                   <span className="text-white">pccoepune.com</span>
-                  <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">Grade B</span>
+                  <span className="px-2 py-0.5 rounded bg-white/10 text-white font-bold">Grade B</span>
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/5">
                   <span className="text-white">stripe.com</span>

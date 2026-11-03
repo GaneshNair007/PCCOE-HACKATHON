@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PageIntro, SectionHeading } from "@/components/ui/page";
-import { LineChart, Info } from "lucide-react";
+import { LineChart, Info, ChevronDown, Check } from "lucide-react";
 import Link from "next/link";
 import { AuditResult } from "@/types/telemetry";
 
@@ -62,6 +62,7 @@ export default function ForecastsPage() {
     plannedKg: number;
     netZeroKg: number;
   } | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   useEffect(() => {
     try {
@@ -188,31 +189,56 @@ export default function ForecastsPage() {
         title="See the possibilities ahead."
         description="Model future digital carbon trajectory based on real baseline transfer weights, projected traffic growth, and planned engineering remediations."
         actions={recentAudits.length > 0 ? (
-            <select
-              aria-label="Select monitored forecast baseline"
-              onChange={(e) => handleSelectDomain(e.target.value)}
-              className="w-full max-w-xs bg-surface-elevated border border-surface-border text-xs font-mono px-3 py-2 rounded-xl text-cream"
-              value={selectedAudit?.domain || ""}
+          <div className="relative w-full max-w-xs">
+            <button
+              type="button"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="w-full bg-white/[0.06] border border-white/20 text-xs px-4 py-2.5 rounded-2xl text-white backdrop-blur-2xl flex items-center justify-between gap-2 hover:border-[#cbff00] transition-colors cursor-pointer"
             >
-              <option value="" disabled>
-                Select monitored baseline…
-              </option>
-              {recentAudits.map((a: any) => (
-                <option key={a.domain} value={a.domain}>
-                  {a.domain} ({a.grade}, {a.co2}g)
-                </option>
-              ))}
-            </select>
+              <span className="truncate">{selectedAudit?.domain || "Select monitored baseline…"}</span>
+              <ChevronDown className={`w-3.5 h-3.5 text-white/60 transition-transform ${isDropdownOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            {isDropdownOpen && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setIsDropdownOpen(false)} />
+                <div className="absolute left-0 right-0 top-full mt-2 z-50 bg-[#0d120c]/95 border border-white/15 rounded-2xl p-1.5 shadow-2xl backdrop-blur-3xl max-h-80 overflow-y-auto space-y-1">
+                  <div className="text-[10px] uppercase font-bold text-white/40 px-3 py-1">Monitored Fleet Baselines</div>
+                  {recentAudits.map((a: any) => {
+                    const isSelected = selectedAudit?.domain === a.domain;
+                    return (
+                      <button
+                        key={a.domain}
+                        type="button"
+                        onClick={() => {
+                          handleSelectDomain(a.domain);
+                          setIsDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors cursor-pointer ${
+                          isSelected
+                            ? "bg-[#cbff00]/15 text-[#cbff00] font-semibold"
+                            : "text-white/80 hover:bg-white/[0.08] hover:text-white"
+                        }`}
+                      >
+                        <span className="truncate">{a.domain} <span className="text-white/50 text-[11px]">({a.grade || "B"})</span></span>
+                        {isSelected && <Check className="w-3.5 h-3.5 text-[#cbff00]" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </div>
         ) : undefined}
       />
 
       {/* Persistent Forecast Disclaimer */}
-      <div className="p-4 rounded-2xl bg-surface border border-amber-400/30 text-xs text-amber-200 flex items-start gap-2.5 leading-relaxed">
-        <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+      <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/15 text-xs text-white/80 flex items-start gap-2.5 leading-relaxed backdrop-blur-2xl">
+        <Info className="w-4 h-4 text-[#cbff00] shrink-0 mt-0.5" />
         <div>
-          <span className="font-bold">Scenario forecast, not a prediction of measured future emissions.</span> Calculations apply your configured monthly growth rate ({growthRate}%) and engineering reduction schedule against the chosen audit baseline.
+          <span className="font-bold text-white">Scenario forecast, not a prediction of measured future emissions.</span> Calculations apply your configured monthly growth rate ({growthRate}%) and engineering reduction schedule against the chosen audit baseline.
           {isDemoBaseline && (
-            <span className="block mt-1 font-bold text-amber-300">
+            <span className="block mt-1 font-bold text-[#cbff00]">
               Notice: Modeling against a clearly labeled Demonstration Dataset.
             </span>
           )}
@@ -275,20 +301,20 @@ export default function ForecastsPage() {
 
             {/* Clear Plain-English Legend */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-xs font-mono border-b border-surface-border pb-4">
-              <span className="flex items-center gap-2 text-red-400">
-                <span className="w-4 h-0.5 rounded bg-red-400" />
-                <span className="font-semibold text-cream">Do Nothing</span>
-                <span className="text-[11px] text-red-400/80">(Status quo: +{growthRate}%/mo traffic)</span>
+              <span className="flex items-center gap-2 text-white/60">
+                <span className="w-4 h-0.5 rounded bg-white/40" />
+                <span className="font-semibold text-white">Do Nothing</span>
+                <span className="text-[11px] text-white/50">(Status quo: +{growthRate}%/mo traffic)</span>
               </span>
-              <span className="flex items-center gap-2 text-amber-300">
-                <span className="w-4 h-0.5 rounded bg-amber-400" />
-                <span className="font-semibold text-cream">Code Clean-up</span>
-                <span className="text-[11px] text-amber-300/80">(Image & script reduction)</span>
+              <span className="flex items-center gap-2 text-white">
+                <span className="w-4 h-0.5 rounded bg-white" />
+                <span className="font-semibold text-white">Code Clean-up</span>
+                <span className="text-[11px] text-white/70">(Image & script reduction)</span>
               </span>
-              <span className="flex items-center gap-2 text-lime">
-                <span className="w-4 h-0.5 rounded bg-lime" />
-                <span className="font-semibold text-cream">Green Cloud + Lean Code</span>
-                <span className="text-[11px] text-lime/80">(Renewable host + 50% lighter)</span>
+              <span className="flex items-center gap-2 text-[#cbff00]">
+                <span className="w-4 h-0.5 rounded bg-[#cbff00]" />
+                <span className="font-semibold text-white">Green Cloud + Lean Code</span>
+                <span className="text-[11px] text-[#cbff00]/80">(Renewable host + 50% lighter)</span>
               </span>
             </div>
 
@@ -298,11 +324,11 @@ export default function ForecastsPage() {
                 <div className="p-3 rounded-xl bg-surface-elevated border border-surface-border flex flex-wrap items-center justify-between gap-3 text-xs font-mono animate-in fade-in duration-150">
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
                     <span className="px-2 py-0.5 rounded bg-white/10 text-cream font-bold">{hoveredPoint.month}</span>
-                    <span className="text-red-400">Do Nothing: <strong className="text-cream">{hoveredPoint.statusQuoKg} kg</strong></span>
-                    <span className="text-amber-300">Code Clean-up: <strong className="text-cream">{hoveredPoint.plannedKg} kg</strong></span>
-                    <span className="text-lime">Green Cloud: <strong className="text-cream">{hoveredPoint.netZeroKg} kg</strong></span>
+                    <span className="text-white/60">Do Nothing: <strong className="text-white">{hoveredPoint.statusQuoKg} kg</strong></span>
+                    <span className="text-white">Code Clean-up: <strong className="text-white">{hoveredPoint.plannedKg} kg</strong></span>
+                    <span className="text-[#cbff00]">Green Cloud: <strong className="text-[#cbff00]">{hoveredPoint.netZeroKg} kg</strong></span>
                   </div>
-                  <div className="text-lime font-bold bg-lime/10 border border-lime/25 px-2.5 py-1 rounded-lg">
+                  <div className="text-black font-bold bg-[#cbff00] border border-[#cbff00] px-2.5 py-1 rounded-lg">
                     Avoids {(hoveredPoint.statusQuoKg - hoveredPoint.netZeroKg).toFixed(1)} kg CO2/mo ({Math.round(((hoveredPoint.statusQuoKg - hoveredPoint.netZeroKg) / hoveredPoint.statusQuoKg) * 100)}% saved)
                   </div>
                 </div>
@@ -341,10 +367,10 @@ export default function ForecastsPage() {
 
                       <defs>
                         {/* Apple-grade atmospheric depth gradients */}
-                        <linearGradient id="redAreaSpline" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#f87171" stopOpacity="0.28" />
-                          <stop offset="60%" stopColor="#f87171" stopOpacity="0.08" />
-                          <stop offset="100%" stopColor="#f87171" stopOpacity="0.0" />
+                        <linearGradient id="whiteAreaSpline" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.12" />
+                          <stop offset="60%" stopColor="#ffffff" stopOpacity="0.04" />
+                          <stop offset="100%" stopColor="#ffffff" stopOpacity="0.0" />
                         </linearGradient>
                         <linearGradient id="limeAreaSpline" x1="0" y1="0" x2="0" y2="1">
                           <stop offset="0%" stopColor="#cbff00" stopOpacity="0.32" />
@@ -397,7 +423,7 @@ export default function ForecastsPage() {
 
                       {/* Continuous Smooth Area Fill under Status Quo */}
                       <path
-                        fill="url(#redAreaSpline)"
+                        fill="url(#whiteAreaSpline)"
                         d={getCubicAreaPath(
                           points.map((p, i) => ({ x: getX(i), y: getY(p.statusQuoKg) })),
                           chartBottom
@@ -413,21 +439,21 @@ export default function ForecastsPage() {
                         )}
                       />
 
-                      {/* Status Quo Cubic Spline Curve (Luminous Coral Red) */}
+                      {/* Status Quo Cubic Spline Curve (Apple Frosted White 45%) */}
                       <path
                         fill="none"
-                        stroke="#f87171"
-                        strokeWidth="3"
+                        stroke="rgba(255, 255, 255, 0.45)"
+                        strokeWidth="2.5"
+                        strokeDasharray="4 4"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        filter="url(#splineGlow)"
                         d={getCubicBezierPath(points.map((p, i) => ({ x: getX(i), y: getY(p.statusQuoKg) })))}
                       />
 
-                      {/* Planned Reductions Spline Curve (Warm Amber Dash) */}
+                      {/* Planned Reductions Spline Curve (Crisp Pure White) */}
                       <path
                         fill="none"
-                        stroke="#fbbf24"
+                        stroke="#ffffff"
                         strokeWidth="2.5"
                         strokeDasharray="6 4"
                         strokeLinecap="round"
@@ -583,10 +609,10 @@ export default function ForecastsPage() {
                       return (
                         <tr key={point.label} className="border-t border-surface-border/50 hover:bg-surface-elevated/40">
                           <th scope="row" className="p-3 text-cream font-bold">{point.label}</th>
-                          <td className="p-3 text-red-400">{point.statusQuoKg} kg</td>
-                          <td className="p-3 text-amber-300">{point.plannedKg} kg</td>
-                          <td className="p-3 text-lime">{point.netZeroKg} kg</td>
-                          <td className="p-3 text-lime font-bold">+{monthlySaved} kg</td>
+                          <td className="p-3 text-white/60">{point.statusQuoKg} kg</td>
+                          <td className="p-3 text-white">{point.plannedKg} kg</td>
+                          <td className="p-3 text-[#cbff00] font-bold">{point.netZeroKg} kg</td>
+                          <td className="p-3 text-[#cbff00] font-bold">+{monthlySaved} kg</td>
                         </tr>
                       );
                     })}
@@ -598,28 +624,28 @@ export default function ForecastsPage() {
 
           {/* Cumulative Scenario Comparison */}
           <div className="world-open-metrics grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
-            <Card className="p-5 glass-panel border border-red-500/30 space-y-1.5">
-              <div className="text-sage/70 font-semibold uppercase tracking-wider text-[10px]">Total Footprint (Do Nothing)</div>
-              <div className="text-2xl font-bold text-red-400 font-display">
+            <Card className="p-5 glass-panel border border-white/15 space-y-1.5">
+              <div className="text-white/60 font-semibold uppercase tracking-wider text-[10px]">Total Footprint (Do Nothing)</div>
+              <div className="text-2xl font-bold text-white/70 font-display">
                 {Math.round(cumulativeStatusQuo)} kg CO2e
               </div>
-              <div className="text-[11px] text-sage/60">If website assets and hosting remain unchanged as traffic scales</div>
+              <div className="text-[11px] text-white/50">If website assets and hosting remain unchanged as traffic scales</div>
             </Card>
 
-            <Card className="p-5 glass-panel border border-amber-400/30 space-y-1.5">
-              <div className="text-sage/70 font-semibold uppercase tracking-wider text-[10px]">Total Footprint (Code Clean-up)</div>
-              <div className="text-2xl font-bold text-amber-300 font-display">
+            <Card className="p-5 glass-panel border border-white/20 space-y-1.5">
+              <div className="text-white/80 font-semibold uppercase tracking-wider text-[10px]">Total Footprint (Code Clean-up)</div>
+              <div className="text-2xl font-bold text-white font-display">
                 {Math.round(cumulativePlanned)} kg CO2e
               </div>
-              <div className="text-[11px] text-sage/60">Achieved via image compression, script deferral, and tree-shaking</div>
+              <div className="text-[11px] text-white/60">Achieved via image compression, script deferral, and tree-shaking</div>
             </Card>
 
-            <Card className="p-5 glass-panel border border-lime/30 space-y-1.5">
-              <div className="text-sage/70 font-semibold uppercase tracking-wider text-[10px]">Total Footprint (Green Cloud)</div>
-              <div className="text-2xl font-bold text-lime font-display">
+            <Card className="p-5 glass-panel border border-[#cbff00]/40 space-y-1.5 shadow-[0_0_20px_rgba(203,255,0,0.1)]">
+              <div className="text-[#cbff00] font-semibold uppercase tracking-wider text-[10px]">Total Footprint (Green Cloud)</div>
+              <div className="text-2xl font-bold text-[#cbff00] font-display">
                 {Math.round(cumulativeNetZero)} kg CO2e
               </div>
-              <div className="text-[11px] text-sage/60">Maximum reduction via 100% renewable hosting and lean payloads</div>
+              <div className="text-[11px] text-white/70">Maximum reduction via 100% renewable hosting and lean payloads</div>
             </Card>
           </div>
         </>

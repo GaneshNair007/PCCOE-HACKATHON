@@ -247,8 +247,8 @@ print(res.json())`;
                   isSelected
                     ? "bg-black/20 text-black"
                     : ep.method === "POST"
-                    ? "bg-lime/10 text-lime border border-lime/30"
-                    : "bg-blue-500/10 text-blue-400 border border-blue-500/30"
+                    ? "bg-[#cbff00]/15 text-[#cbff00] border border-[#cbff00]/30"
+                    : "bg-white/10 text-white border border-white/20"
                 }`}
               >
                 {ep.method}
@@ -345,7 +345,7 @@ print(res.json())`;
                   className={`px-2 py-0.5 rounded text-xs font-bold font-mono ${
                     responseStatus >= 200 && responseStatus < 300
                       ? "bg-lime/20 text-lime border border-lime/40"
-                      : "bg-red-500/20 text-red-300 border border-red-500/40"
+                      : "bg-white/10 text-white border border-white/20"
                   }`}
                 >
                   {responseStatus} {responseStatus === 200 ? "OK" : "ERROR"}

@@ -14,6 +14,7 @@ import {
   Leaf,
   Check,
   CheckCircle2,
+  ChevronDown,
   ArrowRight,
   Sparkles,
   TrendingDown,
@@ -198,6 +199,7 @@ export default function SimulatorPage() {
   const [activePreset, setActivePreset] = useState<PresetId>("custom");
   const [customUrlInput, setCustomUrlInput] = useState<string>("");
   const [isAuditingCustom, setIsAuditingCustom] = useState<boolean>(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   // Simulation Sliders
   const [imgComp, setImgComp] = useState<number>(85);
@@ -470,34 +472,78 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
         description="Model the precise impact of asset compression, code-splitting, edge caching, and renewable hosting against real telemetry."
         actions={
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            {/* Domain Dropdown Selector with all Benchmarks */}
-            <select
-              aria-label="Select simulation baseline target"
-              onChange={(e) => handleSelectDomain(e.target.value)}
-              className="w-full sm:w-64 bg-white/[0.06] border border-white/20 text-xs px-4 py-2.5 rounded-2xl text-white backdrop-blur-2xl focus:outline-none focus:border-[#cbff00] cursor-pointer"
-              value={selectedAudit.domain}
-            >
-              <optgroup label="Enterprise Production Benchmarks">
-                {BENCHMARK_FLEET.map((b) => (
-                  <option key={b.domain} value={b.domain}>
-                    {b.domain} ({b.label.split(" ")[0]} · Grade {b.grade})
-                  </option>
-                ))}
-              </optgroup>
-              {recentAudits.filter(
-                (ra) => !BENCHMARK_FLEET.some((b) => b.domain.toLowerCase() === (ra.domain || "").toLowerCase())
-              ).length > 0 && (
-                <optgroup label="Your Monitored Audits">
-                  {recentAudits
-                    .filter((ra) => !BENCHMARK_FLEET.some((b) => b.domain.toLowerCase() === (ra.domain || "").toLowerCase()))
-                    .map((a: any) => (
-                      <option key={a.domain} value={a.domain}>
-                        {a.domain} (Grade {a.grade || a.eco_score || "B"})
-                      </option>
-                    ))}
-                </optgroup>
+            {/* Apple Cupertino Frosted Glass Domain Selector (No Native OS Blue) */}
+            <div className="relative w-full sm:w-64">
+              <button
+                type="button"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="w-full bg-white/[0.06] border border-white/20 text-xs px-4 py-2.5 rounded-2xl text-white backdrop-blur-2xl flex items-center justify-between gap-2 hover:border-[#cbff00] transition-colors cursor-pointer"
+              >
+                <span className="truncate">{selectedAudit.domain}</span>
+                <ChevronDown className={`w-3.5 h-3.5 text-white/60 transition-transform ${isDropdownOpen ? "rotate-180" : ""}`} />
+              </button>
+
+              {isDropdownOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setIsDropdownOpen(false)} />
+                  <div className="absolute left-0 right-0 top-full mt-2 z-50 bg-[#0d120c]/95 border border-white/15 rounded-2xl p-1.5 shadow-2xl backdrop-blur-3xl max-h-80 overflow-y-auto space-y-1">
+                    <div className="text-[10px] uppercase font-bold text-white/40 px-3 py-1">Enterprise Benchmarks</div>
+                    {BENCHMARK_FLEET.map((b) => {
+                      const isSelected = selectedAudit.domain.toLowerCase() === b.domain.toLowerCase();
+                      return (
+                        <button
+                          key={b.domain}
+                          type="button"
+                          onClick={() => {
+                            handleSelectDomain(b.domain);
+                            setIsDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors cursor-pointer ${
+                            isSelected
+                              ? "bg-[#cbff00]/15 text-[#cbff00] font-semibold"
+                              : "text-white/80 hover:bg-white/[0.08] hover:text-white"
+                          }`}
+                        >
+                          <span className="truncate">{b.domain} <span className="text-white/50 text-[11px]">({b.grade})</span></span>
+                          {isSelected && <Check className="w-3.5 h-3.5 text-[#cbff00]" />}
+                        </button>
+                      );
+                    })}
+
+                    {recentAudits.filter(
+                      (ra) => !BENCHMARK_FLEET.some((b) => b.domain.toLowerCase() === (ra.domain || "").toLowerCase())
+                    ).length > 0 && (
+                      <>
+                        <div className="text-[10px] uppercase font-bold text-white/40 px-3 pt-2 pb-1 border-t border-white/10 mt-1">Your Monitored Audits</div>
+                        {recentAudits
+                          .filter((ra) => !BENCHMARK_FLEET.some((b) => b.domain.toLowerCase() === (ra.domain || "").toLowerCase()))
+                          .map((a: any) => {
+                            const isSelected = selectedAudit.domain.toLowerCase() === a.domain.toLowerCase();
+                            return (
+                              <button
+                                key={a.domain}
+                                type="button"
+                                onClick={() => {
+                                  handleSelectDomain(a.domain);
+                                  setIsDropdownOpen(false);
+                                }}
+                                className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors cursor-pointer ${
+                                  isSelected
+                                    ? "bg-[#cbff00]/15 text-[#cbff00] font-semibold"
+                                    : "text-white/80 hover:bg-white/[0.08] hover:text-white"
+                                }`}
+                              >
+                                <span className="truncate">{a.domain} <span className="text-white/50 text-[11px]">({a.grade || "B"})</span></span>
+                                {isSelected && <Check className="w-3.5 h-3.5 text-[#cbff00]" />}
+                              </button>
+                            );
+                          })}
+                      </>
+                    )}
+                  </div>
+                </>
               )}
-            </select>
+            </div>
 
             {/* Custom Domain Simulator Input */}
             <form onSubmit={handleCustomAudit} className="flex items-center gap-2">
@@ -593,7 +639,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
             </div>
             <div className="border-l border-white/15 pl-4 sm:pl-6">
               <span className="text-white/50 block text-[11px] uppercase font-semibold">Baseline CO2</span>
-              <span className="text-amber-400 font-bold text-sm sm:text-base font-mono">{baselineCo2} gCO2e</span>
+              <span className="text-[#cbff00] font-bold text-sm sm:text-base font-mono">{baselineCo2} gCO2e</span>
             </div>
             <div className="border-l border-white/15 pl-4 sm:pl-6">
               <span className="text-white/50 block text-[11px] uppercase font-semibold">Grid Factor</span>
@@ -651,17 +697,17 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
             </div>
 
             {/* Lever 1: Image Compression */}
-            <div className="p-5 rounded-2xl bg-white/[0.04] border border-amber-500/30 space-y-3">
+            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/15 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs sm:text-sm font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                  <ImageIcon className="w-4 h-4 text-amber-400 shrink-0" />
+                <span className="text-xs sm:text-sm font-semibold text-white uppercase tracking-wider flex items-center gap-2">
+                  <ImageIcon className="w-4 h-4 text-[#cbff00] shrink-0" />
                   Image Compression &amp; WebP
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 font-mono text-xs font-bold">
+                <span className="px-2.5 py-1 rounded-lg bg-[#cbff00]/15 text-[#cbff00] font-mono text-xs font-bold border border-[#cbff00]/30">
                   {imgComp}%
                 </span>
               </div>
-              <p className="text-xs text-white/70 leading-relaxed">
+              <p className="text-xs text-white/70 leading-relaxed font-sans">
                 Convert uncompressed raster graphics into modern WebP/AVIF formats with responsive dimensions.
               </p>
               <input
@@ -675,7 +721,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                   setImgComp(Number(e.target.value));
                   setActivePreset("custom");
                 }}
-                className="w-full accent-amber-400 bg-black/60 h-2.5 rounded-lg cursor-pointer"
+                className="w-full accent-[#cbff00] bg-black/60 h-2.5 rounded-lg cursor-pointer"
               />
               <div className="flex justify-between text-[11px] text-white/50 font-sans">
                 <span>0% (Raw Baseline)</span>
@@ -684,17 +730,17 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
             </div>
 
             {/* Lever 2: Script Deferral */}
-            <div className="p-5 rounded-2xl bg-white/[0.04] border border-cyan-500/30 space-y-3">
+            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/15 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs sm:text-sm font-semibold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-                  <FileCode className="w-4 h-4 text-cyan-400 shrink-0" />
+                <span className="text-xs sm:text-sm font-semibold text-white uppercase tracking-wider flex items-center gap-2">
+                  <FileCode className="w-4 h-4 text-[#cbff00] shrink-0" />
                   JavaScript Bundle &amp; Deferral
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 font-mono text-xs font-bold">
+                <span className="px-2.5 py-1 rounded-lg bg-[#cbff00]/15 text-[#cbff00] font-mono text-xs font-bold border border-[#cbff00]/30">
                   {jsDefer}%
                 </span>
               </div>
-              <p className="text-xs text-white/70 leading-relaxed">
+              <p className="text-xs text-white/70 leading-relaxed font-sans">
                 Dynamic code-splitting of heavy charting components and deferral of non-critical analytics.
               </p>
               <input
@@ -708,7 +754,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                   setJsDefer(Number(e.target.value));
                   setActivePreset("custom");
                 }}
-                className="w-full accent-cyan-400 bg-black/60 h-2.5 rounded-lg cursor-pointer"
+                className="w-full accent-[#cbff00] bg-black/60 h-2.5 rounded-lg cursor-pointer"
               />
               <div className="flex justify-between text-[11px] text-white/50 font-sans">
                 <span>0% (Synchronous)</span>
@@ -717,17 +763,17 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
             </div>
 
             {/* Lever 3: Cache Retention */}
-            <div className="p-5 rounded-2xl bg-white/[0.04] border border-violet-500/30 space-y-3">
+            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/15 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs sm:text-sm font-semibold text-violet-400 uppercase tracking-wider flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-violet-400 shrink-0" />
+                <span className="text-xs sm:text-sm font-semibold text-white uppercase tracking-wider flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-[#cbff00] shrink-0" />
                   Browser Cache Duration (TTL)
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-violet-500/20 text-violet-300 font-mono text-xs font-bold">
+                <span className="px-2.5 py-1 rounded-lg bg-[#cbff00]/15 text-[#cbff00] font-mono text-xs font-bold border border-[#cbff00]/30">
                   {cacheTtl} Days
                 </span>
               </div>
-              <p className="text-xs text-white/70 leading-relaxed">
+              <p className="text-xs text-white/70 leading-relaxed font-sans">
                 Duration repeat visitors retain static bundles in local cache without re-downloading across the wire.
               </p>
               <input
@@ -741,7 +787,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                   setCacheTtl(Number(e.target.value));
                   setActivePreset("custom");
                 }}
-                className="w-full accent-violet-400 bg-black/60 h-2.5 rounded-lg cursor-pointer"
+                className="w-full accent-[#cbff00] bg-black/60 h-2.5 rounded-lg cursor-pointer"
               />
               <div className="flex justify-between text-[11px] text-white/50 font-sans">
                 <span>1 Day</span>
@@ -750,13 +796,13 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
             </div>
 
             {/* Lever 4: Renewable Green Hosting */}
-            <div className="p-5 rounded-2xl bg-white/[0.04] border border-emerald-500/30 flex items-center justify-between gap-4">
+            <div className="p-5 rounded-2xl bg-white/[0.04] border border-[#cbff00]/30 flex items-center justify-between gap-4">
               <div className="space-y-1">
-                <span className="text-xs sm:text-sm font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-                  <Leaf className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span className="text-xs sm:text-sm font-semibold text-[#cbff00] uppercase tracking-wider flex items-center gap-2">
+                  <Leaf className="w-4 h-4 text-[#cbff00] shrink-0" />
                   100% Renewable Cloud Grid
                 </span>
-                <p className="text-xs text-white/70 leading-relaxed">
+                <p className="text-xs text-white/70 leading-relaxed font-sans">
                   Route edge servers through certified solar/wind datacenters (-28% operational grid factor).
                 </p>
               </div>

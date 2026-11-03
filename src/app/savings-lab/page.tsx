@@ -68,9 +68,9 @@ const PATCH_CATALOG: PatchItem[] = [
     categoryLabel: "Hero Graphic",
     badgeLabel: "Critical Hotspot",
     icon: ImageIcon,
-    accentColor: "text-amber-400",
-    borderColor: "border-amber-500/40",
-    bgActive: "bg-amber-500/15",
+    accentColor: "text-[#cbff00]",
+    borderColor: "border-[#cbff00]/40",
+    bgActive: "bg-[#cbff00]/15",
     title: "First-Party Image Optimization Patch",
     rule: "responsive_webp_conversion",
     className: "Image Component Refactor",
@@ -126,9 +126,9 @@ const PATCH_CATALOG: PatchItem[] = [
     categoryLabel: "JavaScript",
     badgeLabel: "Runtime",
     icon: FileCode,
-    accentColor: "text-cyan-400",
-    borderColor: "border-cyan-500/40",
-    bgActive: "bg-cyan-500/15",
+    accentColor: "text-white",
+    borderColor: "border-white/20",
+    bgActive: "bg-white/10",
     title: "Client Bundle Code-Splitting & Script Deferral",
     rule: "dynamic_import_code_splitting",
     className: "Client Bundle Optimization",
@@ -178,9 +178,9 @@ export function AnalyticsProvider() {
     categoryLabel: "CSS Styles",
     badgeLabel: "Styles",
     icon: Palette,
-    accentColor: "text-violet-400",
-    borderColor: "border-violet-500/40",
-    bgActive: "bg-violet-500/15",
+    accentColor: "text-white",
+    borderColor: "border-white/20",
+    bgActive: "bg-white/10",
     title: "Dead-Code Elimination & CSS Layers",
     rule: "critical_css_purge_and_inline",
     className: "Style Sheet Architecture",
@@ -527,8 +527,8 @@ function SavingsLabContent() {
       {isLoading && <p role="status" className="rounded-2xl bg-surface p-4 text-sm text-sage">Loading the experiment and recorded baseline…</p>}
 
       {errorMessage && (
-        <div role="alert" className="p-4 rounded-2xl bg-red-950/40 border border-red-500/40 text-red-200 text-xs font-mono flex items-start gap-3">
-          <AlertTriangle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+        <div role="alert" className="p-4 rounded-2xl bg-white/[0.04] border border-white/20 text-white/90 text-xs font-mono flex items-start gap-3 backdrop-blur-2xl">
+          <AlertTriangle className="w-4 h-4 text-[#cbff00] shrink-0 mt-0.5" />
           <div>
             <div className="font-bold uppercase">Workflow notice</div>
             <div>{errorMessage}</div>
@@ -591,8 +591,8 @@ function SavingsLabContent() {
                       Observed breakdown of 2,450.0 KB initial wire transfer across asset categories.
                     </p>
                   </div>
-                  <div className="px-4 py-2.5 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono text-xs sm:text-sm font-bold flex items-center gap-2 self-start sm:self-auto shrink-0 shadow-lg">
-                    <Layers className="w-4 h-4 text-amber-400" />
+                  <div className="px-4 py-2.5 rounded-2xl bg-[#cbff00]/15 border border-[#cbff00]/40 text-[#cbff00] font-mono text-xs sm:text-sm font-bold flex items-center gap-2 self-start sm:self-auto shrink-0 shadow-lg">
+                    <Layers className="w-4 h-4 text-[#cbff00]" />
                     <span>Outlier: Hero Graphic (98.8%)</span>
                   </div>
                 </div>
@@ -602,7 +602,7 @@ function SavingsLabContent() {
                   <div className="w-full h-10 sm:h-11 rounded-2xl bg-black/60 border border-white/15 p-1.5 flex items-center gap-2 shadow-2xl backdrop-blur-xl relative overflow-hidden">
                     {/* Hero Graphic Segment - Dominant Hotspot */}
                     <div
-                      className="flex-[98.8] h-full rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 shadow-[0_0_20px_rgba(249,115,22,0.35)] flex items-center justify-between px-4 text-xs sm:text-sm font-bold text-white transition-all overflow-hidden"
+                      className="flex-[98.8] h-full rounded-xl bg-[#cbff00] text-black shadow-[0_0_20px_rgba(203,255,0,0.35)] flex items-center justify-between px-4 text-xs sm:text-sm font-bold transition-all overflow-hidden"
                       title="Hero Graphic: 2,420 KB (98.8% of Total Payload)"
                     >
                       <span className="font-sans font-bold truncate pr-2">Hero Graphic</span>
@@ -611,7 +611,7 @@ function SavingsLabContent() {
 
                     {/* JavaScript Bundle Segment */}
                     <div
-                      className="min-w-[62px] sm:min-w-[76px] h-full rounded-xl bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.3)] flex items-center justify-center text-xs font-mono font-black text-black transition-all hover:scale-105 cursor-default shrink-0"
+                      className="min-w-[62px] sm:min-w-[76px] h-full rounded-xl bg-white/20 shadow-[0_0_12px_rgba(255,255,255,0.2)] flex items-center justify-center text-xs font-mono font-black text-white transition-all hover:scale-105 cursor-default shrink-0"
                       title="JavaScript: 18 KB (0.7% of Total Payload)"
                     >
                       JS · 18K
@@ -619,7 +619,7 @@ function SavingsLabContent() {
 
                     {/* Stylesheets Segment */}
                     <div
-                      className="min-w-[58px] sm:min-w-[70px] h-full rounded-xl bg-violet-400 shadow-[0_0_12px_rgba(167,139,250,0.3)] flex items-center justify-center text-xs font-mono font-black text-black transition-all hover:scale-105 cursor-default shrink-0"
+                      className="min-w-[58px] sm:min-w-[70px] h-full rounded-xl bg-white/15 shadow-[0_0_12px_rgba(255,255,255,0.15)] flex items-center justify-center text-xs font-mono font-black text-white transition-all hover:scale-105 cursor-default shrink-0"
                       title="CSS Stylesheets: 8 KB (0.3% of Total Payload)"
                     >
                       CSS · 8K
@@ -627,7 +627,7 @@ function SavingsLabContent() {
 
                     {/* HTML Markup Segment */}
                     <div
-                      className="min-w-[58px] sm:min-w-[70px] h-full rounded-xl bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.3)] flex items-center justify-center text-xs font-mono font-black text-black transition-all hover:scale-105 cursor-default shrink-0"
+                      className="min-w-[58px] sm:min-w-[70px] h-full rounded-xl bg-white/10 shadow-[0_0_12px_rgba(255,255,255,0.1)] flex items-center justify-center text-xs font-mono font-black text-white transition-all hover:scale-105 cursor-default shrink-0"
                       title="HTML Markup: 4 KB (0.2% of Total Payload)"
                     >
                       DOM · 4K
@@ -638,21 +638,21 @@ function SavingsLabContent() {
                 {/* Cupertino Asset Category Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
                   {/* Card 1: Hero Banner */}
-                  <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-amber-500/10 via-black/40 to-black/60 border border-amber-500/40 shadow-xl space-y-3 relative overflow-hidden flex flex-col justify-between">
+                  <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-[#cbff00]/15 via-black/40 to-black/60 border border-[#cbff00]/40 shadow-xl space-y-3 relative overflow-hidden flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="text-xs sm:text-sm font-semibold text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                          <ImageIcon className="w-4 h-4 text-amber-400 shrink-0" />
+                        <span className="text-xs sm:text-sm font-semibold text-[#cbff00] uppercase tracking-wider flex items-center gap-2">
+                          <ImageIcon className="w-4 h-4 text-[#cbff00] shrink-0" />
                           Hero Graphic
                         </span>
-                        <span className="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 font-sans text-xs font-semibold">
+                        <span className="px-2 py-0.5 rounded-lg bg-[#cbff00]/20 text-[#cbff00] font-sans text-xs font-semibold">
                           Hotspot
                         </span>
                       </div>
                       <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white mt-3">
                         2,420 <span className="text-sm font-normal text-white/60">KB</span>
                       </div>
-                      <div className="text-xs sm:text-sm text-amber-300 font-bold mt-1">
+                      <div className="text-xs sm:text-sm text-[#cbff00] font-bold mt-1">
                         98.8% of wire transfer
                       </div>
                       <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed mt-2">
@@ -665,7 +665,7 @@ function SavingsLabContent() {
                         setSelectedPatchCategory("image");
                         setCurrentStep(2);
                       }}
-                      className="mt-3 w-full py-2.5 px-3 rounded-xl bg-amber-400 text-black font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-amber-300 transition-colors cursor-pointer shadow-md"
+                      className="mt-3 w-full py-2.5 px-3 rounded-xl bg-[#cbff00] text-black font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-[#e4ff66] transition-colors cursor-pointer shadow-md"
                     >
                       <span>Inspect Hero Fix (-92.7%)</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -673,11 +673,11 @@ function SavingsLabContent() {
                   </div>
 
                   {/* Card 2: JavaScript */}
-                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-cyan-400/30 transition-colors flex flex-col justify-between">
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-white/25 transition-colors flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="text-xs sm:text-sm font-semibold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
-                          <FileCode className="w-4 h-4 text-cyan-400 shrink-0" />
+                        <span className="text-xs sm:text-sm font-semibold text-white uppercase tracking-wider flex items-center gap-2">
+                          <FileCode className="w-4 h-4 text-white/70 shrink-0" />
                           JavaScript
                         </span>
                         <span className="text-xs text-white/50">Runtime</span>
@@ -685,7 +685,7 @@ function SavingsLabContent() {
                       <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white mt-3">
                         18.0 <span className="text-sm font-normal text-white/60">KB</span>
                       </div>
-                      <div className="text-xs sm:text-sm text-cyan-400 font-medium mt-1">
+                      <div className="text-xs sm:text-sm text-white/70 font-medium mt-1">
                         0.7% of wire transfer
                       </div>
                       <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed mt-2">
@@ -698,7 +698,7 @@ function SavingsLabContent() {
                         setSelectedPatchCategory("javascript");
                         setCurrentStep(2);
                       }}
-                      className="mt-3 w-full py-2.5 px-3 rounded-xl bg-white/[0.06] text-cyan-300 border border-cyan-400/30 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-cyan-950/40 transition-colors cursor-pointer"
+                      className="mt-3 w-full py-2.5 px-3 rounded-xl bg-white/[0.06] text-white border border-white/20 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-white/10 transition-colors cursor-pointer"
                     >
                       <span>Inspect JS Fix (-66.7%)</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -706,11 +706,11 @@ function SavingsLabContent() {
                   </div>
 
                   {/* Card 3: CSS Stylesheets */}
-                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-violet-400/30 transition-colors flex flex-col justify-between">
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-white/25 transition-colors flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="text-xs sm:text-sm font-semibold text-violet-400 uppercase tracking-wider flex items-center gap-2">
-                          <Palette className="w-4 h-4 text-violet-400 shrink-0" />
+                        <span className="text-xs sm:text-sm font-semibold text-white uppercase tracking-wider flex items-center gap-2">
+                          <Palette className="w-4 h-4 text-white/70 shrink-0" />
                           CSS Styles
                         </span>
                         <span className="text-xs text-white/50">Styles</span>
@@ -718,7 +718,7 @@ function SavingsLabContent() {
                       <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white mt-3">
                         8.0 <span className="text-sm font-normal text-white/60">KB</span>
                       </div>
-                      <div className="text-xs sm:text-sm text-violet-400 font-medium mt-1">
+                      <div className="text-xs sm:text-sm text-white/70 font-medium mt-1">
                         0.3% of wire transfer
                       </div>
                       <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed mt-2">
@@ -731,7 +731,7 @@ function SavingsLabContent() {
                         setSelectedPatchCategory("css");
                         setCurrentStep(2);
                       }}
-                      className="mt-3 w-full py-2.5 px-3 rounded-xl bg-white/[0.06] text-violet-300 border border-violet-400/30 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-violet-950/40 transition-colors cursor-pointer"
+                      className="mt-3 w-full py-2.5 px-3 rounded-xl bg-white/[0.06] text-white border border-white/20 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-white/10 transition-colors cursor-pointer"
                     >
                       <span>Inspect CSS Fix (-68.8%)</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -739,11 +739,11 @@ function SavingsLabContent() {
                   </div>
 
                   {/* Card 4: HTML Document */}
-                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-emerald-400/30 transition-colors flex flex-col justify-between">
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 shadow-lg space-y-3 hover:border-white/25 transition-colors flex flex-col justify-between">
                     <div>
                       <div className="flex items-center justify-between">
-                        <span className="text-xs sm:text-sm font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-                          <Code2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span className="text-xs sm:text-sm font-semibold text-white uppercase tracking-wider flex items-center gap-2">
+                          <Code2 className="w-4 h-4 text-white/70 shrink-0" />
                           HTML / CDN
                         </span>
                         <span className="text-xs text-white/50">Markup</span>
@@ -789,14 +789,14 @@ function SavingsLabContent() {
 
                 <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
                   {/* Left: Baseline Asset */}
-                  <div className="md:col-span-5 p-5 sm:p-6 rounded-2xl bg-black/40 border border-amber-500/30 space-y-3 font-mono">
+                  <div className="md:col-span-5 p-5 sm:p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/15 space-y-3 font-mono">
                     <div className="flex justify-between items-center text-xs sm:text-sm">
-                      <span className="text-amber-400 font-bold uppercase tracking-wider">Unoptimized Baseline</span>
+                      <span className="text-white/80 font-bold uppercase tracking-wider">Unoptimized Baseline</span>
                       <span className="text-white/60">Raw JPEG</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-16 h-12 rounded-xl overflow-hidden border border-white/20 bg-black/60 shrink-0 relative flex items-center justify-center">
-                        <ImageIcon className="w-6 h-6 text-amber-400/40 absolute" />
+                        <ImageIcon className="w-6 h-6 text-white/40 absolute" />
                         <img 
                           src="/demo/assets/hero-banner-large.jpg" 
                           alt="Baseline Preview" 
@@ -815,7 +815,7 @@ function SavingsLabContent() {
                       </div>
                       <div className="text-right">
                         <div className="text-xs text-white/60">Carbon Footprint</div>
-                        <div className="text-sm sm:text-base font-bold text-amber-400 mt-0.5">0.296 gCO2e / visit</div>
+                        <div className="text-sm sm:text-base font-bold text-white mt-0.5">0.296 gCO2e / visit</div>
                       </div>
                     </div>
                   </div>
@@ -1067,11 +1067,11 @@ function SavingsLabContent() {
                       {/* Original JPEG */}
                       <div className="space-y-2">
                         <div className="flex justify-between items-center text-xs text-white/70">
-                          <span className="font-bold text-amber-400">BASELINE UNCOMPRESSED JPEG</span>
+                          <span className="font-bold text-white">BASELINE UNCOMPRESSED JPEG</span>
                           <span>2.42 MB on wire</span>
                         </div>
                         <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
-                          <ImageIcon className="w-10 h-10 text-amber-400/30 absolute" />
+                          <ImageIcon className="w-10 h-10 text-white/30 absolute" />
                           <img
                             src="/demo/assets/hero-banner-large.jpg"
                             alt="Production Baseline Hero (2.42 MB)"
@@ -1117,11 +1117,11 @@ function SavingsLabContent() {
                   ) : (
                     <div className="space-y-2 pt-1">
                       <div className="flex justify-between items-center text-xs text-white/70">
-                        <span className="font-bold text-amber-400">ORIGINAL UNCOMPRESSED JPEG</span>
+                        <span className="font-bold text-white">ORIGINAL UNCOMPRESSED JPEG</span>
                         <span>2.42 MB / Heavy Payload Hotspot</span>
                       </div>
                       <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
-                        <ImageIcon className="w-10 h-10 text-amber-400/30 absolute" />
+                        <ImageIcon className="w-10 h-10 text-white/30 absolute" />
                         <img
                           src="/demo/assets/hero-banner-large.jpg"
                           alt="Production Baseline Hero"
@@ -1374,12 +1374,12 @@ function SavingsLabContent() {
             </div>
 
             {/* Option 2: The Broken Candidate (The Memorable Guardrail Proof) */}
-            <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-amber-500/40 backdrop-blur-xl space-y-4 hover:border-amber-400 transition-all shadow-xl">
+            <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/20 backdrop-blur-xl space-y-4 hover:border-white/40 transition-all shadow-xl">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <span className="text-xs font-semibold uppercase tracking-widest text-amber-300">
+                <span className="text-xs font-semibold uppercase tracking-widest text-white/70">
                   Signature Task Guardrail
                 </span>
-                <span className="text-xs sm:text-sm font-mono text-amber-300 font-bold">Flawed Refactor</span>
+                <span className="text-xs sm:text-sm font-mono text-white/80 font-bold">Flawed Refactor</span>
               </div>
               <h3 className="font-display text-2xl font-bold text-white">
                 Test Broken Candidate (Demonstrate Rejection)
@@ -1393,9 +1393,9 @@ function SavingsLabContent() {
                 onClick={() => handleTestCandidate("broken")}
                 isLoading={isTesting && testVariant === "broken"}
                 disabled={isTesting}
-                className="w-full h-auto min-h-12 py-3.5 whitespace-normal font-semibold text-sm tracking-wide border-amber-500/40 text-amber-300 hover:bg-amber-950/40 cursor-pointer"
+                className="w-full h-auto min-h-12 py-3.5 whitespace-normal font-semibold text-sm tracking-wide border-white/20 text-white hover:bg-white/10 cursor-pointer"
               >
-                <AlertTriangle className="w-4 h-4 mr-2 text-amber-400" />
+                <AlertTriangle className="w-4 h-4 mr-2 text-white/70" />
                 VERIFY BROKEN CANDIDATE
               </Button>
             </div>
@@ -1406,15 +1406,15 @@ function SavingsLabContent() {
             <div aria-live="polite" className="relative z-10 pt-6 border-t border-white/10 space-y-6">
               {/* Rejection / Pass Banner */}
               {verification.outcome === "functional_checks_failed" ? (
-                <div className="p-6 rounded-2xl bg-red-950/60 border border-red-500/60 text-red-200 space-y-3 font-mono shadow-xl backdrop-blur-xl">
-                  <div className="flex items-center gap-3 text-red-400 font-bold text-lg uppercase">
-                    <XCircle className="w-6 h-6 shrink-0" />
+                <div className="p-6 rounded-2xl bg-white/[0.04] border border-white/20 text-white space-y-3 font-mono shadow-xl backdrop-blur-xl">
+                  <div className="flex items-center gap-3 text-white font-bold text-lg uppercase">
+                    <XCircle className="w-6 h-6 text-white/60 shrink-0" />
                     <span>Candidate Rejected: Task Preservation Assertion Failed</span>
                   </div>
-                  <p className="text-sm text-red-200 font-sans leading-relaxed">
+                  <p className="text-sm text-white/80 font-sans leading-relaxed">
                     Although total transfer bytes dropped significantly ({Math.round(verification.candidateMedianBytes / 1024)} KB vs {Math.round(verification.baselineMedianBytes / 1024)} KB), the candidate failed required journey assertion: <strong>#registration-success (form submission reached confirmation)</strong>.
                   </p>
-                  <div className="text-xs text-red-300 pt-1 font-bold uppercase tracking-wider">
+                  <div className="text-xs text-white/60 pt-1 font-bold uppercase tracking-wider">
                     Core Rule: Sustainability progress cannot be claimed by breaking user functionality.
                   </div>
                 </div>
@@ -1464,14 +1464,14 @@ function SavingsLabContent() {
                         {verification.functionalChecksPassed ? (
                           <span className="text-[#cbff00] font-bold">PASSED</span>
                         ) : (
-                          <span className="text-red-400 font-bold">FAILED</span>
+                          <span className="text-white/60 font-bold">FAILED</span>
                         )}
                       </td>
                       <td className="p-4 sm:p-5 font-bold">
                         {verification.outcome === "observed_improvement" ? (
                           <span className="text-[#cbff00] font-bold">PASSED</span>
                         ) : (
-                          <span className="text-red-400 font-bold">REJECTED</span>
+                          <span className="text-white/60 font-bold">REJECTED</span>
                         )}
                       </td>
                     </tr>

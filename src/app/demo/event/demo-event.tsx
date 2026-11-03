@@ -107,7 +107,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
               alt="Production Web Architecture 2026 Banner"
               className="w-full h-72 sm:h-96 object-cover"
             />
-            <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-black/80 border border-yellow-500/50 text-[10px] font-mono text-yellow-300">
+            <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-black/80 border border-white/20 text-[10px] font-mono text-white/90">
               Unoptimized First-Party Asset (~2.4 MB JPEG)
             </div>
           </div>
@@ -137,7 +137,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
         )}
 
         {variant === "broken" && (
-          <div className="h-48 flex items-center justify-center bg-black/40 text-red-400 font-mono text-xs p-6 text-center">
+          <div className="h-48 flex items-center justify-center bg-black/40 text-white/60 font-mono text-xs p-6 text-center">
             [Image stripped in broken candidate to artificially reduce bytes]
           </div>
         )}
@@ -166,7 +166,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
                 Go to registration form <ArrowRight className="w-3.5 h-3.5" />
               </a>
             ) : (
-              <div className="p-3 rounded-xl bg-red-950/40 border border-red-500/40 text-red-300 text-xs font-mono">
+              <div className="p-3 rounded-xl bg-white/5 border border-white/15 text-white/70 text-xs font-mono">
                 [Registration CTA intentionally missing in broken variant]
               </div>
             )}
@@ -264,9 +264,9 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
                 <div
                   id="registration-error"
                   role="alert"
-                  className="p-3 rounded-xl bg-red-950/50 border border-red-500/40 text-red-300 text-xs font-mono flex items-center gap-2"
+                  className="p-3 rounded-xl bg-white/5 border border-white/20 text-white/90 text-xs font-mono flex items-center gap-2"
                 >
-                  <AlertTriangle className="w-4 h-4 shrink-0" /> {submitError}
+                  <AlertTriangle className="w-4 h-4 text-[#cbff00] shrink-0" /> {submitError}
                 </div>
               )}
 
@@ -286,10 +286,10 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
       ) : (
         <div
           id="broken-registration-notice"
-          className="p-6 rounded-2xl bg-red-950/40 border border-red-500/40 text-red-300 font-mono text-xs space-y-2"
+          className="p-6 rounded-2xl bg-white/5 border border-white/20 text-white/80 font-mono text-xs space-y-2"
         >
-          <div className="font-bold flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-red-400" /> BROKEN CANDIDATE VARIANT ACTIVE
+          <div className="font-bold flex items-center gap-2 text-white">
+            <AlertTriangle className="w-4 h-4 text-[#cbff00]" /> BROKEN CANDIDATE VARIANT ACTIVE
           </div>
           <p>
             The registration form has been broken/disabled in this candidate. While this reduces page transfer bytes,

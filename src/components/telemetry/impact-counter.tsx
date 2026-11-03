@@ -11,7 +11,7 @@ export function ImpactCounter({ impact }: ImpactCounterProps) {
     <div className="space-y-2.5">
       <div className="flex items-center justify-between p-3 rounded-2xl bg-surface/60 border border-surface-border">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-xl bg-forest-900/80 text-emerald-400">
+          <div className="p-2 rounded-xl bg-forest-900/80 text-[#cbff00]">
             <Trees className="w-4 h-4" />
           </div>
           <div>
@@ -39,7 +39,7 @@ export function ImpactCounter({ impact }: ImpactCounterProps) {
 
       <div className="flex items-center justify-between p-3 rounded-2xl bg-surface/60 border border-surface-border">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-xl bg-forest-900/80 text-amber-300">
+          <div className="p-2 rounded-xl bg-forest-900/80 text-white">
             <Compass className="w-4 h-4" />
           </div>
           <div>

@@ -33,10 +33,10 @@ export function GitDiffViewer({
             key={idx}
             className={`px-3 py-1 rounded flex items-center gap-3 ${
               line.type === "remove"
-                ? "bg-red-950/40 text-red-400 border-l-2 border-red-500"
+                ? "bg-white/5 text-white/50 border-l-2 border-white/20"
                 : line.type === "add"
-                ? "bg-emerald-950/40 text-emerald-400 border-l-2 border-emerald-500"
-                : "text-sage/70"
+                ? "bg-[#cbff00]/10 text-[#cbff00] border-l-2 border-[#cbff00]"
+                : "text-white/70"
             }`}
           >
             <span className="select-none text-sage/75 w-4">

@@ -149,7 +149,7 @@ function EvidenceContent() {
       {/* Error or Missing Verification Prompt */}
       {errorMessage && !receipt && (
         <Card role="status" aria-live="polite" className="world-pending p-8 space-y-4">
-          <AlertTriangle className="w-10 h-10 text-amber-400 mx-auto" />
+          <AlertTriangle className="w-10 h-10 text-white/60 mx-auto" />
           <h2 className="font-display text-2xl text-cream">Verification pending</h2>
           <p className="text-sm font-mono text-sage/80 max-w-lg mx-auto">
             {errorMessage}
@@ -253,8 +253,8 @@ function EvidenceContent() {
                     </>
                   ) : (
                     <>
-                      <XCircle className="w-8 h-8 sm:w-10 sm:h-10 text-red-400 shrink-0" />
-                      <span className="text-red-400">Failed</span>
+                      <XCircle className="w-8 h-8 sm:w-10 sm:h-10 text-white/50 shrink-0" />
+                      <span className="text-white/60">Failed</span>
                     </>
                   )}
                 </div>
@@ -304,7 +304,7 @@ function EvidenceContent() {
                         {receipt.functionalAssertions.allPassed ? (
                           <span className="text-[#cbff00] font-bold">PASSED</span>
                         ) : (
-                          <span className="text-red-400 font-bold">FAILED</span>
+                          <span className="text-white/60 font-bold">FAILED</span>
                         )}
                       </td>
                     </tr>

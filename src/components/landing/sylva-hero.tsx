@@ -303,7 +303,7 @@ export function SylvaHero({
 
               {/* Error notification */}
               {errorMessage && (
-                <div role="alert" className="text-[11px] font-mono text-red-400 pt-1">
+                <div role="alert" className="text-[11px] font-mono text-white/80 pt-1">
                   {errorMessage}
                 </div>
               )}

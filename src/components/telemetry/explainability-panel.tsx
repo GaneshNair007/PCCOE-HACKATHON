@@ -211,7 +211,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
                   </div>
                   <div className="text-right">
                     <span className="text-sage/80 block text-xs uppercase">Upper Bound (Cold Cache)</span>
-                    <span className="text-amber-400 font-bold text-sm">{auditData.range_high_g} g CO2e</span>
+                    <span className="text-white/90 font-bold text-sm">{auditData.range_high_g} g CO2e</span>
                   </div>
                 </div>
               </div>

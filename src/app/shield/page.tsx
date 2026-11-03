@@ -209,10 +209,10 @@ jobs:
         {/* 3 Real Execution Triggers */}
         <div className="world-budget-tests grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
           {/* Trigger 1: Baseline (Demonstrates Strict Budget Failure) */}
-          <div className="p-4 rounded-xl bg-surface/50 border border-red-500/30 space-y-3">
+          <div className="p-4 rounded-xl bg-white/[0.04] border border-white/15 space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <span className="text-red-400 font-bold uppercase text-[10px]">Test 1: Regression</span>
-              <Badge variant="outline" className="text-[10px] text-red-400 border-red-500/30">
+              <span className="text-white/60 font-bold uppercase text-[10px]">Test 1: Regression</span>
+              <Badge variant="outline" className="text-[10px] text-white/60 border-white/20">
                 Breach Demo
               </Badge>
             </div>
@@ -226,17 +226,17 @@ jobs:
               onClick={() => handleRunEvaluation("baseline")}
               isLoading={isEvaluating && evalVariant === "baseline"}
               disabled={isEvaluating}
-              className="w-full font-bold text-red-300 border-red-500/40 hover:bg-red-950/40"
+              className="w-full font-bold text-white border-white/20 hover:bg-white/10"
             >
-              <Play className="w-3.5 h-3.5 mr-1 text-red-400" />
+              <Play className="w-3.5 h-3.5 mr-1 text-white/60" />
               Run baseline (breach)
             </Button>
           </div>
 
           {/* Trigger 2: Optimized Candidate (Demonstrates CI Pass) */}
-          <div className="p-4 rounded-xl bg-surface/50 border border-lime/40 space-y-3">
+          <div className="p-4 rounded-xl bg-white/[0.04] border border-[#cbff00]/40 space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <span className="text-lime font-bold uppercase text-[10px]">Test 2: Candidate</span>
+              <span className="text-[#cbff00] font-bold uppercase text-[10px]">Test 2: Candidate</span>
               <Badge variant="lime" className="text-[10px] font-bold">
                 Pass Demo
               </Badge>
@@ -259,10 +259,10 @@ jobs:
           </div>
 
           {/* Trigger 3: Broken Candidate (Demonstrates Functional Rejection) */}
-          <div className="p-4 rounded-xl bg-surface/50 border border-amber-500/30 space-y-3">
+          <div className="p-4 rounded-xl bg-white/[0.04] border border-white/15 space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <span className="text-amber-300 font-bold uppercase text-[10px]">Test 3: Broken Flow</span>
-              <Badge variant="outline" className="text-[10px] text-amber-300 border-amber-500/30">
+              <span className="text-white font-bold uppercase text-[10px]">Test 3: Broken Flow</span>
+              <Badge variant="outline" className="text-[10px] text-white/80 border-white/20">
                 Assertion Demo
               </Badge>
             </div>
@@ -276,9 +276,9 @@ jobs:
               onClick={() => handleRunEvaluation("broken")}
               isLoading={isEvaluating && evalVariant === "broken"}
               disabled={isEvaluating}
-              className="w-full font-bold text-amber-300 border-amber-500/40 hover:bg-amber-950/40"
+              className="w-full font-bold text-white border-white/20 hover:bg-white/10"
             >
-              <AlertTriangle className="w-3.5 h-3.5 mr-1 text-amber-400" />
+              <AlertTriangle className="w-3.5 h-3.5 mr-1 text-white/80" />
               Run broken (task fail)
             </Button>
           </div>
@@ -286,7 +286,7 @@ jobs:
 
         {/* Live Evaluator Output Terminal */}
         {isEvaluating && <p role="status" aria-live="polite" className="text-sm text-sage">Evaluating the {evalVariant} journey against your current budget…</p>}
-        {evalError && <div role="alert" className="rounded-2xl border border-red-500/40 bg-red-950/40 p-4 text-sm text-red-200 flex items-start gap-2"><AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />{evalError}</div>}
+        {evalError && <div role="alert" className="rounded-2xl border border-white/20 bg-white/[0.06] p-4 text-sm text-white flex items-start gap-2"><AlertTriangle className="w-4 h-4 text-white shrink-0 mt-0.5" />{evalError}</div>}
         <AnimatePresence>
           {evalResult && (
             <motion.div
@@ -313,11 +313,11 @@ jobs:
 
               <div className="space-y-1.5 text-sage/80 leading-relaxed">
                 <div className="text-cream font-bold uppercase tracking-wider">CARBONERRA REGRESSION SHIELD CHECK ({strictMode ? "STRICT MODE" : "WARN MODE"})</div>
-                <div>Status: <strong className={evalResult.passed ? "text-lime font-bold uppercase" : evalResult.isWarning ? "text-amber-300 font-bold uppercase" : "text-red-400 font-bold uppercase"}>{evalResult.passed ? "PASSED" : evalResult.isWarning ? "WARNING" : "BREACH DETECTED"}</strong></div>
+                <div>Status: <strong className={evalResult.passed ? "text-lime font-bold uppercase" : evalResult.isWarning ? "text-white font-bold uppercase" : "text-white/60 font-bold uppercase"}>{evalResult.passed ? "PASSED" : evalResult.isWarning ? "WARNING" : "BREACH DETECTED"}</strong></div>
                 <div>Measured Journey Transfer: <strong className="text-cream">{(evalResult.actualBytes / 1024).toFixed(1)} KB</strong> (Ceiling: {(evalResult.thresholdBytes / 1024).toFixed(0)} KB)</div>
                 <div>Network Requests: <strong className="text-cream">{evalResult.actualRequests}</strong> (Limit: {evalResult.thresholdRequests})</div>
                 <div>Estimated Carbon: <strong className="text-cream">{evalResult.actualCarbonGrams} gCO2e</strong></div>
-                <div>Breaches: {evalResult.breaches.length === 0 ? <span className="text-lime">None (Within tolerance)</span> : <span className="text-red-400 font-bold">{evalResult.breaches.join("; ")}</span>}</div>
+                <div>Breaches: {evalResult.breaches.length === 0 ? <span className="text-lime">None (Within tolerance)</span> : <span className="text-white/70 font-bold">{evalResult.breaches.join("; ")}</span>}</div>
                 <div className="text-xs text-sage/70 pt-1">{evalResult.details}</div>
               </div>
 
@@ -325,9 +325,9 @@ jobs:
                 {evalResult.passed ? (
                   <span className="text-lime font-bold">[PASSED] Target journey satisfies digital sustainability transfer and task assertion budgets.</span>
                 ) : evalResult.isWarning ? (
-                  <span className="text-amber-300 font-bold">[WARNING] Target journey breached configured limits in non-blocking warning mode.</span>
+                  <span className="text-white font-bold">[WARNING] Target journey breached configured limits in non-blocking warning mode.</span>
                 ) : (
-                  <span className="text-red-400 font-bold">[BLOCKED] Candidate journey violated configured transfer budget or failed essential task assertions. Pull requests are blocked.</span>
+                  <span className="text-white/70 font-bold">[BLOCKED] Candidate journey violated configured transfer budget or failed essential task assertions. Pull requests are blocked.</span>
                 )}
               </div>
             </motion.div>
