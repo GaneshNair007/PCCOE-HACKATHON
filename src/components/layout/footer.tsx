@@ -71,7 +71,7 @@ export function Footer() {
               PLATFORM
             </h5>
             <ul className="space-y-2 text-xs sm:text-sm">
-              <li><Link href="/" className="hover:text-lime transition-colors">Scanner</Link></li>
+              <li><Link href="/" className="hover:text-lime transition-colors">Live Audit</Link></li>
               <li><Link href="/savings-lab" className="hover:text-lime transition-colors">Savings Lab</Link></li>
               <li><Link href="/evidence" className="hover:text-lime transition-colors">Evidence Vault</Link></li>
               <li><Link href="/simulator" className="hover:text-lime transition-colors">Simulator</Link></li>
