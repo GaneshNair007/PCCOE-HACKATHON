@@ -314,6 +314,7 @@ export default function SimulatorPage() {
         hotspots: [],
       });
       setNotification(`Loaded baseline telemetry for ${benchmark.domain} (${benchmark.label})`);
+      return;
     }
 
     try {
