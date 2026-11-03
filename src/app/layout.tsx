@@ -10,6 +10,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { AgenticChat } from "@/components/chat/agentic-chat";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll";
+import { DevOverlaySuppression } from "@/components/layout/dev-overlay-suppression";
 
 import { MainWrapper } from "@/components/layout/main-wrapper";
 
@@ -35,6 +36,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <SmoothScrollProvider>
+          <DevOverlaySuppression />
           <LivingWorld>
           <Header />
           <MainWrapper>{children}</MainWrapper>

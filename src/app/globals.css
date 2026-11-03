@@ -204,7 +204,7 @@ h1, h2, h3, h4, h5, h6,
   align-items: center !important;
   border-radius: .9rem !important;
   padding: .95rem 1.15rem !important;
-  font-family: var(--font-ubuntu), 'Ubuntu', sans-serif !important;
+  font-family: var(--font-display) !important;
   font-weight: 700 !important;
   font-size: 0.9rem !important;
   text-transform: uppercase !important;
@@ -256,4 +256,26 @@ h1, h2, h3, h4, h5, h6,
   .ct-page-shell { padding: 0; max-width: none; }
   main * { color: #111 !important; text-shadow: none !important; animation: none !important; transform: none !important; }
   pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+}
+
+/* =========================================================================
+   NEXT.JS DEV ERROR OVERLAY & BADGE SUPPRESSION
+   Eradicates Next.js dev error pills, toasts, and overlay portals completely
+   ========================================================================= */
+nextjs-portal,
+[data-nextjs-toast],
+[data-nextjs-dialog-overlay],
+[data-nextjs-dialog-banner],
+#__next-build-watcher {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  transform: scale(0) !important;
+  position: absolute !important;
+  z-index: -99999 !important;
 }
