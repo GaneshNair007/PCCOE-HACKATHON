@@ -459,14 +459,14 @@ function LandingPageContent() {
                   Enterprise Production Portal Telemetry
                 </h3>
                 <div className="text-sm font-mono text-white/70 mt-1">
-                  Target: <span className="text-white font-medium">https://www.pccoepune.com</span> <span className="mx-2 text-white/30">/</span> Regional Grid: 708 gCO2e/kWh
+                  Target: <span className="text-white font-medium">https://github.com</span> <span className="mx-2 text-white/30">/</span> Zero-Carbon Azure Grid: 395 gCO2e/kWh
                 </div>
               </div>
 
               <Button
                 variant="lime"
                 onClick={() => {
-                  const sampleUrl = "https://www.pccoepune.com";
+                  const sampleUrl = "https://github.com";
                   setTargetUrl(sampleUrl);
                   runAudit(sampleUrl);
                 }}
@@ -517,7 +517,7 @@ function LandingPageContent() {
               </div>
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/5">
-                  <span className="text-white">pccoepune.com</span>
+                  <span className="text-white">github.com</span>
                   <span className="px-2 py-0.5 rounded bg-white/10 text-white font-bold">Grade B</span>
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/5">

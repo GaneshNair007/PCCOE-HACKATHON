@@ -41,13 +41,13 @@ export interface FleetSiteRecord {
 
 const DEFAULT_FLEET_BENCHMARKS: FleetSiteRecord[] = [
   {
-    id: "fleet_pccoe",
-    domain: "pccoepune.com",
-    grade: "D",
-    co2: 0.584,
-    payloadMb: 2.45,
+    id: "fleet_figma",
+    domain: "figma.com",
+    grade: "C",
+    co2: 0.440,
+    payloadMb: 2.35,
     isGreen: false,
-    hostingProvider: "Regional Grid (708 gCO2e/kWh)",
+    hostingProvider: "AWS Us-East Multi-AZ",
     lastAudited: new Date().toISOString(),
     confidence: "High",
     modelVersion: "SWDM v4",
@@ -446,7 +446,7 @@ export default function DashboardPage() {
                 setNewDomainInput(e.target.value);
                 if (auditError) setAuditError(null);
               }}
-              placeholder="Enter public domain (e.g. linear.app, airbnb.com, or pccoepune.com)..."
+              placeholder="Enter public domain (e.g. linear.app, airbnb.com, or stripe.com)..."
               className="flex-1 bg-white/[0.06] border border-white/20 text-sm px-4 py-3 rounded-2xl text-white placeholder-white/40 backdrop-blur-2xl focus:outline-none focus:border-[#cbff00]"
               disabled={isAuditingNew}
             />
@@ -612,7 +612,7 @@ export default function DashboardPage() {
                 className="font-bold text-xs sm:text-sm px-6 py-3.5 cursor-pointer shadow-lg shadow-[#cbff00]/20 tracking-wider"
               >
                 <Sparkles className="w-4 h-4 mr-2" />
-                LOAD BENCHMARK FLEET (PCCOE, STRIPE, VERCEL, GITHUB)
+                LOAD BENCHMARK FLEET (STRIPE, VERCEL, GITHUB, FIGMA)
               </Button>
             </div>
           )}
