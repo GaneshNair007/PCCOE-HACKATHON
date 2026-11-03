@@ -89,6 +89,15 @@ GUIDELINES:
       toolUsed = `compare_audits({ urlA: "${urlA}", urlB: "${urlB}" })`;
       toolOutput = await executeCompareAudits({ urlA, urlB });
 
+      if (toolOutput.siteA.bytes === 0 || toolOutput.siteB.bytes === 0) {
+        reply = `Audit comparison between **${toolOutput.siteA.domain}** and **${toolOutput.siteB.domain}**:
+- One or both target servers blocked crawler probes or timed out (often due to bot protection or firewalls).
+- To maintain 100% telemetry integrity, CarbonTerra does not invent synthetic measurements.
+- You can test comparative payload scenarios directly in the **Simulator**.`;
+        actionLinks = [{ label: "Open Simulator", href: "/simulator" }];
+        return NextResponse.json({ reply, tool_used: toolUsed, tool_output: toolOutput, engine: "carbonerra-grounded", actionLinks });
+      }
+
       const kbDelta = Math.round(Math.abs(toolOutput.deltaBytes) / 1024);
       reply = `Audited both websites via real network inspection:
 - **${toolOutput.siteA.domain}**: ${(toolOutput.siteA.bytes / (1024 * 1024)).toFixed(2)} MB, **${toolOutput.siteA.co2Grams}g CO2e** (EcoScore: **${toolOutput.siteA.ecoScore}**, Hosting: ${toolOutput.siteA.greenHosting ? "Green" : "Standard"})
@@ -245,6 +254,21 @@ ${toolOutput.breaches.length > 0 ? `\n**Budget Breaches Detected**:\n${toolOutpu
       toolUsed = `investigate_audit({ targetUrl: "${rawUrl}" })`;
       try {
         toolOutput = await executeInvestigateAudit({ targetUrl: rawUrl });
+
+        if (toolOutput.totalBytes === 0 || toolOutput.confidence === "unavailable" || (toolOutput as any).status === "error") {
+          reply = `Live network audit attempted for **${toolOutput.domain || rawUrl}**:
+- The target server blocked or timed out automated crawler probes (common with bot protection, anti-scraping firewalls, or restricted network environments).
+- To preserve 100% auditing integrity, CarbonTerra never substitutes synthetic or guessed byte counts.
+
+**What you can do:**
+- You can simulate optimizations directly: e.g., *"what if 50% image compression"* or *"what if green hosting"*.
+- Or test verified benchmarks inside the **Savings Lab**.`;
+          actionLinks = [
+            { label: "Open Simulator", href: "/simulator" },
+            { label: "Savings Lab Benchmarks", href: "/savings-lab" },
+          ];
+          return NextResponse.json({ reply, tool_used: toolUsed, tool_output: toolOutput, engine: "carbonerra-grounded", actionLinks });
+        }
 
         const topHotspot = toolOutput.hotspots?.[0];
         const hotspotText = topHotspot
