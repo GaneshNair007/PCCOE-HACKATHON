@@ -34,42 +34,101 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+    const apiKey =
+      process.env.GEMINI_API_KEY ||
+      process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
     // PATH 1: Real AI Tool Execution with Google Gemini Free Tier if API key available
     if (apiKey) {
       try {
         const google = createGoogleGenerativeAI({ apiKey });
-        const aiResponse = await generateText({
-          model: google("gemini-2.0-flash"),
-          system: `You are CarbonTerra AI, an intelligent, versatile, and friendly assistant. You can converse naturally about anything—including greetings, general conversation, programming, web architecture, and performance optimization—as well as specialized digital carbon telemetry using the Sustainable Web Design Model (SWDM v4).
+        const modelCandidates = ["gemini-3.5-flash-lite", "gemini-3.8-flash"];
+        let aiResponse: any = null;
+        let activeModel = "gemini-3.5-flash-lite";
+
+        for (const candidate of modelCandidates) {
+          try {
+            aiResponse = await generateText({
+              model: google(candidate),
+              system: `You are CarbonTerra AI, an intelligent, versatile, and friendly assistant. You can converse naturally about anything—including greetings, general conversation, programming, web architecture, and performance optimization—as well as specialized digital carbon telemetry using the Sustainable Web Design Model (SWDM v4).
 
 GUIDELINES:
-1. For greetings ("hi", "hello"), general questions, coding advice, or casual conversation, answer warmly, clearly, and helpfully without forcing tools.
+1. For greetings ("hi", "hello"), general questions, coding advice, or casual conversation, answer warmly, clearly, and helpfully with detailed reasoning without forcing tools.
 2. When the user asks to audit a website, compare sites, simulate optimizations, prepare experiments, test candidates, or check release budgets, call the corresponding tool.
 3. Every metric or calculation you state for tools must come directly from tool outputs.
 4. Active context: ${JSON.stringify(context)}.`,
-          prompt: message,
-          tools: createCarbonerraAiTools(targetBaseUrl),
-        });
+              prompt: message,
+              tools: createCarbonerraAiTools(targetBaseUrl),
+            });
+            activeModel = candidate;
+            break;
+          } catch (modelErr: any) {
+            console.warn(`[Chat API] Gemini model ${candidate} failed:`, modelErr?.message || modelErr);
+          }
+        }
 
-        const primaryToolCall = (aiResponse.toolCalls as any)?.[0];
-        const primaryToolResult = (aiResponse.toolResults as any)?.[0];
+        if (aiResponse) {
+          const primaryToolCall = (aiResponse.toolCalls as any)?.[0];
+          const primaryToolResult = (aiResponse.toolResults as any)?.[0];
 
-        const toolName = primaryToolCall?.toolName || primaryToolCall?.name;
-        const toolArgs = primaryToolCall?.input || primaryToolCall?.args;
-        const toolOutput = primaryToolResult?.output || primaryToolResult?.result;
+          const toolName = primaryToolCall?.toolName || primaryToolCall?.name;
+          const toolArgs = primaryToolCall?.input || primaryToolCall?.args || {};
+          let toolOutput = primaryToolResult?.output || primaryToolResult?.result;
 
-        return NextResponse.json({
-          reply: aiResponse.text,
-          tool_used: toolName ? `${toolName}(${JSON.stringify(toolArgs || {})})` : null,
-          tool_output: toolOutput || null,
-          engine: "gemini-2.0-flash",
-          context,
-        });
+          // Guardrail: if user asked to test broken candidate, enforce broken_candidate variant
+          if (toolName === "test_candidate" && message.toLowerCase().includes("broken") && toolArgs.variant !== "broken_candidate") {
+            toolArgs.variant = "broken_candidate";
+            toolOutput = await executeTestCandidate({ ...toolArgs, targetBaseUrl });
+          }
+
+          let replyText = (aiResponse.text || "").trim();
+
+          // If the model invoked a tool and didn't generate final text, summarize the real tool output naturally
+          if (!replyText && toolOutput) {
+            try {
+              const summaryResponse = await generateText({
+                model: google(activeModel),
+                system: "You are CarbonTerra AI. Summarize the tool execution output cleanly, warmly, and concisely in GitHub-style markdown. Highlight key numbers (page weight, CO2e, savings) and provide 1-2 actionable engineering recommendations.",
+                prompt: `User asked: "${message}". Tool ${toolName || "action"} returned this data: ${JSON.stringify(toolOutput)}`,
+              });
+              replyText = summaryResponse.text;
+            } catch {
+              // Fallback to clean default presentation
+              if (toolOutput.totalBytes !== undefined) {
+                replyText = `Audit completed for **${toolOutput.domain || toolArgs?.targetUrl || "the target site"}**:\n- **Total Transfer**: ${(toolOutput.totalBytes / (1024 * 1024)).toFixed(2)} MB\n- **Emissions**: **${toolOutput.co2Grams}g CO2e** per page view (EcoScore **Grade ${toolOutput.ecoScore}**)`;
+              }
+            }
+          }
+
+          if (replyText) {
+            const actionLinks: Array<{ label: string; href: string }> = [];
+            if (toolName?.includes("audit") || toolArgs?.targetUrl || toolArgs?.url) {
+              const urlTarget = toolArgs?.targetUrl || toolArgs?.url || toolOutput?.domain;
+              if (urlTarget) {
+                actionLinks.push({ label: `View Full Audit for ${urlTarget}`, href: `/?url=${encodeURIComponent(urlTarget)}` });
+              }
+              actionLinks.push({ label: "Open Simulator", href: "/simulator" });
+            } else if (toolName?.includes("experiment") || toolName?.includes("candidate")) {
+              actionLinks.push({ label: "Open Savings Lab", href: "/savings-lab" });
+              if (toolOutput?.experimentId) {
+                actionLinks.push({ label: "View Evidence Receipt", href: `/evidence?experimentId=${toolOutput.experimentId}` });
+              }
+            } else if (toolName?.includes("budget")) {
+              actionLinks.push({ label: "Open Release Shield", href: "/shield" });
+            }
+
+            return NextResponse.json({
+              reply: replyText,
+              tool_used: toolName ? `${toolName}(${JSON.stringify(toolArgs || {})})` : null,
+              tool_output: toolOutput || null,
+              engine: activeModel,
+              actionLinks,
+              context,
+            });
+          }
+        }
       } catch (aiError: any) {
         console.warn("[Chat API] Gemini AI SDK invocation fell back to grounded dispatcher:", aiError?.message || aiError);
-        // Seamlessly continue to deterministic tool dispatcher below
       }
     }
 

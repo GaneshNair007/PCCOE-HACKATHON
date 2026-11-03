@@ -205,7 +205,7 @@ export const testCandidateSchema = z.object({
   variant: z
     .enum(["candidate", "broken_candidate", "optimized", "broken"])
     .default("candidate")
-    .describe("Candidate variant: candidate (optimized) or broken_candidate (broken registration)"),
+    .describe("Candidate variant to test: MUST be 'broken_candidate' if the user asks to test broken, failure, or guardrail candidate; otherwise 'candidate'"),
   targetBaseUrl: z.string().default("http://localhost:3001").describe("Target base URL"),
 });
 
@@ -296,7 +296,7 @@ export async function executeEvaluateBudget(args: {
 
 // 6. Tool: Simulate Scenario (Zero Levers = Zero Delta)
 export const simulateScenarioSchema = z.object({
-  baselineBytes: z.number().positive().describe("Observed baseline transfer bytes"),
+  baselineBytes: z.number().default(1850000).describe("Observed baseline transfer bytes (defaults to 1850000 if not specified)"),
   imageReductionPct: z.number().min(0).max(100).default(0).describe("Image compression percentage"),
   jsDeferralPct: z.number().min(0).max(100).default(0).describe("JavaScript deferral percentage"),
   cacheTtlDays: z.number().min(0).max(365).default(0).describe("Browser cache retention in days"),
@@ -306,7 +306,7 @@ export const simulateScenarioSchema = z.object({
 });
 
 export async function executeSimulateScenario(args: {
-  baselineBytes: number;
+  baselineBytes?: number;
   imageReductionPct?: number;
   jsDeferralPct?: number;
   cacheTtlDays?: number;
@@ -314,11 +314,37 @@ export async function executeSimulateScenario(args: {
   observedImageBytes?: number;
   observedJsBytes?: number;
 }) {
-  const baseBytes = args.baselineBytes;
+  let baseBytes = args.baselineBytes;
+  if (!baseBytes || baseBytes <= 0) {
+    const recentRuns = await StorageRepository.listRuns();
+    baseBytes = recentRuns.length > 0 ? recentRuns[0].totalBytes : 1850000;
+  }
   const imageReductionPct = args.imageReductionPct ?? 0;
   const jsDeferralPct = args.jsDeferralPct ?? 0;
   const cacheTtlDays = args.cacheTtlDays ?? 0;
   const greenHosting = args.greenHosting ?? false;
+
+  const baselineMetrics = calculateCarbonFootprint(baseBytes, false);
+
+  if (imageReductionPct === 0 && jsDeferralPct === 0 && cacheTtlDays === 0 && !greenHosting) {
+    return {
+      baseline: {
+        bytes: baseBytes,
+        co2Grams: baselineMetrics.co2_grams,
+        ecoScore: baselineMetrics.ecoscore_grade,
+      },
+      simulated: {
+        bytes: baseBytes,
+        co2Grams: baselineMetrics.co2_grams,
+        ecoScore: baselineMetrics.ecoscore_grade,
+      },
+      deltaBytes: 0,
+      percentSaved: 0,
+      co2SavedGrams: 0,
+      methodologyNote:
+        "Calculated via Sustainable Web Design Model v4. Reductions are scoped strictly to eligible asset categories.",
+    };
+  }
 
   const imgBytes = args.observedImageBytes ?? Math.round(baseBytes * 0.4);
   const jsBytes = args.observedJsBytes ?? Math.round(baseBytes * 0.3);
@@ -331,7 +357,6 @@ export async function executeSimulateScenario(args: {
   const rawSimulated = Math.max(0, imgBytes - imgSaved) + Math.max(0, jsBytes - jsSaved) + otherBytes;
   const simulatedBytes = Math.max(1000, Math.round(rawSimulated * (1 - cacheFactor)));
 
-  const baselineMetrics = calculateCarbonFootprint(baseBytes, false);
   const simulatedMetrics = calculateCarbonFootprint(simulatedBytes, greenHosting);
 
   const deltaBytes = baseBytes - simulatedBytes;
