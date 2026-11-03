@@ -896,7 +896,7 @@ function SavingsLabContent() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-sm">
-                  <div className="p-5 sm:p-6 rounded-2xl bg-black/40 border border-white/10 space-y-2.5 hover:border-white/20 transition-colors">
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 space-y-2.5 hover:border-white/20 transition-colors">
                     <div className="text-[#cbff00] font-bold text-base sm:text-lg">
                       01 / Layout Stability
                     </div>
@@ -904,7 +904,7 @@ function SavingsLabContent() {
                       Explicit 1200×400 dimensions and high fetch priority are enforced. Cumulative Layout Shift stays at 0.00.
                     </p>
                   </div>
-                  <div className="p-5 sm:p-6 rounded-2xl bg-black/40 border border-white/10 space-y-2.5 hover:border-white/20 transition-colors">
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 space-y-2.5 hover:border-white/20 transition-colors">
                     <div className="text-[#cbff00] font-bold text-base sm:text-lg">
                       02 / Interactive Usability
                     </div>
@@ -912,7 +912,7 @@ function SavingsLabContent() {
                       Buttons, modal dialogs, and keyboard accessibility remain fully operational across all viewports.
                     </p>
                   </div>
-                  <div className="p-5 sm:p-6 rounded-2xl bg-black/40 border border-white/10 space-y-2.5 hover:border-white/20 transition-colors">
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 space-y-2.5 hover:border-white/20 transition-colors">
                     <div className="text-[#cbff00] font-bold text-base sm:text-lg">
                       03 / Task Completion
                     </div>
@@ -1313,7 +1313,7 @@ function SavingsLabContent() {
           STAGE 3: TEST CANDIDATE (Task Preservation & Verification)
           ========================================================================= */}
       {currentStep === 3 && (
-        <div className="rounded-3xl border border-white/15 bg-black/40 backdrop-blur-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden space-y-8">
+        <div className="rounded-3xl border border-white/15 bg-white/[0.03] backdrop-blur-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden space-y-8">
           <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#cbff00]/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-6">
@@ -1501,7 +1501,7 @@ function SavingsLabContent() {
           STAGE 4: VERIFY (Receipt & Methodology Provenance)
           ========================================================================= */}
       {currentStep === 4 && (
-        <div className="rounded-3xl border border-white/15 bg-black/40 backdrop-blur-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden space-y-8">
+        <div className="rounded-3xl border border-white/15 bg-white/[0.03] backdrop-blur-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden space-y-8">
           <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#cbff00]/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-6">
@@ -1612,17 +1612,17 @@ function SavingsLabContent() {
               Verified Production Benchmark Summary
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-              <div className="p-5 rounded-2xl bg-black/40 border border-white/10">
+              <div className="p-5 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10">
                 <div className="text-white/60 text-xs font-bold uppercase tracking-wider">Payload Ceiling</div>
                 <div className="text-white font-black text-2xl sm:text-3xl mt-2">350 KB</div>
                 <div className="text-xs text-white/70 mt-1">Enforced Release Gate</div>
               </div>
-              <div className="p-5 rounded-2xl bg-black/40 border border-white/10">
+              <div className="p-5 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10">
                 <div className="text-white/60 text-xs font-bold uppercase tracking-wider">Emission Reduction</div>
                 <div className="text-[#cbff00] font-black text-2xl sm:text-3xl mt-2">-82.4%</div>
                 <div className="text-xs text-[#cbff00] mt-1">Per Journey Visit</div>
               </div>
-              <div className="p-5 rounded-2xl bg-black/40 border border-white/10">
+              <div className="p-5 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10">
                 <div className="text-white/60 text-xs font-bold uppercase tracking-wider">Integrity Check</div>
                 <div className="text-[#cbff00] font-black text-2xl sm:text-3xl mt-2">SHA-256</div>
                 <div className="text-xs text-white/70 mt-1">Cryptographic Audit Seal</div>

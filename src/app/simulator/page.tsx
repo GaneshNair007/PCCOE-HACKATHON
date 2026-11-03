@@ -474,7 +474,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
             <select
               aria-label="Select simulation baseline target"
               onChange={(e) => handleSelectDomain(e.target.value)}
-              className="w-full sm:w-64 bg-black/70 border border-white/20 text-xs px-4 py-2.5 rounded-2xl text-white backdrop-blur-xl focus:outline-none focus:border-[#cbff00] cursor-pointer"
+              className="w-full sm:w-64 bg-white/[0.06] border border-white/20 text-xs px-4 py-2.5 rounded-2xl text-white backdrop-blur-2xl focus:outline-none focus:border-[#cbff00] cursor-pointer"
               value={selectedAudit.domain}
             >
               <optgroup label="Enterprise Production Benchmarks">
@@ -506,7 +506,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                 placeholder="Or enter any domain (e.g. figma.com)..."
                 value={customUrlInput}
                 onChange={(e) => setCustomUrlInput(e.target.value)}
-                className="w-full sm:w-60 bg-black/70 border border-white/20 text-xs px-4 py-2.5 rounded-2xl text-white placeholder-white/40 backdrop-blur-xl focus:outline-none focus:border-[#cbff00]"
+                className="w-full sm:w-60 bg-white/[0.06] border border-white/20 text-xs px-4 py-2.5 rounded-2xl text-white placeholder-white/40 backdrop-blur-2xl focus:outline-none focus:border-[#cbff00]"
               />
               <button
                 type="submit"
@@ -522,7 +522,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
 
       {/* Notification Toast */}
       {notification && (
-        <div role="status" className="p-4 rounded-2xl border border-[#cbff00]/40 bg-black/70 text-sm text-[#cbff00] backdrop-blur-xl flex items-center gap-2">
+        <div role="status" className="p-4 rounded-2xl border border-[#cbff00]/40 bg-white/[0.06] text-sm text-[#cbff00] backdrop-blur-2xl flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 shrink-0" />
           <span>{notification}</span>
         </div>

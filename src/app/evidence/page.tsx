@@ -96,7 +96,7 @@ function EvidenceContent() {
 
   if (isLoading) {
     return (
-      <div role="status" aria-live="polite" className="p-8 sm:p-16 rounded-3xl bg-surface text-center space-y-3 font-mono text-sage/70">
+      <div role="status" aria-live="polite" className="p-8 sm:p-16 rounded-3xl bg-white/[0.04] border border-white/10 backdrop-blur-2xl text-center space-y-3 font-mono text-sage/70">
         <Activity className="w-8 h-8 text-lime animate-spin mx-auto" />
         <div>Compiling immutable audit run evidence and task assertion logs...</div>
       </div>
@@ -113,7 +113,7 @@ function EvidenceContent() {
         />
       </div>
       {/* Back Navigation Bar (Screen only) */}
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-surface p-4 print:hidden">
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-2xl p-4 print:hidden">
         <Link
           href={`/savings-lab${receipt ? `?experimentId=${receipt.experimentId}` : ""}`}
           className="inline-flex items-center gap-2 text-xs font-mono text-sage/70 hover:text-cream transition-colors"
@@ -168,7 +168,7 @@ function EvidenceContent() {
       {receipt && (
         <Reveal className="space-y-6">
           {/* Main Evidence Record Document */}
-          <div className="p-8 sm:p-12 space-y-10 bg-black/60 backdrop-blur-3xl border border-white/15 rounded-3xl shadow-2xl relative overflow-hidden print:border-none print:shadow-none print:p-0">
+          <div className="p-8 sm:p-12 space-y-10 bg-white/[0.03] backdrop-blur-3xl border border-white/15 rounded-3xl shadow-2xl relative overflow-hidden print:border-none print:shadow-none print:p-0">
             {/* Ambient Radial Glass Highlight */}
             <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#cbff00]/10 rounded-full blur-3xl pointer-events-none" />
 
