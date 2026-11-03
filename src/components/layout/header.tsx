@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Leaf, Menu, X, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 const destinations = [
-  { label: "Live Audit", href: "/" },
+  { label: "Audit Centre", href: "/" },
   { label: "Savings Lab", href: "/savings-lab" },
   { label: "Evidence Vault", href: "/evidence" },
   { label: "Simulator", href: "/simulator" },
