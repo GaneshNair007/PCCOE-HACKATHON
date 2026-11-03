@@ -574,44 +574,6 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
         </div>
       )}
 
-      {/* Apple Preset Segmented Control */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 sm:p-5 rounded-3xl bg-white/[0.04] border border-white/15 backdrop-blur-3xl shadow-2xl">
-        <div className="space-y-0.5">
-          <div className="text-xs font-semibold text-[#cbff00] uppercase tracking-wider flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-[#cbff00]" />
-            Scenario Presets
-          </div>
-          <div className="text-xs sm:text-sm text-white/70">
-            One-click configurations to model standard, aggressive, or net-zero engineering roadmaps
-          </div>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2">
-          {PRESETS.map((p) => {
-            const isSelected = activePreset === p.id;
-            return (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => applyPreset(p)}
-                className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                  isSelected
-                    ? "bg-[#cbff00] text-black font-bold shadow-lg shadow-[#cbff00]/25"
-                    : "bg-white/[0.04] text-white/80 hover:text-white border border-white/10 hover:border-white/20"
-                }`}
-              >
-                <span>{p.label}</span>
-              </button>
-            );
-          })}
-          {activePreset === "custom" && (
-            <span className="px-3.5 py-1.5 rounded-xl bg-white/[0.08] text-white/60 text-xs font-mono">
-              Custom Scenario Active
-            </span>
-          )}
-        </div>
-      </div>
-
       {/* Active Baseline Status Bar */}
       <div className="p-5 sm:p-6 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-2xl shadow-xl space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
