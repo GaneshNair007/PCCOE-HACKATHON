@@ -156,7 +156,7 @@ export class ModelOrchestrator {
       yield {
         type: "text_delta",
         payload: {
-          delta: `Hello! 👋 Great to meet you. I'm Carbonerra AI!\n\n` +
+          delta: `Hello! Great to meet you. I'm Carbonerra AI.\n\n` +
             `I'm your assistant for full-stack web engineering, performance optimization, and digital carbon reduction.\n\n` +
             `How can I help you today? Feel free to ask a general coding question, inquire about web performance, or ask me to inspect an audit.`,
         },
@@ -169,7 +169,7 @@ export class ModelOrchestrator {
       yield {
         type: "text_delta",
         payload: {
-          delta: `I'm doing great, thank you for asking! 🚀 Ready to chat, debug code, brainstorm web architecture, or optimize digital carbon footprints.\n\nHow are things going with your project?`,
+          delta: `I'm doing well, thank you for asking. Ready to assist with coding, debugging, web architecture, and digital carbon reduction.\n\nHow can I help you today?`,
         },
       };
       yield { type: "complete", payload: { reason: "smalltalk_answered" } };
@@ -183,12 +183,12 @@ export class ModelOrchestrator {
       yield {
         type: "text_delta",
         payload: {
-          delta: `I'm **Carbonerra AI**—your intelligent companion for web engineering and digital carbon intelligence! ⚡\n\n` +
-            `- 💬 **General Chat & Coding**: Ask me general questions about JavaScript, TypeScript, React, Next.js, and web performance.\n` +
-            `- ⚡ **Inspect Audits**: Ask to inspect an audit or analyze transfer waste.\n` +
-            `- 🧪 **Savings Lab Experiments**: Prepare patches (e.g. converting hero posters to WebP).\n` +
-            `- ⚖️ **Scenario Comparisons**: Model counterfactual transfer savings (e.g. "what if 20% compression?").\n` +
-            `- 🛡️ **Verification**: Test candidate builds against physical functional assertions.\n\n` +
+          delta: `I'm **Carbonerra AI**—your assistant for web engineering and digital carbon intelligence.\n\n` +
+            `- **General Chat & Coding**: Ask questions about JavaScript, TypeScript, React, Next.js, and web performance.\n` +
+            `- **Inspect Audits**: Ask to inspect an audit or analyze transfer waste.\n` +
+            `- **Savings Lab Experiments**: Prepare patches (e.g. converting hero posters to WebP).\n` +
+            `- **Scenario Comparisons**: Model counterfactual transfer savings (e.g. "what if 20% compression?").\n` +
+            `- **Verification**: Test candidate builds against physical functional assertions.\n\n` +
             `How would you like to get started?`,
         },
       };

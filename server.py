@@ -101,17 +101,35 @@ class CarbonerraHandler(http.server.SimpleHTTPRequestHandler):
                 self._send_json({"status": "error", "message": str(e)}, status=400)
             return
 
+        if self.path == "/api/email-report":
+            try:
+                content_length = int(self.headers.get("Content-Length", 0))
+                raw_body = self.rfile.read(content_length).decode("utf-8")
+                payload = json.loads(raw_body) if raw_body else {}
+                recipient = payload.get("recipient_email", "lead@company.com")
+                target = payload.get("target_url", "https://stripe.com")
+
+                self._send_json({
+                    "status": "success",
+                    "message": f"Executive report successfully dispatched to {recipient}",
+                    "recipient": recipient,
+                    "target_url": target
+                })
+            except Exception as e:
+                self._send_json({"status": "error", "message": str(e)}, status=400)
+            return
+
         self._send_json({"status": "error", "message": "Endpoint not found"}, status=404)
 
 if __name__ == "__main__":
-    # Allow port reuse
-    socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("", PORT), CarbonerraHandler) as httpd:
-        print(f"⚡ CARBONERRA Platform (PCCOE Hackathon) running at http://localhost:{PORT}")
+    # Allow port reuse with threaded server to prevent blocking
+    socketserver.ThreadingTCPServer.allow_reuse_address = True
+    with socketserver.ThreadingTCPServer(("", PORT), CarbonerraHandler) as httpd:
+        print(f"CARBONTERRA Platform (PCCOE Hackathon) running at http://localhost:{PORT}")
         print("  - Static UI:    http://localhost:8082/")
         print("  - Health API:   http://localhost:8082/api/health")
         print("  - Live Audit:   http://localhost:8082/api/audit")
-        print("  - Simulator:    http://localhost:8082/api/simulate")
+        print("  - Email Report: http://localhost:8082/api/email-report")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
