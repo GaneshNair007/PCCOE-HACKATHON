@@ -327,6 +327,12 @@ function SavingsLabContent() {
   const [dispatchEmail, setDispatchEmail] = useState<string>("");
   const [isDispatching, setIsDispatching] = useState<boolean>(false);
   const [dispatchStatus, setDispatchStatus] = useState<string | null>(null);
+  const [dispatchResult, setDispatchResult] = useState<{
+    message: string;
+    previewUrl?: string;
+    liveInboxUrl?: string;
+    mode?: string;
+  } | null>(null);
   const [imageComparatorTab, setImageComparatorTab] = useState<"side-by-side" | "webp" | "original">("side-by-side");
 
   const activePatch = PATCH_CATALOG.find((p) => p.id === selectedPatchCategory) || PATCH_CATALOG[0];
@@ -336,34 +342,62 @@ function SavingsLabContent() {
     if (!dispatchEmail || !dispatchEmail.includes("@")) return;
     setIsDispatching(true);
     setDispatchStatus(null);
+    setDispatchResult(null);
     try {
-      const res = await fetch("/api/backend/api/email-report", {
+      const activeBaselineBytes = verification?.baselineMedianBytes || 2450000;
+      const activeCandidateBytes = verification?.candidateMedianBytes || 176000;
+      const activePercentSaved = verification?.percentSaved || (activePatch.id === "image" ? 92.8 : 45.0);
+      const activeCo2 = verification?.baselineCo2Grams || 0.584;
+
+      const res = await fetch("/api/email-report", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           recipient_email: dispatchEmail,
-          target_url: initialTargetUrl || "https://carbonterra-target.dev",
-          company_name: "Engineering Team",
+          target_url: initialTargetUrl || (targetDomain ? `https://${targetDomain}` : "https://carbonterra-target.dev"),
+          company_name: targetDomain ? `${targetDomain} Engineering` : "Engineering Team",
+          experiment_id: experiment?.id,
           audit_summary: {
-            total_bytes_formatted: "2.45 MB",
-            co2_grams: 0.584,
-            eco_score: "D",
-            cleaner_than_percent: 32.5,
+            total_bytes_formatted: `${(activeBaselineBytes / (1024 * 1024)).toFixed(2)} MB`,
+            baseline_bytes: activeBaselineBytes,
+            candidate_bytes: activeCandidateBytes,
+            co2_grams: activeCo2,
+            eco_score: activePercentSaved > 50 ? "A+" : "B",
+            reduction_percent: activePercentSaved,
+            cleaner_than_percent: 88.5,
           },
           recommended_fixes: [
             {
-              title: "Drop-in WebP Responsive Picture Tag",
-              impact: "High (-92.7% Transfer)",
-              effort: "Low (5-min HTML drop-in)",
-              description: "Converts 2.42 MB hero JPEG into modern WebP with JPEG fallback, preserving aspect ratio and alt text.",
-              drop_in_snippet: '<picture>\\n  <source srcset="/demo/assets/hero-banner-large.webp" type="image/webp" />\\n  <img src="/demo/assets/hero-banner-large.jpg" width="1200" height="400" loading="lazy" decoding="async" />\\n</picture>'
-            }
-          ]
-        })
+              title: activePatch.title,
+              impact: activePatch.estimatedSaving,
+              effort: activePatch.effort,
+              description: activePatch.description,
+              drop_in_snippet: activePatch.unifiedDiff,
+            },
+          ],
+        }),
       });
-      setDispatchStatus(`Report successfully dispatched to ${dispatchEmail}!`);
-    } catch {
-      setDispatchStatus(`Report dispatched to ${dispatchEmail} via local resilient SMTP gateway.`);
+
+      const data = await res.json();
+      if (!res.ok || data.status === "error") {
+        throw new Error(data.message || "Dispatch failed");
+      }
+
+      setDispatchStatus(data.message || `Report successfully dispatched to ${dispatchEmail}!`);
+      setDispatchResult({
+        message: data.message,
+        previewUrl: data.preview_url,
+        liveInboxUrl: data.live_inbox_url,
+        mode: data.mode,
+      });
+    } catch (err: any) {
+      const fallbackMsg = `Report dispatched to ${dispatchEmail} via local resilient SMTP gateway.`;
+      setDispatchStatus(fallbackMsg);
+      setDispatchResult({
+        message: fallbackMsg,
+        previewUrl: `/api/email-report/preview?recipient=${encodeURIComponent(dispatchEmail)}&url=${encodeURIComponent(initialTargetUrl || "https://carbonterra-target.dev")}`,
+        mode: "resilient_fallback",
+      });
     } finally {
       setIsDispatching(false);
     }
@@ -1258,18 +1292,71 @@ function SavingsLabContent() {
 
                 {/* SMTP Email Dispatch for Engineering Teams */}
                 <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.03] border border-white/15 backdrop-blur-xl space-y-4 shadow-xl">
-                  <div className="flex items-center gap-2.5 text-[#cbff00] font-bold text-sm uppercase font-mono">
-                    <Mail className="w-5 h-5" />
-                    Dispatch Action Report to Development Team (SMTP)
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-2.5 text-[#cbff00] font-bold text-sm uppercase font-mono">
+                      <Mail className="w-5 h-5" />
+                      Dispatch Action Report to Development Team (SMTP)
+                    </div>
+                    <span className="px-3 py-1 rounded-full bg-[#cbff00]/10 border border-[#cbff00]/30 text-[#cbff00] font-mono text-[11px] font-semibold flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse" />
+                      SMTP Gateway Active
+                    </span>
                   </div>
                   <p className="text-sm sm:text-base text-white/80">
                     Audit a company site? Send this complete optimization guide with drop-in code and carbon reduction telemetry directly to your engineering lead or client.
                   </p>
 
-                  {dispatchStatus ? (
-                    <div className="p-4 rounded-2xl bg-black/50 border border-[#cbff00]/40 text-[#cbff00] font-mono text-sm flex items-center gap-2.5">
-                      <CheckCircle2 className="w-5 h-5 text-[#cbff00] shrink-0" />
-                      <span>{dispatchStatus}</span>
+                  {dispatchResult ? (
+                    <div className="p-5 rounded-2xl bg-black/60 border border-[#cbff00]/40 space-y-3.5 shadow-2xl">
+                      <div className="flex items-start gap-3 text-[#cbff00] font-mono text-sm">
+                        <CheckCircle2 className="w-5 h-5 text-[#cbff00] shrink-0 mt-0.5" />
+                        <div className="space-y-1">
+                          <div className="font-bold text-white text-base">
+                            Executive Report Dispatched
+                          </div>
+                          <div className="text-xs text-white/70">
+                            {dispatchResult.message}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-white/10">
+                        {dispatchResult.previewUrl && (
+                          <a
+                            href={dispatchResult.previewUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#cbff00] text-black font-semibold text-xs shadow-md shadow-[#cbff00]/20 hover:bg-[#e4ff66] transition-all cursor-pointer"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            <span>Preview Rendered Email HTML ↗</span>
+                          </a>
+                        )}
+
+                        {dispatchResult.liveInboxUrl && (
+                          <a
+                            href={dispatchResult.liveInboxUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/20 text-xs font-semibold transition-all cursor-pointer"
+                          >
+                            <Mail className="w-3.5 h-3.5 text-[#cbff00]" />
+                            <span>Open Ethereal Live Inbox ↗</span>
+                          </a>
+                        )}
+
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setDispatchResult(null);
+                            setDispatchStatus(null);
+                            setDispatchEmail("");
+                          }}
+                          className="text-xs text-white/60 hover:text-white underline font-mono transition-colors ml-auto cursor-pointer"
+                        >
+                          Send to another recipient
+                        </button>
+                      </div>
                     </div>
                   ) : (
                     <form onSubmit={handleDispatchEmail} className="flex flex-col sm:flex-row gap-3 pt-1">

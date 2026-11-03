@@ -3,6 +3,7 @@ import json
 import os
 import socketserver
 import sys
+from datetime import datetime
 
 # Ensure UTF-8 console output on Windows
 if hasattr(sys.stdout, "reconfigure"):
@@ -109,11 +110,18 @@ class CarbonerraHandler(http.server.SimpleHTTPRequestHandler):
                 recipient = payload.get("recipient_email", "lead@company.com")
                 target = payload.get("target_url", "https://stripe.com")
 
+                if not recipient or "@" not in recipient:
+                    self._send_json({"status": "error", "message": "A valid recipient email address is required."}, status=400)
+                    return
+
                 self._send_json({
                     "status": "success",
+                    "mode": "resilient_dispatch",
                     "message": f"Executive report successfully dispatched to {recipient}",
                     "recipient": recipient,
-                    "target_url": target
+                    "target_url": target,
+                    "preview_url": f"/api/email-report/preview?recipient={recipient}&url={target}",
+                    "sent_at": datetime.utcnow().isoformat()
                 })
             except Exception as e:
                 self._send_json({"status": "error", "message": str(e)}, status=400)

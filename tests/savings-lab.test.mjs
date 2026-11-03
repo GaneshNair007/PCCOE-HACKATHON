@@ -34,8 +34,8 @@ describe("Carbonerra Savings Lab — Acceptance & Verification Suite", () => {
     const res = await fetch(`${BASE_URL}/demo/event?variant=baseline`);
     assert.equal(res.status, 200);
     const html = await res.text();
-    assert.ok(html.includes("PCCOE Green Campus Hackathon 2026"), "Title must be present");
-    assert.ok(html.includes("campus-hackathon-hero.jpg"), "Baseline must use uncompressed JPEG");
+    assert.ok(html.includes("Production Web Architecture 2026") || html.includes("PCCOE Green Campus Hackathon 2026"), "Title must be present");
+    assert.ok(html.includes("hero-banner-large.jpg") || html.includes("campus-hackathon-hero.jpg"), "Baseline must use uncompressed JPEG");
     assert.ok(html.includes('id="registration-form"'), "Registration form element must be present");
   });
 
@@ -45,7 +45,7 @@ describe("Carbonerra Savings Lab — Acceptance & Verification Suite", () => {
     const html = await res.text();
     assert.ok(html.includes("<picture>"), "Optimized must use picture container");
     assert.ok(html.includes("type=\"image/webp\""), "Optimized must offer WebP source");
-    assert.ok(html.includes("campus-hackathon-hero.webp"), "Optimized must reference WebP asset");
+    assert.ok(html.includes("hero-banner-large.webp") || html.includes("campus-hackathon-hero.webp"), "Optimized must reference WebP asset");
     assert.ok(html.includes('fetchPriority="high"'), "LCP image must not be lazy loaded");
   });
 

@@ -11,7 +11,7 @@
     "prebuild": "npm run prepare:world",
     "build": "next build",
     "start": "next start -p 3001",
-    "test": "node --test tests/accuracy.test.mjs tests/blueprint.test.mjs tests/savings-lab.test.mjs tests/chat-agent.test.mjs tests/shared-storage.test.mjs",
+    "test": "node --test tests/accuracy.test.mjs tests/blueprint.test.mjs tests/savings-lab.test.mjs tests/email-dispatch.test.mjs tests/chat-agent.test.mjs tests/shared-storage.test.mjs",
     "lint": "next lint"
   },
   "dependencies": {
@@ -28,6 +28,7 @@
     "lenis": "^1.3.26",
     "lucide-react": "^0.453.0",
     "next": "^14.2.15",
+    "nodemailer": "^10.3.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.5.4",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.7.5",
+    "@types/nodemailer": "^8.0.2",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.20",
