@@ -4,6 +4,7 @@ import React from "react";
 import { ShieldCheck, HelpCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { EcoScoreGrade } from "@/types/telemetry";
+import { SoapBubbleRank } from "./soap-bubble-rank";
 
 interface HologramGauge3DProps {
   score: EcoScoreGrade;
@@ -25,7 +26,7 @@ const GRADE_CONFIG: Record<EcoScoreGrade, { color: string; label: string }> = {
   F: { color: "text-white/40", label: "Critical refactor required" },
 };
 
-/** Retains the public component name; the score is deliberately static and readable. */
+/** High-fidelity 3D Iridescent Soap Bubble score gauge with optical depth and physical reflection physics. */
 export function HologramGauge3D({
   score,
   co2Grams,
@@ -45,12 +46,16 @@ export function HologramGauge3D({
         <span className="rounded-full border border-surface-border bg-surface-elevated px-3 py-1 text-xs font-mono font-bold uppercase text-lime">VERIFIED</span>
       </div>
       <div className="my-6 flex flex-col items-center gap-4 text-center">
-        <div className={`flex h-36 w-36 items-center justify-center rounded-full border-2 border-current bg-surface-elevated ${config.color}`}>
-          <span className="font-display text-6xl font-light tracking-tight" aria-label={`Grade ${score}`}>{score}</span>
-        </div>
+        <SoapBubbleRank
+          grade={score}
+          size="lg"
+          interactive={true}
+          showRankLabel={true}
+          co2Grams={co2Grams}
+        />
         <div>
           <p className="text-sm text-sage">{config.label}</p>
-          <p className="mt-2 font-display text-3xl font-light tabular-nums text-cream">
+          <p className="mt-1 font-display text-2xl font-light tabular-nums text-cream">
             {co2Grams} <span className="font-mono text-xs text-sage">g CO2 / visit</span>
           </p>
         </div>

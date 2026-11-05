@@ -45,6 +45,7 @@ import { PayloadBreakdown } from "@/components/telemetry/payload-breakdown";
 import { HotspotCard } from "@/components/telemetry/hotspot-card";
 import { AuditResult } from "@/types/telemetry";
 import { CARBONERRA_CONFIG } from "@/lib/config";
+import { SoapBubbleRank } from "@/components/3d/soap-bubble-rank";
 import Link from "next/link";
 
 function LandingPageContent() {
@@ -329,21 +330,27 @@ function LandingPageContent() {
                 </div>
               </Card>
 
-              {/* Card 2: EcoScore Grade */}
-              <Card className="p-5 glass-panel-elevated border border-surface-border space-y-2">
-                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-sage/70">
-                  ECOSCORE GRADE
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className={`text-2xl sm:text-3xl font-display font-black px-3.5 py-1 rounded-xl border ${
-                    ['A', 'A+', 'B'].includes(auditData.eco_score)
-                      ? 'bg-lime/10 border-lime/40 text-lime'
-                      : 'bg-white/10 border-white/20 text-white'
-                  }`}>
-                    Grade {auditData.eco_score}
+              {/* Card 2: EcoScore Grade with 3D Soap Bubble */}
+              <Card className="p-5 glass-panel-elevated border border-surface-border flex flex-col justify-between overflow-hidden relative group">
+                <div className="flex items-center justify-between">
+                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-sage/70">
+                    ECOSCORE GRADE
                   </div>
+                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-lime font-bold">
+                    3D Telemetry
+                  </span>
                 </div>
-                <div className="text-xs font-mono text-sage/80 pt-1">
+
+                <div className="py-2 flex items-center justify-center">
+                  <SoapBubbleRank
+                    grade={auditData.eco_score}
+                    size="sm"
+                    interactive={true}
+                    showRankLabel={false}
+                  />
+                </div>
+
+                <div className="text-xs font-mono text-center text-sage/80 pt-1 border-t border-white/5">
                   {['A', 'A+', 'B'].includes(auditData.eco_score)
                     ? 'Top tier environmental efficiency'
                     : 'High emissions reduction potential'}
