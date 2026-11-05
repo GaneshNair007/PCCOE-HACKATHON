@@ -45,65 +45,9 @@ Carbonerra's key differentiator is **Task Preservation Verification**:
 - **Shared Budget Evaluator**: Unified engine used across the web app, local CLI runner (`scripts/run-budget-check.mjs`), and GitHub Actions CI workflow.
 
 ---
+LIVE DEMO IS AT: https://pccoe-hackathon.vercel.app
 
-## 🚀 Quickstart & Working Setup
 
-### Prerequisites
-- Node.js 18+ (tested on Node v20/v24)
-- npm
-
-### 1. Install Dependencies
-```bash
-npm install
-```
-
-### 2. Run the Local Development Server
-```bash
-npm run dev
-```
-Open **`http://localhost:3001`** in your browser.
-
-### 3. Run the Full Test Suite
-Executes 28 unit and end-to-end integration tests across all 4 suites:
-```bash
-npm test
-```
-
-### 4. Run the Local CLI Budget Gate
-Tests the shared budget evaluator directly in your terminal:
-```bash
-# Run against the local server
-node scripts/run-budget-check.mjs http://localhost:3001
-```
-- Exits **0** when the candidate satisfies transfer limits and passes task assertions.
-- Exits **1** on strict budget breach or functional assertion failure.
-
----
-
-## 🎪 Controlled Demo Property
-
-Carbonerra includes an isolated campus event registration property underteam control:
-- **URL**: `http://localhost:3001/demo/event`
-- **Variants**:
-  - `?variant=baseline`: Working registration with uncompressed 2.42 MB hero JPEG (`public/demo/assets/campus-hackathon-hero.jpg`). Total transfer: 2,450 KB. Passes task checks, breaches 350 KB budget.
-  - `?variant=optimized`: Working registration with responsive 176 KB WebP asset (`public/demo/assets/campus-hackathon-hero.webp`) and `<picture>` markup. Total transfer: 204 KB (-91.6%). Passes task checks, passes 350 KB budget.
-  - `?variant=broken`: Stripped page (~25 KB) with broken registration submission (HTTP 500). Fails task check #3, rejected by Carbonerra.
-
----
-
-## ⏱️ 3-Minute Judge Demonstration Script
-
-| Time | Screen | Action & What Judges See | Key Takeaway |
-|---|---|---|---|
-| **0:00–0:20** | Controlled Demo Site (`/demo/event`) | Show the PCCOE Green Campus Hackathon registration page and complete a synthetic registration. | Concrete campus web problem: students loading heavy registration pages on mobile data. |
-| **0:20–0:45** | Overview (`/`) | Run audit or inspect baseline. See **Top Evidenced Opportunity**: 2.42 MB hero image (98.7% of journey bytes). Click "Start improvement experiment →". | Clear diagnosis connecting observed network bytes to a specific asset. |
-| **0:45–1:10** | Savings Lab (`/savings-lab`) Stage 1 & 2 | Review the proposed patch: unified diff replacing uncompressed `<img>` with `<picture><source type="image/webp">`. Reviewer sign-off and click "Approve & Stage Candidate". | Feasible engineering action with explicit human approval, not ungrounded AI magic. |
-| **1:10–1:40** | Savings Lab Stage 3 | Click **"Test Broken Candidate"**. Carbonerra runs 3 passes, detects 25 KB transfer, but **REJECTS the candidate** because registration failed (HTTP 500). | **The Memorable Twist**: Carbonerra protects user usefulness. Savings cannot come from broken forms. |
-| **1:40–2:10** | Savings Lab Stage 3 | Click **"Test Optimized Candidate"**. Shows 3 alternating passes. Transfer drops from 2,450 KB to 204 KB (-91.6%). Assertions: 3/3 passed. Status: **Candidate Verified ✅**. | Proven, reproducible transfer reduction under matching conditions. |
-| **2:10–2:40** | Evidence (`/evidence`) | Inspect the **Improvement Verification Receipt**: side-by-side run tables, functional task audit trail, and download the JSON evidence receipt. | An auditable engineering record, explicitly disclosing attributional SWDM v4 assumptions. |
-| **2:40–3:00** | Release Shield (`/shield`) | Re-introduce the oversized asset. The shared budget gate triggers a strict failure (exit 1). Show the downloadable GitHub Actions workflow template. | **Prevention of Regression**: Locks in digital sustainability progress across future pull requests. |
-
----
 
 ## 🔒 Limitations & Honest Boundaries
 
