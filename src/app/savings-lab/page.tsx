@@ -338,8 +338,106 @@ function SavingsLabContent() {
     smtp_host?: string;
   } | null>(null);
   const [imageComparatorTab, setImageComparatorTab] = useState<"side-by-side" | "webp" | "original">("side-by-side");
+  const [activeAudit, setActiveAudit] = useState<any>(null);
 
-  const activePatch = PATCH_CATALOG.find((p) => p.id === selectedPatchCategory) || PATCH_CATALOG[0];
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("carbonterra_last_audit");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed) setActiveAudit(parsed);
+      }
+    } catch {}
+
+    const qUrl = initialTargetUrl ? `?url=${encodeURIComponent(initialTargetUrl)}` : "";
+    fetch(`/api/audit${qUrl}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && data.status === "success" && data.audit) {
+          setActiveAudit(data.audit);
+        }
+      })
+      .catch(() => {});
+  }, [initialTargetUrl]);
+
+  const effectiveDomain = targetDomain || activeAudit?.domain || "audited-site.com";
+  const primaryDiscoveredImage = activeAudit?.discovered_assets?.primary_image;
+  const baselineImageUrl = primaryDiscoveredImage?.url || "";
+  const baselineFilename = primaryDiscoveredImage?.filename || (effectiveDomain ? `${effectiveDomain}-hero.jpg` : "hero-banner-large.jpg");
+  const baselineFormat = baselineFilename.endsWith(".png") ? "Raw PNG" : baselineFilename.endsWith(".svg") ? "SVG Vector" : "Raw JPEG";
+
+  const baselineBytes = primaryDiscoveredImage?.estimated_kb
+    ? primaryDiscoveredImage.estimated_kb * 1024
+    : activeAudit?.total_bytes
+    ? Math.round(activeAudit.total_bytes * 0.45)
+    : (verification?.baselineMedianBytes || 2420000);
+
+  const baselineWeightFormatted = baselineBytes >= 1024 * 1024
+    ? `${(baselineBytes / (1024 * 1024)).toFixed(2)} MB`
+    : `${Math.round(baselineBytes / 1024)} KB`;
+
+  const baselineCo2Val = activeAudit?.co2_grams
+    ? activeAudit.co2_grams
+    : (verification?.baselineCo2Grams || 0.296);
+  const baselineCo2Formatted = `${baselineCo2Val.toFixed(3)} gCO2e / visit`;
+
+  const optimizedFilename = baselineFilename.replace(/\.[a-zA-Z0-9]+$/, ".webp");
+  const optimizedImageUrl = primaryDiscoveredImage?.url
+    ? primaryDiscoveredImage.url.replace(/\.[a-zA-Z0-9]+$/, ".webp")
+    : "";
+  const optimizedBytes = primaryDiscoveredImage?.optimized_kb
+    ? primaryDiscoveredImage.optimized_kb * 1024
+    : Math.max(16000, Math.round(baselineBytes * 0.16));
+  const optimizedWeightFormatted = `${Math.round(optimizedBytes / 1024)} KB`;
+  const optimizedCo2Val = Number((baselineCo2Val * (optimizedBytes / (baselineBytes || 1))).toFixed(4));
+  const optimizedCo2Formatted = `${optimizedCo2Val.toFixed(3)} gCO2e / visit`;
+  const savingPercent = Math.round(((baselineBytes - optimizedBytes) / (baselineBytes || 1)) * 100);
+
+  const dynamicCatalog: PatchItem[] = PATCH_CATALOG.map((item) => {
+    if (item.id === "image") {
+      const cleanProj = effectiveDomain.replace(/[^a-zA-Z0-9]/g, "");
+      return {
+        ...item,
+        title: `${effectiveDomain} Responsive WebP/AVIF Image Pipeline`,
+        targetFile: `src/components/${cleanProj}Hero.tsx`,
+        snippetFilename: `${cleanProj}Hero.tsx`,
+        estimatedSaving: `-${savingPercent}%`,
+        savingBytes: `${Math.round((baselineBytes - optimizedBytes) / 1024)} KB`,
+        description: `Converts raw ${baselineFilename} (${baselineWeightFormatted}) on ${effectiveDomain} into modern WebP format (${optimizedWeightFormatted}). Serves via HTML5 <picture> element with modern WebP source and fallback. Preserves explicit dimensions and alt text to eliminate Cumulative Layout Shift (CLS).`,
+        snippet: `<picture>
+  <source srcSet="${optimizedImageUrl || `/assets/${optimizedFilename}`}" type="image/webp" />
+  <img 
+    src="${baselineImageUrl || `/assets/${baselineFilename}`}" 
+    alt="${effectiveDomain} Hero" 
+    width="1200" 
+    height="400" 
+    loading="eager" 
+    fetchPriority="high" 
+    decoding="async" 
+  />
+</picture>`,
+        unifiedDiff: `--- a/src/components/${cleanProj}Hero.tsx
++++ b/src/components/${cleanProj}Hero.tsx
+@@ -10,7 +10,13 @@
+-  <img src="${baselineImageUrl || `/assets/${baselineFilename}`}" alt="${effectiveDomain}" className="w-full h-auto" />
++  <picture>
++    <source srcSet="${optimizedImageUrl || `/assets/${optimizedFilename}`}" type="image/webp" />
++    <img
++      src="${baselineImageUrl || `/assets/${baselineFilename}`}"
++      alt="${effectiveDomain} Hero"
++      width="1200"
++      height="600"
++      loading="eager"
++      fetchPriority="high"
++      decoding="async"
++    />
++  </picture>`,
+      };
+    }
+    return item;
+  });
+
+  const activePatch = dynamicCatalog.find((p) => p.id === selectedPatchCategory) || dynamicCatalog[0];
 
   const handleDispatchEmail = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -348,27 +446,27 @@ function SavingsLabContent() {
     setDispatchStatus(null);
     setDispatchResult(null);
     try {
-      const activeBaselineBytes = verification?.baselineMedianBytes || 2450000;
-      const activeCandidateBytes = verification?.candidateMedianBytes || 176000;
-      const activePercentSaved = verification?.percentSaved || (activePatch.id === "image" ? 92.8 : 45.0);
-      const activeCo2 = verification?.baselineCo2Grams || 0.584;
+      const activeBaselineBytes = baselineBytes;
+      const activeCandidateBytes = optimizedBytes;
+      const activePercentSaved = savingPercent;
+      const activeCo2 = baselineCo2Val;
 
       const res = await fetch("/api/email-report", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           recipient_email: dispatchEmail,
-          target_url: initialTargetUrl || (targetDomain ? `https://${targetDomain}` : "https://carbonterra-target.dev"),
-          company_name: targetDomain ? `${targetDomain} Engineering` : "Engineering Team",
+          target_url: initialTargetUrl || (effectiveDomain ? `https://${effectiveDomain}` : "https://carbonterra-target.dev"),
+          company_name: `${effectiveDomain} Engineering`,
           experiment_id: experiment?.id,
           audit_summary: {
-            total_bytes_formatted: `${(activeBaselineBytes / (1024 * 1024)).toFixed(2)} MB`,
+            total_bytes_formatted: baselineWeightFormatted,
             baseline_bytes: activeBaselineBytes,
             candidate_bytes: activeCandidateBytes,
             co2_grams: activeCo2,
-            eco_score: activePercentSaved > 50 ? "A+" : "B",
+            eco_score: activeAudit?.eco_score || (activePercentSaved > 50 ? "A+" : "B"),
             reduction_percent: activePercentSaved,
-            cleaner_than_percent: 88.5,
+            cleaner_than_percent: activeAudit?.metrics?.cleaner_than_percentile || 88.5,
           },
           recommended_fixes: [
             {
@@ -845,30 +943,36 @@ function SavingsLabContent() {
                   <div className="md:col-span-5 p-5 sm:p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/15 space-y-3 font-mono">
                     <div className="flex justify-between items-center text-xs sm:text-sm">
                       <span className="text-white/80 font-bold uppercase tracking-wider">Unoptimized Baseline</span>
-                      <span className="text-white/60">Raw JPEG</span>
+                      <span className="text-white/60">{baselineFormat}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-16 h-12 rounded-xl overflow-hidden border border-white/20 bg-black/60 shrink-0 relative flex items-center justify-center">
                         <ImageIcon className="w-6 h-6 text-white/40 absolute" />
-                        <img 
-                          src="/demo/assets/hero-banner-large.jpg" 
-                          alt="Baseline Preview" 
-                          className="w-full h-full object-cover relative z-10" 
-                          onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
-                        />
+                        {baselineImageUrl ? (
+                          <img 
+                            src={baselineImageUrl} 
+                            alt={baselineFilename} 
+                            className="w-full h-full object-cover relative z-10" 
+                            onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
+                          />
+                        ) : (
+                          <div className="relative z-10 text-[9px] font-mono text-white/50 text-center px-1 font-bold">
+                            {effectiveDomain.slice(0, 8)}
+                          </div>
+                        )}
                       </div>
                       <div className="text-white font-bold text-base sm:text-lg break-all">
-                        hero-banner-large.jpg
+                        {baselineFilename}
                       </div>
                     </div>
                     <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
                       <div>
                         <div className="text-xs text-white/60">Transfer Weight</div>
-                        <div className="text-2xl sm:text-3xl font-black text-white mt-0.5">2.42 <span className="text-xs font-normal text-white/60">MB</span></div>
+                        <div className="text-2xl sm:text-3xl font-black text-white mt-0.5">{baselineWeightFormatted}</div>
                       </div>
                       <div className="text-right">
                         <div className="text-xs text-white/60">Carbon Footprint</div>
-                        <div className="text-sm sm:text-base font-bold text-white mt-0.5">0.296 gCO2e / visit</div>
+                        <div className="text-sm sm:text-base font-bold text-white mt-0.5">{baselineCo2Formatted}</div>
                       </div>
                     </div>
                   </div>
@@ -880,7 +984,7 @@ function SavingsLabContent() {
                       <TrendingDown className="w-6 h-6 md:hidden" />
                     </div>
                     <span className="text-xs font-mono font-black text-[#cbff00] mt-1.5 whitespace-nowrap">
-                      -92.7%
+                      -{savingPercent}%
                     </span>
                   </div>
 
@@ -893,25 +997,31 @@ function SavingsLabContent() {
                     <div className="flex items-center gap-3">
                       <div className="w-16 h-12 rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/60 shrink-0 relative shadow-[0_0_15px_rgba(203,255,0,0.15)] flex items-center justify-center">
                         <ImageIcon className="w-6 h-6 text-[#cbff00]/40 absolute" />
-                        <img 
-                          src="/demo/assets/hero-banner-large.webp" 
-                          alt="Optimized Preview" 
-                          className="w-full h-full object-cover relative z-10" 
-                          onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
-                        />
+                        {optimizedImageUrl ? (
+                          <img 
+                            src={optimizedImageUrl} 
+                            alt={optimizedFilename} 
+                            className="w-full h-full object-cover relative z-10" 
+                            onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
+                          />
+                        ) : (
+                          <div className="relative z-10 text-[9px] font-mono text-[#cbff00] text-center px-1 font-bold">
+                            WEBP
+                          </div>
+                        )}
                       </div>
                       <div className="text-white font-bold text-base sm:text-lg break-all">
-                        hero-banner-large.webp
+                        {optimizedFilename}
                       </div>
                     </div>
                     <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
                       <div>
                         <div className="text-xs text-white/60">Transfer Weight</div>
-                        <div className="text-2xl sm:text-3xl font-black text-[#cbff00] mt-0.5">176 <span className="text-xs font-normal text-white/60">KB</span></div>
+                        <div className="text-2xl sm:text-3xl font-black text-[#cbff00] mt-0.5">{optimizedWeightFormatted}</div>
                       </div>
                       <div className="text-right">
                         <div className="text-xs text-white/60">Carbon Footprint</div>
-                        <div className="text-sm sm:text-base font-bold text-[#cbff00] mt-0.5">0.021 gCO2e / visit</div>
+                        <div className="text-sm sm:text-base font-bold text-[#cbff00] mt-0.5">{optimizedCo2Formatted}</div>
                       </div>
                     </div>
                   </div>
@@ -1109,7 +1219,7 @@ function SavingsLabContent() {
                             : "text-white/70 hover:text-white"
                         }`}
                       >
-                        Original JPEG (2.42 MB)
+                        Original ({baselineWeightFormatted})
                       </button>
                     </div>
                   </div>
@@ -1120,67 +1230,95 @@ function SavingsLabContent() {
                       {/* Original JPEG */}
                       <div className="space-y-2">
                         <div className="flex justify-between items-center text-xs text-white/70">
-                          <span className="font-bold text-white">BASELINE UNCOMPRESSED JPEG</span>
-                          <span>2.42 MB on wire</span>
+                          <span className="font-bold text-white">BASELINE UNCOMPRESSED {baselineFormat.toUpperCase()}</span>
+                          <span>{baselineWeightFormatted} on wire</span>
                         </div>
                         <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
                           <ImageIcon className="w-10 h-10 text-white/30 absolute" />
-                          <img
-                            src="/demo/assets/hero-banner-large.jpg"
-                            alt="Production Baseline Hero (2.42 MB)"
-                            className="w-full h-full object-cover relative z-10"
-                            loading="eager"
-                          />
+                          {baselineImageUrl ? (
+                            <img
+                              src={baselineImageUrl}
+                              alt={`${effectiveDomain} Baseline Hero`}
+                              className="w-full h-full object-cover relative z-10"
+                              loading="eager"
+                              onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
+                            />
+                          ) : (
+                            <div className="relative z-10 text-xs font-mono text-white/60 text-center px-2">
+                              {effectiveDomain} / {baselineFilename}
+                            </div>
+                          )}
                         </div>
                       </div>
 
                       {/* Optimized WebP */}
                       <div className="space-y-2">
                         <div className="flex justify-between items-center text-xs text-white/70">
-                          <span className="font-bold text-[#cbff00]">OPTIMIZED FIRST-PARTY WEBP</span>
-                          <span className="text-[#cbff00] font-bold">176 KB (-92.7%)</span>
+                          <span className="font-bold text-[#cbff00]">OPTIMIZED FIRST-PARTY WEBP ({effectiveDomain})</span>
+                          <span className="text-[#cbff00] font-bold">{optimizedWeightFormatted} (-{savingPercent}%)</span>
                         </div>
                         <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative shadow-[0_0_20px_rgba(203,255,0,0.1)] flex items-center justify-center">
                           <ImageIcon className="w-10 h-10 text-[#cbff00]/30 absolute" />
-                          <img
-                            src="/demo/assets/hero-banner-large.webp"
-                            alt="Production Optimized Hero (176 KB)"
-                            className="w-full h-full object-cover relative z-10"
-                            loading="eager"
-                          />
+                          {optimizedImageUrl ? (
+                            <img
+                              src={optimizedImageUrl}
+                              alt={`${effectiveDomain} Optimized WebP`}
+                              className="w-full h-full object-cover relative z-10"
+                              loading="eager"
+                              onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
+                            />
+                          ) : (
+                            <div className="relative z-10 text-xs font-mono text-[#cbff00] text-center px-2">
+                              {optimizedFilename} (WebP)
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
                   ) : imageComparatorTab === "webp" ? (
                     <div className="space-y-2 pt-1">
                       <div className="flex justify-between items-center text-xs text-white/70">
-                        <span className="font-bold text-[#cbff00]">OPTIMIZED WEBP CANDIDATE</span>
-                        <span className="text-[#cbff00] font-bold">176 KB / Zero Visual Loss</span>
+                        <span className="font-bold text-[#cbff00]">OPTIMIZED WEBP CANDIDATE ({effectiveDomain})</span>
+                        <span className="text-[#cbff00] font-bold">{optimizedWeightFormatted} / Zero Visual Loss</span>
                       </div>
                       <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
                         <ImageIcon className="w-10 h-10 text-[#cbff00]/30 absolute" />
-                        <img
-                          src="/demo/assets/hero-banner-large.webp"
-                          alt="Production Optimized Hero"
-                          className="w-full h-full object-cover relative z-10"
-                          loading="eager"
-                        />
+                        {optimizedImageUrl ? (
+                          <img
+                            src={optimizedImageUrl}
+                            alt={`${effectiveDomain} Optimized Hero`}
+                            className="w-full h-full object-cover relative z-10"
+                            loading="eager"
+                            onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
+                          />
+                        ) : (
+                          <div className="relative z-10 text-xs font-mono text-[#cbff00] text-center px-2">
+                            {optimizedFilename} (WebP)
+                          </div>
+                        )}
                       </div>
                     </div>
                   ) : (
                     <div className="space-y-2 pt-1">
                       <div className="flex justify-between items-center text-xs text-white/70">
-                        <span className="font-bold text-white">ORIGINAL UNCOMPRESSED JPEG</span>
-                        <span>2.42 MB / Heavy Payload Hotspot</span>
+                        <span className="font-bold text-white">ORIGINAL UNCOMPRESSED {baselineFormat.toUpperCase()}</span>
+                        <span>{baselineWeightFormatted} / Heavy Payload Hotspot</span>
                       </div>
                       <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
                         <ImageIcon className="w-10 h-10 text-white/30 absolute" />
-                        <img
-                          src="/demo/assets/hero-banner-large.jpg"
-                          alt="Production Baseline Hero"
-                          className="w-full h-full object-cover relative z-10"
-                          loading="eager"
-                        />
+                        {baselineImageUrl ? (
+                          <img
+                            src={baselineImageUrl}
+                            alt={`${effectiveDomain} Baseline Hero`}
+                            className="w-full h-full object-cover relative z-10"
+                            loading="eager"
+                            onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
+                          />
+                        ) : (
+                          <div className="relative z-10 text-xs font-mono text-white/60 text-center px-2">
+                            {baselineFilename}
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}
@@ -1274,12 +1412,12 @@ function SavingsLabContent() {
                     </span>
                     {activePatch.id === "image" && (
                       <a
-                        href="/demo/assets/hero-banner-large.webp"
-                        download="hero-banner-large.webp"
+                        href={optimizedImageUrl || "/demo/assets/hero-banner-large.webp"}
+                        download={optimizedFilename}
                         className="px-4 py-2.5 rounded-2xl bg-white/[0.06] border border-white/20 text-white hover:text-[#cbff00] hover:border-[#cbff00]/40 font-mono text-xs sm:text-sm flex items-center gap-2 font-bold transition-colors w-fit"
                       >
                         <Download className="w-4 h-4 text-[#cbff00]" />
-                        DOWNLOAD OPTIMIZED WEBP (176 KB)
+                        DOWNLOAD OPTIMIZED WEBP ({optimizedWeightFormatted})
                       </a>
                     )}
                   </div>

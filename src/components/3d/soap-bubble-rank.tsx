@@ -17,10 +17,10 @@ export interface SoapBubbleRankProps {
 
 const SIZE_MAP = {
   sm: { bubble: 110, font: "text-3xl", badge: "text-[9px] px-1.5 py-0.5", tag: "text-[10px]" },
-  md: { bubble: 154, font: "text-5xl", badge: "text-[10px] px-2 py-0.5", tag: "text-xs" },
-  lg: { bubble: 210, font: "text-6xl", badge: "text-xs px-2.5 py-1", tag: "text-sm" },
-  xl: { bubble: 260, font: "text-7xl", badge: "text-xs px-3 py-1", tag: "text-sm" },
-  hero: { bubble: 290, font: "text-8xl sm:text-9xl", badge: "text-xs px-3.5 py-1 font-bold tracking-widest", tag: "text-sm sm:text-base" },
+  md: { bubble: 160, font: "text-5xl", badge: "text-[10px] px-2 py-0.5", tag: "text-xs" },
+  lg: { bubble: 220, font: "text-6xl", badge: "text-xs px-2.5 py-1", tag: "text-sm" },
+  xl: { bubble: 270, font: "text-7xl", badge: "text-xs px-3 py-1", tag: "text-sm" },
+  hero: { bubble: 330, font: "text-9xl sm:text-[110px]", badge: "text-xs px-4 py-1.5 font-black tracking-widest", tag: "text-sm sm:text-base font-bold" },
 };
 
 const GRADE_PALETTES: Record<

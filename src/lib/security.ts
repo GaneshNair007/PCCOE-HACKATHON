@@ -152,10 +152,26 @@ export async function validateAndResolveUrl(rawUrl: string): Promise<ResolvedTar
   }
 
   const hostname = parsed.hostname.toLowerCase();
+  const isLocalDev = process.env.NODE_ENV !== "production" || process.env.ALLOW_LOCAL_AUDIT === "true";
+
+  // Allow auditing localhost in local development environment
+  if (hostname === "localhost" || hostname === "127.0.0.1") {
+    if (isLocalDev) {
+      return {
+        normalizedUrl: parsed.toString(),
+        auditTargetUrl: parsed.toString(),
+        domain: "localhost",
+        resolvedIp: "127.0.0.1",
+      };
+    } else {
+      const err: any = new Error("Auditing internal or local addresses is prohibited in production.");
+      err.code = "SSRF_BLOCKED";
+      throw err;
+    }
+  }
 
   // Block obvious dangerous hostnames
   if (
-    hostname === "localhost" ||
     hostname.endsWith(".local") ||
     hostname.endsWith(".internal") ||
     hostname.endsWith(".localhost")

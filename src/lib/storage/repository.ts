@@ -14,6 +14,7 @@ import {
   VerificationResult,
   Budget,
 } from "./types";
+import type { AuditResult } from "@/types/telemetry";
 
 interface StorageState {
   projects: Record<string, Project>;
@@ -22,6 +23,7 @@ interface StorageState {
   experiments: Record<string, Experiment>;
   verifications: Record<string, VerificationResult>;
   budgets: Record<string, Budget>;
+  telemetry: Record<string, AuditResult>;
 }
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -123,6 +125,7 @@ function initStore(): StorageState {
     experiments: {},
     verifications: {},
     budgets: { ["campus-events"]: SEED_BUDGET },
+    telemetry: {},
   };
 
   try {
@@ -138,6 +141,7 @@ function initStore(): StorageState {
 let store: StorageState = process.env.VERCEL ? {
   projects: {[SEED_PROJECT.id]: SEED_PROJECT}, journeys: {[SEED_JOURNEY.id]: SEED_JOURNEY},
   runs: {}, experiments: {}, verifications: {}, budgets: {[SEED_PROJECT.id]: SEED_BUDGET},
+  telemetry: {},
 } : initStore();
 
 function persistStore() {
@@ -255,6 +259,19 @@ const LocalStorageRepository = {
     return store.budgets[budget.projectId];
   },
 
+  // Telemetry Audit Results
+  saveTelemetry(audit: AuditResult): AuditResult {
+    if (!store.telemetry) store.telemetry = {};
+    store.telemetry[audit.id || audit.url] = audit;
+    persistStore();
+    return audit;
+  },
+
+  async listTelemetry(): Promise<AuditResult[]> {
+    if (!store.telemetry) return [];
+    return Object.values(store.telemetry).sort((a, b) => b.calculated_at.localeCompare(a.calculated_at));
+  },
+
   resetDemo() {
     store = {
       projects: { [SEED_PROJECT.id]: SEED_PROJECT },
@@ -263,6 +280,7 @@ const LocalStorageRepository = {
       experiments: {},
       verifications: {},
       budgets: { ["campus-events"]: SEED_BUDGET },
+      telemetry: {},
     };
     persistStore();
   },

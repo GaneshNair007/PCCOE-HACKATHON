@@ -214,6 +214,20 @@ export interface AuditResult {
   cross_validation?: CrossValidationData;
   trace_variables?: Record<string, any>;
 
+  // Discovered real assets from target website
+  discovered_assets?: {
+    primary_image?: {
+      url: string;
+      filename: string;
+      estimated_kb: number;
+      optimized_kb: number;
+      saving_pct: number;
+    };
+    images: { url: string; filename: string; bytes?: number }[];
+    scripts: { url: string; filename: string; bytes?: number }[];
+    stylesheets: { url: string; filename: string; bytes?: number }[];
+  };
+
   // Complete Domain Audit Record
   record?: AuditRecord;
 

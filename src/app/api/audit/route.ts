@@ -1,6 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
-import { performAudit } from "@/lib/scanner";
+import { performAudit, getCachedAudit, getRecentAudits } from "@/lib/scanner";
 import { checkRateLimit } from "@/lib/security";
+
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const targetUrl = searchParams.get("url") || undefined;
+    const isRecent = searchParams.get("recent") === "true";
+
+    if (isRecent) {
+      const recent = await getRecentAudits(10);
+      return NextResponse.json({ status: "success", recent });
+    }
+
+    const cached = getCachedAudit(targetUrl);
+    if (cached) {
+      return NextResponse.json({ status: "success", audit: cached });
+    }
+
+    return NextResponse.json({
+      status: "error",
+      message: "No recent audit record found for this target.",
+    }, { status: 404 });
+  } catch (err: any) {
+    return NextResponse.json({
+      status: "error",
+      message: err.message || "Failed to retrieve audit",
+    }, { status: 500 });
+  }
+}
 
 export async function POST(req: NextRequest) {
   // 1. Rate Limiting per Client IP

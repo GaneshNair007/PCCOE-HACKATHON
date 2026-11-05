@@ -56,6 +56,16 @@ export async function generateImprovementReceipt(
   const baselineRuns = (await Promise.all(experiment.baselineRunIds.map((id) => StorageRepository.getRun(id)))).filter(Boolean) as AuditRun[];
   const candidateRuns = (await Promise.all(experiment.candidateRunIds.map((id) => StorageRepository.getRun(id)))).filter(Boolean) as AuditRun[];
 
+  const affectedResource = experiment.affectedResourceUrl || "/assets/hero-banner.jpg";
+  const ext = affectedResource.split(".").pop()?.split("?")[0] || "jpg";
+  const replacementResource = affectedResource.includes(".webp")
+    ? affectedResource
+    : affectedResource.replace(new RegExp(`\\.${ext}(\\?.*)?$`), ".webp");
+  const cleanProj = experiment.projectId ? experiment.projectId.replace(/[^a-zA-Z0-9]/g, "") : "App";
+  const targetFile = experiment.projectId && experiment.projectId !== "campus-events"
+    ? `src/components/${cleanProj}Hero.tsx`
+    : "src/app/demo/event/page.tsx";
+
   return {
     receiptVersion: "2.0.0-savings-lab",
     experimentId: experiment.id,
@@ -66,9 +76,9 @@ export async function generateImprovementReceipt(
     reviewerDecision: experiment.reviewerDecision,
     reviewedAt: experiment.reviewedAt,
     patchSummary: {
-      targetFile: "src/app/demo/event/page.tsx",
-      affectedResource: experiment.affectedResourceUrl.replace(/campus-hackathon-hero/g, "hero-banner-large"),
-      replacementResource: "/demo/assets/hero-banner-large.webp",
+      targetFile,
+      affectedResource,
+      replacementResource,
     },
     baseline: {
       runIds: experiment.baselineRunIds,

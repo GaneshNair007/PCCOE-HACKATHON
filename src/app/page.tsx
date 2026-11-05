@@ -133,6 +133,7 @@ function LandingPageContent() {
           ...storedFleet.filter((s: any) => s.domain !== data.domain),
         ].slice(0, 25);
         localStorage.setItem("carbonerra_fleet", JSON.stringify(updatedFleet));
+        localStorage.setItem("carbonterra_last_audit", JSON.stringify(data));
       } catch {
         // LocalStorage fallback
       }
@@ -490,16 +491,37 @@ function LandingPageContent() {
             )}
           </>
         ) : auditStatus === "running" ? (
-          /* Live Dual-Source Auditing State with Butterfly Orbit */
-          <div className="p-12 text-center rounded-3xl glass-panel-elevated border border-lime/40 space-y-6 relative overflow-hidden shadow-[0_0_50px_rgba(203,255,0,0.15)] flex flex-col items-center justify-center">
-            <ButterflyOrbit size={130} label={currentPhase || "Measuring Network Transfer & Computing SWDM v4 Carbon..."} />
-            <div className="space-y-1">
-              <h3 className="font-display text-2xl sm:text-3xl font-bold text-cream tracking-tight">
-                Auditing {targetUrl || "Target Host"}
-              </h3>
-              <p className="text-xs font-mono text-sage/70">
-                Fetching DOM elements, resolving regional grid emissions, and pinpointing asset hotspots.
-              </p>
+          /* Live Dual-Source Auditing State with 3D Soap Bubble Centerpiece */
+          <div className="p-8 sm:p-14 text-center rounded-3xl bg-gradient-to-b from-[#182415]/95 via-black/80 to-[#0e160c]/95 border border-[#cbff00]/40 space-y-6 relative overflow-hidden shadow-[0_20px_80px_-15px_rgba(203,255,0,0.25)] flex flex-col items-center justify-center">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] bg-[#cbff00]/15 rounded-full blur-[100px] pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col items-center max-w-xl mx-auto w-full">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-lime/10 border border-lime/30 text-lime font-mono text-xs uppercase font-bold tracking-widest mb-4 shadow-[0_0_15px_rgba(203,255,0,0.2)]">
+                <span className="w-2 h-2 rounded-full bg-lime animate-ping" />
+                ANALYZING TELEMETRY · DETERMINING ECO-SCORE
+              </div>
+
+              {/* Centerpiece 3D Soap Bubble with active scanning aura */}
+              <div className="relative py-2">
+                <SoapBubbleRank
+                  grade="B"
+                  size="hero"
+                  interactive={true}
+                  showRankLabel={false}
+                />
+              </div>
+
+              <div className="space-y-2 mt-2">
+                <h3 className="font-display text-2xl sm:text-4xl font-bold text-cream tracking-tight">
+                  Auditing {targetUrl || "Target Host"}
+                </h3>
+                <p className="text-xs sm:text-sm font-mono text-[#cbff00] font-semibold">
+                  {currentPhase || "Probing network transfer payloads & electrical grid..."}
+                </p>
+                <p className="text-xs text-sage/70 max-w-md mx-auto">
+                  Scanning DOM assets, resolving regional power grid intensity, and computing SWDM v4 carbon attribution.
+                </p>
+              </div>
             </div>
           </div>
         ) : (
