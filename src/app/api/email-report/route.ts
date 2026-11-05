@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
         const info = await transporter.sendMail({
           from: `"CarbonTerra Telemetry" <${smtpFrom}>`,
           to: recipient_email,
-          subject: `⚡ CarbonTerra Engineering Action Report — ${target_url}`,
+          subject: `CarbonTerra Engineering Action Report — ${target_url}`,
           html: htmlContent,
           text: `CarbonTerra Engineering Action Report for ${target_url}. Dispatched to ${recipient_email}. View full telemetry online at ${target_url}.`,
         });
@@ -124,7 +124,7 @@ export async function POST(req: NextRequest) {
       const info = await testTransporter.sendMail({
         from: `"CarbonTerra Telemetry" <${smtpFrom}>`,
         to: recipient_email,
-        subject: `⚡ CarbonTerra Engineering Action Report — ${target_url}`,
+        subject: `CarbonTerra Engineering Action Report — ${target_url}`,
         html: htmlContent,
       });
 

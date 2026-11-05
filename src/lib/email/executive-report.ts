@@ -95,7 +95,7 @@ ${fix.drop_in_snippet}
           <tr>
             <td>
               <div style="display: inline-block; padding: 6px 12px; background: rgba(203, 255, 0, 0.12); border: 1px solid rgba(203, 255, 0, 0.3); border-radius: 8px; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; color: #cbff00; text-transform: uppercase;">
-                ⚡ CARBONTERRA DISPATCH GATEWAY
+                CARBONTERRA DISPATCH GATEWAY
               </div>
               <h1 style="font-size: 24px; font-weight: 800; color: #ffffff; margin: 16px 0 6px 0; letter-spacing: -0.5px;">
                 Executive Engineering Action Report
