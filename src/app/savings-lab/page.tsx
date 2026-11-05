@@ -333,6 +333,10 @@ function SavingsLabContent() {
     liveInboxUrl?: string;
     mode?: string;
   } | null>(null);
+  const [smtpConfig, setSmtpConfig] = useState<{
+    configured: boolean;
+    smtp_host?: string;
+  } | null>(null);
   const [imageComparatorTab, setImageComparatorTab] = useState<"side-by-side" | "webp" | "original">("side-by-side");
 
   const activePatch = PATCH_CATALOG.find((p) => p.id === selectedPatchCategory) || PATCH_CATALOG[0];
@@ -402,6 +406,21 @@ function SavingsLabContent() {
       setIsDispatching(false);
     }
   };
+
+  // Check real SMTP gateway configuration
+  useEffect(() => {
+    fetch("/api/email-report")
+      .then((res) => res.json())
+      .then((data) => {
+        setSmtpConfig({
+          configured: Boolean(data.configured),
+          smtp_host: data.smtp_host,
+        });
+      })
+      .catch(() => {
+        setSmtpConfig({ configured: false });
+      });
+  }, []);
 
   // Initialize or fetch active experiment
   useEffect(() => {
@@ -1297,28 +1316,52 @@ function SavingsLabContent() {
                       <Mail className="w-5 h-5" />
                       Dispatch Action Report to Development Team (SMTP)
                     </div>
-                    <span className="px-3 py-1 rounded-full bg-[#cbff00]/10 border border-[#cbff00]/30 text-[#cbff00] font-mono text-[11px] font-semibold flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse" />
-                      SMTP Gateway Active
-                    </span>
+                    {smtpConfig?.configured ? (
+                      <span className="px-3 py-1 rounded-full bg-[#cbff00]/10 border border-[#cbff00]/30 text-[#cbff00] font-mono text-[11px] font-semibold flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse" />
+                        Live SMTP Active ({smtpConfig.smtp_host})
+                      </span>
+                    ) : (
+                      <span className="px-3 py-1 rounded-full bg-white/[0.06] border border-white/15 text-white/70 font-mono text-[11px] font-semibold flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-yellow-400" />
+                        Preview Mode (SMTP Not Configured)
+                      </span>
+                    )}
                   </div>
                   <p className="text-sm sm:text-base text-white/80">
                     Audit a company site? Send this complete optimization guide with drop-in code and carbon reduction telemetry directly to your engineering lead or client.
                   </p>
 
                   {dispatchResult ? (
-                    <div className="p-5 rounded-2xl bg-black/60 border border-[#cbff00]/40 space-y-3.5 shadow-2xl">
-                      <div className="flex items-start gap-3 text-[#cbff00] font-mono text-sm">
-                        <CheckCircle2 className="w-5 h-5 text-[#cbff00] shrink-0 mt-0.5" />
-                        <div className="space-y-1">
-                          <div className="font-bold text-white text-base">
-                            Executive Report Dispatched
-                          </div>
-                          <div className="text-xs text-white/70">
-                            {dispatchResult.message}
+                    <div className="p-5 rounded-2xl bg-black/60 border border-white/15 space-y-3.5 shadow-2xl">
+                      {dispatchResult.mode === "live_smtp" ? (
+                        <div className="flex items-start gap-3 text-[#cbff00] font-mono text-sm">
+                          <CheckCircle2 className="w-5 h-5 text-[#cbff00] shrink-0 mt-0.5" />
+                          <div className="space-y-1">
+                            <div className="font-bold text-white text-base">
+                              Executive Report Delivered via SMTP
+                            </div>
+                            <div className="text-xs text-white/70">
+                              {dispatchResult.message}
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      ) : (
+                        <div className="flex items-start gap-3 text-yellow-400 font-mono text-sm">
+                          <AlertTriangle className="w-5 h-5 text-yellow-400 shrink-0 mt-0.5" />
+                          <div className="space-y-1">
+                            <div className="font-bold text-white text-base">
+                              Report Staged in Preview Mode
+                            </div>
+                            <div className="text-xs text-white/80 leading-relaxed">
+                              {dispatchResult.message}
+                            </div>
+                            <div className="text-[11px] text-white/50 pt-1">
+                              ⚠️ No external email was sent to your inbox because live SMTP credentials (<code className="text-white/80">SMTP_HOST</code>, <code className="text-white/80">SMTP_USER</code>, <code className="text-white/80">SMTP_PASS</code>) are not configured in <code className="text-[#cbff00]">.env.local</code>. Click below to view the rendered HTML report.
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
                       <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-white/10">
                         {dispatchResult.previewUrl && (
@@ -1359,24 +1402,31 @@ function SavingsLabContent() {
                       </div>
                     </div>
                   ) : (
-                    <form onSubmit={handleDispatchEmail} className="flex flex-col sm:flex-row gap-3 pt-1">
-                      <input
-                        type="email"
-                        value={dispatchEmail}
-                        onChange={(e) => setDispatchEmail(e.target.value)}
-                        placeholder="Enter dev lead email (e.g. cto@company.com)"
-                        required
-                        className="min-w-0 flex-1 px-5 py-3.5 rounded-2xl bg-black/50 border border-white/20 text-white font-mono text-sm focus:outline-none focus:border-[#cbff00]"
-                      />
-                      <Button
-                        type="submit"
-                        variant="lime"
-                        isLoading={isDispatching}
-                        className="font-semibold text-sm tracking-wide px-6 py-3.5 shrink-0 cursor-pointer shadow-lg shadow-[#cbff00]/20"
-                      >
-                        <Mail className="w-4 h-4 mr-2" />
-                        SEND ENGINEERING DISPATCH
-                      </Button>
+                    <form onSubmit={handleDispatchEmail} className="flex flex-col gap-2 pt-1">
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <input
+                          type="email"
+                          value={dispatchEmail}
+                          onChange={(e) => setDispatchEmail(e.target.value)}
+                          placeholder="Enter dev lead email (e.g. cto@company.com)"
+                          required
+                          className="min-w-0 flex-1 px-5 py-3.5 rounded-2xl bg-black/50 border border-white/20 text-white font-mono text-sm focus:outline-none focus:border-[#cbff00]"
+                        />
+                        <Button
+                          type="submit"
+                          variant="lime"
+                          isLoading={isDispatching}
+                          className="font-semibold text-sm tracking-wide px-6 py-3.5 shrink-0 cursor-pointer shadow-lg shadow-[#cbff00]/20"
+                        >
+                          <Mail className="w-4 h-4 mr-2" />
+                          SEND ENGINEERING DISPATCH
+                        </Button>
+                      </div>
+                      {!smtpConfig?.configured && (
+                        <p className="text-[11px] text-white/50 font-mono">
+                          ℹ️ Operating in Preview Mode. Live SMTP credentials are not configured in <code className="text-white/70">.env.local</code>. Submitting generates an instant in-app HTML email report preview.
+                        </p>
+                      )}
                     </form>
                   )}
                 </div>

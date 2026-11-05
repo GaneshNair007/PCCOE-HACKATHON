@@ -139,7 +139,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       status: "success",
       mode: etherealUrl ? "ethereal_preview" : "resilient_preview",
-      message: `Executive engineering report compiled and staged for ${recipient_email}`,
+      configured: false,
+      message: `Executive report preview compiled for ${recipient_email}. (Notice: Live SMTP credentials are not configured in .env.local, so no email was sent to your external inbox. Use the preview link to view the report.)`,
       recipient: recipient_email,
       preview_url: previewUrl,
       live_inbox_url: etherealUrl,
