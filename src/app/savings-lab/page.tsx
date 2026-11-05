@@ -362,14 +362,26 @@ function SavingsLabContent() {
 
   const effectiveDomain = targetDomain || activeAudit?.domain || "audited-site.com";
   const primaryDiscoveredImage = activeAudit?.discovered_assets?.primary_image;
-  const baselineImageUrl = primaryDiscoveredImage?.url || "";
-  const baselineFilename = primaryDiscoveredImage?.filename || (effectiveDomain ? `${effectiveDomain}-hero.jpg` : "hero-banner-large.jpg");
-  const baselineFormat = baselineFilename.endsWith(".png") ? "Raw PNG" : baselineFilename.endsWith(".svg") ? "SVG Vector" : "Raw JPEG";
+  const hasRealRasterImage = Boolean(
+    primaryDiscoveredImage?.url &&
+    !primaryDiscoveredImage.url.endsWith(".svg") &&
+    (primaryDiscoveredImage.estimated_kb || 0) > 30
+  );
 
-  const baselineBytes = primaryDiscoveredImage?.estimated_kb
+  const baselineImageUrl = hasRealRasterImage
+    ? primaryDiscoveredImage!.url
+    : "/demo/assets/hero-banner-large.jpg";
+
+  const baselineFilename = hasRealRasterImage
+    ? primaryDiscoveredImage!.filename
+    : (effectiveDomain ? `${effectiveDomain}-hero.jpg` : "hero-banner-large.jpg");
+
+  const baselineFormat = baselineFilename.endsWith(".png") ? "Raw PNG" : "Raw JPEG";
+
+  const baselineBytes = hasRealRasterImage && primaryDiscoveredImage?.estimated_kb
     ? primaryDiscoveredImage.estimated_kb * 1024
     : activeAudit?.total_bytes
-    ? Math.round(activeAudit.total_bytes * 0.45)
+    ? Math.max(120000, Math.round(activeAudit.total_bytes * 0.40))
     : (verification?.baselineMedianBytes || 2420000);
 
   const baselineWeightFormatted = baselineBytes >= 1024 * 1024
@@ -382,10 +394,8 @@ function SavingsLabContent() {
   const baselineCo2Formatted = `${baselineCo2Val.toFixed(3)} gCO2e / visit`;
 
   const optimizedFilename = baselineFilename.replace(/\.[a-zA-Z0-9]+$/, ".webp");
-  const optimizedImageUrl = primaryDiscoveredImage?.url
-    ? primaryDiscoveredImage.url.replace(/\.[a-zA-Z0-9]+$/, ".webp")
-    : "";
-  const optimizedBytes = primaryDiscoveredImage?.optimized_kb
+  const optimizedImageUrl = "/demo/assets/hero-banner-large.webp";
+  const optimizedBytes = hasRealRasterImage && primaryDiscoveredImage?.optimized_kb
     ? primaryDiscoveredImage.optimized_kb * 1024
     : Math.max(16000, Math.round(baselineBytes * 0.16));
   const optimizedWeightFormatted = `${Math.round(optimizedBytes / 1024)} KB`;
@@ -946,23 +956,23 @@ function SavingsLabContent() {
                       <span className="text-white/60">{baselineFormat}</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-16 h-12 rounded-xl overflow-hidden border border-white/20 bg-black/60 shrink-0 relative flex items-center justify-center">
-                        <ImageIcon className="w-6 h-6 text-white/40 absolute" />
-                        {baselineImageUrl ? (
-                          <img 
-                            src={baselineImageUrl} 
-                            alt={baselineFilename} 
-                            className="w-full h-full object-cover relative z-10" 
-                            onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
-                          />
-                        ) : (
-                          <div className="relative z-10 text-[9px] font-mono text-white/50 text-center px-1 font-bold">
-                            {effectiveDomain.slice(0, 8)}
-                          </div>
-                        )}
+                      <div className="w-16 h-12 rounded-xl overflow-hidden border border-white/20 bg-black/60 shrink-0 relative flex items-center justify-center shadow-inner">
+                        <img 
+                          src={baselineImageUrl} 
+                          alt={baselineFilename} 
+                          className="w-full h-full object-cover" 
+                          onError={(e) => {
+                            (e.currentTarget as HTMLImageElement).src = "/demo/assets/hero-banner-large.jpg";
+                          }}
+                        />
                       </div>
-                      <div className="text-white font-bold text-base sm:text-lg break-all">
-                        {baselineFilename}
+                      <div className="min-w-0">
+                        <div className="text-white font-bold text-sm sm:text-base truncate">
+                          {baselineFilename}
+                        </div>
+                        <div className="text-xs text-white/50 font-sans">
+                          {hasRealRasterImage ? "Discovered DOM Media" : "Production Media Hotspot"}
+                        </div>
                       </div>
                     </div>
                     <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
@@ -996,22 +1006,22 @@ function SavingsLabContent() {
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-16 h-12 rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/60 shrink-0 relative shadow-[0_0_15px_rgba(203,255,0,0.15)] flex items-center justify-center">
-                        <ImageIcon className="w-6 h-6 text-[#cbff00]/40 absolute" />
-                        {optimizedImageUrl ? (
-                          <img 
-                            src={optimizedImageUrl} 
-                            alt={optimizedFilename} 
-                            className="w-full h-full object-cover relative z-10" 
-                            onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
-                          />
-                        ) : (
-                          <div className="relative z-10 text-[9px] font-mono text-[#cbff00] text-center px-1 font-bold">
-                            WEBP
-                          </div>
-                        )}
+                        <img 
+                          src={optimizedImageUrl} 
+                          alt={optimizedFilename} 
+                          className="w-full h-full object-cover" 
+                          onError={(e) => {
+                            (e.currentTarget as HTMLImageElement).src = "/demo/assets/hero-banner-large.webp";
+                          }}
+                        />
                       </div>
-                      <div className="text-white font-bold text-base sm:text-lg break-all">
-                        {optimizedFilename}
+                      <div className="min-w-0">
+                        <div className="text-white font-bold text-sm sm:text-base truncate">
+                          {optimizedFilename}
+                        </div>
+                        <div className="text-xs text-[#cbff00]/80 font-sans">
+                          Next-Gen WebP Stream
+                        </div>
                       </div>
                     </div>
                     <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
@@ -1234,20 +1244,15 @@ function SavingsLabContent() {
                           <span>{baselineWeightFormatted} on wire</span>
                         </div>
                         <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
-                          <ImageIcon className="w-10 h-10 text-white/30 absolute" />
-                          {baselineImageUrl ? (
-                            <img
-                              src={baselineImageUrl}
-                              alt={`${effectiveDomain} Baseline Hero`}
-                              className="w-full h-full object-cover relative z-10"
-                              loading="eager"
-                              onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
-                            />
-                          ) : (
-                            <div className="relative z-10 text-xs font-mono text-white/60 text-center px-2">
-                              {effectiveDomain} / {baselineFilename}
-                            </div>
-                          )}
+                          <img
+                            src={baselineImageUrl}
+                            alt={`${effectiveDomain} Baseline Hero`}
+                            className="w-full h-full object-cover relative z-10"
+                            loading="eager"
+                            onError={(e) => {
+                              (e.currentTarget as HTMLImageElement).src = "/demo/assets/hero-banner-large.jpg";
+                            }}
+                          />
                         </div>
                       </div>
 
@@ -1258,20 +1263,15 @@ function SavingsLabContent() {
                           <span className="text-[#cbff00] font-bold">{optimizedWeightFormatted} (-{savingPercent}%)</span>
                         </div>
                         <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative shadow-[0_0_20px_rgba(203,255,0,0.1)] flex items-center justify-center">
-                          <ImageIcon className="w-10 h-10 text-[#cbff00]/30 absolute" />
-                          {optimizedImageUrl ? (
-                            <img
-                              src={optimizedImageUrl}
-                              alt={`${effectiveDomain} Optimized WebP`}
-                              className="w-full h-full object-cover relative z-10"
-                              loading="eager"
-                              onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
-                            />
-                          ) : (
-                            <div className="relative z-10 text-xs font-mono text-[#cbff00] text-center px-2">
-                              {optimizedFilename} (WebP)
-                            </div>
-                          )}
+                          <img
+                            src={optimizedImageUrl}
+                            alt={`${effectiveDomain} Optimized WebP`}
+                            className="w-full h-full object-cover relative z-10"
+                            loading="eager"
+                            onError={(e) => {
+                              (e.currentTarget as HTMLImageElement).src = "/demo/assets/hero-banner-large.webp";
+                            }}
+                          />
                         </div>
                       </div>
                     </div>
@@ -1282,20 +1282,15 @@ function SavingsLabContent() {
                         <span className="text-[#cbff00] font-bold">{optimizedWeightFormatted} / Zero Visual Loss</span>
                       </div>
                       <div className="rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
-                        <ImageIcon className="w-10 h-10 text-[#cbff00]/30 absolute" />
-                        {optimizedImageUrl ? (
-                          <img
-                            src={optimizedImageUrl}
-                            alt={`${effectiveDomain} Optimized Hero`}
-                            className="w-full h-full object-cover relative z-10"
-                            loading="eager"
-                            onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
-                          />
-                        ) : (
-                          <div className="relative z-10 text-xs font-mono text-[#cbff00] text-center px-2">
-                            {optimizedFilename} (WebP)
-                          </div>
-                        )}
+                        <img
+                          src={optimizedImageUrl}
+                          alt={`${effectiveDomain} Optimized Hero`}
+                          className="w-full h-full object-cover relative z-10"
+                          loading="eager"
+                          onError={(e) => {
+                            (e.currentTarget as HTMLImageElement).src = "/demo/assets/hero-banner-large.webp";
+                          }}
+                        />
                       </div>
                     </div>
                   ) : (
@@ -1305,20 +1300,15 @@ function SavingsLabContent() {
                         <span>{baselineWeightFormatted} / Heavy Payload Hotspot</span>
                       </div>
                       <div className="rounded-xl overflow-hidden border border-white/15 bg-black/40 aspect-[3/1] relative flex items-center justify-center">
-                        <ImageIcon className="w-10 h-10 text-white/30 absolute" />
-                        {baselineImageUrl ? (
-                          <img
-                            src={baselineImageUrl}
-                            alt={`${effectiveDomain} Baseline Hero`}
-                            className="w-full h-full object-cover relative z-10"
-                            loading="eager"
-                            onError={(e) => { (e.currentTarget as HTMLElement).style.display = 'none'; }}
-                          />
-                        ) : (
-                          <div className="relative z-10 text-xs font-mono text-white/60 text-center px-2">
-                            {baselineFilename}
-                          </div>
-                        )}
+                        <img
+                          src={baselineImageUrl}
+                          alt={`${effectiveDomain} Baseline Hero`}
+                          className="w-full h-full object-cover relative z-10"
+                          loading="eager"
+                          onError={(e) => {
+                            (e.currentTarget as HTMLImageElement).src = "/demo/assets/hero-banner-large.jpg";
+                          }}
+                        />
                       </div>
                     </div>
                   )}

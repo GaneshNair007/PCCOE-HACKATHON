@@ -542,53 +542,62 @@ function LandingPageContent() {
             <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/10 pb-6">
               <div className="flex flex-col sm:flex-row sm:items-center gap-6">
                 <div className="shrink-0 flex justify-center">
-                  <SoapBubbleRank grade="B" size="md" interactive={true} showRankLabel={false} />
+                  <SoapBubbleRank grade="A" size="md" interactive={true} showRankLabel={false} />
                 </div>
                 <div>
                   <div className="text-xs font-mono font-bold uppercase text-[#cbff00] tracking-wider">
-                    Live Verified Benchmark
+                    Telemetry Engine Standby
                   </div>
                   <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
-                    Enterprise Production Portal Telemetry
+                    Awaiting Website Audit Target
                   </h3>
-                  <div className="text-sm font-mono text-white/70 mt-1">
-                    Target: <span className="text-white font-medium">https://github.com</span> <span className="mx-2 text-white/30">/</span> Zero-Carbon Azure Grid: 395 gCO2e/kWh
+                  <div className="text-sm font-sans text-white/70 mt-1 max-w-xl">
+                    Enter any website address above or trigger a live benchmark below to run real-time SWDM v4 carbon attribution, wire payload inspection, and code remediation.
                   </div>
                 </div>
               </div>
 
-              <Button
-                variant="lime"
-                onClick={() => {
-                  const sampleUrl = "https://github.com";
-                  setTargetUrl(sampleUrl);
-                  runAudit(sampleUrl);
-                }}
-                className="font-bold font-mono text-xs sm:text-sm px-6 py-3 tracking-wider shrink-0 cursor-pointer shadow-lg shadow-[#cbff00]/20"
-              >
-                <Search className="w-4 h-4 mr-2" />
-                RUN FULL AUDIT TELEMETRY
-              </Button>
+              <div className="flex flex-wrap gap-2 shrink-0">
+                {["github.com", "stripe.com", "vercel.com", "chatgpt.com"].map((preset) => (
+                  <button
+                    key={preset}
+                    onClick={() => {
+                      const fullUrl = `https://${preset}`;
+                      setTargetUrl(fullUrl);
+                      runAudit(fullUrl);
+                    }}
+                    className="font-mono text-xs px-3.5 py-2 rounded-xl bg-white/[0.06] hover:bg-[#cbff00] text-white hover:text-black border border-white/15 hover:border-[#cbff00] font-bold transition-all cursor-pointer shadow-sm"
+                  >
+                    Audit {preset}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {/* 3 Prominent Benchmark Preview Metric Cards */}
-            <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono">
-              <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl">
-                <div className="text-xs text-white/60 uppercase font-bold tracking-wider">Observed Transfer Weight</div>
-                <div className="text-2xl sm:text-3xl font-black text-white mt-1.5">2,420 <span className="text-sm text-white/60 font-normal">KB</span></div>
-                <div className="text-xs text-white/80 mt-1">Oversized Hero Banner Hotspot</div>
+            {/* 3 Interactive Pipeline Stage Cards (Zero Fabricated Pre-Filled Values) */}
+            <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl space-y-2">
+                <div className="text-xs text-[#cbff00] font-mono uppercase font-bold tracking-wider">Stage 01 · Wire Profiling</div>
+                <div className="text-lg font-bold text-white">Transfer Weight Inspection</div>
+                <p className="text-xs text-white/70 leading-relaxed font-sans">
+                  Real-time measurement of uncompressed assets, scripts, stylesheets, and oversized media over HTTP/2 &amp; HTTP/3.
+                </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl">
-                <div className="text-xs text-white/60 uppercase font-bold tracking-wider">Carbon Attribution</div>
-                <div className="text-2xl sm:text-3xl font-black text-[#cbff00] mt-1.5">0.296 <span className="text-sm text-white/60 font-normal">gCO2e</span></div>
-                <div className="text-xs text-white/70 mt-1">SWDM v4 Standard Model</div>
+              <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl space-y-2">
+                <div className="text-xs text-[#cbff00] font-mono uppercase font-bold tracking-wider">Stage 02 · Power Grid</div>
+                <div className="text-lg font-bold text-white">SWDM v4 Carbon Attribution</div>
+                <p className="text-xs text-white/70 leading-relaxed font-sans">
+                  Live data center geolocation combined with regional electricity carbon intensity to compute grams of CO2e per visit.
+                </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl">
-                <div className="text-xs text-white/60 uppercase font-bold tracking-wider">Optimization Potential</div>
-                <div className="text-2xl sm:text-3xl font-black text-[#cbff00] mt-1.5">-92.7%</div>
-                <div className="text-xs text-[#cbff00] mt-1">Convert to Modern WebP</div>
+              <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl space-y-2">
+                <div className="text-xs text-[#cbff00] font-mono uppercase font-bold tracking-wider">Stage 03 · Remediation</div>
+                <div className="text-lg font-bold text-white">Lossless Drop-In Fixes</div>
+                <p className="text-xs text-white/70 leading-relaxed font-sans">
+                  Automated generation of next-gen WebP conversions, cache-control policies, and unified git diffs ready for production.
+                </p>
               </div>
             </div>
           </div>
