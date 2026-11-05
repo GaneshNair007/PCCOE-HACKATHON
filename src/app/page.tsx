@@ -242,6 +242,69 @@ function LandingPageContent() {
               </div>
             </div>
 
+            {/* =========================================================================
+                CENTERPIECE OF ATTRACTION: Grand 3D Iridescent Soap Bubble Rank Hero
+                ========================================================================= */}
+            <div className="relative w-full rounded-3xl bg-gradient-to-b from-[#182415]/90 via-black/70 to-[#0e160c]/95 border border-lime/30 p-8 sm:p-12 shadow-[0_20px_80px_-15px_rgba(203,255,0,0.18)] backdrop-blur-2xl overflow-hidden flex flex-col items-center justify-center text-center">
+              {/* Ambient radial glow aura */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-[#cbff00]/12 rounded-full blur-[120px] pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col items-center max-w-2xl mx-auto w-full">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-lime/10 border border-lime/30 text-lime font-mono text-xs uppercase font-bold tracking-widest mb-4 shadow-[0_0_15px_rgba(203,255,0,0.2)]">
+                  <span className="w-2 h-2 rounded-full bg-lime animate-ping" />
+                  OFFICIAL ECO-SCORE VERDICT
+                </div>
+
+                {/* THE 3D SOAP BUBBLE (HERO CENTERPIECE) */}
+                <div className="py-2 transform transition-transform hover:scale-105 duration-300">
+                  <SoapBubbleRank
+                    grade={auditData.eco_score}
+                    size="hero"
+                    interactive={true}
+                    showRankLabel={true}
+                  />
+                </div>
+
+                {/* Executive Verdict Readout */}
+                <div className="space-y-2 mt-4">
+                  <h3 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-cream">
+                    {['A', 'A+'].includes(auditData.eco_score)
+                      ? 'Grade ' + auditData.eco_score + ' · Net Zero Leader'
+                      : auditData.eco_score === 'B'
+                      ? 'Grade B · Above Global Average'
+                      : 'Grade ' + auditData.eco_score + ' · Optimization Required'}
+                  </h3>
+                  <p className="text-sm sm:text-base font-sans text-sage/85 leading-relaxed max-w-xl mx-auto">
+                    {['A', 'A+'].includes(auditData.eco_score)
+                      ? `${auditData.domain} ranks in the top tier of energy-efficient web architecture, emitting significantly less CO2 per visit than global standards.`
+                      : auditData.eco_score === 'B'
+                      ? `${auditData.domain} performs better than the global median, with targeted optimization opportunities in image payload and script execution.`
+                      : `${auditData.domain} has high emissions reduction potential. Compressing static assets and caching can cut up to 80% of current digital carbon.`}
+                  </p>
+                </div>
+
+                {/* High-signal telemetry pill strip */}
+                <div className="flex flex-wrap items-center justify-center gap-2.5 pt-6 text-xs font-mono">
+                  <div className="px-3.5 py-1.5 rounded-xl bg-black/60 border border-white/10 text-cream">
+                    <span className="text-sage/70 uppercase">Transfer: </span>
+                    <span className="font-bold text-white">{auditData.metrics.payload_mb} MB</span>
+                  </div>
+                  <div className="px-3.5 py-1.5 rounded-xl bg-black/60 border border-lime/30 text-[#cbff00]">
+                    <span className="text-sage/70 uppercase">Carbon / Visit: </span>
+                    <span className="font-bold">{displayedCo2 !== null ? displayedCo2 : auditData.co2_grams} gCO2e</span>
+                  </div>
+                  <div className="px-3.5 py-1.5 rounded-xl bg-black/60 border border-white/10 text-cream">
+                    <span className="text-sage/70 uppercase">Power Grid: </span>
+                    <span className="font-bold text-white">{auditData.grid_intensity_val} gCO2e/kWh</span>
+                  </div>
+                  <div className="px-3.5 py-1.5 rounded-xl bg-black/60 border border-white/10 text-cream">
+                    <span className="text-sage/70 uppercase">Standard: </span>
+                    <span className="font-bold text-lime">SWDM v4 Verified</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Top Evidenced Opportunity Banner (tech-green-dark-mode-modern & ) */}
             <div className=" -emerald  p-5 rounded-2xl bg-gradient-to-r from-forest/40 via-surface-elevated to-forest/20 border border-lime/40 shadow-[0_4px_25px_rgba(203,255,0,0.12)] flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="space-y-1">
@@ -330,30 +393,16 @@ function LandingPageContent() {
                 </div>
               </Card>
 
-              {/* Card 2: EcoScore Grade with 3D Soap Bubble */}
-              <Card className="p-5 glass-panel-elevated border border-surface-border flex flex-col justify-between overflow-hidden relative group">
-                <div className="flex items-center justify-between">
-                  <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-sage/70">
-                    ECOSCORE GRADE
-                  </div>
-                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-lime font-bold">
-                    3D Telemetry
-                  </span>
+              {/* Card 2: Global Benchmark Percentile */}
+              <Card className="p-5 glass-panel-elevated border border-surface-border space-y-2">
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-sage/70">
+                  GLOBAL BENCHMARK
                 </div>
-
-                <div className="py-2 flex items-center justify-center">
-                  <SoapBubbleRank
-                    grade={auditData.eco_score}
-                    size="sm"
-                    interactive={true}
-                    showRankLabel={false}
-                  />
+                <div className="font-display text-3xl sm:text-4xl font-bold text-cream">
+                  Top {Math.max(1, 100 - (auditData.metrics.cleaner_than_percentile || 82))}%
                 </div>
-
-                <div className="text-xs font-mono text-center text-sage/80 pt-1 border-t border-white/5">
-                  {['A', 'A+', 'B'].includes(auditData.eco_score)
-                    ? 'Top tier environmental efficiency'
-                    : 'High emissions reduction potential'}
+                <div className="text-xs font-mono text-sage/80 pt-1">
+                  Cleaner than <span className="text-lime font-bold">{auditData.metrics.cleaner_than_percentile || 82}%</span> of global web pages
                 </div>
               </Card>
 
@@ -457,16 +506,21 @@ function LandingPageContent() {
           <div className="w-full rounded-3xl bg-white/[0.04] border border-white/15 backdrop-blur-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden space-y-6">
             <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#cbff00]/10 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
-              <div>
-                <div className="text-xs font-mono font-bold uppercase text-[#cbff00] tracking-wider">
-                  Live Verified Benchmark
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/10 pb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+                <div className="shrink-0 flex justify-center">
+                  <SoapBubbleRank grade="B" size="md" interactive={true} showRankLabel={false} />
                 </div>
-                <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mt-2">
-                  Enterprise Production Portal Telemetry
-                </h3>
-                <div className="text-sm font-mono text-white/70 mt-1">
-                  Target: <span className="text-white font-medium">https://github.com</span> <span className="mx-2 text-white/30">/</span> Zero-Carbon Azure Grid: 395 gCO2e/kWh
+                <div>
+                  <div className="text-xs font-mono font-bold uppercase text-[#cbff00] tracking-wider">
+                    Live Verified Benchmark
+                  </div>
+                  <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
+                    Enterprise Production Portal Telemetry
+                  </h3>
+                  <div className="text-sm font-mono text-white/70 mt-1">
+                    Target: <span className="text-white font-medium">https://github.com</span> <span className="mx-2 text-white/30">/</span> Zero-Carbon Azure Grid: 395 gCO2e/kWh
+                  </div>
                 </div>
               </div>
 
