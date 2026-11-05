@@ -251,8 +251,7 @@ function LandingPageContent() {
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-[#cbff00]/12 rounded-full blur-[120px] pointer-events-none" />
 
               <div className="relative z-10 flex flex-col items-center max-w-2xl mx-auto w-full">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-lime/10 border border-lime/30 text-lime font-mono text-xs uppercase font-bold tracking-widest mb-4 shadow-[0_0_15px_rgba(203,255,0,0.2)]">
-                  <span className="w-2 h-2 rounded-full bg-lime animate-ping" />
+                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-lime/10 border border-lime/30 text-lime font-mono text-xs uppercase font-bold tracking-widest mb-4 shadow-[0_0_15px_rgba(203,255,0,0.2)]">
                   OFFICIAL ECO-SCORE VERDICT
                 </div>
 
@@ -496,8 +495,7 @@ function LandingPageContent() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] bg-[#cbff00]/15 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="relative z-10 flex flex-col items-center max-w-xl mx-auto w-full">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-lime/10 border border-lime/30 text-lime font-mono text-xs uppercase font-bold tracking-widest mb-4 shadow-[0_0_15px_rgba(203,255,0,0.2)]">
-                <span className="w-2 h-2 rounded-full bg-lime animate-ping" />
+              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-lime/10 border border-lime/30 text-lime font-mono text-xs uppercase font-bold tracking-widest mb-4 shadow-[0_0_15px_rgba(203,255,0,0.2)]">
                 ANALYZING TELEMETRY · DETERMINING ECO-SCORE
               </div>
 

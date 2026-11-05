@@ -20,7 +20,7 @@ export function ButterflyOrbit({ className = "", size = 120, label = "Auditing W
         <div className="absolute inset-0 rounded-full border border-lime/20 border-dashed animate-spin-slow" />
 
         {/* Central Ambient Glow */}
-        <div className="w-8 h-8 rounded-full bg-lime/20 blur-md animate-pulse" />
+        <div className="w-8 h-8 rounded-full bg-lime/15 blur-lg" />
 
         {/* Orbiting Wrapper */}
         <div 
@@ -66,7 +66,7 @@ export function ButterflyOrbit({ className = "", size = 120, label = "Auditing W
 
       {/* Status Label */}
       {label && (
-        <p className="mt-4 text-xs font-mono tracking-wider text-lime animate-pulse text-center">
+        <p className="mt-4 text-xs font-mono tracking-wider text-lime/90 text-center">
           {label}
         </p>
       )}

@@ -1455,13 +1455,11 @@ function SavingsLabContent() {
                       Dispatch Action Report to Development Team (SMTP)
                     </div>
                     {smtpConfig?.configured ? (
-                      <span className="px-3 py-1 rounded-full bg-[#cbff00]/10 border border-[#cbff00]/30 text-[#cbff00] font-mono text-[11px] font-semibold flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse" />
-                        Live SMTP Active ({smtpConfig.smtp_host})
+                      <span className="px-3 py-1 rounded-full bg-[#cbff00]/10 border border-[#cbff00]/30 text-[#cbff00] font-mono text-[11px] font-semibold">
+                        Live SMTP ({smtpConfig.smtp_host})
                       </span>
                     ) : (
-                      <span className="px-3 py-1 rounded-full bg-white/[0.06] border border-white/15 text-white/70 font-mono text-[11px] font-semibold flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-yellow-400" />
+                      <span className="px-3 py-1 rounded-full bg-white/[0.06] border border-white/15 text-white/70 font-mono text-[11px] font-semibold">
                         Preview Mode (SMTP Not Configured)
                       </span>
                     )}

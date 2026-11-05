@@ -37,11 +37,6 @@ export function CursorOrb3D() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden select-none hidden md:block">
-      {/* Primary Laser Dot */}
-      <div
-        ref={orbRef}
-        className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-lime shadow-[0_0_12px_#cbff00]"
-      />
       {/* Secondary Ambient Aura */}
       <div
         ref={trailRef}

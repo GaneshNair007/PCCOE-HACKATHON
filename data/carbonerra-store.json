@@ -50432,6 +50432,1893 @@
         "cachePolicy": "cold",
         "environment": "Local Controlled Production/Dev Environment"
       }
+    },
+    "run_1793868230674_l0gkh": {
+      "id": "run_1793868230674_l0gkh",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:43:50.572Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3986)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868230634_8lmf",
+          "runId": "run_1793868230674_l0gkh",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868230664_0084",
+          "runId": "run_1793868230674_l0gkh",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868230734_fp1fs": {
+      "id": "run_1793868230734_fp1fs",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:43:50.684Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9035)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868230710_olhp",
+          "runId": "run_1793868230734_fp1fs",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868230726_n3bm",
+          "runId": "run_1793868230734_fp1fs",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868230803_fy3hl": {
+      "id": "run_1793868230803_fy3hl",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:43:50.745Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-1137)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868230768_0gb8",
+          "runId": "run_1793868230803_fy3hl",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868230795_rfj0",
+          "runId": "run_1793868230803_fy3hl",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868231400_kr19w": {
+      "id": "run_1793868231400_kr19w",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:43:51.324Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-5594)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868231369_x9tz",
+          "runId": "run_1793868231400_kr19w",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868231391_94dh",
+          "runId": "run_1793868231400_kr19w",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868232112_om6yk": {
+      "id": "run_1793868232112_om6yk",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 1,
+      "variant": "broken_candidate",
+      "timestamp": "2026-11-05T08:43:51.612Z",
+      "status": "completed",
+      "totalBytes": 21675,
+      "requestCount": 1,
+      "co2Grams": 0.0026,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-3422)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868232091_milv",
+          "runId": "run_1793868232112_om6yk",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 21675,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868232730_4434t": {
+      "id": "run_1793868232730_4434t",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:43:52.326Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2018)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868232364_a6fc",
+          "runId": "run_1793868232730_4434t",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868232378_cy2q",
+          "runId": "run_1793868232730_4434t",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868233001_f0gma": {
+      "id": "run_1793868233001_f0gma",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 2,
+      "variant": "broken_candidate",
+      "timestamp": "2026-11-05T08:43:52.942Z",
+      "status": "completed",
+      "totalBytes": 21675,
+      "requestCount": 1,
+      "co2Grams": 0.0026,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-1067)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868232984_61de",
+          "runId": "run_1793868233001_f0gma",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 21675,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868233260_w2ykl": {
+      "id": "run_1793868233260_w2ykl",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:43:53.213Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-6314)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868233241_imuv",
+          "runId": "run_1793868233260_w2ykl",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868233252_xagv",
+          "runId": "run_1793868233260_w2ykl",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868233518_doh2u": {
+      "id": "run_1793868233518_doh2u",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 3,
+      "variant": "broken_candidate",
+      "timestamp": "2026-11-05T08:43:53.475Z",
+      "status": "completed",
+      "totalBytes": 21675,
+      "requestCount": 1,
+      "co2Grams": 0.0026,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-5354)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868233500_8rp0",
+          "runId": "run_1793868233518_doh2u",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 21675,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868233845_m5z76": {
+      "id": "run_1793868233845_m5z76",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:43:53.795Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2654)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868233820_1mhj",
+          "runId": "run_1793868233845_m5z76",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868233839_esq0",
+          "runId": "run_1793868233845_m5z76",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868234100_o2lbh": {
+      "id": "run_1793868234100_o2lbh",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 1,
+      "variant": "candidate",
+      "timestamp": "2026-11-05T08:43:54.056Z",
+      "status": "completed",
+      "totalBytes": 200591,
+      "requestCount": 2,
+      "co2Grams": 0.0243,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2606)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868234081_eia7",
+          "runId": "run_1793868234100_o2lbh",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 24591,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868234094_vfxg",
+          "runId": "run_1793868234100_o2lbh",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868234350_6qhbc": {
+      "id": "run_1793868234350_6qhbc",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:43:54.313Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2972)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868234334_k4kn",
+          "runId": "run_1793868234350_6qhbc",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868234345_kjdj",
+          "runId": "run_1793868234350_6qhbc",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868234610_u77oc": {
+      "id": "run_1793868234610_u77oc",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 2,
+      "variant": "candidate",
+      "timestamp": "2026-11-05T08:43:54.563Z",
+      "status": "completed",
+      "totalBytes": 200591,
+      "requestCount": 2,
+      "co2Grams": 0.0243,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2381)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868234585_cgsm",
+          "runId": "run_1793868234610_u77oc",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 24591,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868234597_zrw8",
+          "runId": "run_1793868234610_u77oc",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868234867_mum8g": {
+      "id": "run_1793868234867_mum8g",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:43:54.823Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7023)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868234846_giei",
+          "runId": "run_1793868234867_mum8g",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868234860_49o9",
+          "runId": "run_1793868234867_mum8g",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868235122_vr2nh": {
+      "id": "run_1793868235122_vr2nh",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 3,
+      "variant": "candidate",
+      "timestamp": "2026-11-05T08:43:55.078Z",
+      "status": "completed",
+      "totalBytes": 200591,
+      "requestCount": 2,
+      "co2Grams": 0.0243,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2724)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868235102_a3rp",
+          "runId": "run_1793868235122_vr2nh",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 24591,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868235115_dyrh",
+          "runId": "run_1793868235122_vr2nh",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868235846_eusij": {
+      "id": "run_1793868235846_eusij",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:43:55.773Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-5299)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868235813_pued",
+          "runId": "run_1793868235846_eusij",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868235839_umu3",
+          "runId": "run_1793868235846_eusij",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868235915_fmfpe": {
+      "id": "run_1793868235915_fmfpe",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 1,
+      "variant": "candidate",
+      "timestamp": "2026-11-05T08:43:55.863Z",
+      "status": "completed",
+      "totalBytes": 200591,
+      "requestCount": 2,
+      "co2Grams": 0.0243,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9858)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868235883_x9z8",
+          "runId": "run_1793868235915_fmfpe",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 24591,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868235902_6ug5",
+          "runId": "run_1793868235915_fmfpe",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868261645_bsskp": {
+      "id": "run_1793868261645_bsskp",
+      "projectId": "pccoe-hackathon-2026",
+      "journeyId": "event-registration",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:44:21.600Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9274)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868261625_r5mv",
+          "runId": "run_1793868261645_bsskp",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868261638_dvbu",
+          "runId": "run_1793868261645_bsskp",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868265019_0dnwq": {
+      "id": "run_1793868265019_0dnwq",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:44:24.987Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9515)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868265007_cixt",
+          "runId": "run_1793868265019_0dnwq",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868265014_8zcb",
+          "runId": "run_1793868265019_0dnwq",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868265045_qra87": {
+      "id": "run_1793868265045_qra87",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:44:25.024Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-6898)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868265038_6rtn",
+          "runId": "run_1793868265045_qra87",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868265043_pp84",
+          "runId": "run_1793868265045_qra87",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868265074_mlltu": {
+      "id": "run_1793868265074_mlltu",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:44:25.051Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7633)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868265065_agbm",
+          "runId": "run_1793868265074_mlltu",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868265071_tc5c",
+          "runId": "run_1793868265074_mlltu",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868272695_ab8qq": {
+      "id": "run_1793868272695_ab8qq",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:44:32.650Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-8155)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868272674_2d26",
+          "runId": "run_1793868272695_ab8qq",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868272685_x9wb",
+          "runId": "run_1793868272695_ab8qq",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868272953_u92ju": {
+      "id": "run_1793868272953_u92ju",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 1,
+      "variant": "candidate",
+      "timestamp": "2026-11-05T08:44:32.908Z",
+      "status": "completed",
+      "totalBytes": 200591,
+      "requestCount": 2,
+      "co2Grams": 0.0243,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-6763)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868272934_y9e0",
+          "runId": "run_1793868272953_u92ju",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 24591,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868272946_ld49",
+          "runId": "run_1793868272953_u92ju",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868273210_y0nuy": {
+      "id": "run_1793868273210_y0nuy",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:44:33.166Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-4002)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868273189_6ot2",
+          "runId": "run_1793868273210_y0nuy",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868273202_t7jg",
+          "runId": "run_1793868273210_y0nuy",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868273469_8hte8": {
+      "id": "run_1793868273469_8hte8",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 2,
+      "variant": "candidate",
+      "timestamp": "2026-11-05T08:44:33.424Z",
+      "status": "completed",
+      "totalBytes": 200591,
+      "requestCount": 2,
+      "co2Grams": 0.0243,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-6930)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868273448_j30j",
+          "runId": "run_1793868273469_8hte8",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 24591,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868273463_zqti",
+          "runId": "run_1793868273469_8hte8",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868273723_oezyk": {
+      "id": "run_1793868273723_oezyk",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:44:33.683Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2486)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868273707_cw8g",
+          "runId": "run_1793868273723_oezyk",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868273716_zotc",
+          "runId": "run_1793868273723_oezyk",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868273986_0f40g": {
+      "id": "run_1793868273986_0f40g",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=optimized",
+      "runIndex": 3,
+      "variant": "candidate",
+      "timestamp": "2026-11-05T08:44:33.935Z",
+      "status": "completed",
+      "totalBytes": 200591,
+      "requestCount": 2,
+      "co2Grams": 0.0243,
+      "ecoScore": "A+",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-2143)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868273962_pewt",
+          "runId": "run_1793868273986_0f40g",
+          "url": "http://localhost:3001/demo/event?variant=optimized",
+          "category": "html",
+          "observedBytes": 24591,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868273978_agkq",
+          "runId": "run_1793868273986_0f40g",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.webp",
+          "category": "image",
+          "observedBytes": 176000,
+          "status": "measured",
+          "format": "webp",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868278031_z7g24": {
+      "id": "run_1793868278031_z7g24",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 1,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:44:37.990Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-6683)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868278015_se9g",
+          "runId": "run_1793868278031_z7g24",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868278024_vmvs",
+          "runId": "run_1793868278031_z7g24",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868278278_ff4dt": {
+      "id": "run_1793868278278_ff4dt",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 1,
+      "variant": "broken_candidate",
+      "timestamp": "2026-11-05T08:44:38.242Z",
+      "status": "completed",
+      "totalBytes": 21675,
+      "requestCount": 1,
+      "co2Grams": 0.0026,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-1559)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868278262_k2ds",
+          "runId": "run_1793868278278_ff4dt",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 21675,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868278525_yc29f": {
+      "id": "run_1793868278525_yc29f",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 2,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:44:38.489Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7799)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868278510_255h",
+          "runId": "run_1793868278525_yc29f",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868278518_0d2d",
+          "runId": "run_1793868278525_yc29f",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868278772_cdx51": {
+      "id": "run_1793868278772_cdx51",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 2,
+      "variant": "broken_candidate",
+      "timestamp": "2026-11-05T08:44:38.738Z",
+      "status": "completed",
+      "totalBytes": 21675,
+      "requestCount": 1,
+      "co2Grams": 0.0026,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-8249)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868278760_bht4",
+          "runId": "run_1793868278772_cdx51",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 21675,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868279021_crv4r": {
+      "id": "run_1793868279021_crv4r",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=baseline",
+      "runIndex": 3,
+      "variant": "baseline",
+      "timestamp": "2026-11-05T08:44:38.984Z",
+      "status": "completed",
+      "totalBytes": 2444524,
+      "requestCount": 2,
+      "co2Grams": 0.2959,
+      "ecoScore": "B",
+      "assertionsPassed": true,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": true,
+          "message": "Registration CTA and form anchor verified keyboard-accessible"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-9515)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868279006_ro8u",
+          "runId": "run_1793868279021_crv4r",
+          "url": "http://localhost:3001/demo/event?variant=baseline",
+          "category": "html",
+          "observedBytes": 24524,
+          "status": "measured",
+          "isFirstParty": true
+        },
+        {
+          "id": "res_img_1793868279015_tzci",
+          "runId": "run_1793868279021_crv4r",
+          "url": "http://localhost:3001/demo/assets/hero-banner-large.jpg",
+          "category": "image",
+          "observedBytes": 2420000,
+          "status": "measured",
+          "format": "jpeg",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
+    },
+    "run_1793868279266_i4lhu": {
+      "id": "run_1793868279266_i4lhu",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "targetUrl": "http://localhost:3001/demo/event?variant=broken",
+      "runIndex": 3,
+      "variant": "broken_candidate",
+      "timestamp": "2026-11-05T08:44:39.232Z",
+      "status": "completed",
+      "totalBytes": 21675,
+      "requestCount": 1,
+      "co2Grams": 0.0026,
+      "ecoScore": "A+",
+      "assertionsPassed": false,
+      "assertionResults": [
+        {
+          "assertionId": "title_essential_info",
+          "passed": true,
+          "message": "Page title and essential application information found in DOM"
+        },
+        {
+          "assertionId": "cta_accessible",
+          "passed": false,
+          "message": "Registration CTA button is missing, stripped, or inaccessible in DOM"
+        },
+        {
+          "assertionId": "form_submission_success",
+          "passed": true,
+          "message": "Synthetic registration succeeded (Ticket: PCCOE-2026-7969)"
+        }
+      ],
+      "resources": [
+        {
+          "id": "res_doc_1793868279254_uh95",
+          "runId": "run_1793868279266_i4lhu",
+          "url": "http://localhost:3001/demo/event?variant=broken",
+          "category": "html",
+          "observedBytes": 21675,
+          "status": "measured",
+          "isFirstParty": true
+        }
+      ],
+      "conditions": {
+        "browser": "Node Synthetic Browser Runner v2.0",
+        "viewport": "1280x800",
+        "cachePolicy": "cold",
+        "environment": "Local Controlled Production/Dev Environment"
+      }
     }
   },
   "experiments": {
@@ -51827,6 +53714,52 @@
       "status": "verification_complete",
       "createdAt": "2026-11-05T08:37:04.832Z",
       "updatedAt": "2026-11-05T08:37:05.630Z"
+    },
+    "exp_1793868230571_buzl": {
+      "id": "exp_1793868230571_buzl",
+      "projectId": "campus-events",
+      "journeyId": "event-registration",
+      "baselineRunIds": [
+        "run_1793868230674_l0gkh",
+        "run_1793868230734_fp1fs",
+        "run_1793868230803_fy3hl"
+      ],
+      "affectedResourceUrl": "/demo/assets/hero-banner-large.jpg",
+      "patchDiff": "--- a/src/app/demo/event/page.tsx\n+++ b/src/app/demo/event/page.tsx\n@@ -74,7 +74,13 @@\n       {/* First-Party Hero Image Component */}\n       <div className=\"relative rounded-3xl overflow-hidden border border-surface-border\">\n-        <img\n-          id=\"hero-img\"\n-          src=\"/demo/assets/hero-banner-large.jpg\"\n-          alt=\"Production Hero Banner\"\n-          className=\"w-full h-72 sm:h-96 object-cover\"\n-        />\n+        <picture>\n+          <source srcSet=\"/demo/assets/hero-banner-large.webp\" type=\"image/webp\" />\n+          <img\n+            id=\"hero-img\"\n+            src=\"/demo/assets/hero-banner-large.webp\"\n+            alt=\"Production Hero Banner\"\n+            width=\"1200\"\n+            height=\"400\"\n+            className=\"w-full h-72 sm:h-96 object-cover\"\n+            fetchPriority=\"high\"\n+          />\n+        </picture>\n       </div>",
+      "reviewerDecision": "approved",
+      "candidateRunIds": [
+        "run_1793868234100_o2lbh",
+        "run_1793868234610_u77oc",
+        "run_1793868235122_vr2nh"
+      ],
+      "status": "candidate_tested",
+      "createdAt": "2026-11-05T08:43:50.815Z",
+      "updatedAt": "2026-11-05T08:43:55.348Z",
+      "reviewedAt": "2026-11-05T08:43:51.040Z",
+      "reviewerNotes": "Approved WebP refactor with layout preservation"
+    },
+    "exp_1793868264987_m10u": {
+      "id": "exp_1793868264987_m10u",
+      "projectId": "campus-events",
+      "journeyId": "campus-events",
+      "baselineRunIds": [
+        "run_1793868265019_0dnwq",
+        "run_1793868265045_qra87",
+        "run_1793868265074_mlltu"
+      ],
+      "affectedResourceUrl": "/demo/assets/hero-banner-large.jpg",
+      "patchDiff": "--- a/src/app/demo/event/page.tsx\n+++ b/src/app/demo/event/page.tsx\n@@ -74,7 +74,13 @@\n       {/* First-Party Hero Image Component */}\n       <div className=\"relative rounded-3xl overflow-hidden border border-surface-border\">\n-        <img\n-          id=\"hero-img\"\n-          src=\"/demo/assets/hero-banner-large.jpg\"\n-          alt=\"Production Hero Banner\"\n-          className=\"w-full h-72 sm:h-96 object-cover\"\n-        />\n+        <picture>\n+          <source srcSet=\"/demo/assets/hero-banner-large.webp\" type=\"image/webp\" />\n+          <img\n+            id=\"hero-img\"\n+            src=\"/demo/assets/hero-banner-large.webp\"\n+            alt=\"Production Hero Banner\"\n+            width=\"1200\"\n+            height=\"400\"\n+            className=\"w-full h-72 sm:h-96 object-cover\"\n+            fetchPriority=\"high\"\n+          />\n+        </picture>\n       </div>",
+      "reviewerDecision": "approved",
+      "candidateRunIds": [
+        "run_1793868278278_ff4dt",
+        "run_1793868278772_cdx51",
+        "run_1793868279266_i4lhu"
+      ],
+      "status": "rejected",
+      "createdAt": "2026-11-05T08:44:25.079Z",
+      "updatedAt": "2026-11-05T08:44:39.487Z",
+      "reviewedAt": "2026-11-05T08:44:29.902Z",
+      "reviewerNotes": "Approved responsive image WebP optimization."
     }
   },
   "verifications": {
@@ -53996,6 +55929,90 @@
         "Preserved visual presentation and functional DOM integrity with zero CLS."
       ],
       "receiptGeneratedAt": "2026-11-05T08:37:05.622Z"
+    },
+    "ver_1793868233733_nn786": {
+      "id": "ver_1793868233733_nn786",
+      "experimentId": "exp_1793868230571_buzl",
+      "baselineMedianBytes": 2444524,
+      "candidateMedianBytes": 21675,
+      "bytesSaved": 2422849,
+      "percentSaved": 99.1,
+      "baselineCo2Grams": 0.2959,
+      "candidateCo2Grams": 0.0026,
+      "co2GramsSaved": 0.2933,
+      "functionalChecksPassed": false,
+      "assertionsSummary": {
+        "passed": 0,
+        "total": 3
+      },
+      "outcome": "functional_checks_failed",
+      "reasons": [
+        "Candidate rejected: One or more declared user task assertions failed. Transfer reduction cannot come at the expense of a broken user journey."
+      ],
+      "receiptGeneratedAt": "2026-11-05T08:43:53.733Z"
+    },
+    "ver_1793868235335_bxo06": {
+      "id": "ver_1793868235335_bxo06",
+      "experimentId": "exp_1793868230571_buzl",
+      "baselineMedianBytes": 2444524,
+      "candidateMedianBytes": 200591,
+      "bytesSaved": 2243933,
+      "percentSaved": 91.8,
+      "baselineCo2Grams": 0.2959,
+      "candidateCo2Grams": 0.0243,
+      "co2GramsSaved": 0.2716,
+      "functionalChecksPassed": true,
+      "assertionsSummary": {
+        "passed": 3,
+        "total": 3
+      },
+      "outcome": "observed_improvement",
+      "reasons": [
+        "Candidate verified: Achieved 91.8% transfer reduction (2191 KB saved) across 3 comparable runs while passing all user task assertions."
+      ],
+      "receiptGeneratedAt": "2026-11-05T08:43:55.335Z"
+    },
+    "ver_1793868274200_4bxth": {
+      "id": "ver_1793868274200_4bxth",
+      "experimentId": "exp_1793868264987_m10u",
+      "baselineMedianBytes": 2444524,
+      "candidateMedianBytes": 200591,
+      "bytesSaved": 2243933,
+      "percentSaved": 91.8,
+      "baselineCo2Grams": 0.2959,
+      "candidateCo2Grams": 0.0243,
+      "co2GramsSaved": 0.2716,
+      "functionalChecksPassed": true,
+      "assertionsSummary": {
+        "passed": 3,
+        "total": 3
+      },
+      "outcome": "observed_improvement",
+      "reasons": [
+        "Candidate verified: Achieved 91.8% transfer reduction (2191 KB saved) across 3 comparable runs while passing all user task assertions."
+      ],
+      "receiptGeneratedAt": "2026-11-05T08:44:34.200Z"
+    },
+    "ver_1793868279477_d2eeg": {
+      "id": "ver_1793868279477_d2eeg",
+      "experimentId": "exp_1793868264987_m10u",
+      "baselineMedianBytes": 2444524,
+      "candidateMedianBytes": 21675,
+      "bytesSaved": 2422849,
+      "percentSaved": 99.1,
+      "baselineCo2Grams": 0.2959,
+      "candidateCo2Grams": 0.0026,
+      "co2GramsSaved": 0.2933,
+      "functionalChecksPassed": false,
+      "assertionsSummary": {
+        "passed": 0,
+        "total": 3
+      },
+      "outcome": "functional_checks_failed",
+      "reasons": [
+        "Candidate rejected: One or more declared user task assertions failed. Transfer reduction cannot come at the expense of a broken user journey."
+      ],
+      "receiptGeneratedAt": "2026-11-05T08:44:39.477Z"
     }
   },
   "budgets": {
@@ -54028,6 +56045,20 @@
       "tolerancePercent": 5,
       "mode": "strict",
       "updatedAt": "2026-11-05T07:31:44.402Z"
+    },
+    "pccoe-hackathon-2026": {
+      "id": "budget_pccoe-hackathon-2026",
+      "projectId": "pccoe-hackathon-2026",
+      "journeyId": "event-registration",
+      "byteCeiling": 350000,
+      "categoryLimits": {
+        "imageBytes": 200000
+      },
+      "requestCountLimit": 12,
+      "carbonCeilingGrams": 0.08,
+      "tolerancePercent": 5,
+      "mode": "strict",
+      "updatedAt": "2026-11-05T08:44:21.590Z"
     }
   },
   "telemetry": {

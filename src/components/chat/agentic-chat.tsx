@@ -16,6 +16,7 @@ import {
   AlertTriangle,
   ArrowUpRight,
   RefreshCw,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -108,8 +109,8 @@ function FormattedMessageText({ text, isUser = false }: { text: string; isUser?:
     elements.push(
       <div key={`line-${idx}`} className={isBullet ? "min-w-0 pl-1 flex items-start gap-2" : "min-w-0"}>
         {isBullet && (
-          <span className={`text-xs mt-1 shrink-0 ${isUser ? "text-black" : "text-[#cbff00]"}`} aria-hidden="true">
-            •
+          <span className={`text-xs mt-0.5 shrink-0 select-none ${isUser ? "text-black" : "text-[#cbff00]"}`} aria-hidden="true">
+            –
           </span>
         )}
         <span className="flex-1 min-w-0">
@@ -340,8 +341,7 @@ export function AgenticChat() {
       >
         {/* Subtle Apple-style desktop hover tooltip */}
         {!isOpen && (
-          <div className="absolute right-full mr-3 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/90 border border-white/15 text-white text-xs font-medium backdrop-blur-2xl shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#cbff00] animate-pulse" />
+          <div className="absolute right-full mr-3 hidden sm:flex items-center px-3 py-1.5 rounded-xl bg-black/90 border border-white/15 text-white text-xs font-medium backdrop-blur-2xl shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
             <span>Ask CarbonTerra AI</span>
           </div>
         )}
@@ -361,10 +361,6 @@ export function AgenticChat() {
           ) : (
             <div className="relative flex items-center justify-center">
               <BotMessageSquare className="w-6 h-6 text-[#cbff00] transition-transform duration-200 group-hover:scale-110" aria-hidden="true" />
-              <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#cbff00] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#cbff00]"></span>
-              </span>
             </div>
           )}
         </button>
@@ -405,15 +401,9 @@ export function AgenticChat() {
                   <BotMessageSquare className="w-5 h-5 text-[#cbff00]" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
-                    <h2 id="carbonerra-chat-title" className="font-semibold text-white text-base tracking-tight">
-                      CarbonTerra AI
-                    </h2>
-                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium bg-[#cbff00]/15 text-[#cbff00] border border-[#cbff00]/30">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#cbff00] animate-pulse" />
-                      Active
-                    </span>
-                  </div>
+                  <h2 id="carbonerra-chat-title" className="font-semibold text-white text-base tracking-tight">
+                    CarbonTerra AI
+                  </h2>
                   <p id="carbonerra-chat-description" className="text-xs text-white/50 leading-relaxed font-sans">
                     Autonomous web performance & carbon intelligence
                   </p>
@@ -702,11 +692,7 @@ export function AgenticChat() {
                 <div role="status" aria-live="polite" className="flex items-start gap-2">
                   <div className="p-3.5 rounded-2xl rounded-bl-sm bg-white/[0.06] border border-[#cbff00]/30 text-[#cbff00] text-xs font-mono space-y-2 max-w-[88%] backdrop-blur-xl shadow-xl">
                     <div className="flex items-center gap-2.5">
-                      <div className="flex items-center gap-1">
-                        <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse" />
-                        <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse delay-75" />
-                        <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse delay-150" />
-                      </div>
+                      <Loader2 className="w-4 h-4 text-[#cbff00] animate-spin shrink-0" />
                       <span className="font-semibold text-white">CarbonTerra AI is thinking…</span>
                     </div>
                     {activeTool && (
