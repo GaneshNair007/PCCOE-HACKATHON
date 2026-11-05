@@ -50,7 +50,7 @@ export function HologramGauge3D({
           grade={score}
           size="lg"
           interactive={true}
-          showRankLabel={true}
+          showRankLabel={false}
           co2Grams={co2Grams}
         />
         <div>

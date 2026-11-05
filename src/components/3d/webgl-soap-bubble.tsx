@@ -24,7 +24,7 @@ const SIZE_PX_MAP = {
 const GRADE_COLORS: Record<EcoScoreGrade, { primary: string; caustic: string; hex: number }> = {
   "A+": { primary: "#cbff00", caustic: "#9ecc00", hex: 0xcbff00 },
   A: { primary: "#cbff00", caustic: "#9ecc00", hex: 0xcbff00 },
-  B: { primary: "#ffffff", caustic: "#38bdf8", hex: 0xffffff },
+  B: { primary: "#38bdf8", caustic: "#0284c7", hex: 0x38bdf8 },
   C: { primary: "#fbbf24", caustic: "#d97706", hex: 0xfbbf24 },
   D: { primary: "#f97316", caustic: "#ea580c", hex: 0xf97316 },
   F: { primary: "#ef4444", caustic: "#dc2626", hex: 0xef4444 },
@@ -142,9 +142,8 @@ varying vec3 vNormal;
 varying vec3 vPosition;
 varying vec3 vViewPosition;
 
-// Delicate pastel rainbow iridescence
+// Delicate pastel rainbow iridescence palette
 vec3 getIridescence(float phase) {
-  // Pastel thin-film interference palette
   vec3 a = vec3(0.55, 0.55, 0.55);
   vec3 b = vec3(0.45, 0.45, 0.45);
   vec3 c = vec3(1.0, 1.0, 1.0);
@@ -158,38 +157,38 @@ void main() {
 
   // Fresnel viewing angle: 0 at center, 1 at rim
   float NdotV = max(0.0, dot(N, V));
-  float fresnel = pow(1.0 - NdotV, 3.2);
+  float fresnel = pow(1.0 - NdotV, 2.5);
+  float rimHalo = pow(1.0 - NdotV, 4.8);
 
-  // Smooth, gradual thin-film phase gradient across height and time
-  float phase = (1.0 - NdotV) * 2.0 + vPosition.y * 0.35 + sin(uTime * 0.35 + vPosition.x * 0.6) * 0.3;
+  // Smooth thin-film interference thickness flowing across surface
+  float flow = uTime * 0.35;
+  float wave1 = sin(vPosition.x * 1.8 + vPosition.y * 1.4 + flow);
+  float wave2 = cos(vPosition.y * 2.1 - vPosition.z * 1.2 + flow * 0.8);
+  float phase = (1.0 - NdotV) * 2.2 + (wave1 + wave2) * 0.28 + vPosition.y * 0.25;
   vec3 iridColor = getIridescence(phase);
 
-  // At the rim, blend iridescence with the grade's accent color
-  vec3 rimColor = mix(iridColor, uGradeColor, 0.4);
+  // Blend iridescent oil-slick sheen with brand grade color
+  vec3 filmColor = mix(iridColor, uGradeColor, 0.42);
 
-  // Studio Specular Reflection 1: Bright curved softbox highlight (top-left)
-  vec3 L1 = normalize(vec3(-0.65, 0.85, 0.8));
-  vec3 H1 = normalize(L1 + V);
-  float NdotH1 = max(0.0, dot(N, H1));
-  float spec1 = pow(NdotH1, 95.0) * 1.9;
+  // Elegant curved studio light reflections (crescent arcs along curvature, NEVER circular dots)
+  // Top-left curved reflection arc
+  float r = length(vPosition.xy) / 1.35;
+  float arc1 = smoothstep(0.18, 0.0, abs(r - 0.76)) * smoothstep(0.1, 0.85, dot(normalize(vPosition.xy), vec2(-0.65, 0.75))) * smoothstep(0.0, 0.5, N.z);
+  float curvedGleam1 = arc1 * 1.7;
 
-  // Studio Specular Reflection 2: Secondary ambient fill bounce (bottom-right)
-  vec3 L2 = normalize(vec3(0.7, -0.6, 0.5));
-  vec3 H2 = normalize(L2 + V);
-  float NdotH2 = max(0.0, dot(N, H2));
-  float spec2 = pow(NdotH2, 45.0) * 0.55;
-
-  // Razor-sharp secondary micro-sheen on the rim
-  float rimHalo = pow(1.0 - NdotV, 5.5) * 1.2;
+  // Secondary soft ambient fill curve along opposite rim
+  float arc2 = smoothstep(0.14, 0.0, abs(r - 0.82)) * smoothstep(0.4, 0.95, dot(normalize(vPosition.xy), vec2(0.75, -0.65))) * smoothstep(0.0, 0.5, N.z);
+  float curvedGleam2 = arc2 * 0.65;
 
   // Color composition:
-  // Center is mostly pure, clear glass. Color exists almost exclusively on the rim & highlights!
-  vec3 finalColor = rimColor * fresnel * 0.85;
-  finalColor += uGradeColor * rimHalo * 0.7;
-  finalColor += vec3(1.0, 1.0, 1.0) * (spec1 + spec2);
+  // Delicate iridescent sheen across the face that blooms into vibrant rainbow reflection at the rim
+  vec3 finalColor = filmColor * (fresnel * 0.75 + 0.28);
+  finalColor += uGradeColor * rimHalo * 0.85;
+  finalColor += vec3(1.0, 1.0, 1.0) * (curvedGleam1 + curvedGleam2);
 
-  // High transparency at center, increasing at edges & specular glints
-  float alpha = clamp(fresnel * 0.75 + spec1 * 0.95 + spec2 * 0.4 + rimHalo * 0.6 + 0.04, 0.03, 0.92) * uOpacity;
+  // Translucent glass face so it catches light and feels tangible,
+  // while the 3D typography inside shines through brightly
+  float alpha = clamp(fresnel * 0.6 + 0.22 + curvedGleam1 * 0.8 + curvedGleam2 * 0.4 + rimHalo * 0.5, 0.12, 0.95) * uOpacity;
 
   gl_FragColor = vec4(finalColor, alpha);
 }
@@ -505,23 +504,29 @@ export function WebGLSoapBubble({
             </span>
           </div>
 
-          {/* Front Specular Flares */}
+          {/* Curved Studio Gleam Reflection (Crescent arc along curvature, NEVER circular dots) */}
           <div
-            className="absolute top-[10%] left-[15%] w-[32%] h-[22%] rounded-full pointer-events-none transform -rotate-[32deg]"
+            className="absolute inset-[8%] rounded-full pointer-events-none"
             style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.45) 50%, transparent 80%)",
-              filter: "blur(0.5px)",
-              mixBlendMode: "screen",
+              borderTop: "3px solid rgba(255, 255, 255, 0.9)",
+              borderLeft: "2px solid rgba(255, 255, 255, 0.45)",
+              borderRight: "transparent",
+              borderBottom: "transparent",
+              filter: "blur(1.2px)",
+              transform: "rotate(-25deg)",
+              maskImage: "radial-gradient(circle at 35% 25%, black 40%, transparent 75%)",
+              WebkitMaskImage: "radial-gradient(circle at 35% 25%, black 40%, transparent 75%)",
             }}
           />
           <div
-            className="absolute bottom-[14%] right-[16%] w-[24%] h-[15%] rounded-full pointer-events-none transform rotate-[35deg]"
+            className="absolute inset-[10%] rounded-full pointer-events-none opacity-50"
             style={{
-              background:
-                "radial-gradient(ellipse at center, rgba(203,255,0,0.5) 0%, rgba(56,189,248,0.3) 50%, transparent 80%)",
-              filter: "blur(1px)",
-              mixBlendMode: "screen",
+              borderBottom: "2px solid rgba(203, 255, 0, 0.6)",
+              borderRight: "1.5px solid rgba(56, 189, 248, 0.4)",
+              borderLeft: "transparent",
+              borderTop: "transparent",
+              filter: "blur(2px)",
+              transform: "rotate(-20deg)",
             }}
           />
         </div>

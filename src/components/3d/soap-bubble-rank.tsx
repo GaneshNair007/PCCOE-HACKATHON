@@ -44,7 +44,7 @@ const GRADE_PALETTES: Record<
     summary: "Top Tier Environmental Efficiency",
   },
   B: {
-    causticColor: "rgba(255,255,255,0.3)",
+    causticColor: "rgba(56,189,248,0.35)",
     label: "Grade B",
     summary: "Above Global Industry Average",
   },

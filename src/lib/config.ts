@@ -24,13 +24,14 @@ export const CARBONERRA_CONFIG = {
   // Standard Reference Annual Traffic Volume
   annualViewsReferenceBasis: 100000,
 
-  // Carbon Grade Thresholds (Centralized & Auditable)
+  // Carbon Grade Thresholds (Calibrated to Sustainable Web Design Model & Global Web Baselines)
+  // Global average web page is ~2.4 MB generating ~0.8g to 1.1g CO2e per visit.
   gradeThresholds: [
-    { grade: "A+" as const, maxGrams: 0.10, percentile: 95, label: "Exceptional" },
-    { grade: "A" as const, maxGrams: 0.20, percentile: 82, label: "Excellent" },
-    { grade: "B" as const, maxGrams: 0.35, percentile: 65, label: "Above Average" },
-    { grade: "C" as const, maxGrams: 0.50, percentile: 45, label: "Moderate Footprint" },
-    { grade: "D" as const, maxGrams: 0.75, percentile: 25, label: "High Emissions" },
+    { grade: "A+" as const, maxGrams: 0.18, percentile: 95, label: "Net Zero Leader" },
+    { grade: "A" as const, maxGrams: 0.40, percentile: 85, label: "Exceptional Efficiency" },
+    { grade: "B" as const, maxGrams: 0.90, percentile: 68, label: "Above Global Average" },
+    { grade: "C" as const, maxGrams: 1.50, percentile: 48, label: "Moderate Footprint" },
+    { grade: "D" as const, maxGrams: 2.30, percentile: 25, label: "High Emissions" },
     { grade: "F" as const, maxGrams: Infinity, percentile: 10, label: "Critical Refactor Required" },
   ],
 
