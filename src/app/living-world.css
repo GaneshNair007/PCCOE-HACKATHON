@@ -130,7 +130,6 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .world-story:nth-child(even) .world-story-image { order: 2; transform: rotate(4deg); }
 .world-story-image { position: relative; width: min(380px,100%); justify-self: center; padding: 16px; border-radius: 36px; background: rgba(25, 34, 21, 0.85); box-shadow: 0 35px 70px -20px rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(24px); }
 .world-story-image img { aspect-ratio: 4/5; width: 100%; object-fit: cover; border-radius: 24px; }
-.world-story-image span { position: absolute; inset: auto 26px 28px; color: white; font: 11px var(--font-code); font-weight: 700; letter-spacing: .15em; text-transform: uppercase; text-shadow: 0 1px 10px black; }
 .world-story-number { font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; color: #cbff00; margin-bottom: 25px; display: block; }
 .world-story h3 {
   font-family: var(--font-display) !important;

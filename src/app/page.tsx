@@ -533,7 +533,6 @@ function LandingPageContent() {
                 -42.8% Average Transfer Delta
               </div>
             </div>
-            <span>CARBONTERRA</span>
           </div>
           <div>
             <span className="world-story-number">Fleet telemetry</span>
@@ -576,7 +575,6 @@ function LandingPageContent() {
                 <div className="text-lg font-bold text-[#cbff00]">-1.84 MB / visit</div>
               </div>
             </div>
-            <span>CARBONTERRA</span>
           </div>
           <div>
             <span className="world-story-number">What-if simulator</span>
@@ -606,7 +604,6 @@ function LandingPageContent() {
                 <span className="text-[#cbff00] font-bold">Optimized: 0.9 kg (-81%)</span>
               </div>
             </div>
-            <span>CARBONTERRA</span>
           </div>
           <div>
             <span className="world-story-number">Emissions forecasts</span>
@@ -642,7 +639,6 @@ function LandingPageContent() {
                 Immutable SHA-256 Audit Seal
               </div>
             </div>
-            <span>CARBONTERRA</span>
           </div>
           <div>
             <span className="world-story-number">Evidence Vault</span>
