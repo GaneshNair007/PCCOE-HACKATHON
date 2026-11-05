@@ -76,18 +76,21 @@ export function SylvaHero({
 
           {/* Card 1: 3D Iridescent Soap Bubble Eco-Score Centerpiece */}
           <article className="card card--about mask" style={{ ["--d" as any]: "760ms", ["--pd" as any]: 10, ["--pr" as any]: 2.2 }}>
-            <figure className="portal flex items-center justify-center p-2 overflow-hidden bg-black/60" data-delay="920">
-              <span className="portal-media flex items-center justify-center w-full h-full scale-[1.08]">
-                <SoapBubbleRank
-                  grade={auditData?.eco_score || "A"}
-                  size="md"
-                  interactive={true}
-                  showRankLabel={true}
-                />
-              </span>
-            </figure>
-            <p className="label">Live 3D Eco-Score</p>
-            <h2>{auditData ? `${auditData.domain} · Grade ${auditData.eco_score}` : "Interactive 3D Soap Bubble"}</h2>
+            <div
+              className="absolute inset-x-[calc(14*var(--hero-unit))] top-[calc(14*var(--hero-unit))] h-[calc(185*var(--hero-unit))] rounded-[calc(28*var(--hero-unit))] bg-black/50 border border-white/10 flex items-center justify-center overflow-visible z-10 backdrop-blur-sm shadow-inner"
+              style={{ minHeight: "165px" }}
+            >
+              <SoapBubbleRank
+                grade={auditData?.eco_score || "A"}
+                size="md"
+                interactive={true}
+                showRankLabel={false}
+              />
+            </div>
+            <p className="label" style={{ top: "calc(210 * var(--hero-unit))" }}>Live 3D Eco-Score</p>
+            <h2 style={{ top: "calc(234 * var(--hero-unit))", width: "calc(260 * var(--hero-unit))" }}>
+              {auditData ? `${auditData.domain} · Grade ${auditData.eco_score}` : "Interactive 3D Soap Bubble"}
+            </h2>
           </article>
 
           {/* Floating Knob for Card 1 */}
