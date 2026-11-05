@@ -138,7 +138,6 @@ function LandingPageContent() {
           ...storedFleet.filter((s: any) => s.domain !== data.domain),
         ].slice(0, 25);
         localStorage.setItem("carbonerra_fleet", JSON.stringify(updatedFleet));
-        localStorage.setItem("carbonterra_last_audit", JSON.stringify(data));
       } catch {
         // LocalStorage fallback
       }
@@ -169,7 +168,7 @@ function LandingPageContent() {
     }
   };
 
-  // Auto-run if ?url= query parameter is passed, or restore recent audit
+  // Only run if ?url= query parameter is explicitly provided; otherwise start in clean idle state waiting for user input
   useEffect(() => {
     const queryUrl = searchParams.get("url");
     if (queryUrl) {
@@ -178,16 +177,9 @@ function LandingPageContent() {
       return;
     }
 
+    // Clean up any legacy cached audit so the viewport starts fresh waiting for user input
     try {
-      const cached = localStorage.getItem("carbonterra_last_audit");
-      if (cached) {
-        const parsed: AuditResult = JSON.parse(cached);
-        if (parsed && parsed.eco_score) {
-          setAuditData(parsed);
-          setTargetUrl(parsed.url || `https://${parsed.domain}`);
-          setAuditStatus("completed");
-        }
-      }
+      localStorage.removeItem("carbonterra_last_audit");
     } catch {
       // LocalStorage access fallback
     }
