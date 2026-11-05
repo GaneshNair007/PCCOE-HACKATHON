@@ -239,16 +239,22 @@ export function WebGLSoapBubble({
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
     camera.position.z = 4.2;
 
-    const renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      antialias: true,
-      powerPreference: "high-performance",
-    });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.setClearColor(0x000000, 0);
-
-    container.appendChild(renderer.domElement);
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+        powerPreference: "high-performance",
+      });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setClearColor(0x000000, 0);
+      container.appendChild(renderer.domElement);
+    } catch (e) {
+      console.warn("WebGL initialization failed, falling back to 3D CSS sphere:", e);
+      setWebGlSupported(false);
+      return;
+    }
 
     // Bubble Mesh with Custom ShaderMaterial
     const geometry = new THREE.SphereGeometry(1.4, 64, 64);
@@ -523,10 +529,78 @@ export function WebGLSoapBubble({
       role="img"
       aria-label={`Interactive 3D WebGL Soap Bubble Grade ${grade}`}
     >
-      {/* Fallback for non-WebGL devices */}
+      {/* High-Fidelity 3D Fallback when WebGL is unavailable */}
       {!webGlSupported && (
-        <div className="w-full h-full rounded-full border border-lime/40 bg-lime/10 flex items-center justify-center text-5xl font-black text-lime font-display">
-          {grade}
+        <div
+          className="relative w-full h-full rounded-full flex items-center justify-center select-none overflow-hidden"
+          style={{
+            background:
+              "radial-gradient(circle at 35% 30%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.08) 40%, rgba(0,0,0,0.3) 75%, transparent 100%)",
+            boxShadow: `
+              inset 0 0 24px rgba(255,255,255,0.25),
+              inset 0 0 14px ${gradePalette.primary}66,
+              0 14px 34px -8px rgba(0, 0, 0, 0.75),
+              0 0 28px -4px ${gradePalette.primary}44
+            `,
+            border: "1.5px solid rgba(255, 255, 255, 0.35)",
+            backdropFilter: "blur(6px)",
+            WebkitBackdropFilter: "blur(6px)",
+          }}
+        >
+          {/* Iridescent Rainbow Sheen */}
+          <div
+            className="absolute inset-0 rounded-full pointer-events-none opacity-85"
+            style={{
+              background: `
+                conic-gradient(
+                  from 135deg at 50% 50%,
+                  rgba(203, 255, 0, 0.35) 0deg,
+                  rgba(56, 189, 248, 0.45) 60deg,
+                  rgba(236, 72, 153, 0.4) 130deg,
+                  rgba(168, 85, 247, 0.4) 200deg,
+                  rgba(52, 211, 153, 0.4) 270deg,
+                  rgba(203, 255, 0, 0.35) 360deg
+                )
+              `,
+              maskImage: "radial-gradient(circle, transparent 55%, black 72%, black 97%, transparent 100%)",
+              WebkitMaskImage: "radial-gradient(circle, transparent 55%, black 72%, black 97%, transparent 100%)",
+              mixBlendMode: "screen",
+            }}
+          />
+
+          {/* Floating Grade Typography */}
+          <div className="relative z-10 flex flex-col items-center justify-center text-center">
+            <span
+              className="font-display font-black tracking-tight"
+              style={{
+                fontSize: dimension * 0.42,
+                color: grade === "B" ? "#ffffff" : gradePalette.primary,
+                textShadow: `0 0 24px ${gradePalette.primary}cc, 0 0 45px ${gradePalette.primary}66`,
+              }}
+            >
+              {grade}
+            </span>
+          </div>
+
+          {/* Front Specular Flares */}
+          <div
+            className="absolute top-[10%] left-[15%] w-[32%] h-[22%] rounded-full pointer-events-none transform -rotate-[32deg]"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.45) 50%, transparent 80%)",
+              filter: "blur(0.5px)",
+              mixBlendMode: "screen",
+            }}
+          />
+          <div
+            className="absolute bottom-[14%] right-[16%] w-[24%] h-[15%] rounded-full pointer-events-none transform rotate-[35deg]"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(203,255,0,0.5) 0%, rgba(56,189,248,0.3) 50%, transparent 80%)",
+              filter: "blur(1px)",
+              mixBlendMode: "screen",
+            }}
+          />
         </div>
       )}
     </div>

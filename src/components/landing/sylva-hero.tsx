@@ -5,11 +5,13 @@ import Link from "next/link";
 import { Search, Loader2 } from "lucide-react";
 
 import { useLivingWorld } from "@/components/world/living-world";
-import { ButterflyOrbit } from "@/components/ambient/butterfly-orbit";
+import { SoapBubbleRank } from "@/components/3d/soap-bubble-rank";
+import { AuditResult } from "@/types/telemetry";
 
 interface SylvaHeroProps {
   onRunAudit: (url: string) => void;
   auditStatus: "idle" | "running" | "completed" | "failed";
+  auditData?: AuditResult | null;
   currentPhase: string;
   errorMessage: string | null;
   targetUrl: string;
@@ -19,6 +21,7 @@ interface SylvaHeroProps {
 export function SylvaHero({
   onRunAudit,
   auditStatus,
+  auditData,
   currentPhase,
   errorMessage,
   targetUrl,
@@ -71,20 +74,20 @@ export function SylvaHero({
             CARBONTERRA
           </div>
 
-          {/* Card 1: Dual-Source Engine (sitting behind moss canvas) */}
+          {/* Card 1: 3D Iridescent Soap Bubble Eco-Score Centerpiece */}
           <article className="card card--about mask" style={{ ["--d" as any]: "760ms", ["--pd" as any]: 10, ["--pr" as any]: 2.2 }}>
-            <figure className="portal" data-delay="920">
-              <span className="portal-media">
-                <img
-                  src="/landing-pages/inner-green-assets/card-ethos.jpg"
-                  alt="Dual-Source Synthetic Engine & Static DOM Verification"
-                  loading="eager"
-                  decoding="async"
+            <figure className="portal flex items-center justify-center p-2 overflow-hidden bg-black/60" data-delay="920">
+              <span className="portal-media flex items-center justify-center w-full h-full scale-[1.08]">
+                <SoapBubbleRank
+                  grade={auditData?.eco_score || "A"}
+                  size="md"
+                  interactive={true}
+                  showRankLabel={true}
                 />
               </span>
             </figure>
-            <p className="label">Analysis Engine</p>
-            <h2>Page Weight &amp; Carbon Audit</h2>
+            <p className="label">Live 3D Eco-Score</p>
+            <h2>{auditData ? `${auditData.domain} · Grade ${auditData.eco_score}` : "Interactive 3D Soap Bubble"}</h2>
           </article>
 
           {/* Floating Knob for Card 1 */}
@@ -294,10 +297,36 @@ export function SylvaHero({
                 ))}
               </div>
 
-              {/* Status / Phase update */}
+              {/* Status / Phase update with 3D Centerpiece Bubble */}
               {auditStatus === "running" && (
-                <div role="status" className="pt-3 flex flex-col items-center">
-                  <ButterflyOrbit size={90} label={currentPhase || "Auditing Web Page..."} />
+                <div role="status" className="pt-4 flex flex-col items-center gap-3">
+                  <SoapBubbleRank grade="B" size="md" interactive={true} showRankLabel={false} />
+                  <p className="text-xs sm:text-sm font-mono text-[#cbff00] font-semibold text-center">
+                    {currentPhase || "Probing Network Payloads & Carbon Attribution..."}
+                  </p>
+                </div>
+              )}
+
+              {/* Completed Verdict in Hero Dock */}
+              {auditStatus === "completed" && auditData && (
+                <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <SoapBubbleRank grade={auditData.eco_score} size="sm" interactive={true} showRankLabel={false} />
+                    <div className="text-left">
+                      <div className="text-xs font-mono font-bold text-[#cbff00] uppercase">
+                        AUDIT COMPLETE · GRADE {auditData.eco_score}
+                      </div>
+                      <div className="text-sm font-display font-bold text-white">
+                        {auditData.domain} · {auditData.co2_grams} gCO2 / visit
+                      </div>
+                    </div>
+                  </div>
+                  <a
+                    href="#cockpit"
+                    className="px-4 py-2.5 rounded-xl bg-[#cbff00] text-black hover:bg-[#e4ff66] font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-[#cbff00]/20 shrink-0"
+                  >
+                    View Full 3D Breakdown ↓
+                  </a>
                 </div>
               )}
 

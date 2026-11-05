@@ -84,6 +84,11 @@ function LandingPageContent() {
     setErrorCode(null);
     setCurrentPhase("Phase 1/4: SSRF Security Validation & DNS Pre-Resolution...");
 
+    // Smooth scroll to cockpit so the user watches the 3D bubble scan in real time
+    setTimeout(() => {
+      cockpitRef.current?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
+    }, 150);
+
     const phaseTimer = setTimeout(() => {
       setCurrentPhase("Phase 2/4: Querying Google PageSpeed Insights & Static DOM Crawler...");
     }, 1800);
@@ -164,12 +169,27 @@ function LandingPageContent() {
     }
   };
 
-  // Auto-run if ?url= query parameter is passed
+  // Auto-run if ?url= query parameter is passed, or restore recent audit
   useEffect(() => {
     const queryUrl = searchParams.get("url");
     if (queryUrl) {
       setTargetUrl(queryUrl);
       runAudit(queryUrl);
+      return;
+    }
+
+    try {
+      const cached = localStorage.getItem("carbonterra_last_audit");
+      if (cached) {
+        const parsed: AuditResult = JSON.parse(cached);
+        if (parsed && parsed.eco_score) {
+          setAuditData(parsed);
+          setTargetUrl(parsed.url || `https://${parsed.domain}`);
+          setAuditStatus("completed");
+        }
+      }
+    } catch {
+      // LocalStorage access fallback
     }
   }, [searchParams]);
 
@@ -191,6 +211,7 @@ function LandingPageContent() {
       <SylvaHero
         onRunAudit={runAudit}
         auditStatus={auditStatus}
+        auditData={auditData}
         currentPhase={currentPhase}
         errorMessage={errorMessage}
         targetUrl={targetUrl}
