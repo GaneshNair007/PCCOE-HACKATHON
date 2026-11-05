@@ -15,8 +15,14 @@ import {
 import { StorageRepository } from "@/lib/storage/repository";
 import { performAudit } from "@/lib/scanner";
 
+interface ChatHistoryMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
 interface ChatRequestBody {
   message: string;
+  history?: ChatHistoryMessage[];
   context?: ChatContext;
 }
 
@@ -42,22 +48,64 @@ export async function POST(req: NextRequest) {
     if (apiKey) {
       try {
         const google = createGoogleGenerativeAI({ apiKey });
-        const modelCandidates = ["gemini-3.5-flash-lite", "gemini-3.8-flash"];
+        const modelCandidates = [
+          "gemini-3.5-flash-lite",
+          "gemini-2.5-flash",
+          "gemini-flash-latest",
+          "gemini-3.5-flash",
+        ];
         let aiResponse: any = null;
         let activeModel = "gemini-3.5-flash-lite";
 
-        for (const candidate of modelCandidates) {
-          try {
-            aiResponse = await generateText({
-              model: google(candidate),
-              system: `You are CarbonTerra AI, an intelligent, versatile, and friendly assistant. You can converse naturally about anything—including greetings, general conversation, programming, web architecture, and performance optimization—as well as specialized digital carbon telemetry using the Sustainable Web Design Model (SWDM v4).
+        // Build multi-turn conversation messages
+        const conversationMessages: Array<{ role: "user" | "assistant"; content: string }> = [];
+
+        if (Array.isArray(body.history)) {
+          for (const h of body.history.slice(-8)) {
+            if (
+              h &&
+              (h.role === "user" || h.role === "assistant") &&
+              typeof h.content === "string" &&
+              h.content.trim()
+            ) {
+              conversationMessages.push({
+                role: h.role,
+                content: h.content.trim(),
+              });
+            }
+          }
+        }
+
+        conversationMessages.push({
+          role: "user",
+          content: message,
+        });
+
+        const systemPrompt = `You are CarbonTerra AI, an intelligent, versatile, and friendly assistant for the CarbonTerra Digital Sustainability Platform.
+You can converse naturally about anything—including greetings, general conversation, programming, web architecture, code debugging, and performance optimization—as well as specialized digital carbon telemetry using the Sustainable Web Design Model (SWDM v4).
+
+PLATFORM KNOWLEDGE:
+- CarbonTerra is an enterprise digital sustainability platform built for PCCOE Hackathon 2026.
+- Key modules:
+  * Audit Centre (/): Full network scanner, asset payload breakdown, and SWDM v4 digital carbon footprint.
+  * Savings Lab (/savings-lab): Controlled verification workbench with 3-pass deterministic journey testing (baseline vs candidate), and executive SMTP dispatch.
+  * Evidence Vault (/evidence): Immutable telemetry receipts, verifiable certificates, and JSON evidence download.
+  * Simulator (/simulator): Interactive what-if calibration sliders (WebP compression, JS deferral, cache TTL, green hosting).
+  * Release Shield (/shield): CI/CD budget guardrails enforcing transfer ceilings (e.g. 350 KB) before deploy.
+  * Fleet Health (/dashboard): Enterprise fleet-wide carbon footprint monitoring.
 
 GUIDELINES:
 1. For greetings ("hi", "hello"), general questions, coding advice, or casual conversation, answer warmly, clearly, and helpfully with detailed reasoning without forcing tools.
 2. When the user asks to audit a website, compare sites, simulate optimizations, prepare experiments, test candidates, or check release budgets, call the corresponding tool.
 3. Every metric or calculation you state for tools must come directly from tool outputs.
-4. Active context: ${JSON.stringify(context)}.`,
-              prompt: message,
+4. Active context: ${JSON.stringify(context)}.`;
+
+        for (const candidate of modelCandidates) {
+          try {
+            aiResponse = await generateText({
+              model: google(candidate),
+              system: systemPrompt,
+              messages: conversationMessages,
               tools: createCarbonerraAiTools(targetBaseUrl),
             });
             activeModel = candidate;
@@ -115,6 +163,9 @@ GUIDELINES:
               }
             } else if (toolName?.includes("budget")) {
               actionLinks.push({ label: "Open Release Shield", href: "/shield" });
+            } else if (toolName?.includes("simulate")) {
+              actionLinks.push({ label: "Open Simulator", href: "/simulator" });
+              actionLinks.push({ label: "Open Savings Lab", href: "/savings-lab" });
             }
 
             return NextResponse.json({

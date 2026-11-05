@@ -36,6 +36,40 @@ interface ChatMessage {
   timestamp: string;
 }
 
+function CodeBlock({ code, isUser }: { code: string; isUser: boolean }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="relative group my-2.5 max-w-full">
+      <pre
+        tabIndex={0}
+        aria-label="Code example"
+        className={`p-3.5 pr-14 rounded-xl font-mono text-xs overflow-x-auto [overflow-wrap:normal] ${
+          isUser
+            ? "bg-black/90 border border-black/30 text-[#cbff00]"
+            : "bg-black/80 border border-white/15 text-[#cbff00]"
+        }`}
+      >
+        <code>{code}</code>
+      </pre>
+      <button
+        type="button"
+        onClick={handleCopy}
+        aria-label="Copy code"
+        className="absolute top-2.5 right-2.5 px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-[10px] font-mono text-white/80 hover:text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
+      >
+        {copied ? "Copied!" : "Copy"}
+      </button>
+    </div>
+  );
+}
+
 function FormattedMessageText({ text, isUser = false }: { text: string; isUser?: boolean }) {
   const lines = text.split("\n");
   let inCodeBlock = false;
@@ -49,18 +83,7 @@ function FormattedMessageText({ text, isUser = false }: { text: string; isUser?:
         const code = codeBlockContent.join("\n");
         codeBlockContent = [];
         elements.push(
-          <pre
-            key={`code-${idx}`}
-            tabIndex={0}
-            aria-label="Code example"
-            className={`my-2.5 max-w-full p-3 rounded-xl font-mono text-xs overflow-x-auto [overflow-wrap:normal] ${
-              isUser
-                ? "bg-black/90 border border-black/30 text-[#cbff00]"
-                : "bg-black/80 border border-white/15 text-[#cbff00]"
-            }`}
-          >
-            <code>{code}</code>
-          </pre>
+          <CodeBlock key={`code-${idx}`} code={code} isUser={isUser} />
         );
       } else {
         inCodeBlock = true;
@@ -241,10 +264,11 @@ export function AgenticChat() {
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setLoading(true);
-    setActiveTool("Executing sustainability telemetry...");
+    setActiveTool("Analyzing request...");
 
     // Build explicit context from the active route and search params
     const context: Record<string, string> = {
+      pathname,
       projectId: "campus-events",
       journeyId: "event-registration",
     };
@@ -255,11 +279,20 @@ export function AgenticChat() {
       if (urlParam) context.targetUrl = urlParam;
     }
 
+    // Pass last 8 conversation turns for continuous multi-turn memory
+    const history = messages
+      .filter((m) => m.id !== "welcome-init")
+      .slice(-8)
+      .map((m) => ({
+        role: m.sender,
+        content: m.text,
+      }));
+
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: query, context }),
+        body: JSON.stringify({ message: query, history, context }),
       });
 
       const data = await res.json();
@@ -481,7 +514,94 @@ export function AgenticChat() {
                       {/* Rich Tool Output Card (when structured data available) */}
                       {msg.toolOutput && (
                         <div className="mt-3 pt-2.5 border-t border-white/10 space-y-2">
-                          {/* 1. Experiment Patch proposal */}
+                          {/* 1. Live Audit Telemetry Card */}
+                          {msg.toolOutput.domain && (msg.toolOutput.totalBytes !== undefined || msg.toolOutput.co2Grams !== undefined) && (
+                            <div className="p-3.5 rounded-2xl bg-black/60 border border-[#cbff00]/30 space-y-2.5 shadow-xl font-mono text-xs">
+                              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-2">
+                                <span className="font-bold text-white truncate">{msg.toolOutput.domain}</span>
+                                {msg.toolOutput.ecoScore && (
+                                  <Badge variant="lime" className="font-bold text-[10px] px-2 py-0.5">
+                                    Grade {msg.toolOutput.ecoScore}
+                                  </Badge>
+                                )}
+                              </div>
+                              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                                <div className="bg-white/[0.04] p-2 rounded-xl border border-white/10">
+                                  <span className="text-white/50 block text-[10px]">TRANSFER</span>
+                                  <span className="text-white font-bold">
+                                    {msg.toolOutput.totalBytes ? `${(msg.toolOutput.totalBytes / (1024 * 1024)).toFixed(2)} MB` : "N/A"}
+                                  </span>
+                                </div>
+                                <div className="bg-white/[0.04] p-2 rounded-xl border border-white/10">
+                                  <span className="text-white/50 block text-[10px]">DIGITAL CARBON</span>
+                                  <span className="text-[#cbff00] font-bold">
+                                    {msg.toolOutput.co2Grams !== undefined ? `${msg.toolOutput.co2Grams}g` : "N/A"}
+                                  </span>
+                                </div>
+                              </div>
+                              {msg.toolOutput.hosting && (
+                                <div className="flex items-center justify-between text-[11px] pt-0.5 text-white/70">
+                                  <span>Hosting:</span>
+                                  <span className={msg.toolOutput.hosting.isGreen ? "text-[#cbff00] font-semibold" : "text-white/80"}>
+                                    {msg.toolOutput.hosting.isGreen ? "🌿 100% Renewable" : "⚡ Standard Grid"}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {/* 2. Dual-Site Comparison Card */}
+                          {msg.toolOutput.siteA && msg.toolOutput.siteB && (
+                            <div className="p-3.5 rounded-2xl bg-black/60 border border-[#cbff00]/30 space-y-2.5 shadow-xl font-mono text-xs">
+                              <div className="flex items-center justify-between border-b border-white/10 pb-1.5 text-[#cbff00] font-semibold">
+                                <span>Comparative Telemetry</span>
+                                <Badge variant="lime" className="text-[10px]">
+                                  {msg.toolOutput.differencePct}% Delta
+                                </Badge>
+                              </div>
+                              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                                <div className="bg-white/[0.04] p-2 rounded-xl border border-white/10 space-y-0.5">
+                                  <div className="font-bold text-white truncate">{msg.toolOutput.siteA.domain}</div>
+                                  <div className="text-white/70">{(msg.toolOutput.siteA.bytes / (1024 * 1024)).toFixed(2)} MB</div>
+                                  <div className="text-[#cbff00]">{msg.toolOutput.siteA.co2Grams}g ({msg.toolOutput.siteA.ecoScore})</div>
+                                </div>
+                                <div className="bg-white/[0.04] p-2 rounded-xl border border-white/10 space-y-0.5">
+                                  <div className="font-bold text-white truncate">{msg.toolOutput.siteB.domain}</div>
+                                  <div className="text-white/70">{(msg.toolOutput.siteB.bytes / (1024 * 1024)).toFixed(2)} MB</div>
+                                  <div className="text-[#cbff00]">{msg.toolOutput.siteB.co2Grams}g ({msg.toolOutput.siteB.ecoScore})</div>
+                                </div>
+                              </div>
+                              {msg.toolOutput.cleanerDomain && (
+                                <div className="text-[11px] text-[#cbff00] pt-0.5">
+                                  🏆 <strong>{msg.toolOutput.cleanerDomain}</strong> is {msg.toolOutput.differencePct}% cleaner
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {/* 3. Simulation Scenario Delta Card */}
+                          {msg.toolOutput.deltaBytes !== undefined && msg.toolOutput.percentSaved !== undefined && !msg.toolOutput.outcome && !msg.toolOutput.exitCode && (
+                            <div className="p-3.5 rounded-2xl bg-black/60 border border-[#cbff00]/30 space-y-2 font-mono text-xs shadow-xl">
+                              <div className="flex items-center justify-between text-[#cbff00] font-semibold border-b border-white/10 pb-1.5">
+                                <span>Simulated Reduction</span>
+                                <Badge variant="lime" className="text-[10px]">
+                                  -{msg.toolOutput.percentSaved}%
+                                </Badge>
+                              </div>
+                              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                                <div className="bg-white/[0.04] p-2 rounded-xl border border-white/10">
+                                  <span className="text-white/50 block text-[10px]">TRANSFER SAVED</span>
+                                  <span className="text-white font-bold">{Math.round(msg.toolOutput.deltaBytes / 1024)} KB</span>
+                                </div>
+                                <div className="bg-white/[0.04] p-2 rounded-xl border border-white/10">
+                                  <span className="text-white/50 block text-[10px]">AVOIDED EMISSIONS</span>
+                                  <span className="text-[#cbff00] font-bold">{msg.toolOutput.co2SavedGrams} g</span>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* 4. Experiment Patch proposal */}
                           {msg.toolOutput.patchProposal && (
                             <div className="p-3.5 rounded-xl bg-black/60 border border-white/12 text-xs font-mono space-y-1.5">
                               <div className="flex flex-wrap items-center justify-between gap-2 text-[#cbff00]">
@@ -496,12 +616,12 @@ export function AgenticChat() {
                             </div>
                           )}
 
-                          {/* 2. Candidate Verification outcome */}
+                          {/* 5. Candidate Verification outcome */}
                           {msg.toolOutput.outcome && (
                             <div className="p-3.5 rounded-xl bg-black/60 border border-white/12 text-xs font-mono space-y-1.5">
                               <div className="flex flex-wrap items-center justify-between gap-2">
                                 <span className="text-white/70">Verification</span>
-                                {msg.toolOutput.outcome === "VERIFIED_IMPROVEMENT" ? (
+                                {msg.toolOutput.outcome === "VERIFIED_IMPROVEMENT" || msg.toolOutput.outcome === "observed_improvement" ? (
                                   <Badge variant="lime" className="flex items-center gap-1 font-mono">
                                     <CheckCircle2 className="w-3 h-3" /> Verified
                                   </Badge>
@@ -523,7 +643,7 @@ export function AgenticChat() {
                             </div>
                           )}
 
-                          {/* 3. Release Shield Budget */}
+                          {/* 6. Release Shield Budget */}
                           {msg.toolOutput.exitCode !== undefined && (
                             <div className="p-3.5 rounded-xl bg-black/60 border border-white/12 text-xs font-mono space-y-1.5">
                               <div className="flex flex-wrap items-center justify-between gap-2">
@@ -541,23 +661,23 @@ export function AgenticChat() {
                               </div>
                             </div>
                           )}
+                        </div>
+                      )}
 
-                          {/* Interactive Action Links */}
-                          {msg.actionLinks && msg.actionLinks.length > 0 && (
-                            <div className="flex flex-wrap gap-2 pt-1.5">
-                              {msg.actionLinks.map((link, idx) => (
-                                <Link
-                                  key={idx}
-                                  href={link.href}
-                                  onClick={() => setIsOpen(false)}
-                                  className="inline-flex items-center gap-1.5 min-h-9 text-xs px-3.5 py-1.5 rounded-full bg-[#cbff00]/15 border border-[#cbff00]/40 text-[#cbff00] hover:bg-[#cbff00] hover:text-black transition-all font-medium"
-                                >
-                                  <span>{link.label}</span>
-                                  <ArrowUpRight className="w-3 h-3" />
-                                </Link>
-                              ))}
-                            </div>
-                          )}
+                      {/* Interactive Action Links (Always rendered if present) */}
+                      {msg.actionLinks && msg.actionLinks.length > 0 && (
+                        <div className="flex flex-wrap gap-2 pt-2.5 mt-2 border-t border-white/10">
+                          {msg.actionLinks.map((link, idx) => (
+                            <Link
+                              key={idx}
+                              href={link.href}
+                              onClick={() => setIsOpen(false)}
+                              className="inline-flex items-center gap-1.5 min-h-8 text-xs px-3.5 py-1.5 rounded-full bg-[#cbff00]/15 border border-[#cbff00]/40 text-[#cbff00] hover:bg-[#cbff00] hover:text-black transition-all font-medium"
+                            >
+                              <span>{link.label}</span>
+                              <ArrowUpRight className="w-3 h-3" />
+                            </Link>
+                          ))}
                         </div>
                       )}
                     </div>
@@ -580,10 +700,14 @@ export function AgenticChat() {
               {/* Active Tool Calling State */}
               {loading && (
                 <div role="status" aria-live="polite" className="flex items-start gap-2">
-                  <div className="p-3.5 rounded-2xl rounded-bl-sm bg-white/[0.06] border border-[#cbff00]/30 text-[#cbff00] text-xs font-mono space-y-2 max-w-[88%] backdrop-blur-xl">
-                    <div className="flex items-center gap-2">
-                      <Zap className={`w-4 h-4 text-[#cbff00] ${reduceMotion ? "" : "animate-spin"}`} aria-hidden="true" />
-                      <span className="font-semibold text-white">Executing sustainability telemetry…</span>
+                  <div className="p-3.5 rounded-2xl rounded-bl-sm bg-white/[0.06] border border-[#cbff00]/30 text-[#cbff00] text-xs font-mono space-y-2 max-w-[88%] backdrop-blur-xl shadow-xl">
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex items-center gap-1">
+                        <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse" />
+                        <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse delay-75" />
+                        <span className="w-2 h-2 rounded-full bg-[#cbff00] animate-pulse delay-150" />
+                      </div>
+                      <span className="font-semibold text-white">CarbonTerra AI is thinking…</span>
                     </div>
                     {activeTool && (
                       <div className="text-xs text-white/70 bg-black/60 p-2.5 rounded-xl border border-white/10 flex items-center gap-2">
