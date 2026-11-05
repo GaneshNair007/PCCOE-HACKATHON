@@ -24,7 +24,6 @@ import {
 import Link from "next/link";
 import { AuditResult, EcoScoreGrade } from "@/types/telemetry";
 
-type PresetId = "custom" | "quick-wins" | "lean" | "net-zero";
 
 const DEFAULT_SIMULATION_AUDIT: AuditResult = {
   status: "success",
@@ -87,26 +86,6 @@ const DEFAULT_SIMULATION_AUDIT: AuditResult = {
   hotspots: [],
 };
 
-const PRESETS = [
-  {
-    id: "quick-wins" as PresetId,
-    label: "Quick Wins",
-    desc: "WebP conversion + 30d cache",
-    values: { imgComp: 85, jsDefer: 20, cacheTtl: 30, greenHosting: false },
-  },
-  {
-    id: "lean" as PresetId,
-    label: "Aggressive Lean",
-    desc: "Max compression + code split + 1yr cache",
-    values: { imgComp: 95, jsDefer: 75, cacheTtl: 365, greenHosting: false },
-  },
-  {
-    id: "net-zero" as PresetId,
-    label: "Net-Zero Cloud",
-    desc: "Lean code + 100% renewable datacenter",
-    values: { imgComp: 90, jsDefer: 70, cacheTtl: 180, greenHosting: true },
-  },
-];
 
 interface BenchmarkOption {
   domain: string;
@@ -196,7 +175,6 @@ const BENCHMARK_FLEET: BenchmarkOption[] = [
 export default function SimulatorPage() {
   const [selectedAudit, setSelectedAudit] = useState<AuditResult>(DEFAULT_SIMULATION_AUDIT);
   const [recentAudits, setRecentAudits] = useState<any[]>([]);
-  const [activePreset, setActivePreset] = useState<PresetId>("custom");
   const [customUrlInput, setCustomUrlInput] = useState<string>("");
   const [isAuditingCustom, setIsAuditingCustom] = useState<boolean>(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -363,13 +341,6 @@ export default function SimulatorPage() {
     }
   };
 
-  const applyPreset = (preset: typeof PRESETS[0]) => {
-    setActivePreset(preset.id);
-    setImgComp(preset.values.imgComp);
-    setJsDefer(preset.values.jsDefer);
-    setCacheTtl(preset.values.cacheTtl);
-    setGreenHosting(preset.values.greenHosting);
-  };
 
   // Real Baseline Numbers
   const baselineCo2 = selectedAudit.co2_grams || 0.584;
@@ -679,10 +650,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                 max="95"
                 step="5"
                 value={imgComp}
-                onChange={(e) => {
-                  setImgComp(Number(e.target.value));
-                  setActivePreset("custom");
-                }}
+                onChange={(e) => setImgComp(Number(e.target.value))}
                 className="w-full accent-[#cbff00] bg-black/60 h-2.5 rounded-lg cursor-pointer"
               />
               <div className="flex justify-between text-[11px] text-white/50 font-sans">
@@ -712,10 +680,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                 max="90"
                 step="5"
                 value={jsDefer}
-                onChange={(e) => {
-                  setJsDefer(Number(e.target.value));
-                  setActivePreset("custom");
-                }}
+                onChange={(e) => setJsDefer(Number(e.target.value))}
                 className="w-full accent-[#cbff00] bg-black/60 h-2.5 rounded-lg cursor-pointer"
               />
               <div className="flex justify-between text-[11px] text-white/50 font-sans">
@@ -745,10 +710,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                 max="365"
                 step="7"
                 value={cacheTtl}
-                onChange={(e) => {
-                  setCacheTtl(Number(e.target.value));
-                  setActivePreset("custom");
-                }}
+                onChange={(e) => setCacheTtl(Number(e.target.value))}
                 className="w-full accent-[#cbff00] bg-black/60 h-2.5 rounded-lg cursor-pointer"
               />
               <div className="flex justify-between text-[11px] text-white/50 font-sans">
@@ -772,10 +734,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                 type="button"
                 role="switch"
                 aria-checked={greenHosting}
-                onClick={() => {
-                  setGreenHosting(!greenHosting);
-                  setActivePreset("custom");
-                }}
+                onClick={() => setGreenHosting(!greenHosting)}
                 className={`w-14 h-8 rounded-full transition-colors flex items-center p-1 cursor-pointer shrink-0 ${
                   greenHosting ? "bg-[#cbff00]" : "bg-white/20"
                 }`}
