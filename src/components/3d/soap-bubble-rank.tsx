@@ -54,7 +54,7 @@ const GRADE_PALETTES: Record<
     summary: "Moderate Baseline Emissions",
   },
   D: {
-    causticColor: "rgba(248,113,113,0.3)",
+    causticColor: "rgba(249,115,22,0.35)",
     label: "Grade D",
     summary: "High Environmental Footprint",
   },
@@ -69,7 +69,7 @@ export function SoapBubbleRank({
   grade,
   size = "md",
   interactive = true,
-  showRankLabel = true,
+  showRankLabel = false,
   subLabel,
   co2Grams,
   className = "",

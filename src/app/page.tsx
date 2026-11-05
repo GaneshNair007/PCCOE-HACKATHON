@@ -282,7 +282,7 @@ function LandingPageContent() {
                     grade={auditData.eco_score}
                     size="hero"
                     interactive={true}
-                    showRankLabel={true}
+                    showRankLabel={false}
                   />
                 </div>
 

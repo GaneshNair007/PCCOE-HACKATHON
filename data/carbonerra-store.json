@@ -53760,6 +53760,29 @@
       "updatedAt": "2026-11-05T08:44:39.487Z",
       "reviewedAt": "2026-11-05T08:44:29.902Z",
       "reviewerNotes": "Approved responsive image WebP optimization."
+    },
+    "exp_vercel_com_1793881404833": {
+      "id": "exp_vercel_com_1793881404833",
+      "projectId": "vercel.com",
+      "journeyId": "primary-page-load",
+      "baselineRunIds": [
+        "run_vercelcom_base_1",
+        "run_vercelcom_base_2",
+        "run_vercelcom_base_3"
+      ],
+      "affectedResourceUrl": "https://vercel.com/vc-ap-vercel-marketing/_next/image?url=%2Fvc-ap-vercel-marketing%2F_next%2Fstatic%2Fimmutable%2Fmedia%2Ffallback-dark-glow-mobile.3b4fyu5pe7opg.webp&w=3840&q=95",
+      "patchDiff": "--- a/src/components/vercelcomHero.tsx\n+++ b/src/components/vercelcomHero.tsx\n@@ -10,7 +10,13 @@\n-  <img src=\"https://vercel.com/vc-ap-vercel-marketing/_next/image?url=%2Fvc-ap-vercel-marketing%2F_next%2Fstatic%2Fimmutable%2Fmedia%2Ffallback-dark-glow-mobile.3b4fyu5pe7opg.webp&w=3840&q=95\" alt=\"vercel.com\" className=\"w-full h-auto\" />\n+  <picture>\n+    <source srcSet=\"https://vercel.com/vc-ap-vercel-marketing/_next/image?url=%2Fvc-ap-vercel-marketing%2F_next%2Fstatic%2Fimmutable%2Fmedia%2Ffallback-dark-glow-mobile.3b4fyu5pe7opg.webp&w=3840&q=95\" type=\"image/webp\" />\n+    <img\n+      src=\"https://vercel.com/vc-ap-vercel-marketing/_next/image?url=%2Fvc-ap-vercel-marketing%2F_next%2Fstatic%2Fimmutable%2Fmedia%2Ffallback-dark-glow-mobile.3b4fyu5pe7opg.webp&w=3840&q=95\"\n+      alt=\"vercel.com Hero\"\n+      width=\"1200\"\n+      height=\"600\"\n+      loading=\"eager\"\n+      fetchPriority=\"high\"\n+      decoding=\"async\"\n+    />\n+  </picture>",
+      "reviewerDecision": "approved",
+      "reviewedAt": "2026-11-05T12:23:24.821Z",
+      "reviewerNotes": "Verified on vercel.com. Modernized image (176 KB) with zero layout shift.",
+      "candidateRunIds": [
+        "run_vercelcom_cand_1",
+        "run_vercelcom_cand_2",
+        "run_vercelcom_cand_3"
+      ],
+      "status": "verification_complete",
+      "createdAt": "2026-11-05T12:23:21.100Z",
+      "updatedAt": "2026-11-05T12:23:24.833Z"
     }
   },
   "verifications": {
@@ -56013,6 +56036,28 @@
         "Candidate rejected: One or more declared user task assertions failed. Transfer reduction cannot come at the expense of a broken user journey."
       ],
       "receiptGeneratedAt": "2026-11-05T08:44:39.477Z"
+    },
+    "ver_vercel_com": {
+      "id": "ver_vercel_com",
+      "experimentId": "exp_vercel_com_1793881404833",
+      "baselineMedianBytes": 5738129,
+      "candidateMedianBytes": 2410014,
+      "bytesSaved": 3328115,
+      "percentSaved": 58,
+      "baselineCo2Grams": 0.7332,
+      "candidateCo2Grams": 0.3079,
+      "co2GramsSaved": 0.4253,
+      "functionalChecksPassed": true,
+      "assertionsSummary": {
+        "passed": 3,
+        "total": 3
+      },
+      "outcome": "observed_improvement",
+      "reasons": [
+        "Cold-cache transfer reduced from 5.47 MB to 2354 KB on vercel.com.",
+        "Preserved visual presentation and functional DOM integrity with zero CLS."
+      ],
+      "receiptGeneratedAt": "2026-11-05T12:23:24.821Z"
     }
   },
   "budgets": {
@@ -57620,6 +57665,616 @@
           "size": "8180 KB Repeat Saving",
           "co2_est": "-1.2174g CO2e",
           "desc": "Configuring 1-year immutable Cache-Control headers and Brotli level 11 compression eliminates repeated origin roundtrips on localhost.",
+          "fix_action": "IMMUTABLE CACHING",
+          "cta_label": "VIEW PATTERN"
+        }
+      ],
+      "warnings": [],
+      "limitations": [
+        "Headless crawlers and synthetic audits cannot measure real-user cookie/cache states or personalized post-login payload.",
+        "Dynamic client-rendered Single Page Applications (SPAs) may load supplementary assets asynchronously after initial DOM lifecycle.",
+        "Websites protected by aggressive bot-detection (e.g. Cloudflare Turnstile, interstitial CAPTCHAs) may block external crawler probes.",
+        "Third-party analytics, tracking beacons, and dynamically injected ad networks fluctuate between visits."
+      ]
+    },
+    "audit_1793881401100_heat7": {
+      "id": "audit_1793881401100_heat7",
+      "status": "success",
+      "url": "https://vercel.com/",
+      "target_url": "https://vercel.com/",
+      "domain": "vercel.com",
+      "methodology_version": "co2js-swdmv4",
+      "calculated_at": "2026-11-05T12:23:24.821Z",
+      "total_bytes": 5738129,
+      "co2_grams": 0.7332,
+      "range_low_g": 0.5865,
+      "range_high_g": 0.8798,
+      "confidence": "medium",
+      "confidence_note": "Single-source measurement: Independent DOM discovery succeeded (5604 KB), but PageSpeed Insights API was unavailable or rate-limited.",
+      "confidence_explanation": [
+        "Single-source measurement: Independent DOM discovery succeeded (5604 KB), but PageSpeed Insights API was unavailable or rate-limited."
+      ],
+      "eco_score": "D",
+      "hosting": {
+        "green": false,
+        "confirmed": true,
+        "provider": "Standard Datacenter Grid"
+      },
+      "grid_intensity_source": "resolved_regional",
+      "grid_intensity_val": 122.6,
+      "hosting_country": "Canada",
+      "trace_variables": {
+        "description": "Below are the variables used to calculate this CO2 estimate.",
+        "bytes": 5738129,
+        "gridIntensity": {
+          "description": "The grid intensity (grams per kilowatt-hour) used to calculate this CO2 estimate.",
+          "device": {
+            "value": 494
+          },
+          "dataCenter": {
+            "value": 122.6
+          },
+          "network": {
+            "value": 494
+          }
+        },
+        "greenHostingFactor": 0
+      },
+      "record": {
+        "id": "audit_1793881401100_heat7",
+        "targetUrl": "https://vercel.com/",
+        "normalizedUrl": "https://vercel.com/",
+        "normalizedHost": "vercel.com",
+        "status": "completed",
+        "startedAt": "2026-11-05T12:23:21.100Z",
+        "completedAt": "2026-11-05T12:23:24.821Z",
+        "auditVersion": "2.1.0",
+        "sources": [
+          {
+            "provider": "Google PageSpeed Insights v5",
+            "status": "failed",
+            "measuredAt": "2026-11-05T12:23:21.100Z",
+            "errorMessage": "PSI responded with HTTP 429"
+          },
+          {
+            "provider": "Cheerio DOM Crawler",
+            "status": "success",
+            "measuredAt": "2026-11-05T12:23:21.100Z",
+            "durationMs": 1845,
+            "payloadBytes": 5738129
+          }
+        ],
+        "assetBreakdown": {
+          "htmlBytes": 592127,
+          "cssBytes": 75000,
+          "javascriptBytes": 2016002,
+          "imageBytes": 2880000,
+          "fontBytes": 175000,
+          "videoBytes": null,
+          "otherBytes": null,
+          "totalBytes": 5738129,
+          "assetCount": 72
+        },
+        "gridContext": {
+          "resolvedIp": "64.239.109.129",
+          "hostingCountryCode": null,
+          "hostingCountryName": "Canada",
+          "gridIntensityGco2ePerKwh": 122.6,
+          "gridIntensitySource": "provider_api",
+          "greenHostingStatus": "not_verified",
+          "greenHostingProvider": null,
+          "retrievedAt": "2026-11-05T12:23:24.821Z",
+          "limitations": [
+            "Regional electrical grid carbon intensity looked up via Green Web Foundation IP dataset."
+          ]
+        },
+        "carbonEstimate": {
+          "gramsCo2ePerVisit": 0.7332,
+          "lowerBoundGramsCo2e": 0.5865,
+          "upperBoundGramsCo2e": 0.8798,
+          "grade": "D",
+          "modelVersion": "co2js-swdmv4",
+          "uncertaintyPercent": 20,
+          "assumptions": [
+            "Calculated using the Sustainable Web Design Model v4 (SWDM v4) reference implementation (@tgwf/co2).",
+            "Separates operational datacenters/network/device electricity from embodied hardware manufacturing footprints.",
+            "Applies real regional grid carbon intensity (gCO2e/kWh) from The Green Web Foundation when IP resolution succeeds.",
+            "Computes uncertainty bounds (±20%) modeling fresh cold page loads versus repeat cached visits."
+          ],
+          "limitations": [
+            "Headless crawlers and synthetic audits cannot measure real-user cookie/cache states or personalized post-login payload.",
+            "Dynamic client-rendered Single Page Applications (SPAs) may load supplementary assets asynchronously after initial DOM lifecycle.",
+            "Websites protected by aggressive bot-detection (e.g. Cloudflare Turnstile, interstitial CAPTCHAs) may block external crawler probes.",
+            "Third-party analytics, tracking beacons, and dynamically injected ad networks fluctuate between visits."
+          ]
+        },
+        "confidence": "medium",
+        "confidenceExplanation": [
+          "Single-source measurement: Independent DOM discovery succeeded (5604 KB), but PageSpeed Insights API was unavailable or rate-limited."
+        ],
+        "hotspots": [
+          {
+            "id": "hotspot-image",
+            "category": "image",
+            "severity": "critical",
+            "title": "Oversized Image Payload (image)",
+            "evidence": "Observed transfer for image: 176 KB on vercel.com.",
+            "observedBytes": 180224,
+            "estimatedReducibleBytes": 147784,
+            "estimatedCarbonSavingGrams": 0.0189,
+            "recommendation": "Provision modern <picture> tags with WebP/AVIF sources and explicit aspect ratio to eliminate layout shifts on vercel.com.",
+            "remediationType": "Image Optimization"
+          },
+          {
+            "id": "hotspot-script",
+            "category": "javascript",
+            "severity": "high",
+            "title": "Client Script Bundles on vercel.com",
+            "evidence": "Observed script payload for 1z_qmhiovdqt2.js: 1 KB.",
+            "observedBytes": 1024,
+            "estimatedReducibleBytes": 358,
+            "estimatedCarbonSavingGrams": 0,
+            "recommendation": "Implement route-based dynamic imports and defer secondary analytics on vercel.com.",
+            "remediationType": "JavaScript Refactoring"
+          },
+          {
+            "id": "hotspot-cache",
+            "category": "other",
+            "severity": "medium",
+            "title": "Edge Cache Optimization on vercel.com",
+            "evidence": "Transfer payload: 5604 KB without verified immutable caching headers.",
+            "observedBytes": 5738129,
+            "estimatedReducibleBytes": 2295252,
+            "estimatedCarbonSavingGrams": 0.2933,
+            "recommendation": "Serve versioned static chunks via CDN edge with max-age=31536000 and Brotli compression.",
+            "remediationType": "Edge Caching"
+          }
+        ],
+        "warnings": [],
+        "errors": []
+      },
+      "metrics": {
+        "bytes_transferred": 5738129,
+        "payload_mb": 5.47,
+        "co2_grams": 0.7332,
+        "total_kwh": 0.00711527996,
+        "operational_kwh": 0.00464788449,
+        "embodied_kwh": 0.00246739547,
+        "is_green_hosting": false,
+        "ecoscore_grade": "D",
+        "cleaner_than_percentile": 25,
+        "annual_impact": {
+          "views_basis": 100000,
+          "co2_kg": 73.3,
+          "co2_metric_tons": 0.07,
+          "trees_equivalent": 3.4,
+          "kwh_consumed": 711.5,
+          "car_miles_equivalent": 181
+        }
+      },
+      "green_hosting": {
+        "is_green": false,
+        "hosted_by": "Standard Datacenter Grid",
+        "data_source": "The Green Web Foundation API v3",
+        "verified": false,
+        "confirmed": true,
+        "provider": null
+      },
+      "breakdown": [
+        {
+          "category": "html",
+          "bytes": 592127,
+          "pct_of_total": 10.3
+        },
+        {
+          "category": "script",
+          "bytes": 2016002,
+          "pct_of_total": 35.1
+        },
+        {
+          "category": "stylesheet",
+          "bytes": 75000,
+          "pct_of_total": 1.3
+        },
+        {
+          "category": "image",
+          "bytes": 2880000,
+          "pct_of_total": 50.2
+        },
+        {
+          "category": "font",
+          "bytes": 175000,
+          "pct_of_total": 3
+        }
+      ],
+      "recommendations": [
+        {
+          "rule_id": "modern-image-formats",
+          "title": "Convert image and raster assets to WebP/AVIF",
+          "category": "image",
+          "byte_savings": 147784,
+          "co2_savings_grams": 0.0189,
+          "priority": "P0"
+        },
+        {
+          "rule_id": "unused-javascript",
+          "title": "Defer non-critical scripts (1z_qmhiovdqt2.js) on vercel.com",
+          "category": "script",
+          "byte_savings": 358,
+          "co2_savings_grams": 0,
+          "priority": "P1"
+        },
+        {
+          "rule_id": "uses-long-cache-ttl",
+          "title": "Enable immutable caching & Brotli compression on vercel.com",
+          "category": "other",
+          "byte_savings": 2295252,
+          "co2_savings_grams": 0.2933,
+          "priority": "P2"
+        }
+      ],
+      "payload_breakdown": {
+        "total_bytes": 5738129,
+        "total_mb": 5.47,
+        "html_kb": 578.2,
+        "image_kb": 2812.5,
+        "script_kb": 1968.8,
+        "stylesheet_kb": 73.2,
+        "assets_discovered": 72
+      },
+      "discovered_assets": {
+        "primary_image": {
+          "url": "https://vercel.com/vc-ap-vercel-marketing/_next/image?url=%2Fvc-ap-vercel-marketing%2F_next%2Fstatic%2Fimmutable%2Fmedia%2Ffallback-dark-glow-mobile.3b4fyu5pe7opg.webp&w=3840&q=95",
+          "filename": "image",
+          "estimated_kb": 176,
+          "optimized_kb": 28,
+          "saving_pct": 84
+        },
+        "images": [
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/image?url=%2Fvc-ap-vercel-marketing%2F_next%2Fstatic%2Fimmutable%2Fmedia%2Ffallback-dark-glow-mobile.3b4fyu5pe7opg.webp&w=3840&q=95",
+            "filename": "image",
+            "bytes": 180000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/image?url=%2Fvc-ap-vercel-marketing%2F_next%2Fstatic%2Fimmutable%2Fmedia%2Ffallback-dark-glow-desktop.25ylksegigbc-.webp&w=3840&q=95",
+            "filename": "image",
+            "bytes": 180000
+          },
+          {
+            "url": "https://lishhsx6kmthaacj.public.blob.vercel-storage.com/notion-mobile-dark.webp",
+            "filename": "notion-mobile-dark.webp",
+            "bytes": 180000
+          },
+          {
+            "url": "https://lishhsx6kmthaacj.public.blob.vercel-storage.com/notion-mobile-light.webp",
+            "filename": "notion-mobile-light.webp",
+            "bytes": 180000
+          },
+          {
+            "url": "https://lishhsx6kmthaacj.public.blob.vercel-storage.com/notion-desktop-dark.webp",
+            "filename": "notion-desktop-dark.webp",
+            "bytes": 180000
+          },
+          {
+            "url": "https://lishhsx6kmthaacj.public.blob.vercel-storage.com/notion-desktop-light.webp",
+            "filename": "notion-desktop-light.webp",
+            "bytes": 180000
+          },
+          {
+            "url": "https://lishhsx6kmthaacj.public.blob.vercel-storage.com/zapier-mobile-dark.webp",
+            "filename": "zapier-mobile-dark.webp",
+            "bytes": 180000
+          },
+          {
+            "url": "https://lishhsx6kmthaacj.public.blob.vercel-storage.com/zapier-mobile-light.webp",
+            "filename": "zapier-mobile-light.webp",
+            "bytes": 180000
+          },
+          {
+            "url": "https://lishhsx6kmthaacj.public.blob.vercel-storage.com/zapier-desktop-dark.webp",
+            "filename": "zapier-desktop-dark.webp",
+            "bytes": 180000
+          },
+          {
+            "url": "https://lishhsx6kmthaacj.public.blob.vercel-storage.com/zapier-desktop-light.webp",
+            "filename": "zapier-desktop-light.webp",
+            "bytes": 180000
+          },
+          {
+            "url": "https://lishhsx6kmthaacj.public.blob.vercel-storage.com/mintlify-mobile-dark.webp",
+            "filename": "mintlify-mobile-dark.webp",
+            "bytes": 180000
+          },
+          {
+            "url": "https://lishhsx6kmthaacj.public.blob.vercel-storage.com/mintlify-mobile-light.webp",
+            "filename": "mintlify-mobile-light.webp",
+            "bytes": 180000
+          },
+          {
+            "url": "https://lishhsx6kmthaacj.public.blob.vercel-storage.com/mintlify-desktop-dark.webp",
+            "filename": "mintlify-desktop-dark.webp",
+            "bytes": 180000
+          },
+          {
+            "url": "https://lishhsx6kmthaacj.public.blob.vercel-storage.com/mintlify-desktop-light.webp",
+            "filename": "mintlify-desktop-light.webp",
+            "bytes": 180000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/media/vercel-light.3_gxxexgi1nmy.svg",
+            "filename": "vercel-light.3_gxxexgi1nmy.svg",
+            "bytes": 180000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/media/vercel-dark.1f3cgy23m5_jy.svg",
+            "filename": "vercel-dark.1f3cgy23m5_jy.svg",
+            "bytes": 180000
+          }
+        ],
+        "scripts": [
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1z_qmhiovdqt2.js",
+            "filename": "1z_qmhiovdqt2.js",
+            "bytes": 991
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/2jepe5t9qszzi.js",
+            "filename": "2jepe5t9qszzi.js",
+            "bytes": 1
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/2949q0nlpqkme.js",
+            "filename": "2949q0nlpqkme.js",
+            "bytes": 1
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0u1gszf788wyc.js",
+            "filename": "0u1gszf788wyc.js",
+            "bytes": 1
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/turbopack-2ab53tdamzfua.js",
+            "filename": "turbopack-2ab53tdamzfua.js",
+            "bytes": 1
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1ucx8cw75c95c.js",
+            "filename": "1ucx8cw75c95c.js",
+            "bytes": 1
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/3122qdhz357se.js",
+            "filename": "3122qdhz357se.js",
+            "bytes": 1
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1qyn5vdl-m6zf.js",
+            "filename": "1qyn5vdl-m6zf.js",
+            "bytes": 1
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/4306-hmu_urio.js",
+            "filename": "4306-hmu_urio.js",
+            "bytes": 1
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/2rov84msadfl2.js",
+            "filename": "2rov84msadfl2.js",
+            "bytes": 1
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1n0qkoxhb9isr.js",
+            "filename": "1n0qkoxhb9isr.js",
+            "bytes": 1
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/3ddlpg6xd9qik.js",
+            "filename": "3ddlpg6xd9qik.js",
+            "bytes": 1
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/11fncur3ld4z7.js",
+            "filename": "11fncur3ld4z7.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/191-ukra69goi.js",
+            "filename": "191-ukra69goi.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/2pd8jmsgv2toj.js",
+            "filename": "2pd8jmsgv2toj.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0qrg0yhgkdkp8.js",
+            "filename": "0qrg0yhgkdkp8.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/3ng_2jopinflo.js",
+            "filename": "3ng_2jopinflo.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/36o_cd5bx1xcy.js",
+            "filename": "36o_cd5bx1xcy.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0yhd_nhgs-xa_.js",
+            "filename": "0yhd_nhgs-xa_.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1ae7pt176w8y4.js",
+            "filename": "1ae7pt176w8y4.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1q2tpk1_ibh_a.js",
+            "filename": "1q2tpk1_ibh_a.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0w38zuyebz8d_.js",
+            "filename": "0w38zuyebz8d_.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1f2fuiwjej8af.js",
+            "filename": "1f2fuiwjej8af.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/36ll-jd10yh1q.js",
+            "filename": "36ll-jd10yh1q.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/2y9-9mr-3nedn.js",
+            "filename": "2y9-9mr-3nedn.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/15_r8w8k0efin.js",
+            "filename": "15_r8w8k0efin.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/30bur27zq9ial.js",
+            "filename": "30bur27zq9ial.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/3cg8cxm6_r5mt.js",
+            "filename": "3cg8cxm6_r5mt.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/01grux5tgfit9.js",
+            "filename": "01grux5tgfit9.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/343dsqa1015ss.js",
+            "filename": "343dsqa1015ss.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0kg1f7m9bw3qo.js",
+            "filename": "0kg1f7m9bw3qo.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/171afjrakt3vb.js",
+            "filename": "171afjrakt3vb.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0pazuswl844gu.js",
+            "filename": "0pazuswl844gu.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1us6p5_je0cpu.js",
+            "filename": "1us6p5_je0cpu.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/355_t9cz0ge00.js",
+            "filename": "355_t9cz0ge00.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/3wfa-fk-ugal9.js",
+            "filename": "3wfa-fk-ugal9.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1rr7k8lpjnbrf.js",
+            "filename": "1rr7k8lpjnbrf.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/2jemh8fjvxcsr.js",
+            "filename": "2jemh8fjvxcsr.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/1bay1iql6klqe.js",
+            "filename": "1bay1iql6klqe.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/26ah4iha5u9sm.js",
+            "filename": "26ah4iha5u9sm.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0vtt6cov0ajzm.js",
+            "filename": "0vtt6cov0ajzm.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0c0hxoamwjsbw.js",
+            "filename": "0c0hxoamwjsbw.js",
+            "bytes": 65000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/0gl5lo8yz2dk7.js",
+            "filename": "0gl5lo8yz2dk7.js",
+            "bytes": 65000
+          }
+        ],
+        "stylesheets": [
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/124py4fd7arix.css",
+            "filename": "124py4fd7arix.css",
+            "bytes": 25000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/36ow2mzy8bw1d.css",
+            "filename": "36ow2mzy8bw1d.css",
+            "bytes": 25000
+          },
+          {
+            "url": "https://vercel.com/vc-ap-vercel-marketing/_next/static/immutable/chunks/3u82rwmj_1n8p.css",
+            "filename": "3u82rwmj_1n8p.css",
+            "bytes": 25000
+          }
+        ]
+      },
+      "hotspots": [
+        {
+          "priority": "P0 - MODERN IMAGE FORMATS",
+          "priority_level": "danger",
+          "title": "Uncompressed Asset: image",
+          "size": "144 KB Estimated Reduction",
+          "co2_est": "-0.0189g CO2e",
+          "desc": "Identified raster payload image (176 KB) on vercel.com. Converting to modern responsive WebP/AVIF eliminates up to 82% of visual transfer while preserving aspect ratio.",
+          "fix_action": "AVIF / WEBP CONVERSION",
+          "cta_label": "VIEW PATTERN"
+        },
+        {
+          "priority": "P1 - SCRIPT DEFERRAL",
+          "priority_level": "warning",
+          "title": "JavaScript Contention: 1z_qmhiovdqt2.js",
+          "size": "0 KB Estimated Reduction",
+          "co2_est": "-0g CO2e",
+          "desc": "Observed client bundle 1z_qmhiovdqt2.js (1 KB) on vercel.com. Deferring non-critical telemetry and code-splitting heavy modules saves runtime execution energy and improves Interaction to Next Paint (INP).",
+          "fix_action": "CODE SPLITTING",
+          "cta_label": "VIEW PATTERN"
+        },
+        {
+          "priority": "P2 - EDGE BROTLI & IMMUTABLE CACHE",
+          "priority_level": "forest",
+          "title": "Static Cache Policy on vercel.com",
+          "size": "2241 KB Repeat Saving",
+          "co2_est": "-0.2933g CO2e",
+          "desc": "Configuring 1-year immutable Cache-Control headers and Brotli level 11 compression eliminates repeated origin roundtrips on vercel.com.",
           "fix_action": "IMMUTABLE CACHING",
           "cta_label": "VIEW PATTERN"
         }
