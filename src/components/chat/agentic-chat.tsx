@@ -17,6 +17,8 @@ import {
   ArrowUpRight,
   RefreshCw,
   Loader2,
+  Leaf,
+  Award,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -63,7 +65,7 @@ function CodeBlock({ code, isUser }: { code: string; isUser: boolean }) {
         type="button"
         onClick={handleCopy}
         aria-label="Copy code"
-        className="absolute top-2.5 right-2.5 px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-[10px] font-mono text-white/80 hover:text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
+        className="absolute top-2.5 right-2.5 px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-[10px] font-sans font-medium text-white/80 hover:text-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
       >
         {copied ? "Copied!" : "Copy"}
       </button>
@@ -415,7 +417,7 @@ export function AgenticChat() {
                   onClick={handleClearChat}
                   title="Clear conversation"
                   aria-label="Clear conversation"
-                  className="text-white/60 hover:text-white w-9 h-9 sm:w-auto sm:px-2.5 rounded-xl hover:bg-white/10 transition-colors text-xs flex items-center justify-center gap-1.5 font-mono"
+                  className="text-white/60 hover:text-white w-9 h-9 sm:w-auto sm:px-2.5 rounded-xl hover:bg-white/10 transition-colors text-xs flex items-center justify-center gap-1.5 font-sans font-medium"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline text-[11px]">Clear</span>
@@ -450,7 +452,7 @@ export function AgenticChat() {
 
                   {/* Starter Chips */}
                   <div className="w-full space-y-2">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-white/40 block text-left">
+                    <span className="text-[11px] font-sans font-semibold uppercase tracking-wider text-white/40 block text-left">
                       Suggested prompts
                     </span>
                     <div className="flex flex-col gap-2">
@@ -459,9 +461,9 @@ export function AgenticChat() {
                           key={i}
                           onClick={() => handleSend(prompt)}
                           type="button"
-                          className="w-full text-left text-xs sm:text-sm p-3 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#cbff00]/50 hover:bg-white/[0.08] hover:text-white transition-all duration-200 text-white/80 flex items-center justify-between gap-2 group"
+                          className="w-full text-left text-xs sm:text-sm p-3 rounded-xl bg-white/[0.04] border border-white/10 hover:border-[#cbff00]/50 hover:bg-white/[0.08] hover:text-white transition-all duration-200 text-white/80 flex items-center justify-between gap-2 group font-sans"
                         >
-                          <span className="group-hover:text-white transition-colors">&ldquo;{prompt}&rdquo;</span>
+                          <span className="group-hover:text-white transition-colors">{prompt}</span>
                           <Send className="w-3.5 h-3.5 shrink-0 text-white/40 group-hover:text-[#cbff00] transition-colors" aria-hidden="true" />
                         </button>
                       ))}
@@ -489,16 +491,16 @@ export function AgenticChat() {
                       <span className="sr-only">{msg.sender === "user" ? "You" : "CarbonTerra AI"}: </span>
                       {/* Tool Badge Indicator */}
                       {msg.toolUsed && (
-                        <div className="mb-2 pb-2 border-b border-white/10 flex flex-wrap items-center gap-1.5 text-xs font-mono text-[#cbff00]">
+                        <div className="mb-2 pb-2 border-b border-white/10 flex flex-wrap items-center gap-1.5 text-xs font-sans text-[#cbff00]">
                           <Wrench className="w-3.5 h-3.5 shrink-0" />
                           <span className="shrink-0 text-white/70">Tool executed:</span>
-                          <code className="bg-black/60 px-1.5 py-0.5 rounded border border-white/15 text-[#cbff00] break-all">
+                          <code className="bg-black/60 px-1.5 py-0.5 rounded border border-white/15 text-[#cbff00] break-all font-mono">
                             {msg.toolUsed}
                           </code>
                         </div>
                       )}
 
-                      {/* Formatted Markdown / Text Content */}
+                      {/* Formatted Message / Text Content */}
                       <FormattedMessageText text={msg.text} isUser={msg.sender === "user"} />
 
                       {/* Rich Tool Output Card (when structured data available) */}
@@ -506,25 +508,25 @@ export function AgenticChat() {
                         <div className="mt-3 pt-2.5 border-t border-white/10 space-y-2">
                           {/* 1. Live Audit Telemetry Card */}
                           {msg.toolOutput.domain && (msg.toolOutput.totalBytes !== undefined || msg.toolOutput.co2Grams !== undefined) && (
-                            <div className="p-3.5 rounded-2xl bg-black/60 border border-[#cbff00]/30 space-y-2.5 shadow-xl font-mono text-xs">
+                            <div className="p-3.5 rounded-2xl bg-black/60 border border-[#cbff00]/30 space-y-2.5 shadow-xl font-sans text-xs">
                               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-2">
                                 <span className="font-bold text-white truncate">{msg.toolOutput.domain}</span>
                                 {msg.toolOutput.ecoScore && (
-                                  <Badge variant="lime" className="font-bold text-[10px] px-2 py-0.5">
+                                  <Badge variant="lime" className="font-bold text-[10px] px-2 py-0.5 font-sans">
                                     Grade {msg.toolOutput.ecoScore}
                                   </Badge>
                                 )}
                               </div>
                               <div className="grid grid-cols-2 gap-2 text-[11px]">
                                 <div className="bg-white/[0.04] p-2 rounded-xl border border-white/10">
-                                  <span className="text-white/50 block text-[10px]">TRANSFER</span>
-                                  <span className="text-white font-bold">
+                                  <span className="text-white/50 block text-[10px] font-medium">TRANSFER</span>
+                                  <span className="text-white font-bold font-display tabular-nums">
                                     {msg.toolOutput.totalBytes ? `${(msg.toolOutput.totalBytes / (1024 * 1024)).toFixed(2)} MB` : "N/A"}
                                   </span>
                                 </div>
                                 <div className="bg-white/[0.04] p-2 rounded-xl border border-white/10">
-                                  <span className="text-white/50 block text-[10px]">DIGITAL CARBON</span>
-                                  <span className="text-[#cbff00] font-bold">
+                                  <span className="text-white/50 block text-[10px] font-medium">DIGITAL CARBON</span>
+                                  <span className="text-[#cbff00] font-bold font-display tabular-nums">
                                     {msg.toolOutput.co2Grams !== undefined ? `${msg.toolOutput.co2Grams}g` : "N/A"}
                                   </span>
                                 </div>
@@ -532,8 +534,15 @@ export function AgenticChat() {
                               {msg.toolOutput.hosting && (
                                 <div className="flex items-center justify-between text-[11px] pt-0.5 text-white/70">
                                   <span>Hosting:</span>
-                                  <span className={msg.toolOutput.hosting.isGreen ? "text-[#cbff00] font-semibold" : "text-white/80"}>
-                                    {msg.toolOutput.hosting.isGreen ? "🌿 100% Renewable" : "⚡ Standard Grid"}
+                                  <span className={msg.toolOutput.hosting.isGreen ? "text-[#cbff00] font-semibold flex items-center gap-1" : "text-white/80"}>
+                                    {msg.toolOutput.hosting.isGreen ? (
+                                      <>
+                                        <Leaf className="w-3 h-3 text-[#cbff00]" />
+                                        <span>100% Renewable</span>
+                                      </>
+                                    ) : (
+                                      <span>Standard Grid</span>
+                                    )}
                                   </span>
                                 </div>
                               )}
@@ -542,7 +551,7 @@ export function AgenticChat() {
 
                           {/* 2. Dual-Site Comparison Card */}
                           {msg.toolOutput.siteA && msg.toolOutput.siteB && (
-                            <div className="p-3.5 rounded-2xl bg-black/60 border border-[#cbff00]/30 space-y-2.5 shadow-xl font-mono text-xs">
+                            <div className="p-3.5 rounded-2xl bg-black/60 border border-[#cbff00]/30 space-y-2.5 shadow-xl font-sans text-xs">
                               <div className="flex items-center justify-between border-b border-white/10 pb-1.5 text-[#cbff00] font-semibold">
                                 <span>Comparative Telemetry</span>
                                 <Badge variant="lime" className="text-[10px]">
@@ -553,17 +562,18 @@ export function AgenticChat() {
                                 <div className="bg-white/[0.04] p-2 rounded-xl border border-white/10 space-y-0.5">
                                   <div className="font-bold text-white truncate">{msg.toolOutput.siteA.domain}</div>
                                   <div className="text-white/70">{(msg.toolOutput.siteA.bytes / (1024 * 1024)).toFixed(2)} MB</div>
-                                  <div className="text-[#cbff00]">{msg.toolOutput.siteA.co2Grams}g ({msg.toolOutput.siteA.ecoScore})</div>
+                                  <div className="text-[#cbff00] font-semibold">{msg.toolOutput.siteA.co2Grams}g ({msg.toolOutput.siteA.ecoScore})</div>
                                 </div>
                                 <div className="bg-white/[0.04] p-2 rounded-xl border border-white/10 space-y-0.5">
                                   <div className="font-bold text-white truncate">{msg.toolOutput.siteB.domain}</div>
                                   <div className="text-white/70">{(msg.toolOutput.siteB.bytes / (1024 * 1024)).toFixed(2)} MB</div>
-                                  <div className="text-[#cbff00]">{msg.toolOutput.siteB.co2Grams}g ({msg.toolOutput.siteB.ecoScore})</div>
+                                  <div className="text-[#cbff00] font-semibold">{msg.toolOutput.siteB.co2Grams}g ({msg.toolOutput.siteB.ecoScore})</div>
                                 </div>
                               </div>
                               {msg.toolOutput.cleanerDomain && (
-                                <div className="text-[11px] text-[#cbff00] pt-0.5">
-                                  🏆 <strong>{msg.toolOutput.cleanerDomain}</strong> is {msg.toolOutput.differencePct}% cleaner
+                                <div className="text-[11px] text-[#cbff00] pt-0.5 flex items-center gap-1.5 font-semibold">
+                                  <Award className="w-3.5 h-3.5 text-[#cbff00] shrink-0" />
+                                  <span><strong>{msg.toolOutput.cleanerDomain}</strong> is {msg.toolOutput.differencePct}% cleaner</span>
                                 </div>
                               )}
                             </div>
@@ -571,21 +581,21 @@ export function AgenticChat() {
 
                           {/* 3. Simulation Scenario Delta Card */}
                           {msg.toolOutput.deltaBytes !== undefined && msg.toolOutput.percentSaved !== undefined && !msg.toolOutput.outcome && !msg.toolOutput.exitCode && (
-                            <div className="p-3.5 rounded-2xl bg-black/60 border border-[#cbff00]/30 space-y-2 font-mono text-xs shadow-xl">
+                            <div className="p-3.5 rounded-2xl bg-black/60 border border-[#cbff00]/30 space-y-2 font-sans text-xs shadow-xl">
                               <div className="flex items-center justify-between text-[#cbff00] font-semibold border-b border-white/10 pb-1.5">
                                 <span>Simulated Reduction</span>
-                                <Badge variant="lime" className="text-[10px]">
+                                <Badge variant="lime" className="text-[10px] font-sans">
                                   -{msg.toolOutput.percentSaved}%
                                 </Badge>
                               </div>
                               <div className="grid grid-cols-2 gap-2 text-[11px]">
                                 <div className="bg-white/[0.04] p-2 rounded-xl border border-white/10">
-                                  <span className="text-white/50 block text-[10px]">TRANSFER SAVED</span>
-                                  <span className="text-white font-bold">{Math.round(msg.toolOutput.deltaBytes / 1024)} KB</span>
+                                  <span className="text-white/50 block text-[10px] font-medium">TRANSFER SAVED</span>
+                                  <span className="text-white font-bold font-display tabular-nums">{Math.round(msg.toolOutput.deltaBytes / 1024)} KB</span>
                                 </div>
                                 <div className="bg-white/[0.04] p-2 rounded-xl border border-white/10">
-                                  <span className="text-white/50 block text-[10px]">AVOIDED EMISSIONS</span>
-                                  <span className="text-[#cbff00] font-bold">{msg.toolOutput.co2SavedGrams} g</span>
+                                  <span className="text-white/50 block text-[10px] font-medium">AVOIDED EMISSIONS</span>
+                                  <span className="text-[#cbff00] font-bold font-display tabular-nums">{msg.toolOutput.co2SavedGrams} g</span>
                                 </div>
                               </div>
                             </div>
@@ -593,30 +603,30 @@ export function AgenticChat() {
 
                           {/* 4. Experiment Patch proposal */}
                           {msg.toolOutput.patchProposal && (
-                            <div className="p-3.5 rounded-xl bg-black/60 border border-white/12 text-xs font-mono space-y-1.5">
+                            <div className="p-3.5 rounded-xl bg-black/60 border border-white/12 text-xs font-sans space-y-1.5">
                               <div className="flex flex-wrap items-center justify-between gap-2 text-[#cbff00]">
                                 <span className="font-semibold">Patch Proposal</span>
-                                <Badge variant="lime" className="text-[9px] font-mono">
+                                <Badge variant="lime" className="text-[9px] font-sans">
                                   -{msg.toolOutput.patchProposal.estimatedSavingPct}% Projected
                                 </Badge>
                               </div>
                               <p className="text-white/70 break-words [overflow-wrap:anywhere]">
-                                Target: {msg.toolOutput.patchProposal.targetFile}
+                                Target: <span className="font-mono text-white/90">{msg.toolOutput.patchProposal.targetFile}</span>
                               </p>
                             </div>
                           )}
 
                           {/* 5. Candidate Verification outcome */}
                           {msg.toolOutput.outcome && (
-                            <div className="p-3.5 rounded-xl bg-black/60 border border-white/12 text-xs font-mono space-y-1.5">
+                            <div className="p-3.5 rounded-xl bg-black/60 border border-white/12 text-xs font-sans space-y-1.5">
                               <div className="flex flex-wrap items-center justify-between gap-2">
                                 <span className="text-white/70">Verification</span>
                                 {msg.toolOutput.outcome === "VERIFIED_IMPROVEMENT" || msg.toolOutput.outcome === "observed_improvement" ? (
-                                  <Badge variant="lime" className="flex items-center gap-1 font-mono">
+                                  <Badge variant="lime" className="flex items-center gap-1 font-sans">
                                     <CheckCircle2 className="w-3 h-3" /> Verified
                                   </Badge>
                                 ) : (
-                                  <Badge variant="danger" className="flex items-center gap-1 font-mono">
+                                  <Badge variant="danger" className="flex items-center gap-1 font-sans">
                                     <AlertTriangle className="w-3 h-3" /> Blocked
                                   </Badge>
                                 )}
@@ -624,10 +634,10 @@ export function AgenticChat() {
                               {msg.toolOutput.percentSaved !== undefined && (
                                 <div className="text-white/80 text-[11px]">
                                   Measured Saving:{" "}
-                                  <strong className="text-[#cbff00]">
+                                  <strong className="text-[#cbff00] font-display tabular-nums">
                                     {msg.toolOutput.percentSaved}%
                                   </strong>{" "}
-                                  ({Math.round(msg.toolOutput.bytesSaved / 1024)} KB)
+                                  (<span className="font-display tabular-nums">{Math.round(msg.toolOutput.bytesSaved / 1024)} KB</span>)
                                 </div>
                               )}
                             </div>
@@ -635,17 +645,17 @@ export function AgenticChat() {
 
                           {/* 6. Release Shield Budget */}
                           {msg.toolOutput.exitCode !== undefined && (
-                            <div className="p-3.5 rounded-xl bg-black/60 border border-white/12 text-xs font-mono space-y-1.5">
+                            <div className="p-3.5 rounded-xl bg-black/60 border border-white/12 text-xs font-sans space-y-1.5">
                               <div className="flex flex-wrap items-center justify-between gap-2">
                                 <span className="text-white/70">Release Shield</span>
                                 <Badge
                                   variant={msg.toolOutput.passed ? "lime" : "danger"}
-                                  className="text-[9px] font-mono"
+                                  className="text-[9px] font-sans"
                                 >
                                   {msg.toolOutput.passed ? "Passed (exit 0)" : "Blocked (exit 1)"}
                                 </Badge>
                               </div>
-                              <div className="text-white/80 text-[10px]">
+                              <div className="text-white/80 text-[10px] font-display tabular-nums">
                                 Transfer: {Math.round(msg.toolOutput.actualBytes / 1024)} KB /{" "}
                                 {Math.round(msg.toolOutput.thresholdBytes / 1024)} KB Ceiling
                               </div>
@@ -674,11 +684,11 @@ export function AgenticChat() {
 
                     {/* Message Metadata Bar */}
                     <div className="flex items-center gap-2 mt-1.5 px-1">
-                      <span className="text-[10px] font-mono text-white/40">
+                      <span className="text-[10px] font-sans font-medium text-white/40">
                         {msg.timestamp}
                       </span>
                       {msg.engine && (
-                        <span className="text-[10px] font-mono text-white/60 bg-white/[0.05] border border-white/10 px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] font-sans font-medium text-white/60 bg-white/[0.05] border border-white/10 px-1.5 py-0.5 rounded">
                           {msg.engine}
                         </span>
                       )}
@@ -690,7 +700,7 @@ export function AgenticChat() {
               {/* Active Tool Calling State */}
               {loading && (
                 <div role="status" aria-live="polite" className="flex items-start gap-2">
-                  <div className="p-3.5 rounded-2xl rounded-bl-sm bg-white/[0.06] border border-[#cbff00]/30 text-[#cbff00] text-xs font-mono space-y-2 max-w-[88%] backdrop-blur-xl shadow-xl">
+                  <div className="p-3.5 rounded-2xl rounded-bl-sm bg-white/[0.06] border border-[#cbff00]/30 text-[#cbff00] text-xs font-sans space-y-2 max-w-[88%] backdrop-blur-xl shadow-xl">
                     <div className="flex items-center gap-2.5">
                       <Loader2 className="w-4 h-4 text-[#cbff00] animate-spin shrink-0" />
                       <span className="font-semibold text-white">CarbonTerra AI is thinking…</span>
@@ -698,7 +708,7 @@ export function AgenticChat() {
                     {activeTool && (
                       <div className="text-xs text-white/70 bg-black/60 p-2.5 rounded-xl border border-white/10 flex items-center gap-2">
                         <Terminal className="w-3.5 h-3.5 text-[#cbff00] shrink-0" />
-                        <span className="font-mono text-[#cbff00] break-words">{activeTool}</span>
+                        <span className="font-sans text-[#cbff00] break-words">{activeTool}</span>
                       </div>
                     )}
                   </div>

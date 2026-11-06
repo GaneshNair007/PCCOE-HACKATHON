@@ -87,12 +87,12 @@ export function PayloadBreakdown({
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Layers className="w-4 h-4 text-lime" />
-          <span className="text-xs font-mono font-bold text-cream uppercase tracking-wider">
+          <span className="text-xs font-sans font-bold text-cream uppercase tracking-wider">
             PAGE WEIGHT &amp; ASSET BREAKDOWN
           </span>
         </div>
-        <div className="text-xs font-mono text-sage">
-          TOTAL PAGE SIZE: <strong className="text-lime font-bold">{totalMb} MB</strong> ({totalBytes.toLocaleString()} bytes)
+        <div className="text-xs font-sans font-medium text-sage">
+          TOTAL PAGE SIZE: <strong className="text-lime font-bold font-display tabular-nums">{totalMb} MB</strong> (<span className="font-display tabular-nums">{totalBytes.toLocaleString()}</span> bytes)
         </div>
       </div>
 
@@ -127,13 +127,13 @@ export function PayloadBreakdown({
                 <Icon className="w-3.5 h-3.5" />
               </div>
               <div className="min-w-0">
-                <div className="text-xs font-mono uppercase text-sage/70 truncate">
+                <div className="text-xs font-sans font-medium uppercase text-sage/70 truncate">
                   {item.category}
                 </div>
-                <div className="text-xs font-mono font-bold text-cream">
+                <div className="text-xs font-sans font-bold text-cream tabular-nums">
                   {formatBytes(item.bytes)}
                 </div>
-                <div className={`text-xs font-mono ${config.text}`}>
+                <div className={`text-xs font-sans font-semibold tabular-nums ${config.text}`}>
                   {item.pct_of_total}% share
                 </div>
               </div>

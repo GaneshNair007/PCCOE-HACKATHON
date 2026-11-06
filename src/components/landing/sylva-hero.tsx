@@ -257,7 +257,7 @@ export function SylvaHero({
                     value={targetUrl}
                     onChange={(e) => setTargetUrl(e.target.value)}
                     placeholder="Enter website URL to audit (e.g. gmail.com, stripe.com)"
-                    className="w-full pl-12 pr-4 py-3.5 sm:py-4 rounded-2xl bg-black/50 border border-white/20 text-white font-mono text-sm sm:text-base focus:outline-none focus:border-[#cbff00] focus:ring-1 focus:ring-[#cbff00] transition shadow-inner"
+                    className="w-full pl-12 pr-4 py-3.5 sm:py-4 rounded-2xl bg-black/50 border border-white/20 text-white font-sans text-sm sm:text-base focus:outline-none focus:border-[#cbff00] focus:ring-1 focus:ring-[#cbff00] transition shadow-inner"
                   />
                 </div>
                 <button
@@ -304,7 +304,7 @@ export function SylvaHero({
               {auditStatus === "running" && (
                 <div role="status" className="pt-4 flex flex-col items-center gap-3">
                   <SoapBubbleRank grade="B" size="md" interactive={true} showRankLabel={false} />
-                  <p className="text-xs sm:text-sm font-mono text-[#cbff00] font-semibold text-center">
+                  <p className="text-xs sm:text-sm font-sans text-[#cbff00] font-semibold text-center">
                     {currentPhase || "Probing Network Payloads & Carbon Attribution..."}
                   </p>
                 </div>
@@ -316,17 +316,17 @@ export function SylvaHero({
                   <div className="flex items-center gap-4">
                     <SoapBubbleRank grade={auditData.eco_score} size="sm" interactive={true} showRankLabel={false} />
                     <div className="text-left">
-                      <div className="text-xs font-mono font-bold text-[#cbff00] uppercase">
+                      <div className="text-xs font-sans font-bold text-[#cbff00] uppercase tracking-wider">
                         AUDIT COMPLETE · GRADE {auditData.eco_score}
                       </div>
                       <div className="text-sm font-display font-bold text-white">
-                        {auditData.domain} · {auditData.co2_grams} gCO2 / visit
+                        {auditData.domain} · <span className="tabular-nums">{auditData.co2_grams}</span> gCO2 / visit
                       </div>
                     </div>
                   </div>
                   <a
                     href="#cockpit"
-                    className="px-4 py-2.5 rounded-xl bg-[#cbff00] text-black hover:bg-[#e4ff66] font-mono text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-[#cbff00]/20 shrink-0"
+                    className="px-4 py-2.5 rounded-xl bg-[#cbff00] text-black hover:bg-[#e4ff66] font-sans text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-[#cbff00]/20 shrink-0"
                   >
                     View Full 3D Breakdown ↓
                   </a>
@@ -335,7 +335,7 @@ export function SylvaHero({
 
               {/* Error notification */}
               {errorMessage && (
-                <div role="alert" className="text-[11px] font-mono text-white/80 pt-1">
+                <div role="alert" className="text-[11px] font-sans text-white/80 pt-1">
                   {errorMessage}
                 </div>
               )}

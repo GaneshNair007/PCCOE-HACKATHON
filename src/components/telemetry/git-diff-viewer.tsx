@@ -15,19 +15,19 @@ export function GitDiffViewer({
   diffLines,
 }: GitDiffViewerProps) {
   return (
-    <div className="rounded-2xl overflow-hidden border border-surface-border bg-forest-950 font-mono text-xs">
-      <div className="bg-surface-elevated/80 px-4 py-2.5 border-b border-surface-border flex items-center justify-between text-sage">
+    <div className="rounded-2xl overflow-hidden border border-surface-border bg-forest-950 text-xs">
+      <div className="bg-surface-elevated/80 px-4 py-2.5 border-b border-surface-border flex items-center justify-between text-sage font-sans">
         <div className="flex items-center gap-2">
           <GitCommit className="w-3.5 h-3.5 text-lime" />
-          <span className="text-cream font-bold">{filePath}</span>
+          <span className="text-cream font-bold font-mono">{filePath}</span>
         </div>
         <div className="flex items-center gap-2 text-xs">
-          <span className="text-lime">{commitId}</span>
+          <span className="text-lime font-mono">{commitId}</span>
           <span className="text-sage/80">by {author}</span>
         </div>
       </div>
 
-      <div className="p-3 overflow-x-auto space-y-1">
+      <div className="p-3 overflow-x-auto space-y-1 font-mono">
         {diffLines.map((line, idx) => (
           <div
             key={idx}

@@ -505,19 +505,19 @@ export default function MissionControlPage() {
               <div className="p-3 rounded-xl bg-black/70 border border-forest-800 font-mono text-[11px] overflow-x-auto text-zinc-300 space-y-1">
                 <div className="text-zinc-500">@@ -14,5 +14,9 @@</div>
                 <div className="text-rose-400 bg-rose-950/40 px-1 py-0.5 rounded">
-                  - &lt;img src=&quot;/demo/hero-poster.jpg&quot; alt=&quot;Poster&quot; /&gt;
+                  {`- <img src="/demo/hero-poster.jpg" alt="Poster" />`}
                 </div>
                 <div className="text-lime-300 bg-lime-950/40 px-1 py-0.5 rounded">
-                  + &lt;picture&gt;
+                  {`+ <picture>`}
                 </div>
                 <div className="text-lime-300 bg-lime-950/40 px-1 py-0.5 rounded">
-                  + &nbsp; &lt;source srcSet=&quot;/demo/hero-poster.webp&quot; type=&quot;image/webp&quot; /&gt;
+                  {`+   <source srcSet="/demo/hero-poster.webp" type="image/webp" />`}
                 </div>
                 <div className="text-lime-300 bg-lime-950/40 px-1 py-0.5 rounded">
-                  + &nbsp; &lt;img src=&quot;/demo/hero-poster.jpg&quot; loading=&quot;eager&quot; width=&quot;1200&quot; height=&quot;675&quot; /&gt;
+                  {`+   <img src="/demo/hero-poster.jpg" loading="eager" width="1200" height="675" />`}
                 </div>
                 <div className="text-lime-300 bg-lime-950/40 px-1 py-0.5 rounded">
-                  + &lt;/picture&gt;
+                  {`+ </picture>`}
                 </div>
               </div>
               <div className="text-[10px] font-mono text-zinc-400 break-all bg-forest-950 p-2 rounded border border-forest-800">

@@ -122,7 +122,7 @@ export function SoapBubbleRank({
       {/* Optional ECO-SCORE Badge */}
       {showRankLabel && (
         <span
-          className={`font-mono font-bold uppercase tracking-wider rounded-full border border-white/20 bg-black/60 text-white/90 backdrop-blur-md mt-2 shadow-[0_2px_12px_rgba(0,0,0,0.4)] ${cfg.badge}`}
+          className={`font-sans font-bold uppercase tracking-wider rounded-full border border-white/20 bg-black/60 text-white/90 backdrop-blur-md mt-2 shadow-[0_2px_12px_rgba(0,0,0,0.4)] ${cfg.badge}`}
         >
           ECO-SCORE
         </span>
@@ -130,12 +130,12 @@ export function SoapBubbleRank({
 
       {/* Optional Subtitle Summary / Details */}
       {subLabel !== undefined ? (
-        <div className={`mt-2 text-center font-mono ${cfg.tag} text-sage/85`}>
+        <div className={`mt-2 text-center font-sans font-medium ${cfg.tag} text-sage/85`}>
           {subLabel}
         </div>
       ) : co2Grams !== undefined ? (
-        <div className={`mt-2 text-center font-mono ${cfg.tag} text-sage/85`}>
-          <span className="text-cream font-bold">{co2Grams}</span> gCO2 / visit · {palette.summary}
+        <div className={`mt-2 text-center font-sans ${cfg.tag} text-sage/85`}>
+          <span className="text-cream font-bold font-display tabular-nums">{co2Grams}</span> gCO2 / visit · {palette.summary}
         </div>
       ) : null}
     </div>

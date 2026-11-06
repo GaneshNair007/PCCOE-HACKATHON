@@ -66,14 +66,14 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
   return (
     <div className="world-campus max-w-4xl mx-auto space-y-8 pb-16 font-sans">
       {/* Controlled demo site Notice Banner */}
-      <div className="p-4 rounded-2xl bg-surface border border-surface-border text-xs font-mono text-sage flex flex-wrap items-center justify-between gap-3">
+      <div className="p-4 rounded-2xl bg-surface border border-surface-border text-xs font-sans text-sage flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-lime shrink-0" />
           <span>
             <strong>Controlled demo site</strong> — Verified production candidate property for Savings Lab verification.
           </span>
         </div>
-        <Badge variant="outline" className="font-mono text-[10px] uppercase border-lime/40 text-cream">
+        <Badge variant="outline" className="font-sans text-[10px] uppercase border-lime/40 text-cream font-semibold">
           Variant: {variant}
         </Badge>
       </div>
@@ -83,7 +83,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
         eyebrow={<><Calendar className="w-3.5 h-3.5" /> March 20–22, 2026 <span className="mx-1 text-white/30">/</span> Verified Production Benchmark</>}
         title={<span id="event-title">Production Web Architecture 2026</span>}
       >
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-sans">
           <span className="flex items-center gap-1.5">
             <MapPin className="w-3.5 h-3.5" /> Engineering Center, Pune
           </span>
@@ -107,7 +107,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
               alt="Production Web Architecture 2026 Banner"
               className="w-full h-72 sm:h-96 object-cover"
             />
-            <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-black/80 border border-white/20 text-[10px] font-mono text-white/90">
+            <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-black/80 border border-white/20 text-[10px] font-sans font-medium text-white/90">
               Unoptimized First-Party Asset (~2.4 MB JPEG)
             </div>
           </div>
@@ -130,14 +130,14 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
                 fetchPriority="high"
               />
             </picture>
-            <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-black/80 border border-lime/50 text-[10px] font-mono text-lime">
+            <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-black/80 border border-lime/50 text-[10px] font-sans font-bold text-lime">
               Optimized Responsive WebP (~176 KB, -92% bytes)
             </div>
           </div>
         )}
 
         {variant === "broken" && (
-          <div className="h-48 flex items-center justify-center bg-black/40 text-white/60 font-mono text-xs p-6 text-center">
+          <div className="h-48 flex items-center justify-center bg-black/40 text-white/60 font-sans text-xs p-6 text-center">
             [Image stripped in broken candidate to artificially reduce bytes]
           </div>
         )}
@@ -166,7 +166,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
                 Go to registration form <ArrowRight className="w-3.5 h-3.5" />
               </a>
             ) : (
-              <div className="p-3 rounded-xl bg-white/5 border border-white/15 text-white/70 text-xs font-mono">
+              <div className="p-3 rounded-xl bg-white/5 border border-white/15 text-white/70 text-xs font-sans">
                 [Registration CTA intentionally missing in broken variant]
               </div>
             )}
@@ -174,8 +174,8 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
         </Card>
 
         <Card className="p-5 glass-panel-elevated border border-surface-border space-y-3 h-fit">
-          <h2 className="font-display text-xl text-cream">Event schedule</h2>
-          <ul className="text-xs text-sage/80 space-y-2 font-mono">
+          <h2 className="font-display text-xl text-cream font-bold">Event schedule</h2>
+          <ul className="text-xs text-sage/80 space-y-2 font-sans">
             <li>Fri 18:00 — Opening Ceremony</li>
             <li>Sat 12:00 — Architecture Review</li>
             <li>Sun 14:00 — Final Pitches & Demos</li>
@@ -193,7 +193,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
               id="registration-success"
               role="status"
               aria-live="polite"
-              className="p-6 rounded-2xl bg-lime/10 border border-lime/40 text-cream space-y-3 font-mono"
+              className="p-6 rounded-2xl bg-lime/10 border border-lime/40 text-cream space-y-3 font-sans"
             >
               <div className="flex items-center gap-2.5 text-lime font-bold text-sm">
                 <CheckCircle2 className="w-5 h-5 text-lime" /> Registration Confirmed!
@@ -202,7 +202,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
                 You have been registered for Production Web Architecture 2026.
               </p>
               <div className="p-3 rounded-xl bg-black/60 border border-surface-border w-fit text-xs text-lime">
-                Confirmed Ticket ID: <strong>{ticketId}</strong>
+                Confirmed Ticket ID: <strong className="font-mono">{ticketId}</strong>
               </div>
             </div>
           ) : (
@@ -216,7 +216,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Aditi Sharma"
                   required
-                  className="bg-surface-elevated/70 border-surface-border text-cream font-mono text-xs"
+                  className="bg-surface-elevated/70 border-surface-border text-cream font-sans text-xs"
                 />
               </div>
 
@@ -230,7 +230,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="e.g. aditi.sharma@enterprise.com"
                   required
-                  className="bg-surface-elevated/70 border-surface-border text-cream font-mono text-xs"
+                  className="bg-surface-elevated/70 border-surface-border text-cream font-sans text-xs"
                 />
               </div>
 
@@ -256,7 +256,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
                   value={team}
                   onChange={(e) => setTeam(e.target.value)}
                   placeholder="e.g. EcoCoders PCCOE"
-                  className="bg-surface-elevated/70 border-surface-border text-cream font-mono text-xs"
+                  className="bg-surface-elevated/70 border-surface-border text-cream font-sans text-xs"
                 />
               </div>
 
@@ -264,7 +264,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
                 <div
                   id="registration-error"
                   role="alert"
-                  className="p-3 rounded-xl bg-white/5 border border-white/20 text-white/90 text-xs font-mono flex items-center gap-2"
+                  className="p-3 rounded-xl bg-white/5 border border-white/20 text-white/90 text-xs font-sans flex items-center gap-2"
                 >
                   <AlertTriangle className="w-4 h-4 text-[#cbff00] shrink-0" /> {submitError}
                 </div>
@@ -276,7 +276,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
                 variant="lime"
                 size="md"
                 isLoading={submitting}
-                className="font-mono font-bold text-xs tracking-normal"
+                className="font-sans font-bold text-xs tracking-normal"
               >
                 Submit registration
               </Button>
@@ -286,7 +286,7 @@ export function DemoEventContent({ variant }: { variant: "baseline" | "optimized
       ) : (
         <div
           id="broken-registration-notice"
-          className="p-6 rounded-2xl bg-white/5 border border-white/20 text-white/80 font-mono text-xs space-y-2"
+          className="p-6 rounded-2xl bg-white/5 border border-white/20 text-white/80 font-sans text-xs space-y-2"
         >
           <div className="font-bold flex items-center gap-2 text-white">
             <AlertTriangle className="w-4 h-4 text-[#cbff00]" /> BROKEN CANDIDATE VARIANT ACTIVE

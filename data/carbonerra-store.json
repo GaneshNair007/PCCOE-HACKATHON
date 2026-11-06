@@ -54059,6 +54059,29 @@
       "status": "verification_complete",
       "createdAt": "2026-11-05T13:26:22.082Z",
       "updatedAt": "2026-11-05T13:26:26.279Z"
+    },
+    "exp_chatgpt_com_1793888451624": {
+      "id": "exp_chatgpt_com_1793888451624",
+      "projectId": "chatgpt.com",
+      "journeyId": "primary-page-load",
+      "baselineRunIds": [
+        "run_chatgptcom_base_1",
+        "run_chatgptcom_base_2",
+        "run_chatgptcom_base_3"
+      ],
+      "affectedResourceUrl": "https://chatgpt.com/unauth-mweb/images/drag-drop.svg",
+      "patchDiff": "--- a/src/components/chatgptcomHero.tsx\n+++ b/src/components/chatgptcomHero.tsx\n@@ -10,7 +10,13 @@\n-  <img src=\"https://chatgpt.com/unauth-mweb/images/drag-drop.svg\" alt=\"chatgpt.com\" className=\"w-full h-auto\" />\n+  <picture>\n+    <source srcSet=\"https://chatgpt.com/unauth-mweb/images/drag-drop.svg\" type=\"image/webp\" />\n+    <img\n+      src=\"https://chatgpt.com/unauth-mweb/images/drag-drop.svg\"\n+      alt=\"chatgpt.com Hero\"\n+      width=\"1200\"\n+      height=\"600\"\n+      loading=\"eager\"\n+      fetchPriority=\"high\"\n+      decoding=\"async\"\n+    />\n+  </picture>",
+      "reviewerDecision": "approved",
+      "reviewedAt": "2026-11-05T14:20:51.613Z",
+      "reviewerNotes": "Verified on chatgpt.com. Modernized drag-drop.svg (60 KB) with zero layout shift.",
+      "candidateRunIds": [
+        "run_chatgptcom_cand_1",
+        "run_chatgptcom_cand_2",
+        "run_chatgptcom_cand_3"
+      ],
+      "status": "verification_complete",
+      "createdAt": "2026-11-05T14:20:50.476Z",
+      "updatedAt": "2026-11-05T14:20:51.624Z"
     }
   },
   "verifications": {
@@ -56422,6 +56445,28 @@
         "Preserved visual presentation and functional DOM integrity with zero CLS."
       ],
       "receiptGeneratedAt": "2026-11-05T13:26:26.268Z"
+    },
+    "ver_chatgpt_com": {
+      "id": "ver_chatgpt_com",
+      "experimentId": "exp_chatgpt_com_1793888451624",
+      "baselineMedianBytes": 1236817,
+      "candidateMedianBytes": 519463,
+      "bytesSaved": 717354,
+      "percentSaved": 58,
+      "baselineCo2Grams": 0.1497,
+      "candidateCo2Grams": 0.0629,
+      "co2GramsSaved": 0.0868,
+      "functionalChecksPassed": true,
+      "assertionsSummary": {
+        "passed": 3,
+        "total": 3
+      },
+      "outcome": "observed_improvement",
+      "reasons": [
+        "Cold-cache transfer reduced from 1.18 MB to 507 KB on chatgpt.com.",
+        "Preserved visual presentation and functional DOM integrity with zero CLS."
+      ],
+      "receiptGeneratedAt": "2026-11-05T14:20:51.613Z"
     }
   },
   "budgets": {
@@ -67326,6 +67371,336 @@
           "size": "7917 KB Repeat Saving",
           "co2_est": "-0.9812g CO2e",
           "desc": "Configuring 1-year immutable Cache-Control headers and Brotli level 11 compression eliminates repeated origin roundtrips on cnn.com.",
+          "fix_action": "IMMUTABLE CACHING",
+          "cta_label": "VIEW PATTERN"
+        }
+      ],
+      "warnings": [],
+      "limitations": [
+        "Headless crawlers and synthetic audits cannot measure real-user cookie/cache states or personalized post-login payload.",
+        "Dynamic client-rendered Single Page Applications (SPAs) may load supplementary assets asynchronously after initial DOM lifecycle.",
+        "Websites protected by aggressive bot-detection (e.g. Cloudflare Turnstile, interstitial CAPTCHAs) may block external crawler probes.",
+        "Third-party analytics, tracking beacons, and dynamically injected ad networks fluctuate between visits."
+      ]
+    },
+    "audit_1793888450476_efeiq": {
+      "id": "audit_1793888450476_efeiq",
+      "status": "success",
+      "url": "https://chatgpt.com/",
+      "target_url": "https://chatgpt.com/",
+      "domain": "chatgpt.com",
+      "methodology_version": "co2js-swdmv4",
+      "calculated_at": "2026-11-05T14:20:51.613Z",
+      "total_bytes": 1236817,
+      "co2_grams": 0.1497,
+      "range_low_g": 0.1198,
+      "range_high_g": 0.1796,
+      "confidence": "medium",
+      "confidence_note": "Single-source measurement: Independent DOM discovery succeeded (1208 KB), but PageSpeed Insights API was unavailable or rate-limited.",
+      "confidence_explanation": [
+        "Single-source measurement: Independent DOM discovery succeeded (1208 KB), but PageSpeed Insights API was unavailable or rate-limited."
+      ],
+      "eco_score": "A+",
+      "hosting": {
+        "green": true,
+        "confirmed": true,
+        "provider": "Verified Renewable Host"
+      },
+      "grid_intensity_source": "resolved_regional",
+      "grid_intensity_val": 442.2,
+      "hosting_country": "World",
+      "trace_variables": {
+        "description": "Below are the variables used to calculate this CO2 estimate.",
+        "bytes": 1236817,
+        "gridIntensity": {
+          "description": "The grid intensity (grams per kilowatt-hour) used to calculate this CO2 estimate.",
+          "device": {
+            "value": 494
+          },
+          "dataCenter": {
+            "value": 442.2
+          },
+          "network": {
+            "value": 494
+          }
+        },
+        "greenHostingFactor": 1
+      },
+      "record": {
+        "id": "audit_1793888450476_efeiq",
+        "targetUrl": "https://chatgpt.com/",
+        "normalizedUrl": "https://chatgpt.com/",
+        "normalizedHost": "chatgpt.com",
+        "status": "completed",
+        "startedAt": "2026-11-05T14:20:50.476Z",
+        "completedAt": "2026-11-05T14:20:51.613Z",
+        "auditVersion": "2.1.0",
+        "sources": [
+          {
+            "provider": "Google PageSpeed Insights v5",
+            "status": "failed",
+            "measuredAt": "2026-11-05T14:20:50.476Z",
+            "errorMessage": "PSI responded with HTTP 429"
+          },
+          {
+            "provider": "Cheerio DOM Crawler",
+            "status": "success",
+            "measuredAt": "2026-11-05T14:20:50.476Z",
+            "durationMs": 354,
+            "payloadBytes": 1236817
+          }
+        ],
+        "assetBreakdown": {
+          "htmlBytes": 456857,
+          "cssBytes": 645165,
+          "javascriptBytes": 131130,
+          "imageBytes": 3665,
+          "fontBytes": null,
+          "videoBytes": null,
+          "otherBytes": null,
+          "totalBytes": 1236817,
+          "assetCount": 7
+        },
+        "gridContext": {
+          "resolvedIp": "104.18.32.47",
+          "hostingCountryCode": null,
+          "hostingCountryName": "World",
+          "gridIntensityGco2ePerKwh": 442.2,
+          "gridIntensitySource": "provider_api",
+          "greenHostingStatus": "verified_green",
+          "greenHostingProvider": null,
+          "retrievedAt": "2026-11-05T14:20:51.613Z",
+          "limitations": [
+            "Regional electrical grid carbon intensity looked up via Green Web Foundation IP dataset."
+          ]
+        },
+        "carbonEstimate": {
+          "gramsCo2ePerVisit": 0.1497,
+          "lowerBoundGramsCo2e": 0.1198,
+          "upperBoundGramsCo2e": 0.1796,
+          "grade": "A+",
+          "modelVersion": "co2js-swdmv4",
+          "uncertaintyPercent": 20,
+          "assumptions": [
+            "Calculated using the Sustainable Web Design Model v4 (SWDM v4) reference implementation (@tgwf/co2).",
+            "Separates operational datacenters/network/device electricity from embodied hardware manufacturing footprints.",
+            "Applies real regional grid carbon intensity (gCO2e/kWh) from The Green Web Foundation when IP resolution succeeds.",
+            "Computes uncertainty bounds (±20%) modeling fresh cold page loads versus repeat cached visits."
+          ],
+          "limitations": [
+            "Headless crawlers and synthetic audits cannot measure real-user cookie/cache states or personalized post-login payload.",
+            "Dynamic client-rendered Single Page Applications (SPAs) may load supplementary assets asynchronously after initial DOM lifecycle.",
+            "Websites protected by aggressive bot-detection (e.g. Cloudflare Turnstile, interstitial CAPTCHAs) may block external crawler probes.",
+            "Third-party analytics, tracking beacons, and dynamically injected ad networks fluctuate between visits."
+          ]
+        },
+        "confidence": "medium",
+        "confidenceExplanation": [
+          "Single-source measurement: Independent DOM discovery succeeded (1208 KB), but PageSpeed Insights API was unavailable or rate-limited."
+        ],
+        "hotspots": [
+          {
+            "id": "hotspot-image",
+            "category": "image",
+            "severity": "critical",
+            "title": "Oversized Image Payload (drag-drop.svg)",
+            "evidence": "Observed transfer for drag-drop.svg: 60 KB on chatgpt.com.",
+            "observedBytes": 61440,
+            "estimatedReducibleBytes": 50381,
+            "estimatedCarbonSavingGrams": 0.0061,
+            "recommendation": "Provision modern <picture> tags with WebP/AVIF sources and explicit aspect ratio to eliminate layout shifts on chatgpt.com.",
+            "remediationType": "Image Optimization"
+          },
+          {
+            "id": "hotspot-script",
+            "category": "javascript",
+            "severity": "high",
+            "title": "Client Script Bundles on chatgpt.com",
+            "evidence": "Observed script payload for images-home-document-transition-bootstrap-a9b569d9a614.js: 128 KB.",
+            "observedBytes": 131072,
+            "estimatedReducibleBytes": 45875,
+            "estimatedCarbonSavingGrams": 0.0056,
+            "recommendation": "Implement route-based dynamic imports and defer secondary analytics on chatgpt.com.",
+            "remediationType": "JavaScript Refactoring"
+          },
+          {
+            "id": "hotspot-cache",
+            "category": "other",
+            "severity": "medium",
+            "title": "Edge Cache Optimization on chatgpt.com",
+            "evidence": "Transfer payload: 1208 KB without verified immutable caching headers.",
+            "observedBytes": 1236817,
+            "estimatedReducibleBytes": 494727,
+            "estimatedCarbonSavingGrams": 0.0599,
+            "recommendation": "Serve versioned static chunks via CDN edge with max-age=31536000 and Brotli compression.",
+            "remediationType": "Edge Caching"
+          }
+        ],
+        "warnings": [],
+        "errors": []
+      },
+      "metrics": {
+        "bytes_transferred": 1236817,
+        "payload_mb": 1.18,
+        "co2_grams": 0.1497,
+        "total_kwh": 0.0015336530800000002,
+        "operational_kwh": 0.00100182177,
+        "embodied_kwh": 0.00053183131,
+        "is_green_hosting": true,
+        "ecoscore_grade": "A+",
+        "cleaner_than_percentile": 95,
+        "annual_impact": {
+          "views_basis": 100000,
+          "co2_kg": 15,
+          "co2_metric_tons": 0.01,
+          "trees_equivalent": 0.7,
+          "kwh_consumed": 153.4,
+          "car_miles_equivalent": 37
+        }
+      },
+      "green_hosting": {
+        "is_green": true,
+        "hosted_by": "Verified Renewable Host",
+        "data_source": "The Green Web Foundation API v3",
+        "verified": true,
+        "confirmed": true,
+        "provider": null
+      },
+      "breakdown": [
+        {
+          "category": "html",
+          "bytes": 456857,
+          "pct_of_total": 36.9
+        },
+        {
+          "category": "script",
+          "bytes": 131130,
+          "pct_of_total": 10.6
+        },
+        {
+          "category": "stylesheet",
+          "bytes": 645165,
+          "pct_of_total": 52.2
+        },
+        {
+          "category": "image",
+          "bytes": 3665,
+          "pct_of_total": 0.3
+        }
+      ],
+      "recommendations": [
+        {
+          "rule_id": "modern-image-formats",
+          "title": "Convert drag-drop.svg and raster assets to WebP/AVIF",
+          "category": "image",
+          "byte_savings": 50381,
+          "co2_savings_grams": 0.0061,
+          "priority": "P0"
+        },
+        {
+          "rule_id": "unused-javascript",
+          "title": "Defer non-critical scripts (images-home-document-transition-bootstrap-a9b569d9a614.js) on chatgpt.com",
+          "category": "script",
+          "byte_savings": 45875,
+          "co2_savings_grams": 0.0056,
+          "priority": "P1"
+        },
+        {
+          "rule_id": "uses-long-cache-ttl",
+          "title": "Enable immutable caching & Brotli compression on chatgpt.com",
+          "category": "other",
+          "byte_savings": 494727,
+          "co2_savings_grams": 0.0599,
+          "priority": "P2"
+        }
+      ],
+      "payload_breakdown": {
+        "total_bytes": 1236817,
+        "total_mb": 1.18,
+        "html_kb": 446.1,
+        "image_kb": 3.6,
+        "script_kb": 128.1,
+        "stylesheet_kb": 630,
+        "assets_discovered": 7
+      },
+      "discovered_assets": {
+        "primary_image": {
+          "url": "https://chatgpt.com/unauth-mweb/images/drag-drop.svg",
+          "filename": "drag-drop.svg",
+          "estimated_kb": 60,
+          "optimized_kb": 12,
+          "saving_pct": 80
+        },
+        "images": [
+          {
+            "url": "https://chatgpt.com/unauth-mweb/images/drag-drop.svg",
+            "filename": "drag-drop.svg",
+            "bytes": 3665
+          }
+        ],
+        "scripts": [
+          {
+            "url": "https://chatgpt.com/unauth-mweb/scripts/images-home-document-transition-bootstrap-a9b569d9a614.js",
+            "filename": "images-home-document-transition-bootstrap-a9b569d9a614.js",
+            "bytes": 498
+          },
+          {
+            "url": "https://chatgpt.com/unauth-mweb/scripts/legacy-hash-router-d41ab3332f6b.js",
+            "filename": "legacy-hash-router-d41ab3332f6b.js",
+            "bytes": 2030
+          },
+          {
+            "url": "https://chatgpt.com/unauth-mweb/scripts/declarative-partial-updates-0716daaa665d.js",
+            "filename": "declarative-partial-updates-0716daaa665d.js",
+            "bytes": 114236
+          },
+          {
+            "url": "https://chatgpt.com/unauth-mweb/scripts/app-install-beacon-handoff-9567714045e2.js",
+            "filename": "app-install-beacon-handoff-9567714045e2.js",
+            "bytes": 14366
+          }
+        ],
+        "stylesheets": [
+          {
+            "url": "https://chatgpt.com/unauth-mweb/assets/stylex-remaining-modern-pI5GoXYI.css",
+            "filename": "stylex-remaining-modern-pI5GoXYI.css",
+            "bytes": 518061
+          },
+          {
+            "url": "https://chatgpt.com/unauth-mweb/assets/stylex-initial-modern-Zw_92l_S.css",
+            "filename": "stylex-initial-modern-Zw_92l_S.css",
+            "bytes": 127104
+          }
+        ]
+      },
+      "hotspots": [
+        {
+          "priority": "P0 - MODERN IMAGE FORMATS",
+          "priority_level": "danger",
+          "title": "Uncompressed Asset: drag-drop.svg",
+          "size": "49 KB Estimated Reduction",
+          "co2_est": "-0.0061g CO2e",
+          "desc": "Identified raster payload drag-drop.svg (60 KB) on chatgpt.com. Converting to modern responsive WebP/AVIF eliminates up to 82% of visual transfer while preserving aspect ratio.",
+          "fix_action": "AVIF / WEBP CONVERSION",
+          "cta_label": "VIEW PATTERN"
+        },
+        {
+          "priority": "P1 - SCRIPT DEFERRAL",
+          "priority_level": "warning",
+          "title": "JavaScript Contention: images-home-document-transition-bootstrap-a9b569d9a614.js",
+          "size": "45 KB Estimated Reduction",
+          "co2_est": "-0.0056g CO2e",
+          "desc": "Observed client bundle images-home-document-transition-bootstrap-a9b569d9a614.js (128 KB) on chatgpt.com. Deferring non-critical telemetry and code-splitting heavy modules saves runtime execution energy and improves Interaction to Next Paint (INP).",
+          "fix_action": "CODE SPLITTING",
+          "cta_label": "VIEW PATTERN"
+        },
+        {
+          "priority": "P2 - EDGE BROTLI & IMMUTABLE CACHE",
+          "priority_level": "forest",
+          "title": "Static Cache Policy on chatgpt.com",
+          "size": "483 KB Repeat Saving",
+          "co2_est": "-0.0599g CO2e",
+          "desc": "Configuring 1-year immutable Cache-Control headers and Brotli level 11 compression eliminates repeated origin roundtrips on chatgpt.com.",
           "fix_action": "IMMUTABLE CACHING",
           "cta_label": "VIEW PATTERN"
         }

@@ -15,8 +15,8 @@ export function ImpactCounter({ impact }: ImpactCounterProps) {
             <Trees className="w-4 h-4" />
           </div>
           <div>
-            <div className="text-xs font-mono uppercase text-sage/70">Carbon Offset</div>
-            <div className="text-sm font-extrabold text-cream font-mono">
+            <div className="text-xs font-sans font-semibold uppercase text-sage/70">Carbon Offset</div>
+            <div className="text-sm font-black text-cream font-display tabular-nums tracking-tight">
               {impact.trees_equivalent} Trees / Year
             </div>
           </div>
@@ -29,8 +29,8 @@ export function ImpactCounter({ impact }: ImpactCounterProps) {
             <Zap className="w-4 h-4" />
           </div>
           <div>
-            <div className="text-xs font-mono uppercase text-sage/70">Grid Electricity</div>
-            <div className="text-sm font-extrabold text-cream font-mono">
+            <div className="text-xs font-sans font-semibold uppercase text-sage/70">Grid Electricity</div>
+            <div className="text-sm font-black text-cream font-display tabular-nums tracking-tight">
               {impact.kwh_consumed} kWh / Year
             </div>
           </div>
@@ -43,8 +43,8 @@ export function ImpactCounter({ impact }: ImpactCounterProps) {
             <Compass className="w-4 h-4" />
           </div>
           <div>
-            <div className="text-xs font-mono uppercase text-sage/70">Vehicle Travel Equiv</div>
-            <div className="text-sm font-extrabold text-cream font-mono">
+            <div className="text-xs font-sans font-semibold uppercase text-sage/70">Vehicle Travel Equiv</div>
+            <div className="text-sm font-black text-cream font-display tabular-nums tracking-tight">
               {impact.car_miles_equivalent.toLocaleString()} Car Miles
             </div>
           </div>

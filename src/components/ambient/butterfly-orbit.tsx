@@ -66,7 +66,7 @@ export function ButterflyOrbit({ className = "", size = 120, label = "Auditing W
 
       {/* Status Label */}
       {label && (
-        <p className="mt-4 text-xs font-mono tracking-wider text-lime/90 text-center">
+        <p className="mt-4 text-xs font-sans font-semibold tracking-wider text-lime/90 text-center">
           {label}
         </p>
       )}

@@ -945,10 +945,10 @@ Once the site's actual assets and endpoint definitions are supplied, the first i
 
 | Existing contract | Current consumer | New component | Adapter required? | Auth unchanged? | Loading/error states | Regression test |
 |---|---|---|---|---|---|---|
-| `POST /…` | Current form | New model composer | Yes/No | ✓ | Defined | Playwright/API |
-| `GET /…` | Dashboard | New data panel | Yes/No | ✓ | Defined | Contract + visual |
-| Stream `/…` | Current output | New model result | Yes/No | ✓ | Cancel/retry | Stream fixture |
-| WebSocket `/…` | Live view | New realtime panel | Yes/No | ✓ | reconnect/stale | Protocol fixture |
-| Auth `/…` | Login | New auth shell | No semantic change | ✓ | MFA/expiry/errors | Full E2E |
+| `POST /…` | Current form | New model composer | Yes/No |  | Defined | Playwright/API |
+| `GET /…` | Dashboard | New data panel | Yes/No |  | Defined | Contract + visual |
+| Stream `/…` | Current output | New model result | Yes/No |  | Cancel/retry | Stream fixture |
+| WebSocket `/…` | Live view | New realtime panel | Yes/No |  | reconnect/stale | Protocol fixture |
+| Auth `/…` | Login | New auth shell | No semantic change |  | MFA/expiry/errors | Full E2E |
 
 That ledger is the boundary between **creative freedom above the line and zero-regression discipline below it**. It is the mechanism that allows the “antigravity” prompt to be ambitious about typography, interaction, motion, imagery and narrative while remaining conservative about the backend—the combination most likely to produce a genuinely exceptional product rather than a beautiful but fragile redesign.

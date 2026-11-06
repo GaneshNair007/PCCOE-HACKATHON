@@ -161,14 +161,14 @@ jobs:
       />
 
         <div className="flex flex-wrap items-center gap-3 rounded-2xl bg-surface border border-surface-border p-4">
-          <Badge variant="outline" className="font-mono text-xs text-sage/70">
+          <Badge variant="outline" className="font-sans text-xs text-sage/70">
             Workflow template ready
           </Badge>
           <Button
             variant="outline"
             size="sm"
             onClick={handleDownloadWorkflow}
-            className="text-xs font-mono flex items-center gap-1.5"
+            className="text-xs font-sans flex items-center gap-1.5"
           >
             <Download className="w-3.5 h-3.5 text-lime" />
             <span>Download .yml</span>
@@ -177,7 +177,7 @@ jobs:
             variant="lime"
             size="sm"
             onClick={handleCopyWorkflow}
-            className="text-xs font-mono font-bold flex items-center gap-1.5"
+            className="text-xs font-sans font-bold flex items-center gap-1.5"
           >
             <Copy className="w-3.5 h-3.5" />
             <span>{copiedWorkflow ? "Copied" : "Copy workflow"}</span>
@@ -185,7 +185,7 @@ jobs:
         </div>
 
       {notification && (
-        <div role="status" aria-live="polite" className="p-3 rounded-xl bg-surface border border-lime/30 text-lime text-xs font-mono">
+        <div role="status" aria-live="polite" className="p-3 rounded-xl bg-surface border border-lime/30 text-lime text-xs font-sans">
           {notification}
         </div>
       )}
@@ -200,14 +200,14 @@ jobs:
           />
 
           <div className="flex items-center gap-2">
-            <Badge variant="outline" className="font-mono text-xs text-lime border-lime/30">
+            <Badge variant="outline" className="font-sans text-xs text-lime border-lime/30 font-semibold">
               CLI / CI Invariant
             </Badge>
           </div>
         </div>
 
         {/* 3 Real Execution Triggers */}
-        <div className="world-budget-tests grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+        <div className="world-budget-tests grid grid-cols-1 md:grid-cols-3 gap-4 font-sans text-xs">
           {/* Trigger 1: Baseline (Demonstrates Strict Budget Failure) */}
           <div className="p-4 rounded-xl bg-white/[0.04] border border-white/15 space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -296,7 +296,7 @@ jobs:
               transition={{ duration: reduceMotion ? 0 : 0.32, ease: [0.22, 1, 0.36, 1] }}
               role="status"
               aria-live="polite"
-              className="rounded-2xl bg-black/90 border border-surface-border p-5 font-mono text-xs space-y-3 shadow-inner"
+              className="rounded-2xl bg-black/90 border border-surface-border p-5 font-sans text-xs space-y-3 shadow-inner"
             >
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-surface-border/60 pb-3">
                 <div className="flex items-center gap-2">
@@ -305,23 +305,23 @@ jobs:
                 </div>
                 <Badge
                   variant={evalResult.passed ? "lime" : !evalResult.isWarning ? "danger" : "outline"}
-                  className="font-bold text-[10px]"
+                  className="font-bold text-[10px] font-sans"
                 >
                   STATUS: {evalResult.passed ? "PASSED (EXIT 0)" : evalResult.isWarning ? "WARNING (EXIT 0)" : "FAILED (EXIT 1)"}
                 </Badge>
               </div>
 
               <div className="space-y-1.5 text-sage/80 leading-relaxed">
-                <div className="text-cream font-bold uppercase tracking-wider">CARBONERRA REGRESSION SHIELD CHECK ({strictMode ? "STRICT MODE" : "WARN MODE"})</div>
+                <div className="text-cream font-bold uppercase tracking-wider font-sans">CARBONERRA REGRESSION SHIELD CHECK ({strictMode ? "STRICT MODE" : "WARN MODE"})</div>
                 <div>Status: <strong className={evalResult.passed ? "text-lime font-bold uppercase" : evalResult.isWarning ? "text-white font-bold uppercase" : "text-white/60 font-bold uppercase"}>{evalResult.passed ? "PASSED" : evalResult.isWarning ? "WARNING" : "BREACH DETECTED"}</strong></div>
-                <div>Measured Journey Transfer: <strong className="text-cream">{(evalResult.actualBytes / 1024).toFixed(1)} KB</strong> (Ceiling: {(evalResult.thresholdBytes / 1024).toFixed(0)} KB)</div>
-                <div>Network Requests: <strong className="text-cream">{evalResult.actualRequests}</strong> (Limit: {evalResult.thresholdRequests})</div>
-                <div>Estimated Carbon: <strong className="text-cream">{evalResult.actualCarbonGrams} gCO2e</strong></div>
+                <div>Measured Journey Transfer: <strong className="text-cream font-display tabular-nums">{(evalResult.actualBytes / 1024).toFixed(1)} KB</strong> (Ceiling: <span className="font-display tabular-nums">{(evalResult.thresholdBytes / 1024).toFixed(0)} KB</span>)</div>
+                <div>Network Requests: <strong className="text-cream font-display tabular-nums">{evalResult.actualRequests}</strong> (Limit: <span className="font-display tabular-nums">{evalResult.thresholdRequests}</span>)</div>
+                <div>Estimated Carbon: <strong className="text-cream font-display tabular-nums">{evalResult.actualCarbonGrams} gCO2e</strong></div>
                 <div>Breaches: {evalResult.breaches.length === 0 ? <span className="text-lime">None (Within tolerance)</span> : <span className="text-white/70 font-bold">{evalResult.breaches.join("; ")}</span>}</div>
                 <div className="text-xs text-sage/70 pt-1">{evalResult.details}</div>
               </div>
 
-              <div className="pt-2 text-xs text-sage/70 border-t border-surface-border/40 font-mono">
+              <div className="pt-2 text-xs text-sage/70 border-t border-surface-border/40 font-sans">
                 {evalResult.passed ? (
                   <span className="text-lime font-bold">[PASSED] Target journey satisfies digital sustainability transfer and task assertion budgets.</span>
                 ) : evalResult.isWarning ? (
@@ -339,8 +339,8 @@ jobs:
       <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Budget Threshold Controls */}
         <div className="lg:col-span-5 min-w-0 space-y-6">
-          <Card className="p-6 glass-panel-elevated border border-surface-border space-y-6 font-mono text-xs">
-            <h3 className="font-display text-xl text-cream flex items-center gap-2">
+          <Card className="p-6 glass-panel-elevated border border-surface-border space-y-6 font-sans text-xs">
+            <h3 className="font-display text-xl text-cream flex items-center gap-2 font-bold">
               <Sliders className="w-5 h-5 text-lime" /> Configure budget limits
             </h3>
 
@@ -424,8 +424,8 @@ jobs:
           </Card>
 
           {/* Setup Instructions Card */}
-          <Card className="p-6 glass-panel border border-surface-border space-y-4 font-mono text-xs">
-            <h3 className="font-display text-xl text-cream flex items-center gap-2">
+          <Card className="p-6 glass-panel border border-surface-border space-y-4 font-sans text-xs">
+            <h3 className="font-display text-xl text-cream flex items-center gap-2 font-bold">
               <GitBranch className="w-4 h-4 text-lime" /> Install in three steps
             </h3>
             <ol className="space-y-3 list-decimal list-inside text-sage/80 leading-relaxed text-[11px]">
@@ -438,11 +438,11 @@ jobs:
               <li>
                 <span className="text-cream font-bold">Commit &amp; push</span> the workflow file to your GitHub repository:
                 <pre className="overflow-x-auto mt-1 p-2 rounded bg-black/60 text-lime font-mono text-[10px]">
-                  git add .github &amp;&amp; git commit -m &quot;ci: add carbonerra release shield&quot;
+                  {'git add .github && git commit -m "ci: add carbonerra release shield"'}
                 </pre>
               </li>
               <li>
-                <span className="text-cream font-bold">Configure required status checks</span> in GitHub Branch Protection rules under &quot;Require status checks to pass before merging&quot;.
+                <span className="text-cream font-bold">Configure required status checks</span> in GitHub Branch Protection rules under {'"Require status checks to pass before merging"'}.
               </li>
             </ol>
           </Card>
@@ -451,9 +451,9 @@ jobs:
         {/* Right Column: Workflow Code Preview */}
         <div className="lg:col-span-7 min-w-0 space-y-4">
           <Card className="p-6 glass-panel-elevated border border-lime/30 space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-xs border-b border-surface-border pb-3">
+            <div className="flex flex-wrap items-center justify-between gap-3 font-sans text-xs border-b border-surface-border pb-3">
               <span className="text-cream font-bold flex items-center gap-2 min-w-0 [overflow-wrap:anywhere]">
-                <FileCode className="w-4 h-4 text-lime" /> .github/workflows/carbon-budget.yml
+                <FileCode className="w-4 h-4 text-lime" /> <span className="font-mono">.github/workflows/carbon-budget.yml</span>
               </span>
               <span className="text-[11px] text-sage/60">GitHub Actions Workflow Template</span>
             </div>

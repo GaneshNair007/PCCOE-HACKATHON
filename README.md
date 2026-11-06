@@ -1,4 +1,4 @@
-# ⚡ Carbonerra Savings Lab
+# Carbonerra Savings Lab
 > **Make your website lighter. Prove the improvement.**
 > 
 > *A sustainability decision and action system for web teams.*
@@ -7,7 +7,7 @@ Carbonerra connects observed web transfer waste to a reviewable source change, c
 
 ---
 
-## 🧭 Product Lifecycle Stages
+## Product Lifecycle Stages
 
 ```
 MEASURE ──► DIAGNOSE ──► PRIORITIZE ──► REDUCE ──► IMPLEMENT ──► VERIFY ──► PREVENT REGRESSION
@@ -23,7 +23,7 @@ MEASURE ──► DIAGNOSE ──► PRIORITIZE ──► REDUCE ──► IMPLE
 
 ---
 
-## 🌟 The Signature Experience: Task Preservation
+## The Signature Experience: Task Preservation
 
 > **Rule Invariant**: A website cannot claim sustainability progress by breaking the service or task people need.
 
@@ -34,7 +34,7 @@ Carbonerra's key differentiator is **Task Preservation Verification**:
 
 ---
 
-## 🔬 Architecture & Methodology
+## Architecture & Methodology
 
 - **Framework**: Next.js 14 App Router, React 18, TypeScript, Tailwind CSS, `@tgwf/co2`, Cheerio.
 - **Carbon Attribution Model**: Official Sustainable Web Design Model v4 (SWDM v4) via `@tgwf/co2`.
@@ -49,7 +49,7 @@ LIVE DEMO IS AT: https://pccoe-hackathon.vercel.app
 
 
 
-## 🔒 Limitations & Honest Boundaries
+## Limitations & Honest Boundaries
 
 1. **Attributional Modeling**: Carbon numbers are calculated using The Green Web Foundation's Sustainable Web Design Model v4 (SWDM v4). They represent model attributions; reduced bytes do not guarantee an identical reduction in physical grid emissions.
 2. **Geographic Proxy**: Datacenter grid intensity is estimated using IP-based regional lookups (Ember 2023 data). Edge and CDN routing may distribute actual server execution.

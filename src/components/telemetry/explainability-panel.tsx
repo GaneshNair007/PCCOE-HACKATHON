@@ -45,26 +45,26 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
       {/* Header with Human-AI Explainability Badge */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-lime uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs font-sans text-lime uppercase tracking-wider mb-1">
             <Scale className="w-4 h-4 text-lime" />
             <span className="font-bold">HOW THIS IS CALCULATED</span>
-            <span className="bg-surface-elevated px-2 py-0.5 rounded text-xs text-cream border border-surface-border font-mono font-bold uppercase">
+            <span className="bg-surface-elevated px-2 py-0.5 rounded text-xs text-cream border border-surface-border font-sans font-bold uppercase">
               SUSTAINABLE WEB DESIGN STANDARD
             </span>
           </div>
           <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase text-cream tracking-tight">
             SCIENTIFIC METHODOLOGY &amp; EMISSIONS FORMULA
           </h3>
-          <p className="text-xs text-sage/75 mt-1 max-w-xl">
+          <p className="text-xs text-sage/75 mt-1 max-w-xl font-sans">
             Every metric in CarbonTerra is auditable. Inspect the formulas, regional grid electricity factors, and caching boundaries used for{" "}
-            <span className="text-lime font-mono font-bold">{auditData.domain}</span>.
+            <span className="text-lime font-sans font-bold">{auditData.domain}</span>.
           </p>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="px-3 py-1.5 rounded-xl bg-surface-elevated border border-surface-border text-xs font-mono text-cream hover:text-lime hover:border-lime/40 transition-all flex items-center gap-1.5 cursor-pointer font-bold uppercase"
+            className="px-3 py-1.5 rounded-xl bg-surface-elevated border border-surface-border text-xs font-sans text-cream hover:text-lime hover:border-lime/40 transition-all flex items-center gap-1.5 cursor-pointer font-bold uppercase"
           >
             {isExpanded ? (
               <>
@@ -95,7 +95,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer ${
+                  className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans transition-all cursor-pointer ${
                     isSelected
                       ? "bg-lime text-black font-bold shadow-[0_0_15px_rgba(203,255,0,0.3)]"
                       : "bg-surface-elevated text-sage/80 hover:text-cream border border-surface-border hover:border-lime/40"
@@ -110,7 +110,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
 
           {/* Tab 1: Formula Transparency */}
           {activeTab === "formula" && (
-            <div className="space-y-4 font-mono text-xs">
+            <div className="space-y-4 font-sans text-xs">
               <div className="p-4 rounded-2xl bg-black/60 border border-surface-border space-y-3">
                 <div className="text-lime font-bold text-xs uppercase flex items-center gap-2">
                   <Cpu className="w-4 h-4" />
@@ -119,29 +119,29 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
                 <div className="p-3 rounded-xl bg-surface-elevated/70 border border-surface-border text-cream/90 space-y-1.5 text-xs leading-relaxed">
                   <div>
                     <span className="text-sage/80">Transferred Payload (B):</span>{" "}
-                    <span className="text-lime font-bold">{totalBytes.toLocaleString()} bytes</span>{" "}
-                    ({(totalBytes / (1024 * 1024)).toFixed(2)} MB)
+                    <span className="text-lime font-bold font-display tabular-nums">{totalBytes.toLocaleString()} bytes</span>{" "}
+                    (<span className="font-display tabular-nums">{(totalBytes / (1024 * 1024)).toFixed(2)} MB</span>)
                   </div>
                   <div>
                     <span className="text-sage/80">Operational Energy (E_op):</span>{" "}
                     <span>{totalBytes} × {CARBONERRA_CONFIG.operationalKwhPerByte} = </span>
-                    <span className="text-cream font-bold">{operationalKwh} kWh</span>
+                    <span className="text-cream font-bold font-display tabular-nums">{operationalKwh} kWh</span>
                   </div>
                   <div>
                     <span className="text-sage/80">Embodied Hardware Energy (E_emb):</span>{" "}
                     <span>{totalBytes} × {CARBONERRA_CONFIG.embodiedKwhPerByte} = </span>
-                    <span className="text-cream font-bold">{embodiedKwh} kWh</span>
+                    <span className="text-cream font-bold font-display tabular-nums">{embodiedKwh} kWh</span>
                   </div>
                   <div className="pt-1 border-t border-surface-border/60">
                     <span className="text-sage/80">Total Electricity (E_total):</span>{" "}
-                    <span className="text-lime font-bold">{totalKwh} kWh</span>
+                    <span className="text-lime font-bold font-display tabular-nums">{totalKwh} kWh</span>
                   </div>
                   <div>
                     <span className="text-sage/80">Grid Emissions Factor (I_grid):</span>{" "}
-                    <span className="text-cream font-bold">{auditData.grid_intensity_val} gCO2e/kWh</span>{" "}
+                    <span className="text-cream font-bold font-display tabular-nums">{auditData.grid_intensity_val} gCO2e/kWh</span>{" "}
                     ({auditData.grid_intensity_source === "resolved_regional" ? "Location-Specific Regional Grid" : "Global Default"})
                   </div>
-                  <div className="pt-1 text-sm font-bold text-lime">
+                  <div className="pt-1 text-sm font-bold text-lime font-display tabular-nums">
                     Emissions: {auditData.co2_grams} gCO2e per visit (EcoScore Grade {auditData.eco_score})
                   </div>
                 </div>
@@ -151,7 +151,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
 
           {/* Tab 2: Datacenter Grid Lineage */}
           {activeTab === "provenance" && (
-            <div className="space-y-4 font-mono text-xs">
+            <div className="space-y-4 font-sans text-xs">
               <div className="p-4 rounded-2xl bg-black/60 border border-surface-border space-y-3">
                 <div className="text-lime font-bold text-xs uppercase flex items-center gap-2">
                   <Server className="w-4 h-4" />
@@ -193,7 +193,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
 
           {/* Tab 3: Caching & Sensitivity Bounds */}
           {activeTab === "caching" && (
-            <div className="space-y-4 font-mono text-xs">
+            <div className="space-y-4 font-sans text-xs">
               <div className="p-4 rounded-2xl bg-black/60 border border-surface-border space-y-3">
                 <div className="text-lime font-bold text-xs uppercase flex items-center gap-2">
                   <Layers className="w-4 h-4" />
@@ -204,16 +204,16 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
                 </p>
                 <div className="flex items-center justify-between p-3.5 rounded-xl bg-surface-elevated/80 border border-surface-border text-cream">
                   <div>
-                    <span className="text-sage/80 block text-xs uppercase">Lower Bound (Warm Cache)</span>
-                    <span className="text-lime font-bold text-sm">{auditData.range_low_g} g CO2e</span>
+                    <span className="text-sage/80 block text-xs uppercase font-medium">Lower Bound (Warm Cache)</span>
+                    <span className="text-lime font-bold text-sm font-display tabular-nums">{auditData.range_low_g} g CO2e</span>
                   </div>
                   <div className="text-center">
-                    <span className="text-sage/80 block text-xs uppercase">Central Estimate</span>
-                    <span className="text-cream font-bold text-sm">{auditData.co2_grams} g CO2e</span>
+                    <span className="text-sage/80 block text-xs uppercase font-medium">Central Estimate</span>
+                    <span className="text-cream font-bold text-sm font-display tabular-nums">{auditData.co2_grams} g CO2e</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-sage/80 block text-xs uppercase">Upper Bound (Cold Cache)</span>
-                    <span className="text-white/90 font-bold text-sm">{auditData.range_high_g} g CO2e</span>
+                    <span className="text-sage/80 block text-xs uppercase font-medium">Upper Bound (Cold Cache)</span>
+                    <span className="text-white/90 font-bold text-sm font-display tabular-nums">{auditData.range_high_g} g CO2e</span>
                   </div>
                 </div>
               </div>
@@ -222,7 +222,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
 
           {/* Tab 4: Explicit Limitations */}
           {activeTab === "limitations" && (
-            <div className="space-y-4 font-mono text-xs">
+            <div className="space-y-4 font-sans text-xs">
               <div className="p-4 rounded-2xl bg-black/60 border border-surface-border space-y-3">
                 <div className="text-lime font-bold text-xs uppercase flex items-center gap-2">
                   <Info className="w-4 h-4" />
@@ -239,7 +239,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
 
           {/* Tab 5: Academic Research & HTTP Archive Benchmarks */}
           {activeTab === "research" && (
-            <div className="space-y-4 font-mono text-xs">
+            <div className="space-y-4 font-sans text-xs">
               {/* Empirical Benchmark Comparison */}
               <div className="p-4 rounded-2xl bg-black/60 border border-surface-border space-y-3">
                 <div className="text-lime font-bold text-xs uppercase flex items-center justify-between">
@@ -250,19 +250,19 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="p-3 rounded-xl bg-surface-elevated/70 border border-white/10 space-y-1">
-                    <div className="text-white/60 text-[11px] uppercase">Eco-Optimized (Top 10%)</div>
-                    <div className="text-lime font-bold text-base">&lt; 400 KB</div>
+                    <div className="text-white/60 text-[11px] uppercase font-medium">Eco-Optimized (Top 10%)</div>
+                    <div className="text-lime font-bold text-base font-display tabular-nums">&lt; 400 KB</div>
                     <div className="text-[10px] text-white/50">Modern WebP/AVIF, strict code splitting</div>
                   </div>
                   <div className="p-3 rounded-xl bg-surface-elevated/70 border border-white/10 space-y-1">
-                    <div className="text-white/60 text-[11px] uppercase">Global Median Page</div>
-                    <div className="text-white font-bold text-base">2.45 MB (2,450 KB)</div>
+                    <div className="text-white/60 text-[11px] uppercase font-medium">Global Median Page</div>
+                    <div className="text-white font-bold text-base font-display tabular-nums">2.45 MB (2,450 KB)</div>
                     <div className="text-[10px] text-white/50">HTTP Archive 50th percentile across millions of URLs</div>
                   </div>
                   <div className="p-3 rounded-xl bg-surface-elevated/70 border border-white/10 space-y-1">
-                    <div className="text-white/60 text-[11px] uppercase">This Monitored Page</div>
-                    <div className="text-lime font-bold text-base">{(totalBytes / (1024 * 1024)).toFixed(2)} MB</div>
-                    <div className="text-[10px] text-white/50">{auditData.metrics.cleaner_than_percentile}% cleaner than tested URLs</div>
+                    <div className="text-white/60 text-[11px] uppercase font-medium">This Monitored Page</div>
+                    <div className="text-lime font-bold text-base font-display tabular-nums">{(totalBytes / (1024 * 1024)).toFixed(2)} MB</div>
+                    <div className="text-[10px] text-white/50 font-display tabular-nums">{auditData.metrics.cleaner_than_percentile}% cleaner than tested URLs</div>
                   </div>
                 </div>
               </div>
@@ -277,9 +277,9 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
                     <div key={idx} className="p-3 rounded-xl bg-surface-elevated/50 border border-white/10 space-y-1 font-sans">
                       <div className="text-white font-bold text-xs flex flex-wrap items-center justify-between gap-2">
                         <span>{paper.title}</span>
-                        <span className="text-[10px] font-mono text-lime border border-lime/30 px-1.5 py-0.5 rounded">{paper.journal}</span>
+                        <span className="text-[10px] font-sans font-semibold text-lime border border-lime/30 px-1.5 py-0.5 rounded">{paper.journal}</span>
                       </div>
-                      <div className="text-[11px] text-white/60 font-mono">{paper.citation}</div>
+                      <div className="text-[11px] text-white/60 font-sans">{paper.citation}</div>
                       <div className="text-xs text-white/80 leading-relaxed font-sans">{paper.keyFinding}</div>
                     </div>
                   ))}
@@ -289,7 +289,7 @@ export function ExplainabilityPanel({ auditData, onRerun }: ExplainabilityPanelP
           )}
 
           {/* Human Control Bar (PAIR Guidance) */}
-          <div className="pt-3 border-t border-surface-border/60 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+          <div className="pt-3 border-t border-surface-border/60 flex flex-wrap items-center justify-between gap-3 text-xs font-sans">
             <div className="flex items-center gap-2 text-sage/70 text-xs">
               <ShieldCheck className="w-3.5 h-3.5 text-lime" />
               <span>Human-in-the-loop: You can audit, simulate, or export at any time.</span>

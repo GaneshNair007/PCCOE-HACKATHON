@@ -54,14 +54,14 @@ export function EcoScoreGauge({ grade, co2Grams, percentile }: EcoScoreGaugeProp
           <span className="font-display text-4xl sm:text-5xl font-light text-cream leading-none tracking-tight" aria-label={`EcoScore grade ${grade}`}>
             {grade}
           </span>
-          <span className="font-mono text-xs font-bold text-lime mt-0.5">
+          <span className="font-sans font-bold tabular-nums text-xs text-lime mt-0.5">
             {co2Grams} g CO2e
           </span>
         </div>
       </div>
 
       <div className="mt-3 text-center">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-lime/10 text-lime border border-lime/30">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-sans font-bold bg-lime/10 text-lime border border-lime/30">
           Cleaner than {percentile}% of sites
         </span>
       </div>

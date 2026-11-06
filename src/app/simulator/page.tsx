@@ -558,7 +558,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
               </div>
               <div className="text-white font-bold text-base sm:text-lg flex flex-wrap items-center gap-2 mt-0.5">
                 <span>{selectedAudit.domain}</span>
-                <span className="px-2.5 py-0.5 rounded-lg bg-white/10 text-white font-mono text-xs font-semibold">
+                <span className="px-2.5 py-0.5 rounded-lg bg-white/10 text-white font-sans text-xs font-semibold">
                   Grade {selectedAudit.eco_score}
                 </span>
               </div>
@@ -568,15 +568,15 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-white/80 border-t md:border-t-0 pt-3 md:pt-0 border-white/10">
             <div>
               <span className="text-white/50 block text-[11px] uppercase font-semibold">Baseline Transfer</span>
-              <span className="text-white font-bold text-sm sm:text-base font-mono">{baselinePayloadMb} MB</span>
+              <span className="text-white font-bold text-sm sm:text-base font-sans tabular-nums">{baselinePayloadMb} MB</span>
             </div>
             <div className="border-l border-white/15 pl-4 sm:pl-6">
               <span className="text-white/50 block text-[11px] uppercase font-semibold">Baseline CO2</span>
-              <span className="text-[#cbff00] font-bold text-sm sm:text-base font-mono">{baselineCo2} gCO2e</span>
+              <span className="text-[#cbff00] font-bold text-sm sm:text-base font-sans tabular-nums">{baselineCo2} gCO2e</span>
             </div>
             <div className="border-l border-white/15 pl-4 sm:pl-6">
               <span className="text-white/50 block text-[11px] uppercase font-semibold">Grid Factor</span>
-              <span className="text-white font-medium text-xs sm:text-sm font-mono">{selectedAudit.grid_intensity_val || 494} gCO2e/kWh</span>
+              <span className="text-white font-medium text-xs sm:text-sm font-sans tabular-nums">{selectedAudit.grid_intensity_val || 494} gCO2e/kWh</span>
             </div>
             <Link
               href={`/?url=${encodeURIComponent(selectedAudit.domain)}`}
@@ -636,7 +636,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                   <ImageIcon className="w-4 h-4 text-[#cbff00] shrink-0" />
                   Image Compression &amp; WebP
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-[#cbff00]/15 text-[#cbff00] font-mono text-xs font-bold border border-[#cbff00]/30">
+                <span className="px-2.5 py-1 rounded-lg bg-[#cbff00]/15 text-[#cbff00] font-sans text-xs font-bold border border-[#cbff00]/30 tabular-nums">
                   {imgComp}%
                 </span>
               </div>
@@ -666,7 +666,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                   <FileCode className="w-4 h-4 text-[#cbff00] shrink-0" />
                   JavaScript Bundle &amp; Deferral
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-[#cbff00]/15 text-[#cbff00] font-mono text-xs font-bold border border-[#cbff00]/30">
+                <span className="px-2.5 py-1 rounded-lg bg-[#cbff00]/15 text-[#cbff00] font-sans text-xs font-bold border border-[#cbff00]/30 tabular-nums">
                   {jsDefer}%
                 </span>
               </div>
@@ -696,7 +696,7 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                   <Clock className="w-4 h-4 text-[#cbff00] shrink-0" />
                   Browser Cache Duration (TTL)
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-[#cbff00]/15 text-[#cbff00] font-mono text-xs font-bold border border-[#cbff00]/30">
+                <span className="px-2.5 py-1 rounded-lg bg-[#cbff00]/15 text-[#cbff00] font-sans text-xs font-bold border border-[#cbff00]/30 tabular-nums">
                   {cacheTtl} Days
                 </span>
               </div>
@@ -754,12 +754,12 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
                   <Zap className="w-4 h-4 text-[#cbff00] shrink-0" />
                   Monthly Visitor Traffic Basis
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-white/10 text-white font-mono text-xs font-bold">
+                <span className="px-2.5 py-1 rounded-lg bg-white/10 text-white font-sans text-xs font-bold tabular-nums">
                   {viewsMultiplier.toLocaleString()} visits/mo
                 </span>
               </div>
               <p className="text-xs text-white/70 leading-relaxed">
-                Scale annual avoided emissions across your organization&apos;s active traffic volume.
+                {"Scale annual avoided emissions across your organization's active traffic volume."}
               </p>
               <input
                 type="range"
@@ -829,29 +829,29 @@ location ~* \\.(?:ico|css|js|gif|jpe?g|png|avif|webp|woff2?)$ {
 
             {/* Dual Comparative Metric Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 space-y-1.5">
+              <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 space-y-1.5 font-sans">
                 <div className="text-xs text-white/60 uppercase font-semibold">Simulated CO2 / Visit</div>
-                <div className="text-3xl font-bold font-mono text-[#cbff00]">{calculatedCo2} g</div>
+                <div className="text-3xl font-display font-black tracking-tight tabular-nums text-[#cbff00]">{calculatedCo2} g</div>
                 <div className="text-xs text-white/60">
-                  Down from {baselineCo2} g (<span className="text-[#cbff00] font-bold">-{savingPct}%</span>)
+                  Down from {baselineCo2} g (<span className="text-[#cbff00] font-bold tabular-nums">-{savingPct}%</span>)
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 space-y-1.5">
+              <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 space-y-1.5 font-sans">
                 <div className="text-xs text-white/60 uppercase font-semibold">Annual Avoided Carbon</div>
-                <div className="text-3xl font-bold font-mono text-white">{annualCo2KgSaved} kg</div>
+                <div className="text-3xl font-display font-black tracking-tight tabular-nums text-white">{annualCo2KgSaved} kg</div>
                 <div className="text-xs text-white/60">
-                  Approx. <strong className="text-white">{annualTonsSaved} Metric Tons</strong> avoided / yr
+                  Approx. <strong className="text-white tabular-nums">{annualTonsSaved} Metric Tons</strong> avoided / yr
                 </div>
               </div>
             </div>
 
             {/* Energy Equivalent Callout */}
-            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between gap-4">
+            <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between gap-4 font-sans">
               <div className="space-y-0.5">
                 <div className="text-xs text-white/60 uppercase font-semibold">Annual Energy Conservation</div>
                 <div className="text-white font-bold text-sm sm:text-base">
-                  Avoids drawing <span className="text-[#cbff00] font-mono font-bold">{energyKwhSaved.toLocaleString()} kWh</span> from power grids
+                  Avoids drawing <span className="text-[#cbff00] font-sans font-bold tabular-nums">{energyKwhSaved.toLocaleString()} kWh</span> from power grids
                 </div>
               </div>
               <div className="p-3 rounded-2xl bg-white/[0.06] border border-white/15 text-[#cbff00] shrink-0">

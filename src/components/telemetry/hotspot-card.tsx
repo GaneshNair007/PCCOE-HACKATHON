@@ -36,13 +36,13 @@ export function HotspotCard({ hotspot, index }: HotspotCardProps) {
           </span>
         </div>
         <div>
-          <h4 className="font-mono text-sm sm:text-base font-bold text-cream break-words">
+          <h4 className="font-sans text-sm sm:text-base font-bold text-cream break-words">
             {hotspot.title}
           </h4>
-          <div className="flex items-center gap-2 mt-1 text-xs font-mono">
-            <span className="text-sage">Size: <strong className="text-cream">{hotspot.size}</strong></span>
+          <div className="flex items-center gap-2 mt-1 text-xs font-sans">
+            <span className="text-sage">Size: <strong className="text-cream font-display tabular-nums">{hotspot.size}</strong></span>
             <span className="text-white/30">/</span>
-            <span className={isDanger ? "text-white/80 font-bold" : isWarning ? "text-white/60 font-bold" : "text-[#cbff00]"}>
+            <span className={`font-display tabular-nums ${isDanger ? "text-white/80 font-bold" : isWarning ? "text-white/60 font-bold" : "text-[#cbff00]"}`}>
               {hotspot.co2_est}
             </span>
           </div>
@@ -54,7 +54,7 @@ export function HotspotCard({ hotspot, index }: HotspotCardProps) {
 
       {/* Blur Overlay with Quick Fix CTA */}
       <div className="flex flex-col items-start gap-3 pt-4 border-t border-surface-border">
-        <span className="text-xs font-mono font-bold text-lime uppercase tracking-widest mb-3">
+        <span className="text-xs font-sans font-bold text-lime uppercase tracking-widest mb-3">
           {hotspot.fix_action}
         </span>
         <Button

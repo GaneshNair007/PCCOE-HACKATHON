@@ -91,7 +91,7 @@ export function LegalModals({ activeModal, onClose }: LegalModalsProps) {
             <div className="bg-surface-elevated p-4 rounded-xl border border-surface-border space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-sage">Engineering Lead:</span>
-                <span className="text-cream font-mono">team@carbonterra.dev</span>
+                <span className="text-cream font-sans font-medium">team@carbonterra.dev</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sage">Hackathon Division:</span>
@@ -99,7 +99,7 @@ export function LegalModals({ activeModal, onClose }: LegalModalsProps) {
               </div>
               <div className="flex justify-between">
                 <span className="text-sage">GitHub Reference:</span>
-                <span className="text-lime font-mono">github.com/raghunandana1/carbonterra</span>
+                <span className="text-lime font-sans font-medium">github.com/raghunandana1/carbonterra</span>
               </div>
             </div>
           </div>

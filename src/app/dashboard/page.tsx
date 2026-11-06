@@ -533,7 +533,7 @@ export default function DashboardPage() {
                     </Link>
                   </td>
                   <td className="p-4">
-                    <span className={`px-2.5 py-1 rounded-lg text-xs font-bold font-mono ${
+                    <span className={`px-2.5 py-1 rounded-lg text-xs font-bold font-sans ${
                       site.grade === "A+" || site.grade === "A"
                         ? "bg-[#cbff00]/20 text-[#cbff00] border border-[#cbff00]/40"
                         : site.grade === "B"
@@ -543,10 +543,10 @@ export default function DashboardPage() {
                       Grade {site.grade}
                     </span>
                   </td>
-                  <td className="p-4 text-white font-semibold tabular-nums font-mono">
+                  <td className="p-4 text-white font-semibold tabular-nums font-sans">
                     {site.co2} <span className="text-[11px] font-normal text-white/60">g</span>
                   </td>
-                  <td className="p-4 text-white/80 tabular-nums font-mono">
+                  <td className="p-4 text-white/80 tabular-nums font-sans">
                     {site.payloadMb} <span className="text-[11px] font-normal text-white/60">MB</span>
                   </td>
                   <td className="p-4">
@@ -557,7 +557,7 @@ export default function DashboardPage() {
                       <span>{site.hostingProvider}</span>
                     </span>
                   </td>
-                  <td className="p-4 text-white/60 font-mono text-[11px]">
+                  <td className="p-4 text-white/60 font-sans text-[11px] tabular-nums">
                     {new Date(site.lastAudited).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                   </td>
                   <td className="p-4 pr-6 text-right space-x-1.5">

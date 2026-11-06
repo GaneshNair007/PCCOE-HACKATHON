@@ -106,6 +106,24 @@
 }
 .font-display { font-family: var(--font-display) !important; font-weight: 700; letter-spacing: -0.025em; }
 
+/* Apple Cupertino Precision Metrics: Clean tabular sans-serif numbers, never ugly monospace */
+.font-numeric,
+.tabular-nums,
+[data-metric],
+.metric-value {
+  font-family: var(--font-display) !important;
+  font-variant-numeric: tabular-nums lining-nums !important;
+  letter-spacing: -0.03em !important;
+}
+
+/* Universal Metric Numerals: Guarantee sleek Apple San Francisco / Inter glyphs */
+[data-metric] *,
+.metric-value *,
+.tabular-nums * {
+  font-family: inherit !important;
+  font-variant-numeric: tabular-nums lining-nums !important;
+}
+
 /* Refined Apple Heading Typography: Crisp weights and tight tracking, reserving uppercase strictly for tags and eyebrows */
 h1, h2, h3, h4, h5, h6,
 .ct-page-title,
@@ -137,7 +155,7 @@ h1, h2, h3, h4, h5, h6,
 .tech-frame::before, .tech-frame::after, [data-spec]::after { content: none; }
 .beautiful-sm, .beautiful-md, .beautiful-lg { box-shadow: var(--shadow-card); }
 .lime-glow, .forest-glow, .shadow-lime, .shadow-forest { box-shadow: var(--shadow-card); }
-.number-detail { font: 500 .75rem var(--font-code); color: var(--ink-faint); }
+.number-detail { font: 600 .75rem var(--font-display); font-variant-numeric: tabular-nums lining-nums; color: var(--ink-faint); }
 .ct-card { transition: border-color var(--motion-ui), box-shadow var(--motion-ui); }
 .ct-button { min-height: 44px; font-weight: 500; transition: background-color var(--motion-fast), border-color var(--motion-fast); }
 .ct-page-shell { width: 100%; max-width: var(--page-width); padding: 7.5rem var(--page-gutter) 2rem; margin-inline: auto; }

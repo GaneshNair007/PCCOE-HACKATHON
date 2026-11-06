@@ -5,7 +5,7 @@
   --world-hairline: rgba(255, 255, 255, 0.14);
   --world-glass: rgba(255, 255, 255, 0.04);
   --world-shadow: 0 28px 70px -32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  --font-body: 'Lexend', Arial, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", -system-ui, sans-serif;
   --page-width: 1300px;
   --page-gutter: clamp(24px, 5vw, 78px);
   --color-paper: var(--world-ivory);
@@ -18,11 +18,11 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .world-environment .shader-frame { position: absolute !important; inset: 0; height: 100% !important; border: 0; pointer-events: none !important; }
 .world-environment iframe { pointer-events: none; }
 .world-lens { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(25 35 20 / .12), transparent 65%), linear-gradient(0deg, rgb(28 40 20 / .12), transparent 40%); }
-.world-location { position: fixed; left: var(--page-gutter); top: 112px; z-index: 8; display: flex; gap: 13px; align-items: center; font: 10px/1.4 var(--font-code); letter-spacing: .12em; text-transform: uppercase; color: #e3e9d2; pointer-events: none; }
+.world-location { position: fixed; left: var(--page-gutter); top: 112px; z-index: 8; display: flex; gap: 13px; align-items: center; font: 10px/1.4 var(--font-display); letter-spacing: .12em; text-transform: uppercase; color: #e3e9d2; pointer-events: none; }
 .world-location i { width: 34px; height: 1px; background: #e3e9d260; }
 .world-motion-controls { position: fixed; right: max(26px, 3vw); top: 102px; z-index: 41; }
 .world-motion-controls button { display: flex; align-items: center; gap: 7px; min-height: 44px; padding: 9px 13px; border: 1px solid #e7eed32b; border-radius: 99px; background: #2834209c; backdrop-filter: blur(15px); color: #e8eedf; font-size: 11px; }
-.world-journey { position: fixed; z-index: 9; right: 26px; top: 46%; display: flex; flex-direction: column; align-items: center; gap: 16px; font: 10px var(--font-code); color: #e8efdb; pointer-events: none; }
+.world-journey { position: fixed; z-index: 9; right: 26px; top: 46%; display: flex; flex-direction: column; align-items: center; gap: 16px; font: 10px var(--font-display); color: #e8efdb; pointer-events: none; }
 .world-journey i { height: 110px; width: 1px; background: #e6efd335; position: relative; }
 .world-journey i::after { content: ''; position: absolute; top: 0; left: -1px; width: 3px; height: 100%; background: #d4fb87; transform: scaleY(var(--journey-progress,0)); transform-origin: top; }
 .world-journey span:last-child { writing-mode: vertical-rl; letter-spacing: .15em; text-transform: uppercase; }
@@ -104,7 +104,7 @@ body { background: #4a4d44; font-family: var(--font-body); font-weight: 300; }
 .world-hero .hero-audit-dock { backdrop-filter: blur(20px); background: #273120d4 !important; border-color: #e5efd133 !important; box-shadow: var(--world-shadow); }
 .ct-home-content { padding: 0 var(--page-gutter) 80px; gap: 160px; }
 .world-audit-chapter { position: relative; padding-top: 90px; min-height: 80svh; }
-.world-chapter-label { display: flex; gap: 14px; align-items: center; color: #e8eeda; font: 11px var(--font-code); letter-spacing: .16em; text-transform: uppercase; margin-bottom: 38px; }
+.world-chapter-label { display: flex; gap: 14px; align-items: center; color: #e8eeda; font: 11px var(--font-display); letter-spacing: .16em; text-transform: uppercase; margin-bottom: 38px; }
 .world-chapter-label::before { content: ''; width: 42px; height: 1px; background: #d6e1c18c; }
 .world-ready { max-width: 720px; padding: 25px 0 70px; text-align: left; border: none; background: transparent; box-shadow: none; }
 .world-ready h3 {

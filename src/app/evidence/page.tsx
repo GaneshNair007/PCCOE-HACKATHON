@@ -209,7 +209,7 @@ function EvidenceContent() {
 
   if (isLoading) {
     return (
-      <div role="status" aria-live="polite" className="p-8 sm:p-16 rounded-3xl bg-white/[0.04] border border-white/10 backdrop-blur-2xl text-center space-y-3 font-mono text-sage/70">
+      <div role="status" aria-live="polite" className="p-8 sm:p-16 rounded-3xl bg-white/[0.04] border border-white/10 backdrop-blur-2xl text-center space-y-3 font-sans text-sage/70">
         <Activity className="w-8 h-8 text-lime animate-spin mx-auto" />
         <div>Compiling immutable audit run evidence and task assertion logs...</div>
       </div>
@@ -229,7 +229,7 @@ function EvidenceContent() {
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-2xl p-4 print:hidden">
         <Link
           href={`/savings-lab${receipt ? `?experimentId=${receipt.experimentId}` : ""}`}
-          className="inline-flex items-center gap-2 text-xs font-mono text-sage/70 hover:text-cream transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-sans text-sage/70 hover:text-cream transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5 text-lime" />
           <span>Back to Savings Lab Workflow</span>
@@ -240,7 +240,7 @@ function EvidenceContent() {
             variant="outline"
             size="sm"
             onClick={handlePrint}
-            className="font-mono text-xs text-sage/80 hover:text-cream"
+            className="font-sans text-xs text-sage/80 hover:text-cream"
           >
             <Printer className="w-3.5 h-3.5 mr-1.5" />
             Print Receipt
@@ -250,7 +250,7 @@ function EvidenceContent() {
               variant="lime"
               size="sm"
               onClick={handleDownloadJson}
-              className="font-mono text-xs font-bold"
+              className="font-sans text-xs font-bold"
             >
               <Download className="w-3.5 h-3.5 mr-1.5" />
               Download JSON Evidence
@@ -287,12 +287,12 @@ function EvidenceContent() {
 
             {/* Header Document Metadata */}
             <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-8">
-              <div className="space-y-3">
+              <div className="space-y-3 font-sans">
                 <div className="flex flex-wrap items-center gap-3">
                   <div className="text-xs font-semibold text-[#cbff00] tracking-widest uppercase">
                     Evidence Record
                   </div>
-                  <span className="text-xs sm:text-sm font-mono text-white/70 break-all">
+                  <span className="text-xs sm:text-sm font-sans text-white/70 break-all">
                     ID: {receipt.experimentId}
                   </span>
                 </div>
@@ -308,7 +308,7 @@ function EvidenceContent() {
                 </div>
               </div>
 
-              <div className="text-right flex flex-col items-end gap-2.5">
+              <div className="text-right flex flex-col items-end gap-2.5 font-sans">
                 <div className="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider bg-[#cbff00] text-black shadow-lg shadow-[#cbff00]/20">
                   {receipt.outcome === "observed_improvement"
                     ? "IMPROVEMENT OBSERVED"
@@ -316,25 +316,25 @@ function EvidenceContent() {
                     ? "CHECKS FAILED"
                     : receipt.outcome.replace(/_/g, " ").toUpperCase()}
                 </div>
-                <div className="text-xs font-mono text-white/70 font-medium">
+                <div className="text-xs font-sans text-white/70 font-medium">
                   Automated Verification Pipeline <span className="mx-1 text-white/30">/</span> Certified SWDM v4
                 </div>
               </div>
             </div>
 
             {/* Core Comparative KPI Summary - Apple Frosted Glass Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 font-sans">
               {/* KPI 1: Bytes Saved */}
               <div className="p-6 sm:p-7 rounded-3xl bg-black/40 border border-[#cbff00]/40 shadow-xl backdrop-blur-xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#cbff00]/10 rounded-full blur-2xl pointer-events-none" />
                 <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#cbff00]">
                   Observed Transfer Delta
                 </div>
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-[#cbff00] mt-2">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-display font-black tabular-nums tracking-tight text-[#cbff00] mt-2">
                   -{(receipt.measuredDifferences.bytesSaved / 1024).toFixed(1)}{" "}
                   <span className="text-sm sm:text-base font-normal text-white/70">KB</span>
                 </div>
-                <div className="text-sm font-bold text-[#cbff00] mt-2">
+                <div className="text-sm font-bold text-[#cbff00] mt-2 tabular-nums">
                   -{receipt.measuredDifferences.percentReduction}% Measured Reduction
                 </div>
               </div>
@@ -344,11 +344,11 @@ function EvidenceContent() {
                 <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white/70">
                   Model-Based Carbon Delta
                 </div>
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-white mt-2">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-display font-black tabular-nums tracking-tight text-white mt-2">
                   -{receipt.measuredDifferences.estimatedCo2SavedGrams}{" "}
                   <span className="text-sm sm:text-base font-normal text-white/70">gCO2e</span>
                 </div>
-                <div className="text-sm font-medium text-white/70 mt-2">
+                <div className="text-sm font-medium text-white/70 mt-2 font-sans">
                   {receipt.methodology.swdmVersion} Attribution
                 </div>
               </div>
@@ -358,7 +358,7 @@ function EvidenceContent() {
                 <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white/70">
                   Task Assertions (Preservation)
                 </div>
-                <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-white mt-2 flex items-center gap-3">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-display font-black tabular-nums tracking-tight text-white mt-2 flex items-center gap-3">
                   {receipt.functionalAssertions.allPassed ? (
                     <>
                       <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-[#cbff00] shrink-0" />
@@ -371,7 +371,7 @@ function EvidenceContent() {
                     </>
                   )}
                 </div>
-                <div className="text-sm font-medium text-white/70 mt-2">
+                <div className="text-sm font-medium text-white/70 mt-2 font-sans">
                   {receipt.functionalAssertions.summary}
                 </div>
               </div>
@@ -383,15 +383,15 @@ function EvidenceContent() {
                 <h3 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
                   Compared Run Telemetry
                 </h3>
-                <span className="text-xs sm:text-sm font-mono text-white/60">
+                <span className="text-xs sm:text-sm font-sans text-white/60 font-medium">
                   Three alternating baseline and candidate passes
                 </span>
               </div>
 
               <div tabIndex={0} role="region" aria-label="Scrollable compared run telemetry" className="rounded-3xl border border-white/15 bg-black/30 backdrop-blur-2xl overflow-x-auto shadow-xl print:overflow-visible">
-                <table className="w-full min-w-[680px] print:min-w-0 text-left text-sm sm:text-base tabular-nums">
+                <table className="w-full min-w-[680px] print:min-w-0 text-left text-sm sm:text-base tabular-nums font-sans">
                   <caption className="sr-only">Baseline and candidate journey transfer, carbon estimates, and task checks</caption>
-                  <thead className="bg-white/5 text-white/70 border-b border-white/10 uppercase text-xs tracking-wider">
+                  <thead className="bg-white/5 text-white/70 border-b border-white/10 uppercase text-xs tracking-wider font-semibold">
                     <tr>
                       <th scope="col" className="p-4 sm:p-5 font-bold">Run Group</th>
                       <th scope="col" className="p-4 sm:p-5 font-bold">Recorded Runs</th>
@@ -404,15 +404,15 @@ function EvidenceContent() {
                     <tr className="hover:bg-white/[0.02] transition-colors">
                       <td className="p-4 sm:p-5 font-bold text-white">Baseline (3 passes)</td>
                       <td className="p-4 sm:p-5 text-white/70">{receipt.baseline.runIds.length} runs</td>
-                      <td className="p-4 sm:p-5 font-bold text-white">{(receipt.baseline.medianBytes / 1024).toFixed(1)} KB</td>
-                      <td className="p-4 sm:p-5 text-white/80">{receipt.baseline.medianCo2Grams} g</td>
+                      <td className="p-4 sm:p-5 font-bold text-white tabular-nums">{(receipt.baseline.medianBytes / 1024).toFixed(1)} KB</td>
+                      <td className="p-4 sm:p-5 text-white/80 tabular-nums">{receipt.baseline.medianCo2Grams} g</td>
                       <td className="p-4 sm:p-5 text-[#cbff00] font-bold">PASSED</td>
                     </tr>
                     <tr className="bg-[#cbff00]/[0.03] hover:bg-[#cbff00]/[0.06] transition-colors">
                       <td className="p-4 sm:p-5 font-bold text-[#cbff00]">Candidate (3 passes)</td>
                       <td className="p-4 sm:p-5 text-white/70">{receipt.candidate.runIds.length} runs</td>
-                      <td className="p-4 sm:p-5 font-bold text-[#cbff00]">{(receipt.candidate.medianBytes / 1024).toFixed(1)} KB</td>
-                      <td className="p-4 sm:p-5 text-[#cbff00] font-bold">{receipt.candidate.medianCo2Grams} g</td>
+                      <td className="p-4 sm:p-5 font-bold text-[#cbff00] tabular-nums">{(receipt.candidate.medianBytes / 1024).toFixed(1)} KB</td>
+                      <td className="p-4 sm:p-5 text-[#cbff00] font-bold tabular-nums">{receipt.candidate.medianCo2Grams} g</td>
                       <td className="p-4 sm:p-5 font-bold">
                         {receipt.functionalAssertions.allPassed ? (
                           <span className="text-[#cbff00] font-bold">PASSED</span>
@@ -433,7 +433,7 @@ function EvidenceContent() {
                 <span>Source Patch &amp; Reviewer Sign-Off</span>
               </h3>
 
-              <div className="p-6 sm:p-7 rounded-3xl bg-black/40 border border-white/15 backdrop-blur-xl text-sm sm:text-base font-mono space-y-3 break-words [overflow-wrap:anywhere] shadow-xl">
+              <div className="p-6 sm:p-7 rounded-3xl bg-black/40 border border-white/15 backdrop-blur-xl text-sm sm:text-base font-sans space-y-3 break-words [overflow-wrap:anywhere] shadow-xl">
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
                   <span className="text-white/80 text-sm sm:text-base">
                     Affected Resource: <strong className="text-white">{receipt.patchSummary.affectedResource.replace(/campus-hackathon-hero/g, "hero-banner-large")}</strong>
@@ -443,7 +443,7 @@ function EvidenceContent() {
                   </span>
                 </div>
                 <div className="flex flex-wrap items-center gap-4 text-white/75 text-xs sm:text-sm pt-1">
-                  <span>Target File: <strong className="text-white">{receipt.patchSummary.targetFile}</strong></span>
+                  <span>Target File: <strong className="text-white font-mono text-xs">{receipt.patchSummary.targetFile}</strong></span>
                   <span className="text-white/30">/</span>
                   <span>Replacement: <strong className="text-[#cbff00]">{receipt.patchSummary.replacementResource.replace(/campus-hackathon-hero/g, "hero-banner-large")}</strong></span>
                   <span className="text-white/30">/</span>
@@ -454,7 +454,7 @@ function EvidenceContent() {
 
             {/* Forward Flow to What-If Simulator */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-8 border-t border-white/10 print:hidden">
-              <div className="text-xs sm:text-sm font-mono text-white/70">
+              <div className="text-xs sm:text-sm font-sans text-white/70">
                 Explore future scenarios, adjust compression levers, and model grid decarbonization in the Simulator.
               </div>
 
@@ -482,7 +482,7 @@ function EvidenceContent() {
 
 export default function EvidencePage() {
   return (
-    <Suspense fallback={<div className="p-12 text-center text-sage/70 font-mono text-sm">Loading Evidence Receipt...</div>}>
+    <Suspense fallback={<div className="p-12 text-center text-sage/70 font-sans text-sm font-semibold">Loading Evidence Receipt...</div>}>
       <EvidenceContent />
     </Suspense>
   );

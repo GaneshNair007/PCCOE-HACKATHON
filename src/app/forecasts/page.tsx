@@ -248,17 +248,17 @@ export default function ForecastsPage() {
       {selectedAudit ? (
         <>
           {/* Controls Bar */}
-          <div className="world-forecast-controls p-6 rounded-2xl glass-panel-elevated border border-surface-border grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
+          <div className="world-forecast-controls p-6 rounded-2xl glass-panel-elevated border border-surface-border grid grid-cols-1 sm:grid-cols-3 gap-6 font-sans text-xs">
             <div>
-              <div className="text-sage/60">Baseline domain</div>
+              <div className="text-sage/60 font-medium">Baseline domain</div>
               <div className="text-cream font-bold text-sm mt-1 break-all">{selectedAudit.domain}</div>
-              <div className="text-[11px] text-lime">{selectedAudit.co2_grams}g CO2e / visit</div>
+              <div className="text-[11px] text-lime font-semibold tabular-nums">{selectedAudit.co2_grams}g CO2e / visit</div>
             </div>
 
             <div>
               <div className="flex justify-between">
-                <span className="text-sage/60">Monthly traffic growth</span>
-                <span className="text-lime font-bold">+{growthRate}% / mo</span>
+                <span className="text-sage/60 font-medium">Monthly traffic growth</span>
+                <span className="text-lime font-bold tabular-nums">+{growthRate}% / mo</span>
               </div>
               <input
                 type="range"
@@ -274,7 +274,7 @@ export default function ForecastsPage() {
             </div>
 
             <div className="flex items-center justify-between sm:justify-end gap-2">
-              <span className="text-sage/60">Horizon:</span>
+              <span className="text-sage/60 font-medium">Horizon:</span>
               {(["6M", "12M", "24M"] as const).map((tf) => (
                 <button
                   key={tf}
@@ -282,7 +282,7 @@ export default function ForecastsPage() {
                   aria-pressed={timeframe === tf}
                   aria-label={`${parseInt(tf)} month forecast horizon`}
                   onClick={() => setTimeframe(tf)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-sans font-bold transition-all ${
                     timeframe === tf ? "bg-lime text-black" : "bg-surface-elevated border border-surface-border text-sage hover:text-cream"
                   }`}
                 >
@@ -300,7 +300,7 @@ export default function ForecastsPage() {
             />
 
             {/* Clear Plain-English Legend */}
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-xs font-mono border-b border-surface-border pb-4">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-xs font-sans border-b border-surface-border pb-4">
               <span className="flex items-center gap-2 text-white/60">
                 <span className="w-4 h-0.5 rounded bg-white/40" />
                 <span className="font-semibold text-white">Do Nothing</span>
@@ -321,7 +321,7 @@ export default function ForecastsPage() {
             {/* Dynamic Inspector Bar */}
             <div className="transition-all">
               {hoveredPoint ? (
-                <div className="p-3 rounded-xl bg-surface-elevated border border-surface-border flex flex-wrap items-center justify-between gap-3 text-xs font-mono animate-in fade-in duration-150">
+                <div className="p-3 rounded-xl bg-surface-elevated border border-surface-border flex flex-wrap items-center justify-between gap-3 text-xs font-sans tabular-nums animate-in fade-in duration-150">
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
                     <span className="px-2 py-0.5 rounded bg-white/10 text-cream font-bold">{hoveredPoint.month}</span>
                     <span className="text-white/60">Do Nothing: <strong className="text-white">{hoveredPoint.statusQuoKg} kg</strong></span>
@@ -333,12 +333,12 @@ export default function ForecastsPage() {
                   </div>
                 </div>
               ) : (
-                <div className="p-3 rounded-xl bg-surface/60 border border-surface-border/60 text-xs font-mono text-sage/75 flex flex-wrap items-center justify-between gap-2">
+                <div className="p-3 rounded-xl bg-surface/60 border border-surface-border/60 text-xs font-sans text-sage/75 flex flex-wrap items-center justify-between gap-2">
                   <span className="flex items-center gap-2">
                     <Info className="w-3.5 h-3.5 text-lime" />
                     Hover anywhere on the chart or lines to inspect the exact month-by-month carbon savings.
                   </span>
-                  <span className="text-[11px] text-sage/50">Baseline: {selectedAudit.co2_grams}g CO2e / page view</span>
+                  <span className="text-[11px] text-sage/50 tabular-nums">Baseline: {selectedAudit.co2_grams}g CO2e / page view</span>
                 </div>
               )}
             </div>
@@ -389,7 +389,7 @@ export default function ForecastsPage() {
                       </defs>
 
                       {/* Y-Axis Header Label */}
-                      <text x={chartLeft} y="15" textAnchor="start" className="text-[11px] font-mono fill-sage/60 font-semibold uppercase tracking-wider">
+                      <text x={chartLeft} y="15" textAnchor="start" className="text-[11px] font-sans fill-sage/60 font-semibold uppercase tracking-wider">
                         Monthly Carbon Output (kg CO2e)
                       </text>
 
@@ -413,7 +413,7 @@ export default function ForecastsPage() {
                               x={chartLeft - 10}
                               y={y + 3.5}
                               textAnchor="end"
-                              className="text-[11px] font-mono fill-sage/70 font-medium"
+                              className="text-[11px] font-sans tabular-nums fill-sage/70 font-medium"
                             >
                               {labelVal} kg
                             </text>
@@ -498,7 +498,7 @@ export default function ForecastsPage() {
                                 x={x}
                                 y={chartBottom + 20}
                                 textAnchor="middle"
-                                className={`text-[11px] font-mono ${
+                                className={`text-[11px] font-sans ${
                                   hoveredPoint?.month === p.label ? "fill-cream font-bold" : "fill-sage/60 font-normal"
                                 }`}
                               >
@@ -580,7 +580,7 @@ export default function ForecastsPage() {
             })()}
 
             {/* Bottom Timeline Summary */}
-            <div className="flex justify-between items-center text-xs font-mono text-sage/60 border-t border-surface-border pt-3">
+            <div className="flex justify-between items-center text-xs font-sans text-sage/60 border-t border-surface-border pt-3">
               <span>Start (Month 1)</span>
               <span className="text-cream font-medium">Trajectory Horizon: {timeframe}</span>
               <span>End ({points[points.length - 1]?.label || "End"})</span>
@@ -588,13 +588,13 @@ export default function ForecastsPage() {
 
             {/* Table Details */}
             <details className="border-t border-surface-border pt-3">
-              <summary className="cursor-pointer text-xs font-mono text-sage hover:text-cream">
+              <summary className="cursor-pointer text-xs font-sans text-sage hover:text-cream">
                 View numerical table breakdown ({points.length} months)
               </summary>
               <div className="mt-3 max-w-full overflow-x-auto" role="region" aria-label="Monthly forecast values" tabIndex={0}>
-                <table className="w-full min-w-[560px] text-left text-xs font-mono">
+                <table className="w-full min-w-[560px] text-left text-xs font-sans tabular-nums">
                   <caption className="sr-only">Estimated emissions in kg CO2e per month</caption>
-                  <thead className="text-sage border-b border-surface-border">
+                  <thead className="text-sage border-b border-surface-border font-semibold">
                     <tr>
                       <th scope="col" className="p-3">Timeline</th>
                       <th scope="col" className="p-3">Do Nothing</th>
@@ -623,10 +623,10 @@ export default function ForecastsPage() {
           </Card>
 
           {/* Cumulative Scenario Comparison */}
-          <div className="world-open-metrics grid grid-cols-1 sm:grid-cols-3 gap-6 font-mono text-xs">
+          <div className="world-open-metrics grid grid-cols-1 sm:grid-cols-3 gap-6 font-sans text-xs">
             <Card className="p-5 glass-panel border border-white/15 space-y-1.5">
               <div className="text-white/60 font-semibold uppercase tracking-wider text-[10px]">Total Footprint (Do Nothing)</div>
-              <div className="text-2xl font-bold text-white/70 font-display">
+              <div className="text-2xl font-bold text-white/70 font-display tabular-nums tracking-tight">
                 {Math.round(cumulativeStatusQuo)} kg CO2e
               </div>
               <div className="text-[11px] text-white/50">If website assets and hosting remain unchanged as traffic scales</div>
@@ -634,7 +634,7 @@ export default function ForecastsPage() {
 
             <Card className="p-5 glass-panel border border-white/20 space-y-1.5">
               <div className="text-white/80 font-semibold uppercase tracking-wider text-[10px]">Total Footprint (Code Clean-up)</div>
-              <div className="text-2xl font-bold text-white font-display">
+              <div className="text-2xl font-bold text-white font-display tabular-nums tracking-tight">
                 {Math.round(cumulativePlanned)} kg CO2e
               </div>
               <div className="text-[11px] text-white/60">Achieved via image compression, script deferral, and tree-shaking</div>
@@ -642,7 +642,7 @@ export default function ForecastsPage() {
 
             <Card className="p-5 glass-panel border border-[#cbff00]/40 space-y-1.5 shadow-[0_0_20px_rgba(203,255,0,0.1)]">
               <div className="text-[#cbff00] font-semibold uppercase tracking-wider text-[10px]">Total Footprint (Green Cloud)</div>
-              <div className="text-2xl font-bold text-[#cbff00] font-display">
+              <div className="text-2xl font-bold text-[#cbff00] font-display tabular-nums tracking-tight">
                 {Math.round(cumulativeNetZero)} kg CO2e
               </div>
               <div className="text-[11px] text-white/70">Maximum reduction via 100% renewable hosting and lean payloads</div>
@@ -651,19 +651,19 @@ export default function ForecastsPage() {
         </>
       ) : (
         /* Empty State */
-        <div className="p-6 sm:p-10 text-center rounded-3xl glass-panel-elevated border border-surface-border space-y-4">
+        <div className="p-6 sm:p-10 text-center rounded-3xl glass-panel-elevated border border-surface-border space-y-4 font-sans">
           <div className="w-14 h-14 rounded-2xl bg-surface-elevated border border-surface-border text-sage flex items-center justify-center mx-auto">
             <LineChart className="w-7 h-7" />
           </div>
-          <h2 className="font-display text-2xl text-cream">Start with a baseline</h2>
+          <h2 className="font-display text-2xl text-cream font-bold">Start with a baseline</h2>
           <p className="text-xs sm:text-sm text-sage/75 max-w-md mx-auto">
             Forecasts require an audited website to determine initial payload weight and electricity intensity. Run an audit on the home page or load a demo baseline.
           </p>
           <div className="pt-2 flex flex-wrap justify-center gap-3">
-            <Link href="/" className="px-4 py-2 rounded-xl bg-lime text-black font-mono font-bold text-xs">
+            <Link href="/" className="px-4 py-2 rounded-xl bg-lime text-black font-sans font-bold text-xs">
               Audit a website →
             </Link>
-            <Button variant="outline" size="sm" onClick={handleLoadDemoBaseline} className="text-xs font-mono">
+            <Button variant="outline" size="sm" onClick={handleLoadDemoBaseline} className="text-xs font-sans font-semibold">
               Load demo baseline
             </Button>
           </div>

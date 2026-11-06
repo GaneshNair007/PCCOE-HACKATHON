@@ -67,7 +67,7 @@ export function Footer() {
 
           {/* Navigation Column 1: Platform (2-3 Cols) */}
           <div className="md:col-span-2 space-y-3">
-            <h5 className="font-mono text-xs font-bold tracking-wide text-cream uppercase">
+            <h5 className="font-sans text-xs font-bold tracking-wide text-cream uppercase">
               PLATFORM
             </h5>
             <ul className="space-y-2 text-xs sm:text-sm">
@@ -82,12 +82,22 @@ export function Footer() {
 
           {/* Navigation Column 2: Resources & Methodology (3 Cols) */}
           <div className="md:col-span-3 space-y-3">
-            <h5 className="font-mono text-xs font-bold tracking-wide text-cream uppercase">
+            <h5 className="font-sans text-xs font-bold tracking-wide text-cream uppercase">
               RESOURCES &amp; DATA
             </h5>
-            <ul className="space-y-2 text-xs sm:text-sm">
-              <li><a href="https://sustainablewebdesign.org" target="_blank" rel="noreferrer" className="hover:text-lime transition-colors">SWDM v4 Standard ↗</a></li>
-              <li><a href="https://www.thegreenwebfoundation.org" target="_blank" rel="noreferrer" className="hover:text-lime transition-colors">Green Web Dataset ↗</a></li>
+            <ul className="space-y-2 text-xs sm:text-sm font-sans">
+              <li>
+                <a href="https://sustainablewebdesign.org" target="_blank" rel="noreferrer" className="hover:text-lime transition-colors inline-flex items-center">
+                  <span>SWDM v4 Standard</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 ml-1 opacity-70" />
+                </a>
+              </li>
+              <li>
+                <a href="https://www.thegreenwebfoundation.org" target="_blank" rel="noreferrer" className="hover:text-lime transition-colors inline-flex items-center">
+                  <span>Green Web Dataset</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 ml-1 opacity-70" />
+                </a>
+              </li>
               <li><button onClick={() => setActiveModal("confidentiality")} className="hover:text-lime transition-colors text-left cursor-pointer">Website Confidentiality</button></li>
               <li><span className="text-sage/70">Dual-Source Measurement</span></li>
             </ul>
@@ -95,7 +105,7 @@ export function Footer() {
 
           {/* Navigation Column 3: Trust & Legal (2 Cols) */}
           <div className="md:col-span-2 space-y-3">
-            <h5 className="font-mono text-xs font-bold tracking-wide text-cream uppercase">
+            <h5 className="font-sans text-xs font-bold tracking-wide text-cream uppercase">
               LEGAL &amp; TRUST
             </h5>
             <ul className="space-y-2 text-xs sm:text-sm">
@@ -109,7 +119,7 @@ export function Footer() {
         <div className="world-footer-wordmark" aria-hidden="true">CarbonTerra</div>
         
         {/* Bottom Legal Row */}
-        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-surface-border/40 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-sage/80 gap-4">
+        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-surface-border/40 flex flex-col sm:flex-row items-center justify-between text-[11px] font-sans text-sage/80 gap-4">
           <span>© 2026 CarbonTerra PLATFORM INC. <span className="mx-1 text-white/30">/</span> PCCOE HACKATHON EDITION</span>
           <div className="flex items-center gap-6">
             <button onClick={() => setActiveModal("terms")} className="hover:text-lime transition-colors">TERMS OF SERVICE</button>

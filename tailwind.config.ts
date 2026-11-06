@@ -60,6 +60,14 @@ const config: Config = {
           "Consolas",
           "monospace",
         ],
+        numeric: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"SF Pro Display"',
+          '"Inter"',
+          "system-ui",
+          "sans-serif",
+        ],
         ubuntu: [
           "-apple-system",
           "BlinkMacSystemFont",

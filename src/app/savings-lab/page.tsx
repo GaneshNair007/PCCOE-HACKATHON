@@ -31,6 +31,8 @@ import {
   ImageIcon,
   Palette,
   Code2,
+  Info,
+  ArrowUpRight,
 } from "lucide-react";
 import { ButterflyOrbit } from "@/components/ambient/butterfly-orbit";
 import { Experiment, VerificationResult } from "@/lib/storage/types";
@@ -688,7 +690,7 @@ function SavingsLabContent() {
       {isLoading && <p role="status" className="rounded-2xl bg-surface p-4 text-sm text-sage">Loading the experiment and recorded baseline…</p>}
 
       {errorMessage && (
-        <div role="alert" className="p-4 rounded-2xl bg-white/[0.04] border border-white/20 text-white/90 text-xs font-mono flex items-start gap-3 backdrop-blur-2xl">
+        <div role="alert" className="p-4 rounded-2xl bg-white/[0.04] border border-white/20 text-white/90 text-xs font-sans flex items-start gap-3 backdrop-blur-2xl">
           <AlertTriangle className="w-4 h-4 text-[#cbff00] shrink-0 mt-0.5" />
           <div>
             <div className="font-bold uppercase">Workflow notice</div>
@@ -752,7 +754,7 @@ function SavingsLabContent() {
                       Observed breakdown of 2,450.0 KB initial wire transfer across asset categories.
                     </p>
                   </div>
-                  <div className="px-4 py-2.5 rounded-2xl bg-[#cbff00]/15 border border-[#cbff00]/40 text-[#cbff00] font-mono text-xs sm:text-sm font-bold flex items-center gap-2 self-start sm:self-auto shrink-0 shadow-lg">
+                  <div className="px-4 py-2.5 rounded-2xl bg-[#cbff00]/15 border border-[#cbff00]/40 text-[#cbff00] font-sans text-xs sm:text-sm font-bold flex items-center gap-2 self-start sm:self-auto shrink-0 shadow-lg">
                     <Layers className="w-4 h-4 text-[#cbff00]" />
                     <span>Outlier: Hero Graphic (98.8%)</span>
                   </div>
@@ -760,19 +762,19 @@ function SavingsLabContent() {
 
                 {/* Apple Tactile Segmented Meter Bar */}
                 <div className="space-y-2">
-                  <div className="w-full h-10 sm:h-11 rounded-2xl bg-black/60 border border-white/15 p-1.5 flex items-center gap-2 shadow-2xl backdrop-blur-xl relative overflow-hidden">
+                  <div className="w-full h-10 sm:h-11 rounded-2xl bg-black/60 border border-white/15 p-1.5 flex items-center gap-2 shadow-2xl backdrop-blur-xl relative overflow-hidden font-sans">
                     {/* Hero Graphic Segment - Dominant Hotspot */}
                     <div
                       className="flex-[98.8] h-full rounded-xl bg-[#cbff00] text-black shadow-[0_0_20px_rgba(203,255,0,0.35)] flex items-center justify-between px-4 text-xs sm:text-sm font-bold transition-all overflow-hidden"
                       title="Hero Graphic: 2,420 KB (98.8% of Total Payload)"
                     >
-                      <span className="font-sans font-bold truncate pr-2">Hero Graphic</span>
-                      <span className="font-mono font-black text-xs sm:text-sm shrink-0">2,420 KB · 98.8%</span>
+                      <span className="font-bold truncate pr-2">Hero Graphic</span>
+                      <span className="font-extrabold text-xs sm:text-sm shrink-0 tracking-tight tabular-nums">2,420 KB · 98.8%</span>
                     </div>
 
                     {/* JavaScript Bundle Segment */}
                     <div
-                      className="min-w-[62px] sm:min-w-[76px] h-full rounded-xl bg-white/20 shadow-[0_0_12px_rgba(255,255,255,0.2)] flex items-center justify-center text-xs font-mono font-black text-white transition-all hover:scale-105 cursor-default shrink-0"
+                      className="min-w-[62px] sm:min-w-[76px] h-full rounded-xl bg-white/20 shadow-[0_0_12px_rgba(255,255,255,0.2)] flex items-center justify-center text-xs font-bold tabular-nums text-white transition-all hover:scale-105 cursor-default shrink-0"
                       title="JavaScript: 18 KB (0.7% of Total Payload)"
                     >
                       JS · 18K
@@ -780,7 +782,7 @@ function SavingsLabContent() {
 
                     {/* Stylesheets Segment */}
                     <div
-                      className="min-w-[58px] sm:min-w-[70px] h-full rounded-xl bg-white/15 shadow-[0_0_12px_rgba(255,255,255,0.15)] flex items-center justify-center text-xs font-mono font-black text-white transition-all hover:scale-105 cursor-default shrink-0"
+                      className="min-w-[58px] sm:min-w-[70px] h-full rounded-xl bg-white/15 shadow-[0_0_12px_rgba(255,255,255,0.15)] flex items-center justify-center text-xs font-bold tabular-nums text-white transition-all hover:scale-105 cursor-default shrink-0"
                       title="CSS Stylesheets: 8 KB (0.3% of Total Payload)"
                     >
                       CSS · 8K
@@ -788,7 +790,7 @@ function SavingsLabContent() {
 
                     {/* HTML Markup Segment */}
                     <div
-                      className="min-w-[58px] sm:min-w-[70px] h-full rounded-xl bg-white/10 shadow-[0_0_12px_rgba(255,255,255,0.1)] flex items-center justify-center text-xs font-mono font-black text-white transition-all hover:scale-105 cursor-default shrink-0"
+                      className="min-w-[58px] sm:min-w-[70px] h-full rounded-xl bg-white/10 shadow-[0_0_12px_rgba(255,255,255,0.1)] flex items-center justify-center text-xs font-bold tabular-nums text-white transition-all hover:scale-105 cursor-default shrink-0"
                       title="HTML Markup: 4 KB (0.2% of Total Payload)"
                     >
                       DOM · 4K
@@ -797,7 +799,7 @@ function SavingsLabContent() {
                 </div>
 
                 {/* Cupertino Asset Category Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1 font-sans">
                   {/* Card 1: Hero Banner */}
                   <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-[#cbff00]/15 via-black/40 to-black/60 border border-[#cbff00]/40 shadow-xl space-y-3 relative overflow-hidden flex flex-col justify-between">
                     <div>
@@ -810,7 +812,7 @@ function SavingsLabContent() {
                           Hotspot
                         </span>
                       </div>
-                      <div className="text-3xl sm:text-4xl font-black tabular-nums tracking-tight text-white mt-3">
+                      <div className="text-3xl sm:text-4xl font-display font-black tabular-nums tracking-tight text-white mt-3">
                         2,420 <span className="text-sm font-normal text-white/60">KB</span>
                       </div>
                       <div className="text-xs sm:text-sm text-[#cbff00] font-bold mt-1">
@@ -948,12 +950,12 @@ function SavingsLabContent() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center font-sans">
                   {/* Left: Baseline Asset */}
-                  <div className="md:col-span-5 p-5 sm:p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/15 space-y-3 font-mono">
+                  <div className="md:col-span-5 p-5 sm:p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/15 space-y-3 font-sans">
                     <div className="flex justify-between items-center text-xs sm:text-sm">
                       <span className="text-white/80 font-bold uppercase tracking-wider">Unoptimized Baseline</span>
-                      <span className="text-white/60">{baselineFormat}</span>
+                      <span className="text-white/60 font-medium">{baselineFormat}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-16 h-12 rounded-xl overflow-hidden border border-white/20 bg-black/60 shrink-0 relative flex items-center justify-center shadow-inner">
@@ -975,34 +977,34 @@ function SavingsLabContent() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
+                    <div className="flex justify-between items-baseline pt-3 border-t border-white/10 font-sans">
                       <div>
-                        <div className="text-xs text-white/60">Transfer Weight</div>
-                        <div className="text-2xl sm:text-3xl font-black text-white mt-0.5">{baselineWeightFormatted}</div>
+                        <div className="text-xs text-white/60 font-medium uppercase tracking-wider">Transfer Weight</div>
+                        <div className="text-2xl sm:text-3xl font-display font-black tracking-tight tabular-nums text-white mt-0.5">{baselineWeightFormatted}</div>
                       </div>
                       <div className="text-right">
-                        <div className="text-xs text-white/60">Carbon Footprint</div>
-                        <div className="text-sm sm:text-base font-bold text-white mt-0.5">{baselineCo2Formatted}</div>
+                        <div className="text-xs text-white/60 font-medium uppercase tracking-wider">Carbon Footprint</div>
+                        <div className="text-sm sm:text-base font-display font-bold tracking-tight tabular-nums text-white mt-0.5">{baselineCo2Formatted}</div>
                       </div>
                     </div>
                   </div>
 
                   {/* Center: Transform Bridge */}
-                  <div className="md:col-span-1 flex flex-col items-center justify-center py-2 md:py-0">
+                  <div className="md:col-span-1 flex flex-col items-center justify-center py-2 md:py-0 font-sans">
                     <div className="w-12 h-12 rounded-2xl bg-[#cbff00]/15 border border-[#cbff00]/40 flex items-center justify-center text-[#cbff00] shadow-[0_0_20px_rgba(203,255,0,0.25)]">
                       <ArrowRight className="w-6 h-6 hidden md:block" />
                       <TrendingDown className="w-6 h-6 md:hidden" />
                     </div>
-                    <span className="text-xs font-mono font-black text-[#cbff00] mt-1.5 whitespace-nowrap">
+                    <span className="text-xs font-display font-black tracking-tight tabular-nums text-[#cbff00] mt-1.5 whitespace-nowrap">
                       -{savingPercent}%
                     </span>
                   </div>
 
                   {/* Right: Optimized Target */}
-                  <div className="md:col-span-5 p-5 sm:p-6 rounded-2xl bg-black/40 border border-[#cbff00]/30 space-y-3 font-mono">
+                  <div className="md:col-span-5 p-5 sm:p-6 rounded-2xl bg-black/40 border border-[#cbff00]/30 space-y-3 font-sans">
                     <div className="flex justify-between items-center text-xs sm:text-sm">
                       <span className="text-[#cbff00] font-bold uppercase tracking-wider">Optimized Target</span>
-                      <span className="text-white/60">Modern WebP</span>
+                      <span className="text-white/60 font-medium">Modern WebP</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="w-16 h-12 rounded-xl overflow-hidden border border-[#cbff00]/40 bg-black/60 shrink-0 relative shadow-[0_0_15px_rgba(203,255,0,0.15)] flex items-center justify-center">
@@ -1024,32 +1026,32 @@ function SavingsLabContent() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex justify-between items-baseline pt-3 border-t border-white/10">
+                    <div className="flex justify-between items-baseline pt-3 border-t border-white/10 font-sans">
                       <div>
-                        <div className="text-xs text-white/60">Transfer Weight</div>
-                        <div className="text-2xl sm:text-3xl font-black text-[#cbff00] mt-0.5">{optimizedWeightFormatted}</div>
+                        <div className="text-xs text-white/60 font-medium uppercase tracking-wider">Transfer Weight</div>
+                        <div className="text-2xl sm:text-3xl font-display font-black tracking-tight tabular-nums text-[#cbff00] mt-0.5">{optimizedWeightFormatted}</div>
                       </div>
                       <div className="text-right">
-                        <div className="text-xs text-white/60">Carbon Footprint</div>
-                        <div className="text-sm sm:text-base font-bold text-[#cbff00] mt-0.5">{optimizedCo2Formatted}</div>
+                        <div className="text-xs text-white/60 font-medium uppercase tracking-wider">Carbon Footprint</div>
+                        <div className="text-sm sm:text-base font-display font-bold tracking-tight tabular-nums text-[#cbff00] mt-0.5">{optimizedCo2Formatted}</div>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Annual Cumulative Projections */}
-                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm font-mono">
+                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm font-sans">
                   <div>
-                    <span className="text-white/60 block text-xs">Monthly Traffic Bandwidth:</span>
-                    <strong className="text-white text-base sm:text-lg font-bold">112.2 GB saved / mo</strong>
+                    <span className="text-white/60 block text-xs font-medium uppercase tracking-wider">Monthly Traffic Bandwidth:</span>
+                    <strong className="text-white text-base sm:text-lg font-display font-bold tracking-tight tabular-nums mt-1 block">112.2 GB saved / mo</strong>
                   </div>
                   <div>
-                    <span className="text-white/60 block text-xs">Annual Carbon Aversion:</span>
-                    <strong className="text-[#cbff00] text-base sm:text-lg font-bold">~124.8 kg CO2e / year</strong>
+                    <span className="text-white/60 block text-xs font-medium uppercase tracking-wider">Annual Carbon Aversion:</span>
+                    <strong className="text-[#cbff00] text-base sm:text-lg font-display font-bold tracking-tight tabular-nums mt-1 block">~124.8 kg CO2e / year</strong>
                   </div>
                   <div>
-                    <span className="text-white/60 block text-xs">Network Latency Delta:</span>
-                    <strong className="text-white text-base sm:text-lg font-bold">~1.8s faster mobile LCP</strong>
+                    <span className="text-white/60 block text-xs font-medium uppercase tracking-wider">Network Latency Delta:</span>
+                    <strong className="text-white text-base sm:text-lg font-display font-bold tracking-tight tabular-nums mt-1 block">~1.8s faster mobile LCP</strong>
                   </div>
                 </div>
               </div>
@@ -1068,9 +1070,9 @@ function SavingsLabContent() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-sm">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-sans text-sm">
                   <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 space-y-2.5 hover:border-white/20 transition-colors">
-                    <div className="text-[#cbff00] font-bold text-base sm:text-lg">
+                    <div className="text-[#cbff00] font-display font-bold text-base sm:text-lg">
                       01 / Layout Stability
                     </div>
                     <p className="text-white/80 text-sm font-sans leading-relaxed">
@@ -1078,7 +1080,7 @@ function SavingsLabContent() {
                     </p>
                   </div>
                   <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 space-y-2.5 hover:border-white/20 transition-colors">
-                    <div className="text-[#cbff00] font-bold text-base sm:text-lg">
+                    <div className="text-[#cbff00] font-display font-bold text-base sm:text-lg">
                       02 / Interactive Usability
                     </div>
                     <p className="text-white/80 text-sm font-sans leading-relaxed">
@@ -1146,7 +1148,7 @@ function SavingsLabContent() {
                       >
                         <Icon className="w-4 h-4 shrink-0" />
                         <span>{patch.categoryLabel}</span>
-                        <span className="text-[11px] font-mono opacity-80">({patch.estimatedSaving})</span>
+                        <span className="text-[11px] font-sans font-bold tabular-nums opacity-80">({patch.estimatedSaving})</span>
                       </button>
                     );
                   })}
@@ -1155,27 +1157,27 @@ function SavingsLabContent() {
 
               <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-6">
                 <div className="space-y-1.5">
-                  <div className="text-xs font-semibold text-[#cbff00] tracking-widest uppercase">
+                  <div className="text-xs font-semibold text-[#cbff00] tracking-widest uppercase font-sans">
                     Stage 02 · Review Fix &amp; Proposed Patch ({activePatch.categoryLabel})
                   </div>
                   <h2 className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
                     {activePatch.title}
                   </h2>
-                  <div className="text-sm text-white/70">
+                  <div className="text-sm text-white/70 font-sans">
                     Rule: <span className="text-white font-medium">{activePatch.rule}</span> <span className="mx-2 text-white/30">/</span> Class: <span className="text-white font-medium">{activePatch.className}</span> <span className="mx-2 text-white/30">/</span> File: <span className="text-[#cbff00] font-mono text-xs">{activePatch.targetFile}</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-5 font-mono text-xs">
+                <div className="flex items-center gap-5 font-sans text-xs">
                   <div className="text-left sm:text-right">
                     <span className="text-white/60 block uppercase font-bold tracking-wider">Estimated Saving</span>
-                    <span className={`font-black text-2xl sm:text-3xl mt-0.5 block ${activePatch.accentColor}`}>{activePatch.estimatedSaving}</span>
-                    <span className="text-[11px] text-white/50 block">(-{activePatch.savingBytes})</span>
+                    <span className={`font-black font-display tracking-tight tabular-nums text-2xl sm:text-3xl mt-0.5 block ${activePatch.accentColor}`}>{activePatch.estimatedSaving}</span>
+                    <span className="text-[11px] text-white/50 block tabular-nums">(-{activePatch.savingBytes})</span>
                   </div>
                   <div className="text-left sm:text-right border-l border-white/15 pl-5">
                     <span className="text-white/60 block uppercase font-bold tracking-wider">Regression Risk</span>
                     <span className="text-white font-bold text-sm sm:text-base mt-1 block">{activePatch.risk}</span>
-                    <span className="text-[11px] text-white/50 block">Effort: {activePatch.effort}</span>
+                    <span className="text-[11px] text-white/50 block font-medium">Effort: {activePatch.effort}</span>
                   </div>
                 </div>
               </div>
@@ -1187,17 +1189,17 @@ function SavingsLabContent() {
                 <div className="relative z-10 p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl shadow-xl space-y-5">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
                     <div className="space-y-1">
-                      <span className="text-xs font-semibold text-[#cbff00] uppercase tracking-widest flex items-center gap-2">
+                      <span className="text-xs font-semibold text-[#cbff00] uppercase tracking-widest flex items-center gap-2 font-sans">
                         <Sparkles className="w-4 h-4 text-[#cbff00]" />
                         Visual Fidelity Comparator
                       </span>
-                      <h3 className="text-base sm:text-lg font-bold text-white">
+                      <h3 className="text-base sm:text-lg font-bold text-white font-display">
                         Inspect Side-by-Side Compression Quality
                       </h3>
                     </div>
 
                     {/* Segmented Capsule Toggle */}
-                    <div className="inline-flex items-center p-1 rounded-full bg-black/60 border border-white/15 text-xs font-mono">
+                    <div className="inline-flex items-center p-1 rounded-full bg-black/60 border border-white/15 text-xs font-sans font-semibold">
                       <button
                         type="button"
                         onClick={() => setImageComparatorTab("side-by-side")}
@@ -1313,7 +1315,7 @@ function SavingsLabContent() {
                     </div>
                   )}
 
-                  <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+                  <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs font-sans">
                     <div className="flex items-center gap-2 text-[#cbff00] font-bold">
                       <CheckCircle2 className="w-4 h-4 shrink-0" />
                       <span>Visual Fidelity: 100% Identical</span>
@@ -1327,43 +1329,43 @@ function SavingsLabContent() {
                 <div className="relative z-10 p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl shadow-xl space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
                     <div className="space-y-1">
-                      <span className={`text-xs font-semibold ${activePatch.accentColor} uppercase tracking-widest flex items-center gap-2`}>
+                      <span className={`text-xs font-semibold ${activePatch.accentColor} uppercase tracking-widest flex items-center gap-2 font-sans`}>
                         <activePatch.icon className="w-4 h-4" />
                         {activePatch.categoryLabel} Architecture &amp; Delivery
                       </span>
-                      <h3 className="text-base sm:text-lg font-bold text-white">
+                      <h3 className="text-base sm:text-lg font-bold text-white font-display">
                         {activePatch.className}
                       </h3>
                     </div>
-                    <div className="px-3.5 py-1.5 rounded-xl bg-white/[0.06] border border-white/15 text-xs font-mono text-white/80">
-                      Target File: <span className="text-white font-bold">{activePatch.targetFile}</span>
+                    <div className="px-3.5 py-1.5 rounded-xl bg-white/[0.06] border border-white/15 text-xs font-sans text-white/80">
+                      Target File: <span className="text-white font-bold font-mono text-xs">{activePatch.targetFile}</span>
                     </div>
                   </div>
                   <p className="text-sm sm:text-base text-white/85 leading-relaxed font-sans">
                     {activePatch.description}
                   </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 font-sans">
                     <div className="p-3.5 rounded-xl bg-black/40 border border-white/10">
-                      <div className="text-xs text-white/60">Estimated Transfer Delta</div>
-                      <div className={`text-xl font-bold font-mono mt-1 ${activePatch.accentColor}`}>-{activePatch.savingBytes}</div>
+                      <div className="text-xs text-white/60 font-medium uppercase tracking-wider">Estimated Transfer Delta</div>
+                      <div className={`text-xl sm:text-2xl font-display font-black tracking-tight tabular-nums mt-1 ${activePatch.accentColor}`}>-{activePatch.savingBytes}</div>
                     </div>
                     <div className="p-3.5 rounded-xl bg-black/40 border border-white/10">
-                      <div className="text-xs text-white/60">Relative Network Reduction</div>
-                      <div className="text-xl font-bold font-mono text-white mt-1">{activePatch.estimatedSaving}</div>
+                      <div className="text-xs text-white/60 font-medium uppercase tracking-wider">Relative Network Reduction</div>
+                      <div className="text-xl sm:text-2xl font-display font-black tracking-tight tabular-nums text-white mt-1">{activePatch.estimatedSaving}</div>
                     </div>
                     <div className="p-3.5 rounded-xl bg-black/40 border border-white/10">
-                      <div className="text-xs text-white/60">Implementation Effort</div>
-                      <div className="text-xl font-bold font-mono text-white mt-1">{activePatch.effort}</div>
+                      <div className="text-xs text-white/60 font-medium uppercase tracking-wider">Implementation Effort</div>
+                      <div className="text-xl sm:text-2xl font-display font-black tracking-tight tabular-nums text-white mt-1">{activePatch.effort}</div>
                     </div>
                   </div>
                 </div>
               )}
 
               {/* Engineering Highlights & Safeguards - Layered Glass Depth */}
-              <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-5 text-sm font-mono">
+              <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-5 text-sm font-sans">
                 {/* Engineering Highlights */}
                 <div className="p-6 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl shadow-lg space-y-3">
-                  <div className={`${activePatch.accentColor} font-bold text-sm uppercase tracking-wider`}>
+                  <div className={`${activePatch.accentColor} font-bold text-sm uppercase tracking-wider font-sans`}>
                     Engineering Rationale
                   </div>
                   <ul className="text-white/85 text-sm sm:text-base space-y-2.5 font-sans leading-relaxed">
@@ -1378,7 +1380,7 @@ function SavingsLabContent() {
 
                 {/* Safeguards */}
                 <div className="p-6 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl shadow-lg space-y-3">
-                  <div className="text-white font-bold text-sm uppercase tracking-wider">
+                  <div className="text-white font-bold text-sm uppercase tracking-wider font-sans">
                     Quality &amp; Performance Safeguards
                   </div>
                   <ul className="text-white/85 text-sm sm:text-base space-y-2.5 font-sans leading-relaxed">
@@ -1396,7 +1398,7 @@ function SavingsLabContent() {
               <div className="relative z-10 space-y-5">
                 <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-[#cbff00]/30 backdrop-blur-xl space-y-4 shadow-xl">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <span className="text-sm font-mono text-[#cbff00] font-bold uppercase tracking-wider flex items-center gap-2">
+                    <span className="text-sm font-sans text-[#cbff00] font-bold uppercase tracking-wider flex items-center gap-2">
                       <FileCode className="w-5 h-5 text-[#cbff00]" />
                       Drop-In Production Snippet ({activePatch.snippetFilename})
                     </span>
@@ -1404,7 +1406,7 @@ function SavingsLabContent() {
                       <a
                         href={optimizedImageUrl || "/demo/assets/hero-banner-large.webp"}
                         download={optimizedFilename}
-                        className="px-4 py-2.5 rounded-2xl bg-white/[0.06] border border-white/20 text-white hover:text-[#cbff00] hover:border-[#cbff00]/40 font-mono text-xs sm:text-sm flex items-center gap-2 font-bold transition-colors w-fit"
+                        className="px-4 py-2.5 rounded-2xl bg-white/[0.06] border border-white/20 text-white hover:text-[#cbff00] hover:border-[#cbff00]/40 font-sans text-xs sm:text-sm flex items-center gap-2 font-bold transition-colors w-fit"
                       >
                         <Download className="w-4 h-4 text-[#cbff00]" />
                         DOWNLOAD OPTIMIZED WEBP ({optimizedWeightFormatted})
@@ -1412,7 +1414,7 @@ function SavingsLabContent() {
                     )}
                   </div>
 
-                  <p className="text-sm sm:text-base text-white/80">
+                  <p className="text-sm sm:text-base text-white/80 font-sans">
                     Apply this verified drop-in snippet to <code className="text-xs bg-black/40 px-1.5 py-0.5 rounded text-[#cbff00] font-mono">{activePatch.targetFile}</code> to reduce network transfer and eliminate unnecessary emissions:
                   </p>
 
@@ -1426,11 +1428,11 @@ function SavingsLabContent() {
                 {/* Unified Source Diff */}
                 <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl space-y-4 shadow-xl">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-mono text-white/90 font-bold uppercase tracking-wider flex items-center gap-2">
+                    <span className="text-sm font-sans text-white/90 font-bold uppercase tracking-wider flex items-center gap-2">
                       <GitCommit className="w-5 h-5 text-[#cbff00]" />
                       Unified Source Diff ({activePatch.targetFile})
                     </span>
-                    <span className="text-xs font-mono text-[#cbff00] font-bold">{activePatch.estimatedSaving} Reduction</span>
+                    <span className="text-xs font-sans text-[#cbff00] font-bold tabular-nums">{activePatch.estimatedSaving} Reduction</span>
                   </div>
                   <pre className="p-4 sm:p-5 rounded-2xl bg-black/80 border border-white/10 text-xs sm:text-sm font-mono text-white/90 overflow-x-auto leading-relaxed shadow-inner">
                     <code>{activePatch.unifiedDiff}</code>
@@ -1440,28 +1442,28 @@ function SavingsLabContent() {
                 {/* SMTP Email Dispatch for Engineering Teams */}
                 <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.03] border border-white/15 backdrop-blur-xl space-y-4 shadow-xl">
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center gap-2.5 text-[#cbff00] font-bold text-sm uppercase font-mono">
+                    <div className="flex items-center gap-2.5 text-[#cbff00] font-bold text-sm uppercase font-sans">
                       <Mail className="w-5 h-5" />
                       Dispatch Action Report to Development Team (SMTP)
                     </div>
                     {smtpConfig?.configured ? (
-                      <span className="px-3 py-1 rounded-full bg-[#cbff00]/10 border border-[#cbff00]/30 text-[#cbff00] font-mono text-[11px] font-semibold">
+                      <span className="px-3 py-1 rounded-full bg-[#cbff00]/10 border border-[#cbff00]/30 text-[#cbff00] font-sans text-[11px] font-semibold">
                         Live SMTP ({smtpConfig.smtp_host})
                       </span>
                     ) : (
-                      <span className="px-3 py-1 rounded-full bg-white/[0.06] border border-white/15 text-white/70 font-mono text-[11px] font-semibold">
+                      <span className="px-3 py-1 rounded-full bg-white/[0.06] border border-white/15 text-white/70 font-sans text-[11px] font-semibold">
                         Preview Mode (SMTP Not Configured)
                       </span>
                     )}
                   </div>
-                  <p className="text-sm sm:text-base text-white/80">
+                  <p className="text-sm sm:text-base text-white/80 font-sans">
                     Audit a company site? Send this complete optimization guide with drop-in code and carbon reduction telemetry directly to your engineering lead or client.
                   </p>
 
                   {dispatchResult ? (
                     <div className="p-5 rounded-2xl bg-black/60 border border-white/15 space-y-3.5 shadow-2xl">
                       {dispatchResult.mode === "live_smtp" ? (
-                        <div className="flex items-start gap-3 text-[#cbff00] font-mono text-sm">
+                        <div className="flex items-start gap-3 text-[#cbff00] font-sans text-sm">
                           <CheckCircle2 className="w-5 h-5 text-[#cbff00] shrink-0 mt-0.5" />
                           <div className="space-y-1">
                             <div className="font-bold text-white text-base">
@@ -1473,7 +1475,7 @@ function SavingsLabContent() {
                           </div>
                         </div>
                       ) : (
-                        <div className="flex items-start gap-3 text-yellow-400 font-mono text-sm">
+                        <div className="flex items-start gap-3 text-yellow-400 font-sans text-sm">
                           <AlertTriangle className="w-5 h-5 text-yellow-400 shrink-0 mt-0.5" />
                           <div className="space-y-1">
                             <div className="font-bold text-white text-base">
@@ -1482,8 +1484,9 @@ function SavingsLabContent() {
                             <div className="text-xs text-white/80 leading-relaxed">
                               {dispatchResult.message}
                             </div>
-                            <div className="text-[11px] text-white/50 pt-1">
-                              ⚠️ No external email was sent to your inbox because live SMTP credentials (<code className="text-white/80">SMTP_HOST</code>, <code className="text-white/80">SMTP_USER</code>, <code className="text-white/80">SMTP_PASS</code>) are not configured in <code className="text-[#cbff00]">.env.local</code>. Click below to view the rendered HTML report.
+                            <div className="text-[11px] text-white/50 pt-1 flex items-start gap-1.5">
+                              <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                              <span>No external email was sent to your inbox because live SMTP credentials (<code className="text-white/80">SMTP_HOST</code>, <code className="text-white/80">SMTP_USER</code>, <code className="text-white/80">SMTP_PASS</code>) are not configured in <code className="text-[#cbff00]">.env.local</code>. Click below to view the rendered HTML report.</span>
                             </div>
                           </div>
                         </div>
@@ -1498,7 +1501,8 @@ function SavingsLabContent() {
                             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#cbff00] text-black font-semibold text-xs shadow-md shadow-[#cbff00]/20 hover:bg-[#e4ff66] transition-all cursor-pointer"
                           >
                             <ExternalLink className="w-3.5 h-3.5" />
-                            <span>Preview Rendered Email HTML ↗</span>
+                            <span>Preview Rendered Email HTML</span>
+                            <ArrowUpRight className="w-3.5 h-3.5" />
                           </a>
                         )}
 
@@ -1510,7 +1514,8 @@ function SavingsLabContent() {
                             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/20 text-xs font-semibold transition-all cursor-pointer"
                           >
                             <Mail className="w-3.5 h-3.5 text-[#cbff00]" />
-                            <span>Open Ethereal Live Inbox ↗</span>
+                            <span>Open Ethereal Live Inbox</span>
+                            <ArrowUpRight className="w-3.5 h-3.5" />
                           </a>
                         )}
 
@@ -1521,7 +1526,7 @@ function SavingsLabContent() {
                             setDispatchStatus(null);
                             setDispatchEmail("");
                           }}
-                          className="text-xs text-white/60 hover:text-white underline font-mono transition-colors ml-auto cursor-pointer"
+                          className="text-xs text-white/60 hover:text-white underline font-sans transition-colors ml-auto cursor-pointer"
                         >
                           Send to another recipient
                         </button>
@@ -1536,7 +1541,7 @@ function SavingsLabContent() {
                           onChange={(e) => setDispatchEmail(e.target.value)}
                           placeholder="Enter dev lead email (e.g. cto@company.com)"
                           required
-                          className="min-w-0 flex-1 px-5 py-3.5 rounded-2xl bg-black/50 border border-white/20 text-white font-mono text-sm focus:outline-none focus:border-[#cbff00]"
+                          className="min-w-0 flex-1 px-5 py-3.5 rounded-2xl bg-black/50 border border-white/20 text-white font-sans text-sm focus:outline-none focus:border-[#cbff00]"
                         />
                         <Button
                           type="submit"
@@ -1549,8 +1554,9 @@ function SavingsLabContent() {
                         </Button>
                       </div>
                       {!smtpConfig?.configured && (
-                        <p className="text-[11px] text-white/50 font-mono">
-                          ℹ️ Operating in Preview Mode. Live SMTP credentials are not configured in <code className="text-white/70">.env.local</code>. Submitting generates an instant in-app HTML email report preview.
+                        <p className="text-[11px] text-white/50 font-sans flex items-center gap-1.5">
+                          <Info className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                          <span>Operating in Preview Mode. Live SMTP credentials are not configured in <code className="text-white/70">.env.local</code>. Submitting generates an instant in-app HTML email report preview.</span>
                         </p>
                       )}
                     </form>
@@ -1637,12 +1643,12 @@ function SavingsLabContent() {
             </div>
 
             {/* Option 2: The Broken Candidate (The Memorable Guardrail Proof) */}
-            <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/20 backdrop-blur-xl space-y-4 hover:border-white/40 transition-all shadow-xl">
+            <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/20 backdrop-blur-xl space-y-4 hover:border-white/40 transition-all shadow-xl font-sans">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <span className="text-xs font-semibold uppercase tracking-widest text-white/70">
                   Signature Task Guardrail
                 </span>
-                <span className="text-xs sm:text-sm font-mono text-white/80 font-bold">Flawed Refactor</span>
+                <span className="text-xs sm:text-sm font-sans text-white/80 font-bold">Flawed Refactor</span>
               </div>
               <h3 className="font-display text-2xl font-bold text-white">
                 Test Broken Candidate (Demonstrate Rejection)
@@ -1669,31 +1675,31 @@ function SavingsLabContent() {
             <div aria-live="polite" className="relative z-10 pt-6 border-t border-white/10 space-y-6">
               {/* Rejection / Pass Banner */}
               {verification.outcome === "functional_checks_failed" ? (
-                <div className="p-6 rounded-2xl bg-white/[0.04] border border-white/20 text-white space-y-3 font-mono shadow-xl backdrop-blur-xl">
-                  <div className="flex items-center gap-3 text-white font-bold text-lg uppercase">
+                <div className="p-6 rounded-2xl bg-white/[0.04] border border-white/20 text-white space-y-3 font-sans shadow-xl backdrop-blur-xl">
+                  <div className="flex items-center gap-3 text-white font-bold text-lg uppercase font-display">
                     <XCircle className="w-6 h-6 text-white/60 shrink-0" />
                     <span>Candidate Rejected: Task Preservation Assertion Failed</span>
                   </div>
                   <p className="text-sm text-white/80 font-sans leading-relaxed">
                     Although total transfer bytes dropped significantly ({Math.round(verification.candidateMedianBytes / 1024)} KB vs {Math.round(verification.baselineMedianBytes / 1024)} KB), the candidate failed required journey assertion: <strong>#registration-success (form submission reached confirmation)</strong>.
                   </p>
-                  <div className="text-xs text-white/60 pt-1 font-bold uppercase tracking-wider">
+                  <div className="text-xs text-white/60 pt-1 font-bold uppercase tracking-wider font-sans">
                     Core Rule: Sustainability progress cannot be claimed by breaking user functionality.
                   </div>
                 </div>
               ) : verification.outcome === "observed_improvement" ? (
-                <div className="p-6 rounded-2xl bg-black/50 border border-[#cbff00]/60 text-white space-y-3 font-mono shadow-xl backdrop-blur-xl">
+                <div className="p-6 rounded-2xl bg-black/50 border border-[#cbff00]/60 text-white space-y-3 font-sans shadow-xl backdrop-blur-xl">
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center gap-3 text-[#cbff00] font-bold text-lg uppercase">
+                    <div className="flex items-center gap-3 text-[#cbff00] font-bold text-lg uppercase font-display">
                       <CheckCircle2 className="w-6 h-6 shrink-0" />
                       <span>Candidate Verified: Observed Transfer Reduction Proven</span>
                     </div>
-                    <Badge variant="lime" className="font-bold font-mono text-sm px-3.5 py-1.5">
+                    <Badge variant="lime" className="font-bold font-sans text-sm px-3.5 py-1.5 tabular-nums">
                       {verification.percentSaved}% OBSERVED REDUCTION
                     </Badge>
                   </div>
                   <p className="text-sm text-white/85 font-sans leading-relaxed">
-                    All 3 deterministic journey assertions passed across 3 alternating passes. Observed transfer bytes dropped from <strong>{(verification.baselineMedianBytes / 1024).toFixed(1)} KB</strong> to <strong>{(verification.candidateMedianBytes / 1024).toFixed(1)} KB</strong>.
+                    All 3 deterministic journey assertions passed across 3 alternating passes. Observed transfer bytes dropped from <strong className="tabular-nums">{(verification.baselineMedianBytes / 1024).toFixed(1)} KB</strong> to <strong className="tabular-nums">{(verification.candidateMedianBytes / 1024).toFixed(1)} KB</strong>.
                   </p>
                 </div>
               ) : null}
@@ -1785,7 +1791,7 @@ function SavingsLabContent() {
                 <Link
                   href={`/api/experiments/${experiment.id}/receipt`}
                   target="_blank"
-                  className="px-4 py-2.5 rounded-2xl bg-white/[0.04] border border-white/15 text-xs sm:text-sm font-mono text-white hover:text-[#cbff00] hover:border-[#cbff00]/40 transition-colors flex items-center gap-2"
+                  className="px-4 py-2.5 rounded-2xl bg-white/[0.04] border border-white/15 text-xs sm:text-sm font-sans font-medium text-white hover:text-[#cbff00] hover:border-[#cbff00]/40 transition-colors flex items-center gap-2"
                 >
                   <Download className="w-4 h-4 text-[#cbff00]" />
                   <span>Download JSON Receipt</span>
@@ -1794,7 +1800,7 @@ function SavingsLabContent() {
               {experiment && (
                 <Link
                   href={`/evidence?experimentId=${experiment.id}`}
-                  className="px-5 py-2.5 rounded-2xl bg-[#cbff00] text-black font-mono font-bold text-xs sm:text-sm hover:bg-[#e4ff66] transition-transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-[#cbff00]/20 uppercase cursor-pointer"
+                  className="px-5 py-2.5 rounded-2xl bg-[#cbff00] text-black font-sans font-bold text-xs sm:text-sm hover:bg-[#e4ff66] transition-transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-[#cbff00]/20 uppercase cursor-pointer"
                 >
                   <span>Full Evidence Page →</span>
                 </Link>
@@ -1803,30 +1809,30 @@ function SavingsLabContent() {
           </div>
 
           {/* Verified Savings Summary KPI Cards - Apple Glass Vault */}
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-5 font-mono">
+          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-5 font-sans">
             <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-[#cbff00]/30 backdrop-blur-xl shadow-xl space-y-2">
               <div className="text-xs sm:text-sm text-[#cbff00] uppercase font-bold tracking-wider">Measured Transfer Delta</div>
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-[#cbff00] mt-2">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-display font-black tabular-nums tracking-tight text-[#cbff00] mt-2">
                 -2,246.0 <span className="text-sm sm:text-base font-normal text-white/70">KB</span>
               </div>
-              <div className="text-sm font-bold text-[#cbff00] mt-2">-91.6% observed data reduction</div>
+              <div className="text-sm font-bold text-[#cbff00] mt-2 tabular-nums">-91.6% observed data reduction</div>
             </div>
 
             <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl shadow-xl space-y-2">
               <div className="text-xs sm:text-sm text-white/70 uppercase font-bold tracking-wider">Attributional Carbon Model</div>
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-white mt-2">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-display font-black tabular-nums tracking-tight text-white mt-2">
                 -0.536 <span className="text-sm sm:text-base font-normal text-white/70">gCO2e</span>
               </div>
-              <div className="text-sm text-white/70 mt-2">SWDM v4 <span className="mx-1 text-white/30">/</span> 494 gCO2e/kWh factor</div>
+              <div className="text-sm text-white/70 mt-2 font-medium">SWDM v4 <span className="mx-1 text-white/30">/</span> 494 gCO2e/kWh factor</div>
             </div>
 
             <div className="p-6 sm:p-7 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl shadow-xl space-y-2">
               <div className="text-xs sm:text-sm text-white/70 uppercase font-bold tracking-wider">Task Assertions Status</div>
-              <div className="text-3xl sm:text-4xl lg:text-5xl font-black tabular-nums tracking-tight text-[#cbff00] mt-2 flex items-center gap-3">
+              <div className="text-3xl sm:text-4xl lg:text-5xl font-display font-black tabular-nums tracking-tight text-[#cbff00] mt-2 flex items-center gap-3">
                 <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-[#cbff00]" />
                 <span>3/3 Passed</span>
               </div>
-              <div className="text-sm text-white/70 mt-2">100% journey preservation</div>
+              <div className="text-sm text-white/70 mt-2 font-medium">100% journey preservation</div>
             </div>
           </div>
 
@@ -1853,48 +1859,48 @@ function SavingsLabContent() {
 
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-start justify-between gap-6 border-b border-white/10 pb-6">
             <div className="space-y-1.5">
-              <div className="text-xs font-semibold text-[#cbff00] tracking-widest uppercase">
+              <div className="text-xs font-semibold text-[#cbff00] tracking-widest uppercase font-sans">
                 Stage 05 · Immutable Audit Record
               </div>
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
                 Verified Engineering Evidence Record
               </h2>
-              <div className="text-sm text-white/70">
+              <div className="text-sm text-white/70 font-sans">
                 Automated Verification Pipeline Verified <span className="mx-2 text-white/30">/</span> Certified SWDM v4 Attribution
               </div>
             </div>
 
-            <div className="text-xs text-left sm:text-right">
+            <div className="text-xs text-left sm:text-right font-sans">
               <span className="text-white/60 block uppercase font-bold tracking-wider">Record Status</span>
               <span className="text-[#cbff00] font-bold text-sm sm:text-base mt-0.5 block">Audit-Ready Certified</span>
             </div>
           </div>
 
-          <div className="relative z-10 p-6 sm:p-8 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl space-y-5 font-mono text-sm shadow-xl">
+          <div className="relative z-10 p-6 sm:p-8 rounded-2xl bg-white/[0.04] border border-white/15 backdrop-blur-xl space-y-5 font-sans text-sm shadow-xl">
             <div className="text-[#cbff00] font-bold uppercase tracking-wider text-xs">
               Verified Production Benchmark Summary
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               <div className="p-5 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10">
                 <div className="text-white/60 text-xs font-bold uppercase tracking-wider">Payload Ceiling</div>
-                <div className="text-white font-black text-2xl sm:text-3xl mt-2">350 KB</div>
-                <div className="text-xs text-white/70 mt-1">Enforced Release Gate</div>
+                <div className="text-white font-display font-black tabular-nums text-2xl sm:text-3xl mt-2">350 KB</div>
+                <div className="text-xs text-white/70 mt-1 font-medium">Enforced Release Gate</div>
               </div>
               <div className="p-5 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10">
                 <div className="text-white/60 text-xs font-bold uppercase tracking-wider">Emission Reduction</div>
-                <div className="text-[#cbff00] font-black text-2xl sm:text-3xl mt-2">-82.4%</div>
-                <div className="text-xs text-[#cbff00] mt-1">Per Journey Visit</div>
+                <div className="text-[#cbff00] font-display font-black tabular-nums text-2xl sm:text-3xl mt-2">-82.4%</div>
+                <div className="text-xs text-[#cbff00] mt-1 font-medium">Per Journey Visit</div>
               </div>
               <div className="p-5 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10">
                 <div className="text-white/60 text-xs font-bold uppercase tracking-wider">Integrity Check</div>
-                <div className="text-[#cbff00] font-black text-2xl sm:text-3xl mt-2">SHA-256</div>
-                <div className="text-xs text-white/70 mt-1">Cryptographic Audit Seal</div>
+                <div className="text-[#cbff00] font-display font-black tracking-tight text-2xl sm:text-3xl mt-2">SHA-256</div>
+                <div className="text-xs text-white/70 mt-1 font-medium">Cryptographic Audit Seal</div>
               </div>
             </div>
           </div>
 
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-white/10">
-            <div className="text-sm sm:text-base font-mono text-white/80">
+            <div className="text-sm sm:text-base font-sans text-white/80">
               Inspect immutable audit run evidence, carbon attribution models, and reproducible test records.
             </div>
 
@@ -1916,7 +1922,7 @@ function SavingsLabContent() {
 
 export default function SavingsLabPage() {
   return (
-    <Suspense fallback={<div className="p-12 text-center text-sage/70 font-mono text-sm">Loading Savings Lab...</div>}>
+    <Suspense fallback={<div className="p-12 text-center text-sage/70 font-sans text-sm font-semibold">Loading Savings Lab...</div>}>
       <SavingsLabContent />
     </Suspense>
   );

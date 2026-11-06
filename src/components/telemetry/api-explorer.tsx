@@ -200,18 +200,18 @@ print(res.json())`;
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border/60 pb-5">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-lime uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs font-sans text-lime uppercase tracking-wider mb-1 font-semibold">
             <Terminal className="w-4 h-4 text-lime" />
             <span>Interactive API Explorer</span>
-            <span className="bg-lime/10 px-2 py-0.5 rounded text-xs text-lime border border-lime/30">
+            <span className="bg-lime/10 px-2 py-0.5 rounded text-xs text-lime border border-lime/30 font-bold">
               Live Gateway
             </span>
           </div>
-          <h3 className="font-display text-2xl sm:text-3xl text-cream ">
+          <h3 className="font-display text-2xl sm:text-3xl text-cream font-bold">
             Test CarbonTerra Endpoints
           </h3>
-          <p className="text-xs text-sage/75 mt-1 max-w-xl">
-            Directly probe CarbonTerra&apos;s REST endpoints from your browser. Inspect request headers, test custom payloads, and export production code snippets.
+          <p className="text-xs text-sage/75 mt-1 max-w-xl font-sans">
+            {"Directly probe CarbonTerra's REST endpoints from your browser. Inspect request headers, test custom payloads, and export production code snippets."}
           </p>
         </div>
 
@@ -221,7 +221,7 @@ print(res.json())`;
           size="md"
           onClick={handleExecuteRequest}
           isLoading={isLoading}
-          className="font-bold font-mono text-xs shrink-0 shadow-[0_0_20px_rgba(203,255,0,0.3)]"
+          className="font-bold font-sans text-xs shrink-0 shadow-[0_0_20px_rgba(203,255,0,0.3)]"
         >
           <Play className="w-3.5 h-3.5 mr-1.5 fill-current" />
           SEND REQUEST
@@ -236,14 +236,14 @@ print(res.json())`;
             <button
               key={ep.id}
               onClick={() => handleSelectEndpoint(ep)}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer ${
+              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans transition-all cursor-pointer ${
                 isSelected
                   ? "bg-lime text-black font-bold shadow-[0_0_15px_rgba(203,255,0,0.3)]"
                   : "bg-surface-elevated text-sage/80 hover:text-cream border border-surface-border hover:border-lime/40"
               }`}
             >
               <span
-                className={`px-1.5 py-0.5 rounded text-xs font-bold ${
+                className={`px-1.5 py-0.5 rounded text-xs font-bold font-sans ${
                   isSelected
                     ? "bg-black/20 text-black"
                     : ep.method === "POST"
@@ -260,17 +260,17 @@ print(res.json())`;
       </div>
 
       {/* URL & Method Bar */}
-      <div className="p-3.5 rounded-xl bg-black/60 border border-surface-border font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="p-3.5 rounded-xl bg-black/60 border border-surface-border font-sans text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 truncate">
           <Badge
             variant={selectedEndpoint.method === "POST" ? "lime" : "outline"}
-            className="font-mono text-xs uppercase font-bold"
+            className="font-sans text-xs uppercase font-bold"
           >
             {selectedEndpoint.method}
           </Badge>
-          <span className="text-cream font-bold truncate">{selectedEndpoint.path}</span>
+          <span className="text-cream font-bold truncate font-mono">{selectedEndpoint.path}</span>
         </div>
-        <div className="text-xs text-sage/80 shrink-0">
+        <div className="text-xs text-sage/80 shrink-0 font-sans">
           {selectedEndpoint.description}
         </div>
       </div>
@@ -279,7 +279,7 @@ print(res.json())`;
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column: Request Payload & Code Snippets */}
         <div className="lg:col-span-6 space-y-4">
-          <div className="flex items-center justify-between text-xs font-mono">
+          <div className="flex items-center justify-between text-xs font-sans">
             <span className="text-cream font-bold flex items-center gap-1.5">
               <Code2 className="w-3.5 h-3.5 text-lime" /> Request Payload (JSON)
             </span>
@@ -297,33 +297,33 @@ print(res.json())`;
               placeholder="{}"
             />
           ) : (
-            <div className="p-6 rounded-xl bg-black/40 border border-surface-border/60 text-center text-xs font-mono text-sage/80">
+            <div className="p-6 rounded-xl bg-black/40 border border-surface-border/60 text-center text-xs font-sans text-sage/80">
               This endpoint accepts URL query parameters and does not require a request body.
             </div>
           )}
 
           {/* Quick Copy Snippets (cURL, JS, Python) */}
           <div className="space-y-2 pt-2 border-t border-surface-border/50">
-            <div className="flex items-center justify-between text-xs font-mono text-sage/70">
+            <div className="flex items-center justify-between text-xs font-sans text-sage/70">
               <span>Code Snippets for Production:</span>
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => handleCopyCode("curl", generateCurlSnippet())}
-                  className="px-2 py-1 rounded bg-surface-elevated border border-surface-border hover:border-lime/40 text-xs text-cream flex items-center gap-1 cursor-pointer"
+                  className="px-2 py-1 rounded bg-surface-elevated border border-surface-border hover:border-lime/40 text-xs text-cream flex items-center gap-1 cursor-pointer font-sans font-medium"
                 >
                   {copiedFormat === "curl" ? <Check className="w-3 h-3 text-lime" /> : <Copy className="w-3 h-3" />}
                   cURL
                 </button>
                 <button
                   onClick={() => handleCopyCode("js", generateJsSnippet())}
-                  className="px-2 py-1 rounded bg-surface-elevated border border-surface-border hover:border-lime/40 text-xs text-cream flex items-center gap-1 cursor-pointer"
+                  className="px-2 py-1 rounded bg-surface-elevated border border-surface-border hover:border-lime/40 text-xs text-cream flex items-center gap-1 cursor-pointer font-sans font-medium"
                 >
                   {copiedFormat === "js" ? <Check className="w-3 h-3 text-lime" /> : <Copy className="w-3 h-3" />}
                   JavaScript
                 </button>
                 <button
                   onClick={() => handleCopyCode("py", generatePythonSnippet())}
-                  className="px-2 py-1 rounded bg-surface-elevated border border-surface-border hover:border-lime/40 text-xs text-cream flex items-center gap-1 cursor-pointer"
+                  className="px-2 py-1 rounded bg-surface-elevated border border-surface-border hover:border-lime/40 text-xs text-cream flex items-center gap-1 cursor-pointer font-sans font-medium"
                 >
                   {copiedFormat === "py" ? <Check className="w-3 h-3 text-lime" /> : <Copy className="w-3 h-3" />}
                   Python
@@ -335,14 +335,14 @@ print(res.json())`;
 
         {/* Right Column: Live Response Viewer */}
         <div className="lg:col-span-6 space-y-4">
-          <div className="flex items-center justify-between text-xs font-mono">
+          <div className="flex items-center justify-between text-xs font-sans">
             <span className="text-cream font-bold flex items-center gap-1.5">
               <FileCode className="w-3.5 h-3.5 text-lime" /> Live Response Inspector
             </span>
             {responseStatus !== null && (
               <div className="flex items-center gap-2">
                 <span
-                  className={`px-2 py-0.5 rounded text-xs font-bold font-mono ${
+                  className={`px-2 py-0.5 rounded text-xs font-bold font-sans tabular-nums ${
                     responseStatus >= 200 && responseStatus < 300
                       ? "bg-lime/20 text-lime border border-lime/40"
                       : "bg-white/10 text-white border border-white/20"
@@ -351,7 +351,7 @@ print(res.json())`;
                   {responseStatus} {responseStatus === 200 ? "OK" : "ERROR"}
                 </span>
                 {latencyMs !== null && (
-                  <span className="text-xs text-sage/70 font-mono">
+                  <span className="text-xs text-sage/70 font-sans tabular-nums font-semibold">
                     {latencyMs} ms
                   </span>
                 )}
@@ -372,7 +372,7 @@ print(res.json())`;
             ) : (
               <div className="h-44 flex flex-col items-center justify-center gap-2 text-sage/80 text-center">
                 <Terminal className="w-6 h-6 text-sage/75" />
-                <span>Click &quot;Send Request&quot; above to execute query against live API.</span>
+                <span>{'Click "Send Request" above to execute query against live API.'}</span>
               </div>
             )}
           </div>

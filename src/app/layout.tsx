@@ -31,7 +31,7 @@ export default function RootLayout({
         {/* Accessible Skip Link for Keyboard & Screen Reader Users */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-lime focus:text-black font-mono font-bold text-xs rounded-xl shadow-[0_0_25px_rgba(203,255,0,0.6)] transition-all"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-lime focus:text-black font-sans font-bold text-xs rounded-xl shadow-[0_0_25px_rgba(203,255,0,0.6)] transition-all"
         >
           Skip to main content
         </a>

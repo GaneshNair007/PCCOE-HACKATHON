@@ -43,7 +43,7 @@ export function HologramGauge3D({
     <Card className="min-w-0 p-5 sm:p-6" role="group" aria-label="Audit EcoScore and measurement confidence">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="font-display text-xl font-bold uppercase tracking-wider text-cream">OVERALL SUSTAINABILITY SCORE</h3>
-        <span className="rounded-full border border-surface-border bg-surface-elevated px-3 py-1 text-xs font-mono font-bold uppercase text-lime">VERIFIED</span>
+        <span className="rounded-full border border-surface-border bg-surface-elevated px-3 py-1 text-xs font-sans font-bold uppercase text-lime">VERIFIED</span>
       </div>
       <div className="my-6 flex flex-col items-center gap-4 text-center">
         <SoapBubbleRank
@@ -56,14 +56,14 @@ export function HologramGauge3D({
         <div>
           <p className="text-sm text-sage">{config.label}</p>
           <p className="mt-1 font-display text-2xl font-light tabular-nums text-cream">
-            {co2Grams} <span className="font-mono text-xs text-sage">g CO2 / visit</span>
+            {co2Grams} <span className="font-sans text-xs text-sage">g CO2 / visit</span>
           </p>
         </div>
       </div>
       <div className="space-y-4 border-t border-surface-border pt-4">
         <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
           <span className="text-sage">Estimated range (new vs repeat visits)</span>
-          <span className="font-mono tabular-nums text-cream font-bold">{rangeLow}g – {rangeHigh}g</span>
+          <span className="font-display tabular-nums text-cream font-bold">{rangeLow}g – {rangeHigh}g</span>
         </div>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className={`inline-flex flex-wrap items-center gap-1.5 rounded-full border px-3 py-1 text-xs ${

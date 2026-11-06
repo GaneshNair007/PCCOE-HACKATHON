@@ -12,7 +12,7 @@ export function Slider({ className, label, valueDisplay, ...props }: SliderProps
     <div className={cn("space-y-2.5", className)}>
       <div className="flex items-center justify-between text-sm font-medium gap-4">
         <label htmlFor={props.id || id} className="text-sage">{label}</label>
-        <span className="font-mono text-lime font-bold">{valueDisplay}</span>
+        <span className="font-display tabular-nums text-lime font-bold">{valueDisplay}</span>
       </div>
       <input
         type="range"

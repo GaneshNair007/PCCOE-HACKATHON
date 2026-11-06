@@ -220,13 +220,13 @@ function LandingPageContent() {
             <>
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-surface-border/60 pb-4">
                 <div>
-                  <div className="text-xs font-mono font-bold text-lime uppercase tracking-wider mb-1">
+                  <div className="text-xs font-sans font-bold text-lime uppercase tracking-wider mb-1">
                     AUDIT RESULTS
                   </div>
                 <h2 className="font-display text-4xl sm:text-5xl font-bold text-cream tracking-tight">
                   {auditData.domain}
                 </h2>
-                <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-sage/70 mt-1">
+                <div className="flex flex-wrap items-center gap-3 text-xs font-sans text-sage/70 mt-1">
                   <span>Audited: {new Date(auditData.calculated_at).toLocaleTimeString()}</span>
                   <span className="text-white/30">/</span>
                   <span>Model: Sustainable Web Design</span>
@@ -243,13 +243,13 @@ function LandingPageContent() {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setShowMethodologyModal(true)}
-                  className="px-3.5 py-1.5 rounded-full glass-panel border border-surface-border text-xs font-mono text-sage/80 hover:text-lime hover:border-lime/40 transition-colors flex items-center gap-1.5 cursor-pointer font-bold"
+                  className="px-3.5 py-1.5 rounded-full glass-panel border border-surface-border text-xs font-sans text-sage/80 hover:text-lime hover:border-lime/40 transition-colors flex items-center gap-1.5 cursor-pointer font-bold"
                 >
                   <Scale className="w-3.5 h-3.5 text-lime" /> Methodology &amp; Formula
                 </button>
                 <Link
                   href="/simulator"
-                  className="px-4 py-2 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-transform hover:scale-105 flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-full bg-lime text-black font-sans font-bold text-xs hover:bg-lime/90 transition-transform hover:scale-105 flex items-center gap-1.5"
                 >
                   <Sliders className="w-3.5 h-3.5" /> Simulate Savings →
                 </Link>
@@ -264,7 +264,7 @@ function LandingPageContent() {
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-[#cbff00]/12 rounded-full blur-[120px] pointer-events-none" />
 
               <div className="relative z-10 flex flex-col items-center max-w-2xl mx-auto w-full">
-                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-lime/10 border border-lime/30 text-lime font-mono text-xs uppercase font-bold tracking-widest mb-4 shadow-[0_0_15px_rgba(203,255,0,0.2)]">
+                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-lime/10 border border-lime/30 text-lime font-sans text-xs uppercase font-bold tracking-widest mb-4 shadow-[0_0_15px_rgba(203,255,0,0.2)]">
                   OFFICIAL ECO-SCORE VERDICT
                 </div>
 
@@ -297,21 +297,21 @@ function LandingPageContent() {
                 </div>
 
                 {/* High-signal telemetry pill strip */}
-                <div className="flex flex-wrap items-center justify-center gap-2.5 pt-6 text-xs font-mono">
+                <div className="flex flex-wrap items-center justify-center gap-2.5 pt-6 text-xs font-sans">
                   <div className="px-3.5 py-1.5 rounded-xl bg-black/60 border border-white/10 text-cream">
-                    <span className="text-sage/70 uppercase">Transfer: </span>
-                    <span className="font-bold text-white">{auditData.metrics.payload_mb} MB</span>
+                    <span className="text-sage/70 uppercase font-semibold">Transfer: </span>
+                    <span className="font-bold text-white tabular-nums">{auditData.metrics.payload_mb} MB</span>
                   </div>
                   <div className="px-3.5 py-1.5 rounded-xl bg-black/60 border border-lime/30 text-[#cbff00]">
-                    <span className="text-sage/70 uppercase">Carbon / Visit: </span>
-                    <span className="font-bold">{displayedCo2 !== null ? displayedCo2 : auditData.co2_grams} gCO2e</span>
+                    <span className="text-sage/70 uppercase font-semibold">Carbon / Visit: </span>
+                    <span className="font-bold tabular-nums">{displayedCo2 !== null ? displayedCo2 : auditData.co2_grams} gCO2e</span>
                   </div>
                   <div className="px-3.5 py-1.5 rounded-xl bg-black/60 border border-white/10 text-cream">
-                    <span className="text-sage/70 uppercase">Power Grid: </span>
-                    <span className="font-bold text-white">{auditData.grid_intensity_val} gCO2e/kWh</span>
+                    <span className="text-sage/70 uppercase font-semibold">Power Grid: </span>
+                    <span className="font-bold text-white tabular-nums">{auditData.grid_intensity_val} gCO2e/kWh</span>
                   </div>
                   <div className="px-3.5 py-1.5 rounded-xl bg-black/60 border border-white/10 text-cream">
-                    <span className="text-sage/70 uppercase">Standard: </span>
+                    <span className="text-sage/70 uppercase font-semibold">Standard: </span>
                     <span className="font-bold text-lime">SWDM v4 Verified</span>
                   </div>
                 </div>
@@ -322,10 +322,10 @@ function LandingPageContent() {
             <div className=" -emerald  p-5 rounded-2xl bg-gradient-to-r from-forest/40 via-surface-elevated to-forest/20 border border-lime/40 shadow-[0_4px_25px_rgba(203,255,0,0.12)] flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded text-xs font-mono font-bold uppercase tracking-wider bg-lime text-black">
+                  <span className="px-2 py-0.5 rounded text-xs font-sans font-bold uppercase tracking-wider bg-lime text-black">
                     TOP RECOMMENDATION
                   </span>
-                  <span className="text-xs font-mono text-sage/70 font-semibold uppercase">
+                  <span className="text-xs font-sans text-sage/70 font-semibold uppercase">
                     Biggest Opportunity to Reduce Carbon
                   </span>
                 </div>
@@ -344,14 +344,14 @@ function LandingPageContent() {
                 {auditData.hotspots && auditData.hotspots.length > 0 ? (
                   <Link
                     href={`/savings-lab?auditId=${auditData.id}&targetUrl=${encodeURIComponent(auditData.target_url)}&hotspot=${encodeURIComponent(auditData.hotspots[0].title)}`}
-                    className="px-4 py-2.5 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-all hover:scale-105 shadow-[0_0_15px_rgba(203,255,0,0.3)] flex items-center gap-2"
+                    className="px-4 py-2.5 rounded-full bg-lime text-black font-sans font-bold text-xs hover:bg-lime/90 transition-all hover:scale-105 shadow-[0_0_15px_rgba(203,255,0,0.3)] flex items-center gap-2"
                   >
                     START IMPROVEMENT EXPERIMENT →
                   </Link>
                 ) : (
                   <Link
                     href="/savings-lab"
-                    className="px-4 py-2.5 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-all hover:scale-105 flex items-center gap-2"
+                    className="px-4 py-2.5 rounded-full bg-lime text-black font-sans font-bold text-xs hover:bg-lime/90 transition-all hover:scale-105 flex items-center gap-2"
                   >
                     EXPLORE SAVINGS LAB →
                   </Link>
@@ -388,16 +388,16 @@ function LandingPageContent() {
             {/* =========================================================================
                 HIGH-SIGNAL AUDIT RESULTS: 4 Human-Understandable Cupertino Cards
                 ========================================================================= */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-sans">
               {/* Card 1: Page Weight */}
               <Card className="p-5 glass-panel-elevated border border-surface-border space-y-2">
-                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-sage/70">
+                <div className="text-[11px] font-sans font-semibold uppercase tracking-wider text-sage/70">
                   PAGE TRANSFER WEIGHT
                 </div>
-                <div className="font-display text-3xl sm:text-4xl font-bold text-cream">
+                <div className="font-display text-3xl sm:text-4xl font-black tracking-tight tabular-nums text-cream">
                   {auditData.metrics.payload_mb} <span className="text-sm font-sans font-normal text-sage/70">MB</span>
                 </div>
-                <div className="text-xs font-mono text-sage/80 pt-1">
+                <div className="text-xs font-sans text-sage/80 pt-1">
                   {auditData.metrics.payload_mb > 2.0 ? (
                     <span className="text-white/80 font-semibold">Heavier than 68% of audited pages</span>
                   ) : (
@@ -408,33 +408,33 @@ function LandingPageContent() {
 
               {/* Card 2: Global Benchmark Percentile */}
               <Card className="p-5 glass-panel-elevated border border-surface-border space-y-2">
-                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-sage/70">
+                <div className="text-[11px] font-sans font-semibold uppercase tracking-wider text-sage/70">
                   GLOBAL BENCHMARK
                 </div>
-                <div className="font-display text-3xl sm:text-4xl font-bold text-cream">
+                <div className="font-display text-3xl sm:text-4xl font-black tracking-tight tabular-nums text-cream">
                   Top {Math.max(1, 100 - (auditData.metrics.cleaner_than_percentile || 82))}%
                 </div>
-                <div className="text-xs font-mono text-sage/80 pt-1">
-                  Cleaner than <span className="text-lime font-bold">{auditData.metrics.cleaner_than_percentile || 82}%</span> of global web pages
+                <div className="text-xs font-sans text-sage/80 pt-1">
+                  Cleaner than <span className="text-lime font-bold tabular-nums">{auditData.metrics.cleaner_than_percentile || 82}%</span> of global web pages
                 </div>
               </Card>
 
               {/* Card 3: Carbon per Visit */}
               <Card className="p-5 glass-panel-elevated border border-surface-border space-y-2">
-                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-sage/70">
+                <div className="text-[11px] font-sans font-semibold uppercase tracking-wider text-sage/70">
                   CARBON PER VISIT
                 </div>
-                <div className="font-display text-3xl sm:text-4xl font-bold text-cream">
+                <div className="font-display text-3xl sm:text-4xl font-black tracking-tight tabular-nums text-cream">
                   {displayedCo2 !== null ? displayedCo2 : auditData.co2_grams} <span className="text-sm font-sans font-normal text-sage/70">gCO2e</span>
                 </div>
-                <div className="text-xs font-mono text-sage/80 pt-1">
-                  Grid: {auditData.grid_intensity_val} gCO2e/kWh ({auditData.hosting_country || "Resolved Region"})
+                <div className="text-xs font-sans text-sage/80 pt-1">
+                  Grid: <span className="tabular-nums font-semibold">{auditData.grid_intensity_val}</span> gCO2e/kWh ({auditData.hosting_country || "Resolved Region"})
                 </div>
               </Card>
 
               {/* Card 4: Primary Culprit */}
               <Card className="p-5 glass-panel-elevated border border-surface-border space-y-2">
-                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#cbff00]">
+                <div className="text-[11px] font-sans font-semibold uppercase tracking-wider text-[#cbff00]">
                   PRIMARY CULPRIT
                 </div>
                 <div className="font-sans text-lg font-bold text-cream truncate">
@@ -442,7 +442,7 @@ function LandingPageContent() {
                     ? auditData.hotspots[0].title
                     : "Uncompressed Assets"}
                 </div>
-                <div className="text-xs font-mono text-sage/80 pt-1 line-clamp-2">
+                <div className="text-xs font-sans text-sage/80 pt-1 line-clamp-2">
                   {auditData.hotspots && auditData.hotspots.length > 0
                     ? auditData.hotspots[0].desc
                     : "No heavy assets detected."}
@@ -453,18 +453,18 @@ function LandingPageContent() {
             {/* Transparent Sustainable Web Design Model v4 Formula Box */}
             <Card className="p-6 glass-panel-elevated border border-lime/30 space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div className="text-xs font-mono font-bold text-lime uppercase tracking-wider flex items-center gap-2">
+                <div className="text-xs font-sans font-bold text-lime uppercase tracking-wider flex items-center gap-2">
                   <Scale className="w-4 h-4 text-lime" />
                   TRANSPARENT CALCULATION: SUSTAINABLE WEB DESIGN MODEL V4
                 </div>
-                <span className="text-xs font-mono text-sage/70">
+                <span className="text-xs font-sans text-sage/70 font-medium">
                   Zero Black-Box Guesswork
                 </span>
               </div>
-              <div className="p-3.5 rounded-xl bg-black/60 border border-surface-border font-mono text-xs sm:text-sm text-cream font-bold overflow-x-auto">
+              <div className="p-3.5 rounded-xl bg-black/60 border border-surface-border font-sans text-xs sm:text-sm text-cream font-bold overflow-x-auto tabular-nums">
                 Emissions (gCO2e) = [Data Transfer (GB) × 0.81 kWh/GB] × Regional Grid Factor ({auditData.grid_intensity_val} gCO2e/kWh)
               </div>
-              <p className="text-xs text-sage/80 leading-relaxed">
+              <p className="text-xs text-sage/80 leading-relaxed font-sans">
                 Standardized energy consumption: 0.81 kWh per transferred gigabyte across user devices, edge telecommunications networks, and hosting servers. Datacenter carbon intensity resolved via The Green Web Foundation regional grid dataset.
               </p>
             </Card>
@@ -489,7 +489,7 @@ function LandingPageContent() {
                   </h3>
                   <Link
                     href={`/savings-lab?auditId=${auditData.id}&targetUrl=${encodeURIComponent(auditData.target_url)}&hotspot=${encodeURIComponent(auditData.hotspots[0].title)}`}
-                    className="px-4 py-2 rounded-full bg-lime text-black font-mono font-bold text-xs hover:bg-lime/90 transition-all flex items-center gap-1.5"
+                    className="px-4 py-2 rounded-full bg-lime text-black font-sans font-bold text-xs hover:bg-lime/90 transition-all flex items-center gap-1.5"
                   >
                     Apply Drop-In Fixes in Savings Lab →
                   </Link>
@@ -508,7 +508,7 @@ function LandingPageContent() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] bg-[#cbff00]/15 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="relative z-10 flex flex-col items-center max-w-xl mx-auto w-full">
-              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-lime/10 border border-lime/30 text-lime font-mono text-xs uppercase font-bold tracking-widest mb-4 shadow-[0_0_15px_rgba(203,255,0,0.2)]">
+              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-lime/10 border border-lime/30 text-lime font-sans text-xs uppercase font-bold tracking-widest mb-4 shadow-[0_0_15px_rgba(203,255,0,0.2)]">
                 ANALYZING TELEMETRY · DETERMINING ECO-SCORE
               </div>
 
@@ -526,7 +526,7 @@ function LandingPageContent() {
                 <h3 className="font-display text-2xl sm:text-4xl font-bold text-cream tracking-tight">
                   Auditing {targetUrl || "Target Host"}
                 </h3>
-                <p className="text-xs sm:text-sm font-mono text-[#cbff00] font-semibold">
+                <p className="text-xs sm:text-sm font-sans text-[#cbff00] font-semibold">
                   {currentPhase || "Probing network transfer payloads & electrical grid..."}
                 </p>
                 <p className="text-xs text-sage/70 max-w-md mx-auto">
@@ -545,7 +545,7 @@ function LandingPageContent() {
                   <SoapBubbleRank grade="A" size="md" interactive={true} showRankLabel={false} />
                 </div>
                 <div>
-                  <div className="text-xs font-mono font-bold uppercase text-[#cbff00] tracking-wider">
+                  <div className="text-xs font-sans font-bold uppercase text-[#cbff00] tracking-wider">
                     Telemetry Engine Standby
                   </div>
                   <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
@@ -566,7 +566,7 @@ function LandingPageContent() {
                       setTargetUrl(fullUrl);
                       runAudit(fullUrl);
                     }}
-                    className="font-mono text-xs px-3.5 py-2 rounded-xl bg-white/[0.06] hover:bg-[#cbff00] text-white hover:text-black border border-white/15 hover:border-[#cbff00] font-bold transition-all cursor-pointer shadow-sm"
+                    className="font-sans text-xs px-3.5 py-2 rounded-xl bg-white/[0.06] hover:bg-[#cbff00] text-white hover:text-black border border-white/15 hover:border-[#cbff00] font-bold transition-all cursor-pointer shadow-sm"
                   >
                     Audit {preset}
                   </button>
@@ -577,7 +577,7 @@ function LandingPageContent() {
             {/* 3 Interactive Pipeline Stage Cards (Zero Fabricated Pre-Filled Values) */}
             <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl space-y-2">
-                <div className="text-xs text-[#cbff00] font-mono uppercase font-bold tracking-wider">Stage 01 · Wire Profiling</div>
+                <div className="text-xs text-[#cbff00] font-sans uppercase font-bold tracking-wider">Stage 01 · Wire Profiling</div>
                 <div className="text-lg font-bold text-white">Transfer Weight Inspection</div>
                 <p className="text-xs text-white/70 leading-relaxed font-sans">
                   Real-time measurement of uncompressed assets, scripts, stylesheets, and oversized media over HTTP/2 &amp; HTTP/3.
@@ -585,7 +585,7 @@ function LandingPageContent() {
               </div>
 
               <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl space-y-2">
-                <div className="text-xs text-[#cbff00] font-mono uppercase font-bold tracking-wider">Stage 02 · Power Grid</div>
+                <div className="text-xs text-[#cbff00] font-sans uppercase font-bold tracking-wider">Stage 02 · Power Grid</div>
                 <div className="text-lg font-bold text-white">SWDM v4 Carbon Attribution</div>
                 <p className="text-xs text-white/70 leading-relaxed font-sans">
                   Live data center geolocation combined with regional electricity carbon intensity to compute grams of CO2e per visit.
@@ -593,7 +593,7 @@ function LandingPageContent() {
               </div>
 
               <div className="p-5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-xl space-y-2">
-                <div className="text-xs text-[#cbff00] font-mono uppercase font-bold tracking-wider">Stage 03 · Remediation</div>
+                <div className="text-xs text-[#cbff00] font-sans uppercase font-bold tracking-wider">Stage 03 · Remediation</div>
                 <div className="text-lg font-bold text-white">Lossless Drop-In Fixes</div>
                 <p className="text-xs text-white/70 leading-relaxed font-sans">
                   Automated generation of next-gen WebP conversions, cache-control policies, and unified git diffs ready for production.
@@ -613,26 +613,26 @@ function LandingPageContent() {
         {/* Story 1: Fleet Telemetry */}
         <article className="world-story" data-world-shot="canopy">
           <div className="world-story-image">
-            <div className="p-6 rounded-2xl bg-black/50 border border-white/10 space-y-4 font-mono text-xs">
+            <div className="p-6 rounded-2xl bg-black/50 border border-white/10 space-y-4 font-sans text-xs">
               <div className="flex items-center justify-between border-b border-white/10 pb-3">
                 <span className="text-white font-bold uppercase tracking-wider">Portfolio Health</span>
                 <span className="text-[#cbff00] font-bold">4 Active Hosts</span>
               </div>
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/5">
-                  <span className="text-white">github.com</span>
+                  <span className="text-white font-medium">github.com</span>
                   <span className="px-2 py-0.5 rounded bg-white/10 text-white font-bold">Grade B</span>
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/5">
-                  <span className="text-white">stripe.com</span>
+                  <span className="text-white font-medium">stripe.com</span>
                   <span className="px-2 py-0.5 rounded bg-[#cbff00]/20 text-[#cbff00] font-bold">Grade A</span>
                 </div>
                 <div className="flex items-center justify-between p-2 rounded-xl bg-white/[0.04] border border-white/5">
-                  <span className="text-white">vercel.com</span>
+                  <span className="text-white font-medium">vercel.com</span>
                   <span className="px-2 py-0.5 rounded bg-[#cbff00]/20 text-[#cbff00] font-bold">Grade A</span>
                 </div>
               </div>
-              <div className="pt-2 text-white/60 text-[11px] text-center border-t border-white/10">
+              <div className="pt-2 text-white/60 text-[11px] text-center border-t border-white/10 font-medium tabular-nums">
                 -42.8% Average Transfer Delta
               </div>
             </div>
@@ -648,7 +648,7 @@ function LandingPageContent() {
         {/* Story 2: What-if Simulator */}
         <article className="world-story" data-world-shot="measure">
           <div className="world-story-image">
-            <div className="p-6 rounded-2xl bg-black/50 border border-white/10 space-y-4 font-mono text-xs">
+            <div className="p-6 rounded-2xl bg-black/50 border border-white/10 space-y-4 font-sans text-xs">
               <div className="flex items-center justify-between border-b border-white/10 pb-3">
                 <span className="text-white font-bold uppercase tracking-wider">Scenario Engine</span>
                 <span className="text-[#cbff00] font-bold">Live Model</span>
@@ -657,7 +657,7 @@ function LandingPageContent() {
                 <div>
                   <div className="flex justify-between text-white/70 mb-1">
                     <span>WebP Compression</span>
-                    <span className="text-[#cbff00] font-bold">-85%</span>
+                    <span className="text-[#cbff00] font-bold tabular-nums">-85%</span>
                   </div>
                   <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
                     <div className="bg-[#cbff00] h-full w-[85%]" />
@@ -666,7 +666,7 @@ function LandingPageContent() {
                 <div>
                   <div className="flex justify-between text-white/70 mb-1">
                     <span>Script Tree-Shaking</span>
-                    <span className="text-[#cbff00] font-bold">-34%</span>
+                    <span className="text-[#cbff00] font-bold tabular-nums">-34%</span>
                   </div>
                   <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
                     <div className="bg-[#cbff00] h-full w-[34%]" />
@@ -674,8 +674,8 @@ function LandingPageContent() {
                 </div>
               </div>
               <div className="p-3 rounded-xl bg-[#cbff00]/10 border border-[#cbff00]/30 text-center">
-                <div className="text-[11px] text-white/70">Projected Savings</div>
-                <div className="text-lg font-bold text-[#cbff00]">-1.84 MB / visit</div>
+                <div className="text-[11px] text-white/70 font-semibold uppercase">Projected Savings</div>
+                <div className="text-lg font-bold text-[#cbff00] tabular-nums">-1.84 MB / visit</div>
               </div>
             </div>
           </div>
@@ -690,7 +690,7 @@ function LandingPageContent() {
         {/* Story 3: Emissions Forecasts */}
         <article className="world-story" data-world-shot="roots">
           <div className="world-story-image">
-            <div className="p-6 rounded-2xl bg-black/50 border border-white/10 space-y-4 font-mono text-xs">
+            <div className="p-6 rounded-2xl bg-black/50 border border-white/10 space-y-4 font-sans text-xs">
               <div className="flex items-center justify-between border-b border-white/10 pb-3">
                 <span className="text-white font-bold uppercase tracking-wider">Emissions Spline</span>
                 <span className="text-[#cbff00] font-bold">36 Months</span>
@@ -702,7 +702,7 @@ function LandingPageContent() {
                   <circle cx="190" cy="70" r="4" fill="#cbff00" />
                 </svg>
               </div>
-              <div className="flex justify-between items-center text-[11px] pt-1 border-t border-white/10">
+              <div className="flex justify-between items-center text-[11px] pt-1 border-t border-white/10 tabular-nums">
                 <span className="text-white/60">BAU: 4.8 kg CO2e</span>
                 <span className="text-[#cbff00] font-bold">Optimized: 0.9 kg (-81%)</span>
               </div>
@@ -719,7 +719,7 @@ function LandingPageContent() {
         {/* Story 4: Evidence Vault */}
         <article className="world-story" data-world-shot="clearing">
           <div className="world-story-image">
-            <div className="p-6 rounded-2xl bg-black/50 border border-[#cbff00]/30 space-y-4 font-mono text-xs shadow-xl">
+            <div className="p-6 rounded-2xl bg-black/50 border border-[#cbff00]/30 space-y-4 font-sans text-xs shadow-xl">
               <div className="flex items-center justify-between border-b border-white/10 pb-3">
                 <span className="text-[#cbff00] font-bold uppercase tracking-wider">Evidence Vault Record</span>
                 <span className="px-2 py-0.5 rounded bg-[#cbff00] text-black font-extrabold text-[10px]">VERIFIED</span>
@@ -727,11 +727,11 @@ function LandingPageContent() {
               <div className="space-y-2 text-white/80">
                 <div className="flex justify-between">
                   <span className="text-white/60">Record ID</span>
-                  <span className="text-white">exp_17886009...</span>
+                  <span className="text-white font-mono text-[11px]">exp_17886009...</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-white/60">Transfer Delta</span>
-                  <span className="text-[#cbff00] font-bold">-2,191 KB</span>
+                  <span className="text-[#cbff00] font-bold tabular-nums">-2,191 KB</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-white/60">Task Checks</span>
@@ -759,25 +759,25 @@ function LandingPageContent() {
         <div className="space-y-4 text-xs sm:text-sm text-sage/85 leading-relaxed font-sans">
           {/* Transparent Formula Box */}
           <div className="p-4 rounded-xl bg-forest-900/60 border border-lime/40 space-y-2">
-            <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
+            <h4 className="font-sans font-bold text-lime text-xs uppercase tracking-wider">
               The Exact Carbon Formula (SWDM v4)
             </h4>
-            <div className="p-3 rounded-lg bg-black/50 font-mono text-xs sm:text-sm text-cream font-bold overflow-x-auto">
+            <div className="p-3 rounded-lg bg-black/50 font-sans text-xs sm:text-sm text-cream font-bold overflow-x-auto tabular-nums">
               Emissions (gCO2e) = [Data (GB) × 0.81 kWh/GB] × Grid Intensity (gCO2/kWh)
             </div>
-            <p className="text-xs text-sage/80 pt-1">
-              Every gigabyte transferred consumes approximately 0.81 kWh of electricity across user devices, telecommunication networks, and data centers. That energy is multiplied by the actual carbon intensity of the server&apos;s regional electricity grid.
+            <p className="text-xs text-sage/80 pt-1 font-sans">
+              Every gigabyte transferred consumes approximately 0.81 kWh of electricity across user devices, telecommunication networks, and data centers. That energy is multiplied by the actual carbon intensity of the {"server's"} regional electricity grid.
             </p>
           </div>
 
           <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-            <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
+            <h4 className="font-sans font-bold text-lime text-xs uppercase tracking-wider">
               1. Official Reference Standard &amp; Peer-Reviewed Research
             </h4>
-            <p className="text-xs">
+            <p className="text-xs font-sans">
               Based on the <strong>Sustainable Web Design Model v4 (SWDM v4)</strong>, developed by The Green Web Foundation and Wholegrain Digital, and grounded in peer-reviewed academic literature:
             </p>
-            <ul className="text-xs text-white/80 space-y-1.5 list-disc pl-4 font-mono">
+            <ul className="text-xs text-white/80 space-y-1.5 list-disc pl-4 font-sans">
               <li><strong>Aslan et al. (2018):</strong> Empirical data transmission energy intensity (~0.06 kWh/GB) with biennial doubling of hardware transmission efficiency.</li>
               <li><strong>Freitag et al. (2021, Lancaster Univ):</strong> Quantified total ICT carbon at 2.1%–3.9% of global emissions, factoring in embodied hardware lifecycle carbon.</li>
               <li><strong>Preist, Schien, &amp; Blevis (2016):</strong> Standardized the 3-segment system boundary: User Devices (54%), Network Transmission (24%), Datacenters (22%).</li>
@@ -786,35 +786,35 @@ function LandingPageContent() {
           </div>
 
           <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-            <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
+            <h4 className="font-sans font-bold text-lime text-xs uppercase tracking-wider">
               2. Empirical Benchmarks (HTTP Archive &amp; Web Almanac)
             </h4>
-            <div className="grid grid-cols-2 gap-2 text-xs font-mono pt-1">
+            <div className="grid grid-cols-2 gap-2 text-xs font-sans pt-1">
               <div className="p-2.5 rounded-lg bg-black/40 border border-white/10">
-                <span className="text-white/60 block text-[10px] uppercase">Global Median Page</span>
-                <span className="text-white font-bold text-sm">2.45 MB (2,450 KB)</span>
+                <span className="text-white/60 block text-[10px] uppercase font-semibold">Global Median Page</span>
+                <span className="text-white font-bold text-sm tabular-nums">2.45 MB (2,450 KB)</span>
               </div>
               <div className="p-2.5 rounded-lg bg-black/40 border border-[#cbff00]/30">
-                <span className="text-[#cbff00] block text-[10px] uppercase">Eco-Optimized (Top 10%)</span>
-                <span className="text-[#cbff00] font-bold text-sm">&lt; 400 KB</span>
+                <span className="text-[#cbff00] block text-[10px] uppercase font-semibold">Eco-Optimized (Top 10%)</span>
+                <span className="text-[#cbff00] font-bold text-sm tabular-nums">&lt; 400 KB</span>
               </div>
             </div>
           </div>
 
           <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-            <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
+            <h4 className="font-sans font-bold text-lime text-xs uppercase tracking-wider">
               3. Real Regional Power Grid Lookups
             </h4>
-            <p className="text-xs">
-              Instead of assuming one flat global average, CarbonTerra resolves the website&apos;s IP address and queries The Green Web Foundation regional grid database to find the true carbon intensity (grams of CO2 per kWh) of that datacenter&apos;s geographic grid (benchmarking against the 494 gCO2/kWh global average).
+            <p className="text-xs font-sans">
+              {"Instead of assuming one flat global average, CarbonTerra resolves the website's IP address and queries The Green Web Foundation regional grid database to find the true carbon intensity (grams of CO2 per kWh) of that datacenter's geographic grid (benchmarking against the 494 gCO2/kWh global average)."}
             </p>
           </div>
 
           <div className="p-4 rounded-xl bg-surface-elevated/70 border border-surface-border space-y-2">
-            <h4 className="font-mono font-bold text-lime text-xs uppercase tracking-wider">
+            <h4 className="font-sans font-bold text-lime text-xs uppercase tracking-wider">
               4. Honest Attribution Boundary
             </h4>
-            <p className="text-xs">
+            <p className="text-xs font-sans">
               Digital carbon metrics are engineering model attributions. A website reducing 2 MB of transfer achieves measurable digital efficiency, which correlates to reduced network and device electricity use.
             </p>
           </div>
@@ -825,7 +825,7 @@ function LandingPageContent() {
             variant="lime"
             size="sm"
             onClick={() => setShowMethodologyModal(false)}
-            className="font-bold font-mono"
+            className="font-bold font-sans"
           >
             CLOSE
           </Button>
@@ -840,7 +840,7 @@ export default function LandingPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-[70vh] flex items-center justify-center text-lime font-mono text-sm">
+        <div className="min-h-[70vh] flex items-center justify-center text-lime font-sans text-sm font-semibold">
           Loading Audit Workspace...
         </div>
       }
