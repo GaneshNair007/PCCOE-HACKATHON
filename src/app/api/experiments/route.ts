@@ -27,8 +27,11 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const projectId = body.projectId || "campus-events";
     const journeyId = body.journeyId || "event-registration";
+    const host = req.headers.get("x-forwarded-host") || req.nextUrl.host;
+    const isLocal = host.includes("localhost") || host.includes("127.0.0.1");
+    const scheme = isLocal ? "http" : "https";
     const targetBaseUrl =
-      body.targetBaseUrl || `${req.nextUrl.protocol}//${req.nextUrl.host}`;
+      body.targetBaseUrl || `${scheme}://${host}`;
 
     const expId = `exp_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
 

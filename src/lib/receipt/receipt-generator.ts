@@ -53,8 +53,8 @@ export async function generateImprovementReceipt(
   verification: VerificationResult,
   experiment: Experiment
 ): Promise<ImprovementReceipt> {
-  const baselineRuns = (await Promise.all(experiment.baselineRunIds.map((id) => StorageRepository.getRun(id)))).filter(Boolean) as AuditRun[];
-  const candidateRuns = (await Promise.all(experiment.candidateRunIds.map((id) => StorageRepository.getRun(id)))).filter(Boolean) as AuditRun[];
+  const baselineRuns = (await Promise.all((experiment.baselineRunIds || []).map((id) => StorageRepository.getRun(id)))).filter(Boolean) as AuditRun[];
+  const candidateRuns = (await Promise.all((experiment.candidateRunIds || []).map((id) => StorageRepository.getRun(id)))).filter(Boolean) as AuditRun[];
 
   const affectedResource = experiment.affectedResourceUrl || "/assets/hero-banner.jpg";
   const ext = affectedResource.split(".").pop()?.split("?")[0] || "jpg";
@@ -81,12 +81,12 @@ export async function generateImprovementReceipt(
       replacementResource,
     },
     baseline: {
-      runIds: experiment.baselineRunIds,
+      runIds: experiment.baselineRunIds || [],
       medianBytes: verification.baselineMedianBytes,
       medianCo2Grams: verification.baselineCo2Grams,
     },
     candidate: {
-      runIds: experiment.candidateRunIds,
+      runIds: experiment.candidateRunIds || [],
       medianBytes: verification.candidateMedianBytes,
       medianCo2Grams: verification.candidateCo2Grams,
     },

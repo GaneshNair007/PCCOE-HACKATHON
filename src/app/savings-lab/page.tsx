@@ -582,15 +582,16 @@ function SavingsLabContent() {
 
   // Handle Reviewer Approval
   const handleApprovePatch = async () => {
-    if (!experiment) return;
+    const expId = experiment?.id || "exp_production_demo";
     setIsApproving(true);
     try {
-      const res = await fetch(`/api/experiments/${experiment.id}/approve`, {
+      const res = await fetch(`/api/experiments/${expId}/approve`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           decision: "approved",
           notes: `Approved by ${reviewerName}. Aspect ratio and LCP priority verified.`,
+          experimentData: experiment,
         }),
       });
       if (!res.ok) {
@@ -610,16 +611,17 @@ function SavingsLabContent() {
 
   // Handle Candidate Testing
   const handleTestCandidate = async (variant: "optimized" | "broken") => {
-    if (!experiment) return;
+    const expId = experiment?.id || "exp_production_demo";
     setIsTesting(true);
     setTestVariant(variant);
     setErrorMessage(null);
     try {
-      const res = await fetch(`/api/experiments/${experiment.id}/test-candidate`, {
+      const res = await fetch(`/api/experiments/${expId}/test-candidate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           candidateVariant: variant === "broken" ? "broken_candidate" : "candidate",
+          experimentData: experiment,
         }),
       });
       if (!res.ok) {
